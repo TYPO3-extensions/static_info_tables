@@ -1,0 +1,4 @@
+2006-09-09  Michael Stucki  <michael@typo3.org>
+
+	* Added a ChangeLog file
+	* Initial SVN import, based on static_info_tables 2.0.0
