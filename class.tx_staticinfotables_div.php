@@ -44,6 +44,7 @@
  *
  */
 
+
 class tx_staticinfotables_div {
 
 	/**
@@ -51,6 +52,7 @@ class tx_staticinfotables_div {
 	 *
 	 * @param	string		table name
 	 * @param	boolean		If set (default) the TCA definition of the table should be loaded with t3lib_div::loadTCA(). It will be needed to set it to false if you call this function from inside of tca.php
+	 * @param	string		language to be used
 	 * @param	boolean		If set, we are looking for the "local" title field
 	 * @return	string		field name
 	 */
@@ -64,14 +66,21 @@ class tx_staticinfotables_div {
 		}
 		
 		$labelFields = array();
-		if($table && is_array($TYPO3_CONF_VARS['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'])) {
-			if ($loadTCA) {
+		if($table && is_array($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'])) {
+			if ($loadTCA && defined ('DIV_EXTkey') && t3lib_extMgm::isLoaded(DIV_EXTkey)) {
+				include_once(PATH_BE_div.'class.tx_div.php');
+
 				t3lib_div::loadTCA($table);
-			}
 			
+					// get all extending TCAs
+				if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
+					tx_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
+				}
+			}
+					
 			$lang = $lang ? $lang : tx_staticinfotables_div::getCurrentLanguage();
 			
-			foreach ($TYPO3_CONF_VARS['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'] as $field) {
+			foreach ($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'] as $field) {
 				if ($local) {
 					$labelField = str_replace ('##', 'local', $field);
 				} else {
@@ -114,7 +123,7 @@ class tx_staticinfotables_div {
 	function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0) {
 		global $TYPO3_CONF_VARS, $TCA;
 		
-		if ($isoCode && $table && ($isoCodeField = $TYPO3_CONF_VARS['EXTCONF']['static_info_tables']['tables'][$table]['isocode_field'][$index])) {
+		if ($isoCode && $table && ($isoCodeField = $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['isocode_field'][$index])) {
 			if ($loadTCA) {
 				t3lib_div::loadTCA($table);
 			}
@@ -210,7 +219,7 @@ class tx_staticinfotables_div {
 	 */
 	function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE) {
 		global $TSFE, $TYPO3_DB;
-		
+
 		$title = '';
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang, $local);
 		$prefixedTitleFields = array();

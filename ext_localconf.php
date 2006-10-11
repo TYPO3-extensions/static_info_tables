@@ -1,6 +1,25 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
+
+if (!defined ('STATIC_INFO_TABLES_EXTkey')) {
+	define('STATIC_INFO_TABLES_EXTkey',$_EXTKEY);
+}
+
+
+if (!defined ('DIV_EXTkey')) {
+	define('DIV_EXTkey','div');
+}
+
+
+if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
+	if (!defined ('PATH_BE_div')) {
+		define('PATH_BE_div', t3lib_extMgm::extPath(DIV_EXTkey));
+	}
+}
+
+
+
 $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['charset'] = 'utf-8';
 
 $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['tables'] = array(
