@@ -24,6 +24,8 @@
 /**
  * example for using the hotlist functionality with the sys_language table
  *
+ * $Id$
+ *
  * @author	René Fritz <r.fritz@colorcube.de>
  * @package TYPO3
  */

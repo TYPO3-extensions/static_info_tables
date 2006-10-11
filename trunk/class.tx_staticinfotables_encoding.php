@@ -24,6 +24,8 @@
 /**
  * Functions to convert the character encoding of the static info tables
  *
+ * $Id$
+ *
  * @author	René Fritz <r.fritz@colorcube.de>
  * @package TYPO3
  */
@@ -31,6 +33,17 @@
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
  *
+ *
+ *   59: class tx_staticinfotables_encoding
+ *
+ *              SECTION: GUI functions
+ *   79:     function getEncodingSelect ($elementName, $currentKey, $firstEntry='', $unsetEntries='')
+ *
+ *              SECTION: Processing functions
+ *  158:     function convertEncodingTable($table, $source_encoding, $dest_encoding='utf-8')
+ *
+ * TOTAL FUNCTIONS: 2
+ * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
 
@@ -137,10 +150,10 @@ class tx_staticinfotables_encoding {
 	 * Converts the font encoding of text fields of a selected table
 	 * The fields must be marked in TCA...['config']['_is_string'] => 1
 	 *
-	 * @param string $table DB table
-	 * @param string $source_encoding Current encoding used in DB
-	 * @param string $dest_encoding Destination encoding
-	 * @return void
+	 * @param	string		$table DB table
+	 * @param	string		$source_encoding Current encoding used in DB
+	 * @param	string		$dest_encoding Destination encoding
+	 * @return	void
 	 */
 	 function convertEncodingTable($table, $source_encoding, $dest_encoding='utf-8') {
 	 	global $TCA;

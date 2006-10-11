@@ -28,6 +28,8 @@
 /**
  * Class for updating the db
  *
+ * $Id$
+ *
  * @author	 René Fritz <r.fritz@colorcube.de>
  */
 class ext_update  {
@@ -72,7 +74,11 @@ class ext_update  {
 		return $content;
 	}
 
-
+	/**
+	 * [Describe function...]
+	 *
+	 * @return	[type]		...
+	 */
 	function access() {
 		return true;
 	}
