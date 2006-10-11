@@ -171,9 +171,10 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	boolean/string		If set to 1, an onchange attribute will be added to the <select> tag for immediate submit of the changed value; if set to other than 1, overrides the onchange script
 	 * @param	string		A value for the id attribute of the <select> tag
 	 * @param	string		A value for the title attribute of the <select> tag
+	 * @param	string		A where clause for the records
 	 * @return	string		A set of HTML <select> and <option> tags
 	 */
-	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selected='', $country='', $submit=0, $id='', $title='')	{
+	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selected='', $country='', $submit=0, $id='', $title='', $where='', $local=FALSE)	{
 
 		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name)).'" ' : '';
 		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class)).'" ' : '';
@@ -191,16 +192,16 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 
 		switch($type)	{
 			case 'COUNTRIES':
-				$names = $this->initCountries();
+				$names = $this->initCountries($where,$local);
 				$selected = (trim($selected)) ? trim($selected) : $this->defaultCountry;
 				reset($names);
 				$selected = ($selected) ? $selected : key($names);
 				break;
 			case 'SUBDIVISIONS':
-				$country = (trim($country)) ? trim($country) : $this->defaultCountry;
-				$names = $this->initCountrySubdivisions($country);
+				$param = (trim($where) ? trim($where) : (trim($country)) ? trim($country) : $this->defaultCountry);
+				$names = $this->initCountrySubdivisions($param);
 				$selected = trim($selected);
-				if( $country == $this->defaultCountry ) {
+				if( $param == $this->defaultCountry ) {
 					$selected = ($selected) ? $selected : $this->defaultCountryZone;
 				} else {
 					reset($names);
@@ -208,13 +209,13 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 				}
 				break;
 			case 'CURRENCIES':
-				$names = $this->initCurrencies();
+				$names = $this->initCurrencies($where);
 				$selected = (trim($selected)) ? trim($selected) : $this->currency;
 				reset($names);
 				$selected = ($selected) ? $selected : key($names);
 				break;
 			case 'LANGUAGES':
-				$names = $this->initLanguages();
+				$names = $this->initLanguages($where);
 				$selected = (trim($selected)) ? trim($selected) : $this->defaultLanguage;
 				reset($names);
 				$selected = ($selected) ? $selected : key($names);
@@ -234,26 +235,31 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * 	where the key is the ISO alpha-3 code of the country
 	 * 	and where the value is the name of the country in the current language
 	 *
-	 * @param	string		Defines a selection: 'ALL', 'UN', 'EU'
+	 * @param	string		1: WHERE clause 2: It defines a selection: 'ALL', 'UN', 'EU'
+	 * @param	string		language to be used
+	 * @param	boolean		If set, we are looking for the "local" title field
 	 * @return	array		An array of names of countries
 	 */
-	function initCountries($select='UN') {
+	function initCountries($param='UN', $lang='', $local=FALSE) {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 		
 		$table = $this->tables['COUNTRIES'];
 		$lang = $this->getCurrentLanguage();
 		$names = array();
-		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang);
+		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang, $local);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table.'.'.$titleField;
 		}
 		$labelFields = implode(',', $prefixedTitleFields);
-		$where = '1=1';
-		if ($select == 'UN') {
+		if ($param == 'UN') {
 			$where = 'cn_uno_member=1';
-		} elseif ($select == 'EU') {
+		} elseif ($param == 'EU') {
 			$where = 'cn_eu_member=1';
+		} elseif ($param == 'ALL')	{
+			$where = '1=1';		
+		} else {
+			$where = '1=1'.($param ? ' AND '.$param : '');
 		}
 		$res = $TYPO3_DB->exec_SELECTquery(
 			$table.'.cn_iso_3,'.$labelFields,
@@ -277,13 +283,19 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * 	where the key is the code of the subdivision
 	 * 	and where the value is the name of the country subdivision in the current language
 	 *
-	 * @param	string		The ISO alpha-3 code of a country
+	 * @param	string		1: WHERE clause 2: The ISO alpha-3 code of a country
 	 * @return	array		An array of names of country subdivisions
 	 */
-	function initCountrySubdivisions($country)	{
+	function initCountrySubdivisions($param)	{
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 		
 		$table = $this->tables['SUBDIVISIONS'];
+		if (strlen($param) == 3)	{
+			$country = $param;
+			$where = 'zn_country_iso_3='.$TYPO3_DB->fullQuoteStr($country,$table); 
+		} else {
+			$where = '1=1'.($param ? ' AND '.$param : '');
+		}
 		$lang = $this->getCurrentLanguage();
 		$names = array();
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang);
@@ -295,7 +307,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$res = $TYPO3_DB->exec_SELECTquery(
 			$table.'.zn_code,'.$labelFields,
 			$table,
-			'zn_country_iso_3='.$TYPO3_DB->fullQuoteStr($country,$table).
+			$where.
 				$TSFE->sys_page->enableFields($table)
 			);
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
@@ -315,11 +327,13 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * 	where the key is the ISO alpha-3 code of the currency
 	 * 	and where the value are the name of the currency in the current language
 	 *
+	 * @param	string		WHERE clause
 	 * @return	array		An array of names of currencies
 	 */
-	function initCurrencies() {
+	function initCurrencies($param='') {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 		
+		$where = '1=1'.($param ? ' AND '.$param : '');
 		$table = $this->tables['CURRENCIES'];
 		$lang = $this->getCurrentLanguage();
 		$names = array();
@@ -332,7 +346,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$res = $TYPO3_DB->exec_SELECTquery(
 			$table.'.cu_iso_3,'.$labelFields,
 			$table,
-			'1=1'.$TSFE->sys_page->enableFields($table)
+			$where.$TSFE->sys_page->enableFields($table)
 			);
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 			foreach ($titleFields as $titleField) {
@@ -350,13 +364,15 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * Getting all languages into an array
 	 * 	where the key is the ISO alpha-2 code of the language
 	 * 	and where the value are the name of the language in the current language
-	 *	Note: we exclude sacred and constructed languages.
+	 *	Note: we exclude sacred and constructed languages
 	 *
+	 * @param	string		WHERE clause
 	 * @return	array		An array of names of languages
 	 */
-	function initLanguages() {
+	function initLanguages($param='') {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 		
+		$where = '1=1'.($param ? ' AND '.$param : '');
 		$table = $this->tables['LANGUAGES'];
 		$lang = $this->getCurrentLanguage();
 		$names = array();
@@ -369,7 +385,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$res = $TYPO3_DB->exec_SELECTquery(
 			$table.'.lg_iso_2,'.$table.'.lg_country_iso_2,'.$labelFields,
 			$table,
-			'lg_sacred = 0 and lg_constructed = 0'.
+			$where.'lg_sacred = 0 and lg_constructed = 0 '.
 				$TSFE->sys_page->enableFields($table)
 			);
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
