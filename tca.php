@@ -624,16 +624,16 @@ $TCA['static_taxes'] = Array (
 		'showRecordFieldList' => 'tx_name_en,tx_scope,tx_code,tx_country_iso_3,tx_country_iso_2,tx_country_iso_nr,tx_zn_code,tx_class,tx_rate,tx_priority,crdate,hidden,starttime,endtime'
 	),
 	'columns' => Array (
-		'hidden' => Array (		
-			'exclude' => 0,	
+		'hidden' => Array (
+			'exclude' => 0,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => Array (
 				'type' => 'check',
 				'default' => '0'
 			)
 		),
-		'starttime' => Array (		
-			'exclude' => 0,	
+		'starttime' => Array (
+			'exclude' => 0,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
 			'config' => Array (
 				'type' => 'input',
@@ -644,8 +644,8 @@ $TCA['static_taxes'] = Array (
 				'checkbox' => '0'
 			)
 		),
-		'endtime' => Array (		
-			'exclude' => 0,	
+		'endtime' => Array (
+			'exclude' => 0,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
 			'config' => Array (
 				'type' => 'input',
@@ -726,9 +726,9 @@ $TCA['static_taxes'] = Array (
 				'default' => ''
 			)
 		),
-		'tx_scope' => Array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_taxes_item.tx_scope',		
+		'tx_scope' => Array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_taxes_item.tx_scope',
 			'config' => Array (
 				'type' => 'select',
 				'items' => Array (
@@ -737,9 +737,9 @@ $TCA['static_taxes'] = Array (
 				),
 			)
 		),
-		'tx_class' => Array (		
-			'exclude' => 0,		
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_taxes_item.tx_class',		
+		'tx_class' => Array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_taxes_item.tx_class',
 			'config' => Array (
 				'type' => 'select',
 				'items' => Array (
