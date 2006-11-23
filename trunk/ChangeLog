@@ -1,3 +1,6 @@
+2006-11-23  Franz Holzinger  <kontakt@fholzinger.com>
+	* fix bug with wrong SQL query with "... AND static_country_zones.=''"
+
 2006-10-31  Franz Holzinger  <kontakt@fholzinger.com>
 	* change the param into an addWhere parameter where it is a WHERE clause
 

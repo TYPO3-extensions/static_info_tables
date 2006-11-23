@@ -227,34 +227,40 @@ class tx_staticinfotables_div {
 
 		$title = '';
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang, $local);
-		$prefixedTitleFields = array();
-		foreach ($titleFields as $titleField) {
-			$prefixedTitleFields[] = $table.'.'.$titleField;
-		}
-		$fields = implode(',', $prefixedTitleFields);
-		$whereClause = '';
-		if (!is_array($isoCode)) {
-			$isoCode = array($isoCode);
-		}
-		$index = 0;
-		foreach ($isoCode as $index => $code) {
-			$whereClause .= ($index?' AND ':'').$table.'.'.tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index).'='.$TYPO3_DB->fullQuoteStr($code,$table);
-		}
-
-		if (is_object($TSFE)) {
-			$enableFields = $TSFE->sys_page->enableFields($table);
-		} else {
-			$enableFields = t3lib_BEfunc::deleteClause($table);
-		}
-
-		$res = $TYPO3_DB->exec_SELECTquery(
-			$fields,
-			$table,
-			$whereClause.$enableFields
-			);
-		if ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
+		if (count ($titleFields))	{
+			$prefixedTitleFields = array();
 			foreach ($titleFields as $titleField) {
-				if ($row[$titleField]) return $row[$titleField];
+				$prefixedTitleFields[] = $table.'.'.$titleField;
+			}
+			$fields = implode(',', $prefixedTitleFields);
+			$whereClause = '';
+			if (!is_array($isoCode)) {
+				$isoCode = array($isoCode);
+			}
+			$index = 0;
+			foreach ($isoCode as $index => $code) {
+				$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
+				$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
+				if ($tmpField && $tmpValue)	{
+					$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+				}
+			}
+	
+			if (is_object($TSFE)) {
+				$enableFields = $TSFE->sys_page->enableFields($table);
+			} else {
+				$enableFields = t3lib_BEfunc::deleteClause($table);
+			}
+	
+			$res = $TYPO3_DB->exec_SELECTquery(
+				$fields,
+				$table,
+				$whereClause.$enableFields
+				);
+			if ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
+				foreach ($titleFields as $titleField) {
+					if ($row[$titleField]) return $row[$titleField];
+				}
 			}
 		}
 
