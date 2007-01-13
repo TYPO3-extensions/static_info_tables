@@ -71,14 +71,15 @@ class tx_staticinfotables_div {
 
 		$labelFields = array();
 		if($table && is_array($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'])) {
-			if ($loadTCA && defined ('DIV_EXTkey') && t3lib_extMgm::isLoaded(DIV_EXTkey)) {
-				include_once(PATH_BE_div.'class.tx_div.php');
-
+			if ($loadTCA)	{
 				t3lib_div::loadTCA($table);
+				if (defined ('DIV_EXTkey') && t3lib_extMgm::isLoaded(DIV_EXTkey)) {
+					include_once(PATH_BE_div.'class.tx_div.php');
 
-					// get all extending TCAs
-				if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
-					tx_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
+						// get all extending TCAs
+					if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
+						tx_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
+					}
 				}
 			}
 
