@@ -1,3 +1,6 @@
+2006-01-13  Franz Holzinger  <kontakt@fholzinger.com>
+	* fix bug with wrong SQL query with "SELECT static_countries.cn_iso_3, FROM ..."
+
 2006-11-23  Franz Holzinger  <kontakt@fholzinger.com>
 	* fix bug with wrong SQL query with "... AND static_country_zones.=''"
 
