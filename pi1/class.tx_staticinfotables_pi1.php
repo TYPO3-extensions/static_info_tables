@@ -241,7 +241,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * 	where the key is the ISO alpha-3 code of the country
 	 * 	and where the value is the name of the country in the current language
 	 *
-	 * @param	string		1: WHERE clause 2: It defines a selection: 'ALL', 'UN', 'EU'
+	 * @param	string		It defines a selection: 'ALL', 'UN', 'EU'
 	 * @param	string		language to be used
 	 * @param	boolean		If set, we are looking for the "local" title field
 	 * @param	string		additional WHERE clause
