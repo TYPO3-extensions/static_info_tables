@@ -313,7 +313,7 @@ class tx_staticinfotables_div {
 						$table,
 						'tx_staticinfotables_hotlist',
 						'',	// $foreign_table
-						'AND tx_staticinfotables_hotlist.application='.$GLOBALS['TYPO3_DB']->fullQuoteStr($app,'tx_staticinfotables_hotlist'),
+						'AND tx_staticinfotables_hotlist.tablenames='.$GLOBALS['TYPO3_DB']->fullQuoteStr($table,'tx_staticinfotables_hotlist').' AND tx_staticinfotables_hotlist.application='.$GLOBALS['TYPO3_DB']->fullQuoteStr($app,'tx_staticinfotables_hotlist'),
 						'',
 						'tx_staticinfotables_hotlist.sorting DESC',	// $orderBy
 						$limit
