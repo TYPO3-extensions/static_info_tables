@@ -122,12 +122,31 @@ $TCA['static_taxes'] = Array (
 	)
 );
 
+// Static markets from ISO 10383
+$TCA['static_markets'] = array (
+	'ctrl' => array (
+		'title'     => 'LLL:EXT:'.$_EXTKEY.'/locallang_db.xml:static_markets.title',	
+		'label'     => 'institution_description',
+		'readOnly' => 1,
+		'adminOnly' => 1,
+		'rootLevel' => 1,
+		'is_static' => 1,
+		'default_sortby' => 'ORDER BY institution_description',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
+		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_static_markets.gif',
+	),
+	'interface' => Array (
+		'showRecordFieldList' => 'country,mic,institution_description,acronym,city,url',
+	)
+);
+
 $TCA['static_countries']['ctrl']['readOnly'] = 0;
 $TCA['static_languages']['ctrl']['readOnly'] = 0;
 $TCA['static_country_zones']['ctrl']['readOnly'] = 0;
 $TCA['static_currencies']['ctrl']['readOnly'] = 0;
 $TCA['static_territories']['ctrl']['readOnly'] = 0;
 $TCA['static_taxes']['ctrl']['readOnly'] = 0;
+$TCA['static_markets']['ctrl']['readOnly'] = 0;
 
 
 // Unfortunately this do not work because the user will be initialized afterwards
