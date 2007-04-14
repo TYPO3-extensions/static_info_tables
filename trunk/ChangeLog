@@ -1,4 +1,11 @@
-2006-01-13  Franz Holzinger  <kontakt@fholzinger.com>
+2007-04-14  Franz Holzinger  <kontakt@fholzinger.com>
+	* small modifications using constants
+
+2007-04-03  David Bruehlmeier <david.bruehlmeier@sap.com> 
+	* Fixed small bug in selectItemsTCA()
+	* Added new table 'static_markets' (regulated by ISO 10383)
+
+2007-01-13  Franz Holzinger  <kontakt@fholzinger.com>
 	* fix bug with wrong SQL query with "SELECT static_countries.cn_iso_3, FROM ..."
 
 2006-11-23  Franz Holzinger  <kontakt@fholzinger.com>
