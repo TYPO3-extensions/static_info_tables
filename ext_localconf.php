@@ -6,11 +6,17 @@ if (!defined ('STATIC_INFO_TABLES_EXTkey')) {
 	define('STATIC_INFO_TABLES_EXTkey',$_EXTKEY);
 }
 
+if (!defined ('PATH_BE_staticinfotables')) {
+	define('PATH_BE_staticinfotables', t3lib_extMgm::extPath(STATIC_INFO_TABLES_EXTkey));
+}
+
+if (!defined ('PATH_BE_staticinfotables_rel')) {
+	define('PATH_BE_staticinfotables_rel', t3lib_extMgm::extRelPath(STATIC_INFO_TABLES_EXTkey));
+}
 
 if (!defined ('DIV_EXTkey')) {
 	define('DIV_EXTkey','div');
 }
-
 
 if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
 	if (!defined ('PATH_BE_div')) {
@@ -18,11 +24,9 @@ if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
 	}
 }
 
+$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = 'utf-8';
 
-
-$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['charset'] = 'utf-8';
-
-$TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['tables'] = array(
+$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
 	'static_territories' => array(
 		'label_fields' => array(	// possible label fields for different languages. Default as last.
 			'tr_name_##', 'tr_name_en',
@@ -73,6 +77,6 @@ $TYPO3_CONF_VARS['EXTCONF'][$_EXTKEY]['tables'] = array(
 	),
 );
 
-require_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_staticinfotables_div.php');
+require_once(t3lib_extMgm::extPath(STATIC_INFO_TABLES_EXTkey).'class.tx_staticinfotables_div.php');
 
 ?>
