@@ -1,7 +1,7 @@
 2007-04-14  Franz Holzinger  <kontakt@fholzinger.com>
 	* small modifications using constants
 
-2007-04-03  David Bruehlmeier <david.bruehlmeier@sap.com> 
+2007-04-03  David Bruehlmeier <typo3@bruehlmeier.com> 
 	* Fixed small bug in selectItemsTCA()
 	* Added new table 'static_markets' (regulated by ISO 10383)
 
