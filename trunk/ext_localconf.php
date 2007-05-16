@@ -75,6 +75,14 @@ $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
 			'tx_code', 'tx_country_iso_##', 'tx_zn_code',
 		),
 	),
+	'static_markets' => array(
+		'label_fields' => array(
+			'institution_description',
+		),
+		'isocode_field' => array(
+			'institution_description',
+		),
+	),
 );
 
 require_once(t3lib_extMgm::extPath(STATIC_INFO_TABLES_EXTkey).'class.tx_staticinfotables_div.php');
