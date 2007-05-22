@@ -1736,5 +1736,13 @@ INSERT INTO static_markets VALUES ('408', '0', '237', 'XZIM', 'ZIMBABWE STOCK EX
 INSERT INTO static_markets VALUES ('409', '0', '54', 'XGAT', 'TRADEGATE AG', '', 'BERLIN', 'www.tradegate.de');
 INSERT INTO static_markets VALUES ('410', '0', '109', 'XKSE', 'KYRGYZ STOCK EXCHANGE', 'KSE', 'BISHKEK', 'www.kse.kg');
 INSERT INTO static_markets VALUES ('411', '0', '116', 'XKUW', 'KUWAIT STOCK EXCHANGE', '', 'KUWAIT', 'www.kuwaitse.com');
+INSERT INTO static_markets VALUES ('412', '0', '13', 'EXAA', 'AUSTRIAN ENERGY EXCHANGE', 'EXAA', 'VIENNA', 'www.exaa.at');
+INSERT INTO static_markets VALUES ('413', '0', '93', 'XTRZ', 'THE ZAGREB MONEY AND SHORT TERM SECURITIES MARKET INC.', '', 'ZAGREB', 'www.trzistenovca.hr');
+INSERT INTO static_markets VALUES ('414', '0', '174', 'OMIP', 'OPERADOR DE MERCADO IBERICO DE ENERGIA - PORTUGAL', 'OMIP', 'LISBOA', 'www.omip.pt');
+INSERT INTO static_markets VALUES ('415', '0', '187', 'JADX', 'JOINT ASIAN DERIVATIVES EXCHANGE', '', 'SINGAPORE', 'www.jadeexchange.com');
+INSERT INTO static_markets VALUES ('416', '0', '65', 'OMEL', 'OPERADOR DE MERCADO IBERICO DE ENERGIA - SPAIN', 'OMEL', 'MADRID', 'www.omel.es');
+INSERT INTO static_markets VALUES ('417', '0', '157', 'NDEX', 'EUROPEAN ENERGY DERIVATIVES EXCHANGE N.V.', 'ENDEX', 'AMSTERDAM', 'www.endex.nl');
+INSERT INTO static_markets VALUES ('418', '0', '74', 'LPPM', 'LONDON PLATINUM AND PALLADIUM MARKET', 'LPPM', 'LONDON', 'www.lppm.org.uk');
+INSERT INTO static_markets VALUES ('419', '0', '220', 'XNDQ', 'NASDAQ OPTIONS MARKET', '', 'NEW YORK', 'www.nasdaq.com');
 
 

@@ -1,3 +1,6 @@
+2007-05-22  David Bruehlmeier <typo3@bruehlmeier.com> 
+	* Updated static_markets
+
 2007-05-16  David Bruehlmeier <typo3@bruehlmeier.com> 
 	* Added static_markets to $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']
 
