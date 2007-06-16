@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2006 René Fritz (r.fritz@colorcube.de)
+*  (c) 2004-2007 RenÃ© Fritz (r.fritz@colorcube.de)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -26,7 +26,7 @@
  *
  * $Id$
  *
- * @author	René Fritz <r.fritz@colorcube.de>
+ * @author	RenÃ© Fritz <r.fritz@colorcube.de>
  * @package TYPO3
  */
 /**
@@ -34,18 +34,19 @@
  *
  *
  *
- *   52: class tx_staticinfotables_div
- *   63:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
- *  107:     function isoCodeType($isoCode)
- *  128:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
- *  153:     function getTCAsortField($table, $loadTCA=TRUE)
- *  163:     function getCurrentLanguage()
- *  194:     function getCollateLocale()
- *  225:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  272:     function selectItemsTCA($params)
- *  368:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *   54: class tx_staticinfotables_div
+ *   65:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
+ *  116:     function isoCodeType($isoCode)
+ *  137:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
+ *  162:     function getTCAsortField($table, $loadTCA=TRUE)
+ *  172:     function getCurrentLanguage()
+ *  203:     function getCollateLocale()
+ *  235:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
+ *  289:     function replaceMarkersInSQL($sql, $table, $row)
+ *  331:     function selectItemsTCA($params)
+ *  425:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
  *
- * TOTAL FUNCTIONS: 9
+ * TOTAL FUNCTIONS: 11
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
@@ -67,6 +68,12 @@ class tx_staticinfotables_div {
 			$csConvObj = $LANG->csConvObj;
 		} elseif (is_object($TSFE)) {
 			$csConvObj = $TSFE->csConvObj;
+		}
+
+		if (!is_object($csConvObj))       {
+			include_once(PATH_t3lib.'class.t3lib_cs.php');
+			// The object may not exist yet, so we need to create it now.
+			$csConvObj = &t3lib_div::makeInstance('t3lib_cs');
 		}
 
 		$labelFields = array();
@@ -214,6 +221,7 @@ class tx_staticinfotables_div {
 		return $locale ? $locale : 'C';
 	}
 
+
 	/**
 	 * Fetches short title from an iso code
 	 *
@@ -246,13 +254,13 @@ class tx_staticinfotables_div {
 					$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
 				}
 			}
-	
+
 			if (is_object($TSFE)) {
 				$enableFields = $TSFE->sys_page->enableFields($table);
 			} else {
 				$enableFields = t3lib_BEfunc::deleteClause($table);
 			}
-	
+
 			$res = $TYPO3_DB->exec_SELECTquery(
 				$fields,
 				$table,
@@ -270,26 +278,68 @@ class tx_staticinfotables_div {
 
 
 	/**
+	 * Replaces any dynamic markers in a SQL statement.
+	 *
+	 * @param	string		The SQL statement with dynamic markers.
+	 * @param	string		Name of the table.
+	 * @param	array		Database row.
+	 * @return	string		SQL query with dynamic markers subsituted.
+	 */
+	function replaceMarkersInSQL($sql, $table, $row)	{
+
+		$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table, $row);
+
+		/* Replace references to specific fields with value of that field */
+		if (strstr($sql,'###REC_FIELD_'))	{
+			$sql_parts = explode('###REC_FIELD_',$sql);
+			while(list($kk,$vv)=each($sql_parts))	{
+				if ($kk)	{
+					$sql_subpart = explode('###',$vv,2);
+					$sql_parts[$kk]=$TSconfig['_THIS_ROW'][$sql_subpart[0]].$sql_subpart[1];
+				}
+			}
+			$sql = implode('',$sql_parts);
+		}
+
+		/* Replace markers with TSConfig values */
+		$sql = str_replace('###THIS_UID###',intval($TSconfig['_THIS_UID']),$sql);
+		$sql = str_replace('###THIS_CID###',intval($TSconfig['_THIS_CID']),$sql);
+		$sql = str_replace('###SITEROOT###',intval($TSconfig['_SITEROOT']),$sql);
+		$sql = str_replace('###PAGE_TSCONFIG_ID###',intval($TSconfig[$field]['PAGE_TSCONFIG_ID']),$sql);
+		$sql = str_replace('###PAGE_TSCONFIG_IDLIST###',$GLOBALS['TYPO3_DB']->cleanIntList($TSconfig[$field]['PAGE_TSCONFIG_IDLIST']),$sql);
+		$sql = str_replace('###PAGE_TSCONFIG_STR###',$GLOBALS['TYPO3_DB']->quoteStr($TSconfig[$field]['PAGE_TSCONFIG_STR'], $table),$sql);
+
+		return $sql;
+	}
+
+
+	/**
 	 * Function to use in own TCA definitions
 	 * Adds additional select items
 	 *
-	 * @param	array		itemsProcFunc data array
-	 * @return	void
+	 * 			items		reference to the array of items (label,value,icon)
+	 * 			config		The config array for the field.
+	 * 			TSconfig	The "itemsProcFunc." from fieldTSconfig of the field.
+	 * 			table		Table name
+	 * 			row		Record row
+	 * 			field		Field name
+	 *
+	 * @param	array		itemsProcFunc data array:
+	 * @return	void		The $items array may have been modified
 	 */
 	function selectItemsTCA($params) {
 		global $TCA;
-/*
-		$params['items'] = &$items;
-		$params['config'] = $config;
-		$params['TSconfig'] = $iArray;
-		$params['table'] = $table;
-		$params['row'] = $row;
-		$params['field'] = $field;
-*/
-		$table = $params['config']['itemsProcFunc_config']['table'];
+
+		$where = '';
+		$config = &$params['config'];
+		$table = $config['itemsProcFunc_config']['table'];
+		$tcaWhere = $config['itemsProcFunc_config']['where'];
+		if ($tcaWhere)	{
+			$where = tx_staticinfotables_div::replaceMarkersInSQL($tcaWhere, $params['table'], $params['row']);
+		}
 
 		if ($table) {
-			$indexField = $params['config']['itemsProcFunc_config']['indexField'];
+			$indexField = $config['itemsProcFunc_config']['indexField'];
 			$indexField = $indexField ? $indexField : 'uid';
 
 			$lang = strtolower(tx_staticinfotables_div::getCurrentLanguage());
@@ -300,12 +350,11 @@ class tx_staticinfotables_div {
 			}
 			$fields = $table.'.'.$indexField.','.implode(',', $prefixedTitleFields);
 
-			if ($params['config']['itemsProcFunc_config']['prependHotlist']) {
+			if ($config['itemsProcFunc_config']['prependHotlist']) {
 
-				$limit = $params['config']['itemsProcFunc_config']['hotlistLimit'];
+				$limit = $config['itemsProcFunc_config']['hotlistLimit'];
 				$limit = $limit ? $limit : '8';
-
-				$app = $params['config']['itemsProcFunc_config']['hotlistApp'];
+				$app = $config['itemsProcFunc_config']['hotlistApp'];
 				$app = $app ? $app : TYPO3_MODE;
 
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query(
@@ -322,7 +371,7 @@ class tx_staticinfotables_div {
 				$cnt = 0;
 				$rows = array();
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
-					#$params['items'][] = array($row[$titleField], $row[$indexField], '');
+
 					foreach ($titleFields as $titleField) {
 						if ($row[$titleField]) {
 							$rows[$row[$indexField]] = $row[$titleField];
@@ -332,7 +381,7 @@ class tx_staticinfotables_div {
 					$cnt++;
 				}
 
-				if (!isset($params['config']['itemsProcFunc_config']['hotlistSort']) OR $params['config']['itemsProcFunc_config']['hotlistSort']) {
+				if (!isset($config['itemsProcFunc_config']['hotlistSort']) || $config['itemsProcFunc_config']['hotlistSort']) {
 					asort ($rows);
 				}
 
@@ -340,7 +389,7 @@ class tx_staticinfotables_div {
 					$params['items'][] = array($title, $index, '');
 					$cnt++;
 				}
-				if($cnt && !$params['config']['itemsProcFunc_config']['hotlistOnly']) {
+				if($cnt && !$config['itemsProcFunc_config']['hotlistOnly']) {
 					$params['items'][] = array('--------------', '', '');
 				}
 			}
@@ -348,8 +397,8 @@ class tx_staticinfotables_div {
 				// Set ORDER BY:
 			$orderBy = $titleFields[0];
 
-			if(!$params['config']['itemsProcFunc_config']['hotlistOnly']) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fields, $table, '1'.t3lib_BEfunc::deleteClause($table), '', $orderBy);
+			if(!$config['itemsProcFunc_config']['hotlistOnly']) {
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fields, $table, '1'.$where.t3lib_BEfunc::deleteClause($table), '', $orderBy);
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					foreach ($titleFields as $titleField) {
 						if ($row[$titleField]) {
@@ -428,7 +477,6 @@ class tx_staticinfotables_div {
 			}
 		}
 	}
-
 }
 
 

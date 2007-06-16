@@ -40,7 +40,7 @@
  */
 class tx_staticinfotables_syslanguage {
 
-	function processDatamap_postProcessFieldArray($status, $table, $id, $fieldArray, $this) {
+	function processDatamap_postProcessFieldArray($status, $table, $id, $fieldArray, $parent) {
 		if($table == 'sys_language' AND $fieldArray['static_lang_isocode']) {
 				// the hotlist will be updated only if the field changed, because only then it's in the $fieldArray
 			tx_staticinfotables_div::updateHotlist ('static_languages', $fieldArray['static_lang_isocode'], 'uid');
