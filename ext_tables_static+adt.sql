@@ -1,6 +1,5 @@
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -48,9 +47,9 @@ INSERT INTO static_territories VALUES ('28', '0', '61', '9', 'Polynesia');
 INSERT INTO static_territories VALUES ('30', '0', '34', '142', 'Southern Asia');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -325,9 +324,9 @@ INSERT INTO static_countries VALUES ('240', '0', 'AX', 'ALA', '248', '154', 'Ål
 INSERT INTO static_countries VALUES ('241', '0', 'HM', 'HMD', '334', '53', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '', '', 'AUD', '36', '0', '0', '0', '0', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '0');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -820,9 +819,9 @@ INSERT INTO static_country_zones VALUES ('481', '0', 'BR', 'BRA', '76', 'SP', 'S
 INSERT INTO static_country_zones VALUES ('482', '0', 'BR', 'BRA', '76', 'TO', 'Tocantins', '');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1016,9 +1015,9 @@ INSERT INTO static_currencies VALUES ('174', '0', 'SRD', '968', 'Suriname dollar
 INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1232,9 +1231,9 @@ INSERT INTO static_languages VALUES ('160', '0', 'IO', 'Ido', '', '', '', 'Ido',
 INSERT INTO static_languages VALUES ('182', '0', 'PI', 'Pali', '', '', '', 'Pāli', '1', '0');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1302,9 +1301,9 @@ INSERT INTO static_taxes VALUES ('34', '0', '1078676577', '0', '0', '0', '0', '8
 INSERT INTO static_taxes VALUES ('35', '0', '1078709361', '0', '0', '0', '0', '484', 'MX', 'MEX', '', 'Mexico VAT', '1', 'IVA', '3', '0.15', '1');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1343,7 +1342,7 @@ INSERT INTO static_markets VALUES ('14', '0', '14', 'XNEC', 'NATIONAL STOCK EXCH
 INSERT INTO static_markets VALUES ('15', '0', '14', 'XASX', 'AUSTRALIA STOCK EXCHANGE LTD.', 'ASX', 'SYDNEY', 'www.asx.com.au');
 INSERT INTO static_markets VALUES ('16', '0', '14', 'XSFE', 'ASX - SYDNEY FUTURES EXCHANGE LIMITED', 'SFE', 'SYDNEY', 'www.sfe.com.au');
 INSERT INTO static_markets VALUES ('17', '0', '14', 'XYIE', 'YIELDBROKER PTY LTD', '', 'SYDNEY', 'www.yieldbroker.com');
-INSERT INTO static_markets VALUES ('19', '0', '13', 'XWBO', 'WIENER BOERSE AG', 'WBAG', 'VIENNA', 'www.wienerboerse.at');
+INSERT INTO static_markets VALUES ('433', '0', '13', 'WBDM', 'WIENER BOERSE AG DRITTER MARKT (THIRD MARKET)', '', 'VIENNA', 'www.wienerboerse.at');
 INSERT INTO static_markets VALUES ('20', '0', '16', 'XIBE', 'BAKU INTERBANK CURRENCY EXCHANGE', '', 'BAKU', 'www.bbvb.org');
 INSERT INTO static_markets VALUES ('21', '0', '30', 'XBAA', 'BAHAMAS INTERNATIONAL SECURITIES EXCHANGE', 'BISX', 'NASAU', 'www.bisxbahamas.com');
 INSERT INTO static_markets VALUES ('22', '0', '23', 'XBAH', 'BAHRAIN STOCK EXCHANGE', 'BSE', 'MANAMA', 'www.bahrainstock.com');
@@ -1356,7 +1355,7 @@ INSERT INTO static_markets VALUES ('28', '0', '20', 'BMTS', 'MTS BELGIUM', '', '
 INSERT INTO static_markets VALUES ('29', '0', '20', 'FRRF', 'FONDS DES RENTES / RENTENFONDS', '', 'BRUSSELS', 'www.nbb.be/rk/fonds.htm');
 INSERT INTO static_markets VALUES ('30', '0', '20', 'MTSD', 'MTS DENMARK', '', 'BRUSSELS', 'www.mtsdenmark.com');
 INSERT INTO static_markets VALUES ('31', '0', '20', 'MTSF', 'MTS FINLAND', '', 'BRUSSELS', 'www.mtsfinland.com');
-INSERT INTO static_markets VALUES ('32', '0', '20', 'XBRU', 'EURONEXT BRUSSELS', 'EURONEXT', 'BRUSSELS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('32', '0', '20', 'XBRU', 'NYSE EURONEXT - EURONEXT BRUSSELS', '', 'BRUSSELS', 'www.euronext.com');
 INSERT INTO static_markets VALUES ('33', '0', '20', 'XEAS', 'EASDAQ', '', 'LEUVEN', 'www.easdaq.be');
 INSERT INTO static_markets VALUES ('34', '0', '26', 'XBDA', 'BERMUDA STOCK EXCHANGE LTD, THE', 'BSX', 'HAMILTON', 'www.bsx.com');
 INSERT INTO static_markets VALUES ('35', '0', '28', 'XBOL', 'BOLSA BOLIVIANA DE VALORES S.A.', '', 'LA PAZ', 'www.bolsa-valores-bolivia.com');
@@ -1408,26 +1407,26 @@ INSERT INTO static_markets VALUES ('80', '0', '68', 'XSPS', 'SOUTH PACIFIC STOCK
 INSERT INTO static_markets VALUES ('81', '0', '67', 'XFOM', 'FINNISH OPTIONS MARKET', 'FOM', 'HELSINKI', 'www.som.fi');
 INSERT INTO static_markets VALUES ('82', '0', '67', 'XHEL', 'THE HELSINKI STOCK EXCHANGE', '', 'HELSINKI', 'www.hex.com');
 INSERT INTO static_markets VALUES ('83', '0', '72', 'FMTS', 'MTS FRANCE SAS', '', 'PARIS', 'www.mtsfrance.com');
-INSERT INTO static_markets VALUES ('85', '0', '72', 'XMAT', 'EURONEXT PARIS - MATIF', 'EURONEXT', 'PARIS', 'www.euronext.com');
-INSERT INTO static_markets VALUES ('86', '0', '72', 'XMLI', 'EURONEXT PARIS S.A. - MARCHE LIBRE', 'EURONEXT', 'PARIS', 'www.euronext.com');
-INSERT INTO static_markets VALUES ('87', '0', '72', 'XMON', 'EURONEXT PARIS - MONEP', 'EURONEXT', 'PARIS', 'www.euronext.com');
-INSERT INTO static_markets VALUES ('88', '0', '72', 'XPAR', 'EURONEXT PARIS S.A.', 'EURONEXT', 'PARIS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('85', '0', '72', 'XMAT', 'EURONEXT PARIS MATIF', '', 'PARIS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('86', '0', '72', 'XMLI', 'NYSE EURONEXT - MARCHE LIBRE PARIS', '', 'PARIS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('87', '0', '72', 'XMON', 'EURONEXT PARIS MONEP', '', 'PARIS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('88', '0', '72', 'XPAR', 'NYSE EURONEXT - EURONEXT PARIS', '', 'PARIS', 'www.euronext.com');
 INSERT INTO static_markets VALUES ('89', '0', '72', 'XPOW', 'POWERNEXT', '', 'PARIS', 'www.powernext.fr');
 INSERT INTO static_markets VALUES ('90', '0', '76', 'XGSE', 'GEORGIA STOCK EXCHANGE', 'GSE', 'TBILISI', 'www.gse.ge');
 INSERT INTO static_markets VALUES ('91', '0', '54', 'XBER', 'BERLINER WERTPAPIERBOERSE', '', 'BERLIN', 'www.berlinerboerse.de');
 INSERT INTO static_markets VALUES ('92', '0', '54', 'ZOBX', 'ZOBEX', 'ZOBEX', 'BERLIN', 'www.berlinerboerse.de');
 INSERT INTO static_markets VALUES ('93', '0', '54', 'XBRE', 'BREMER WERTPAPIERBOERSE', '', 'BREMEN', 'www.boerse-bremen.de');
 INSERT INTO static_markets VALUES ('94', '0', '54', 'XDUS', 'RHEINISCHE-WESTFAELISCHE BOERSE ZU DUESSELDORF', '', 'DUESSELDORF', 'www.boerse-duesseldorf.de');
-INSERT INTO static_markets VALUES ('95', '0', '54', 'ECAG', 'EUREX CLEARING AG', '', 'FRANKFURT AM MAIN', 'www.eurexchange.com');
-INSERT INTO static_markets VALUES ('96', '0', '54', 'GMTS', 'MTS DEUTSCHLAND AG', '', 'FRANKFURT AM MAIN', 'www.mtsgermany.com');
-INSERT INTO static_markets VALUES ('97', '0', '54', 'XEEE', 'EUROPEAN ENERGY EXCHANGE AG', '', 'FRANKFURT AM MAIN', 'www.eex.de');
-INSERT INTO static_markets VALUES ('98', '0', '54', 'XETR', 'DEUTSCHER KASSENVEREIN AG GRUPPE DEUTSCHE BOERSE', 'XETRA', 'FRANKFURT AM MAIN', 'www.deutsche-boerse.com');
-INSERT INTO static_markets VALUES ('99', '0', '54', 'XEUB', 'EUREX BONDS', '', 'FRANKFURT AM MAIN', 'www.eurex-bonds.com');
-INSERT INTO static_markets VALUES ('100', '0', '54', 'XEUP', 'EUREX REPO GMBH', '', 'FRANKFURT AM MAIN', 'www.eurexchange.com');
-INSERT INTO static_markets VALUES ('101', '0', '54', 'XEUR', 'EUREX DEUTSCHLAND', '', 'FRANKFURT AM MAIN', 'www.eurexchange.com');
-INSERT INTO static_markets VALUES ('102', '0', '54', 'XFRA', 'DEUTSCHE BOERSE AG', '', 'FRANKFURT AM MAIN', 'www.deutsche-boerse.com');
-INSERT INTO static_markets VALUES ('103', '0', '54', 'XNEW', 'NEWEX', 'NEWEX', 'FRANKFURT AM MAIN', 'www.newex.com');
-INSERT INTO static_markets VALUES ('104', '0', '54', 'XRTR', 'RTR (REUTERS-REALTIME-DATEN)', 'RTR', 'FRANKFURT AM MAIN', '');
+INSERT INTO static_markets VALUES ('95', '0', '54', 'ECAG', 'EUREX CLEARING AG', '', 'FRANKFURT', 'www.eurexchange.com');
+INSERT INTO static_markets VALUES ('96', '0', '54', 'GMTS', 'MTS DEUTSCHLAND AG', '', 'FRANKFURT', 'www.mtsgermany.com');
+INSERT INTO static_markets VALUES ('97', '0', '54', 'XEEE', 'EUROPEAN ENERGY EXCHANGE AG', '', 'FRANKFURT', 'www.eex.de');
+INSERT INTO static_markets VALUES ('98', '0', '54', 'XETR', 'DEUTSCHER KASSENVEREIN AG GRUPPE DEUTSCHE BOERSE', 'XETRA', 'FRANKFURT', 'www.deutsche-boerse.com');
+INSERT INTO static_markets VALUES ('99', '0', '54', 'XEUB', 'EUREX BONDS', '', 'FRANKFURT', 'www.eurex-bonds.com');
+INSERT INTO static_markets VALUES ('100', '0', '54', 'XEUP', 'EUREX REPO GMBH', '', 'FRANKFURT', 'www.eurexchange.com');
+INSERT INTO static_markets VALUES ('101', '0', '54', 'XEUR', 'EUREX DEUTSCHLAND', '', 'FRANKFURT', 'www.eurexchange.com');
+INSERT INTO static_markets VALUES ('102', '0', '54', 'XFRA', 'DEUTSCHE BOERSE AG', '', 'FRANKFURT', 'www.deutsche-boerse.com');
+INSERT INTO static_markets VALUES ('103', '0', '54', 'XNEW', 'NEWEX', 'NEWEX', 'FRANKFURT', 'www.newex.com');
+INSERT INTO static_markets VALUES ('104', '0', '54', 'XRTR', 'RTR (REUTERS-REALTIME-DATEN)', 'RTR', 'FRANKFURT', '');
 INSERT INTO static_markets VALUES ('105', '0', '54', 'XHAM', 'HANSEATISCHE WERTPAPIERBOERSE HAMBURG', '', 'HAMBURG', 'www.boersenag.de');
 INSERT INTO static_markets VALUES ('106', '0', '54', 'XHAN', 'NIEDERSAECHSISCHE BOERSE ZU HANNOVER', '', 'HANNOVER', 'www.boersenag.de');
 INSERT INTO static_markets VALUES ('107', '0', '54', 'XHCE', 'RISK MANAGEMENT EXCHANGE', 'RMX', 'HANNOVER', 'www.wtb-hannover.de');
@@ -1466,7 +1465,6 @@ INSERT INTO static_markets VALUES ('139', '0', '102', 'XTEH', 'TEHERAN STOCK EXC
 INSERT INTO static_markets VALUES ('140', '0', '97', 'XDUB', 'IRISH STOCK EXCHANGE', 'ISE', 'DUBLIN', 'www.ise.ie');
 INSERT INTO static_markets VALUES ('141', '0', '97', 'XFNX', 'FINEX (NEW YORK AND DUBLIN)', 'FINEX', 'DUBLIN', 'www.finex.ie');
 INSERT INTO static_markets VALUES ('142', '0', '98', 'XTAE', 'TEL AVIV STOCK EXCHANGE', 'TASE', 'TEL AVIV', 'www.tase.co.il');
-INSERT INTO static_markets VALUES ('143', '0', '104', 'TLAB', 'TRADINGLAB TLX', 'TLX', 'MILANO', 'www.tradinglab.it');
 INSERT INTO static_markets VALUES ('144', '0', '104', 'XDMI', 'ITALIAN DERIVATIVES MARKET', 'IDEM', 'MILANO', 'www.borsaitalia.it');
 INSERT INTO static_markets VALUES ('145', '0', '104', 'XMIF', 'MERCATO ITALIANO FUTURES EXCHANGE', 'MIF', 'MILANO', 'www.tesoro.it');
 INSERT INTO static_markets VALUES ('146', '0', '104', 'XMIL', 'BORSA ITALIANA S.P.A.', '', 'MILANO', 'www.borsaitalia.it');
@@ -1542,11 +1540,12 @@ INSERT INTO static_markets VALUES ('215', '0', '176', 'XVPA', 'BOLSA DE VALORES 
 INSERT INTO static_markets VALUES ('216', '0', '165', 'XLIM', 'BOLSA DE VALORES DE LIMA', 'BVL', 'LIMA', 'www.bvl.com.pe');
 INSERT INTO static_markets VALUES ('217', '0', '168', 'XPHS', 'PHILIPPINE STOCK EXCHANGE, INC.', 'PSE', 'PASIG CITY', 'www.pse.org.ph');
 INSERT INTO static_markets VALUES ('218', '0', '170', 'CETO', 'MTS-CeTO S.A.', '', 'WARSAW', 'www.mts-ceto.pl');
-INSERT INTO static_markets VALUES ('219', '0', '170', 'MTSP', 'MTS Poland', '', 'WARSAW', 'www.mtspoland.com');
+INSERT INTO static_markets VALUES ('219', '0', '170', 'MTSP', 'MTS POLAND', '', 'WARSAW', 'www.mtspoland.com');
 INSERT INTO static_markets VALUES ('220', '0', '170', 'XWAR', 'WARSAW STOCK EXCHANGE', 'WSE', 'WARSAW', 'www.wse.com.pl');
 INSERT INTO static_markets VALUES ('221', '0', '174', 'MDIP', 'MEDIP  (MTS PORTUGAL SGMR, SA)', 'MEDIP', 'LISBOA', 'www.mtsportugal.com');
 INSERT INTO static_markets VALUES ('222', '0', '174', 'OPEX', 'PEX-PRIVATE EXCHANGE', 'OPEX', 'LISBOA', 'www.opex.pt/en/pex');
-INSERT INTO static_markets VALUES ('224', '0', '174', 'XLIS', 'EURONEXT LISBOA', 'EURONEXT', 'LISBOA', 'www.euronext.pt');
+INSERT INTO static_markets VALUES ('432', '0', '13', 'WBAH', 'WIENER BOERSE AG AMTLICHER HANDEL (OFFICIAL MARKET)', '', 'VIENNA', 'www.wienerboerse.at');
+INSERT INTO static_markets VALUES ('224', '0', '174', 'XLIS', 'NYSE EURONEXT - EURONEXT LISBON', '', 'LISBOA', 'www.euronext.com');
 INSERT INTO static_markets VALUES ('225', '0', '177', 'DSMD', 'DOHA SECURITIES MARKET', 'DSM', 'DOHA', 'www.dsm.com.qa');
 INSERT INTO static_markets VALUES ('226', '0', '179', 'XBRM', 'ROMANIAN  COMMODITIES EXCHANGE', 'BRM', 'BUCHAREST', '');
 INSERT INTO static_markets VALUES ('227', '0', '179', 'XBSE', 'BUCHAREST STOCK EXCHANGE', 'BVP', 'BUCHAREST', 'www.bvb.ro');
@@ -1573,7 +1572,7 @@ INSERT INTO static_markets VALUES ('247', '0', '187', 'XSES', 'SINGAPORE EXCHANG
 INSERT INTO static_markets VALUES ('248', '0', '187', 'XSIM', 'SINGAPORE EXCHANGE DERIVATIVES CLEARING LIMITED', 'SGX-DT', 'SINGAPORE', 'www.sgx.com');
 INSERT INTO static_markets VALUES ('249', '0', '191', 'XBRA', 'BRATISLAVA STOCK EXCHANGE, THE', 'BSSE', 'BRATISLAVA', 'www.bsse.sk');
 INSERT INTO static_markets VALUES ('250', '0', '191', 'XRMS', 'SK RM-S (SLOVAK STOCK EXCHANGE)', 'SK RM-S', 'BRATISLAVA', 'www.rms.sk');
-INSERT INTO static_markets VALUES ('251', '0', '189', 'XLJU', 'LJUBLJANA STOCK EXCHANGE, INC.', '', 'LJUBLJANA', 'www.ljse.si');
+INSERT INTO static_markets VALUES ('251', '0', '189', 'XLJU', 'LJUBLJANA STOCK EXCHANGE (OFFICIAL MARKET)', '', 'LJUBLJANA', 'www.ljse.si');
 INSERT INTO static_markets VALUES ('252', '0', '235', 'ALTX', 'ALTERNATIVE EXCHANGE', 'ALTX', 'JOHANNESBURG', 'www.altx.co.za');
 INSERT INTO static_markets VALUES ('253', '0', '235', 'XBES', 'BOND EXCHANGE OF SOUTH AFRICA', 'BESA', 'JOHANNESBURG', 'www.besa.za.com');
 INSERT INTO static_markets VALUES ('254', '0', '235', 'XJSE', 'JSE SECURITIES EXCHANGE', 'JSE', 'JOHANNESBURG', 'www.jse.co.za');
@@ -1581,7 +1580,6 @@ INSERT INTO static_markets VALUES ('255', '0', '235', 'XSAF', 'SOUTH AFRICAN FUT
 INSERT INTO static_markets VALUES ('256', '0', '235', 'XSFA', 'SOUTH AFRICAN FUTURES EXCHANGE - AGRICULTURAL MARKET DIVISION', '', 'JOHANNESBURG', 'www.safex.co.za');
 INSERT INTO static_markets VALUES ('257', '0', '235', 'YLDX', 'YIELD-X', '', 'JOHANNESBURG', 'www.yieldx.co.za');
 INSERT INTO static_markets VALUES ('258', '0', '65', 'XBAR', 'BARCELONA STOCK EXCHANGE', '', 'BARCELONA', 'www.borsabcn.es');
-INSERT INTO static_markets VALUES ('259', '0', '65', 'XBAV', 'MERCHBOLSA AGENCIA DE VALORES, S.A.', '', 'BARCELONA', '');
 INSERT INTO static_markets VALUES ('260', '0', '65', 'XMCE', 'MERCATO CONTINUO ESPANOL', '', 'BARCELONA', 'www.bolsaymercados.es');
 INSERT INTO static_markets VALUES ('261', '0', '65', 'XMEF', 'MEFF RENTA FIJA', 'MEFF', 'BARCELONA', 'www.meff.com');
 INSERT INTO static_markets VALUES ('262', '0', '65', 'XMRV', 'MEFF RENTA VARIABLE', 'MEFF', 'BARCELONA', 'www.meffclear.com');
@@ -1592,7 +1590,6 @@ INSERT INTO static_markets VALUES ('266', '0', '65', 'XDPA', 'CADE - MERCADO DE 
 INSERT INTO static_markets VALUES ('267', '0', '65', 'XDRF', 'AIAF - MERCADO DE RENTA FIJA', '', 'MADRID', 'www.aiaf.es/aiaf/index.home');
 INSERT INTO static_markets VALUES ('268', '0', '65', 'XLAT', 'LATIBEX', '', 'MADRID', 'www.latibex.com/esp/home.htm');
 INSERT INTO static_markets VALUES ('269', '0', '65', 'XMAD', 'BOLSA DE MADRID', '', 'MADRID', 'www.bolsamadrid.es');
-INSERT INTO static_markets VALUES ('270', '0', '65', 'XFCM', 'MERCADO DE FUTUROS Y OPCIONES SOBRE CITRICOS', 'FC&M', 'VALENCIA', 'www.fcym.com');
 INSERT INTO static_markets VALUES ('271', '0', '65', 'XVAL', 'BOLSA DE VALENCIA', '', 'VALENCIA', 'www.bolsavalencia.es');
 INSERT INTO static_markets VALUES ('272', '0', '123', 'XCOL', 'COLOMBO STOCK EXCHANGE', '', 'COLOMBO', 'www.cse.lk');
 INSERT INTO static_markets VALUES ('273', '0', '185', 'XKHA', 'KHARTOUM STOCL EXCHANGE', 'KSE', 'KHARTOUM', 'www.ksesudan.com');
@@ -1613,10 +1610,10 @@ INSERT INTO static_markets VALUES ('287', '0', '205', 'XBKF', 'STOCK EXCHANGE OF
 INSERT INTO static_markets VALUES ('288', '0', '205', 'XBKK', 'STOCK EXCHANGE OF THAILAND', 'SET', 'BANGKOK', 'www.set.or.th');
 INSERT INTO static_markets VALUES ('289', '0', '157', 'AMTS', 'MTS AMSTERDAM N.V.', '', 'AMSTERDAM', 'www.mtsamsterdam.com');
 INSERT INTO static_markets VALUES ('290', '0', '157', 'NLPX', 'APX POWER NL', '', 'AMSTERDAM', 'www.apxgroup.com');
-INSERT INTO static_markets VALUES ('291', '0', '157', 'XAMS', 'EURONEXT AMSTERDAM', 'EURONEXT', 'AMSTERDAM', 'www.aex.nl/aex.asp?taal=en');
-INSERT INTO static_markets VALUES ('292', '0', '157', 'XEUC', 'EURONEXT COM, COMMODITIES FUTURES AND OPTIONS', 'EURONEXT', 'AMSTERDAM', 'www.aex.nl/aex.asp?taal=en');
-INSERT INTO static_markets VALUES ('293', '0', '157', 'XEUE', 'EURONEXT EQF, EQUITIES AND INDICES DERIVATIVES', 'EURONEXT', 'AMSTERDAM', 'www.aex.nl/aex.asp?taal=en');
-INSERT INTO static_markets VALUES ('294', '0', '157', 'XEUI', 'EURONEXT IRF, INTEREST RATE FUTURE AND OPTIONS', 'EURONEXT', 'AMSTERDAM', 'www.aex.nl/aex.asp?taal=en');
+INSERT INTO static_markets VALUES ('291', '0', '157', 'XAMS', 'NYSE EURONEXT - EURONEXT AMSTERDAM', '', 'AMSTERDAM', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('292', '0', '157', 'XEUC', 'EURONEXT COM, COMMODITIES FUTURES AND OPTIONS', '', 'AMSTERDAM', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('293', '0', '157', 'XEUE', 'EURONEXT EQF, EQUITIES AND INDICES DERIVATIVES', '', 'AMSTERDAM', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('294', '0', '157', 'XEUI', 'EURONEXT IRF, INTEREST RATE FUTURE AND OPTIONS', '', 'AMSTERDAM', 'www.euronext.com');
 INSERT INTO static_markets VALUES ('295', '0', '213', 'XTRN', 'TRINIDAD AND TOBAGO STOCK EXCHANGE', 'TTSE', 'PORT OF SPAIN', '');
 INSERT INTO static_markets VALUES ('296', '0', '209', 'XTUN', 'BOURSE DES VALEURS MOBILIERES', 'BVMT', 'TUNIS', '');
 INSERT INTO static_markets VALUES ('297', '0', '212', 'XIAB', 'ISTANBUL GOLD EXCHANGE', 'IAB', 'ISTAMBUL', 'www.iab.gov.tr');
@@ -1637,12 +1634,12 @@ INSERT INTO static_markets VALUES ('311', '0', '2', 'DGCX', 'DUBAI GOLD & COMMOD
 INSERT INTO static_markets VALUES ('312', '0', '2', 'DIFX', 'DUBAI INTERNATIONAL FINANCIAL EXCHANGE LTD.', 'DIFX', 'DUBAI', 'www.difx.ae');
 INSERT INTO static_markets VALUES ('313', '0', '2', 'XDFM', 'DUBAI FINANCIAL MARKET', 'DFM', 'DUBAI', 'www.dfm.co.ae');
 INSERT INTO static_markets VALUES ('314', '0', '74', 'AIMX', 'ALTERNATE INVESTMENT MARKET', 'AIM', 'LONDON', 'www.londonstockexchange.com/en-gb/products/companyservices/ourmarkets/aim/');
-INSERT INTO static_markets VALUES ('315', '0', '74', 'BTEE', 'ICAP ELECTRONIC BROKING (EUROPE)', '', 'LONDON', 'www.icap.com/e-broking/brokertec');
+INSERT INTO static_markets VALUES ('315', '0', '74', 'BTEE', 'ICAP ELECTRONIC BROKING (EUROPE)', '', 'LONDON', 'www.icap.com');
 INSERT INTO static_markets VALUES ('316', '0', '74', 'CHIX', 'INSTINET CHI-X LTD.', 'CHI-X', 'LONDON', 'www.instinet.com');
 INSERT INTO static_markets VALUES ('317', '0', '74', 'CMTS', 'EUROCREDIT', '', 'LONDON', 'www.euromts.com');
 INSERT INTO static_markets VALUES ('318', '0', '74', 'CRDL', 'COREDEAL MTS', '', 'LONDON', 'www.mtsgroup.org');
 INSERT INTO static_markets VALUES ('319', '0', '74', 'EMTS', 'EUROMTS', 'EMTS', 'LONDON', 'www.euromts-ltd.com');
-INSERT INTO static_markets VALUES ('320', '0', '74', 'GEMX', 'GEMMA (Gilt Edged Market MakersAssociation)', 'GEMMA', 'LONDON', '');
+INSERT INTO static_markets VALUES ('320', '0', '74', 'GEMX', 'GEMMA (Gilt Edged Market Makers’Association)', 'GEMMA', 'LONDON', '');
 INSERT INTO static_markets VALUES ('321', '0', '74', 'IEPA', 'INTERCONTINENTAL EXCHANGE LTD.', 'ICE', 'LONDON', 'www.intcx.com');
 INSERT INTO static_markets VALUES ('322', '0', '74', 'IMTS', 'MTS IRELAND', '', 'LONDON', 'www.mtsireland.com');
 INSERT INTO static_markets VALUES ('323', '0', '74', 'KMTS', 'EUROMTS LINKERS MARKET', '', 'LONDON', 'www.euromts.com');
@@ -1686,7 +1683,7 @@ INSERT INTO static_markets VALUES ('360', '0', '220', 'XIOM', 'INDEX AND OPTIONS
 INSERT INTO static_markets VALUES ('361', '0', '220', 'XMAC', 'MID AMERICA COMMODITY EXCHANGE', 'MidAm', 'CHICAGO', '');
 INSERT INTO static_markets VALUES ('362', '0', '220', 'XMER', 'MERCHANTS\' EXCHANGE', 'ME', 'CHICAGO', 'www.merchants-exchange.com');
 INSERT INTO static_markets VALUES ('363', '0', '220', 'XOCH', 'ONECHICAGO, LLC.', '', 'CHICAGO', 'www.onechicago.com');
-INSERT INTO static_markets VALUES ('364', '0', '220', 'BTEC', 'ICAP ELECTRONIC BROKING (US)', '', 'JERSEY CITY', 'www.icap.com/e-broking/brokertec');
+INSERT INTO static_markets VALUES ('364', '0', '220', 'BTEC', 'ICAP ELECTRONIC BROKING (US)', '', 'JERSEY CITY', 'www.icap.com');
 INSERT INTO static_markets VALUES ('365', '0', '220', 'EDGX', 'DIRECT EDGE ECN (EDGX)', '', 'JERSEY CITY', 'www.directedge.com/edgx');
 INSERT INTO static_markets VALUES ('366', '0', '220', 'EDGA', 'DIRECT EDGE ECN (EDGA)', '', 'JERSEY CITY', 'www.directedge.com/edga');
 INSERT INTO static_markets VALUES ('367', '0', '220', 'TRWB', 'TRADEWEB LLC', '', 'JERSEY CITY', 'www.tradeweb.com');
@@ -1748,11 +1745,48 @@ INSERT INTO static_markets VALUES ('422', '0', '158', 'FISH', 'FISH POOL ASA', '
 INSERT INTO static_markets VALUES ('423', '0', '65', 'XNAF', 'SISTEMA ESPANOL DE NEGOCIACION DE ACTIVOS FINANCIEROS', 'SENAF', 'MADRID', 'www.senaf.net');
 INSERT INTO static_markets VALUES ('424', '0', '186', 'XSAT', 'AKTIETORGET', '', 'STOCKHOLM', 'www.actietorget.se');
 INSERT INTO static_markets VALUES ('425', '0', '157', 'ECXE', 'EUROPEAN CLIMATE EXCHANGE', '', 'AMSTERDAM', 'www.ecxeurope.com');
-INSERT INTO static_markets VALUES ('426', '0', '74', 'ICAP', 'ICAP EUROPE', '', 'LONDON', 'www.icap.com');
-INSERT INTO static_markets VALUES ('427', '0', '74', 'ICEN', 'ICAP ENERGY', '', 'LONDON', 'http://icapenergy.com');
+INSERT INTO static_markets VALUES ('426', '0', '74', 'ICAP', 'ICAP EUROPE', '', 'LONDON', 'www.i-swap.com');
+INSERT INTO static_markets VALUES ('427', '0', '74', 'ICEN', 'ICAP ENERGY', '', 'LONDON', 'www.icapenergy.com');
 INSERT INTO static_markets VALUES ('428', '0', '74', 'ICSE', 'ICAP SECURITIES', '', 'LONDON', 'www.icap.com');
 INSERT INTO static_markets VALUES ('429', '0', '74', 'WCLK', 'ICAP WCLK', '', 'LONDON', 'www.icap.com');
 INSERT INTO static_markets VALUES ('430', '0', '74', 'XALT', 'ALTEX-ATS', '', 'LONDON', 'www.altex-ats.co.uk');
 INSERT INTO static_markets VALUES ('431', '0', '220', 'CCFE', 'CHICAGO CLIMATE FUTURES EXCHANGE', '', 'CHICAGO', 'www.ccfe.com');
+INSERT INTO static_markets VALUES ('434', '0', '13', 'WBGF', 'WIENER BOERSE AG GEREGELTER FREIVERKEHR (SEMI-OFFICIAL MARKET)', '', 'VIENNA', 'www.wienerboerse.at');
+INSERT INTO static_markets VALUES ('435', '0', '72', 'ALXB', 'NYSE EURONEXT - ALTERNEXT PARIS', '', 'PARIS', 'www.alternext.com');
+INSERT INTO static_markets VALUES ('436', '0', '20', 'MLXB', 'NYSE EURONEXT - MARCHE LIBRE BRUSSELS', '', 'BRUSSELS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('437', '0', '20', 'TNLB', 'NYSE EURONEXT - TRADING FACILITY BRUSSELS', '', 'BRUSSELS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('438', '0', '20', 'VPXB', 'NYSE EURONEXT - VENTES PUBLIQUES BRUSSELS', '', 'BRUSSELS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('439', '0', '72', 'VRXP', 'NYSE EURONEXT - COMPARTIMENT DES VALEURS RADIEES PARIS', '', 'PARIS', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('440', '0', '97', 'XASM', 'ALTERNATIVE SECURITIES MARKET', 'ASM', 'DUBLIN', 'www.ise.ie/index.asp?locID=138&docID=-1');
+INSERT INTO static_markets VALUES ('441', '0', '97', 'XIEX', 'IRISH ENTERPRISE EXCHANGE', 'IEX', 'DUBLIN', 'www.ise.ie');
+INSERT INTO static_markets VALUES ('442', '0', '97', 'XPOS', 'POSIT', 'POSIT', 'DUBLIN', 'www.itg.com/compliance.php');
+INSERT INTO static_markets VALUES ('443', '0', '104', 'ETLX', 'EUROTLX', '', 'MILANO', 'www.eurotlx.com');
+INSERT INTO static_markets VALUES ('444', '0', '104', 'XTLX', 'TLX', '', 'MILANO', 'www.eurotlx.com');
+INSERT INTO static_markets VALUES ('445', '0', '127', 'EMTF', 'EURO MTF', '', 'LUXEMBOURG', 'www.bourse.lu');
+INSERT INTO static_markets VALUES ('446', '0', '170', 'PLPX', 'TOWAROWA GIELDA ENERGII S.A. (POLISH POWER EXCHANGE)', 'TGE', 'WARSAW', 'www.polpx.pl');
+INSERT INTO static_markets VALUES ('447', '0', '174', 'ENXL', 'NYSE EURONEXT - EASYNEXT LISBON', '', 'LISBOA', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('448', '0', '174', 'WQXL', 'NYSE EURONEXT - MARKET WITHOUT QUOTATIONS LISBON', '', 'LISBOA', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('449', '0', '189', 'XLJS', 'LJUBLJANA STOCK EXCHANGE (SEMI-OFFICIAL MARKET)', '', 'LJUBLJANA', 'www.ljse.si');
+INSERT INTO static_markets VALUES ('450', '0', '65', 'MABX', 'MERCADO ALTERNATIVO BURSATIL', 'MAB', 'MADRID', 'www.bolsasymercados.es/mab/esp/marcos.htm');
+INSERT INTO static_markets VALUES ('451', '0', '157', 'ALXA', 'NYSE EURONEXT - ALTERNEXT AMSTERDAM', '', 'AMSTERDAM', 'www.alternext.com');
+INSERT INTO static_markets VALUES ('452', '0', '157', 'TNLA', 'NYSE EURONEXT - TRADED BUT NOT LISTED AMSTERDAM', '', 'AMSTERDAM', 'www.euronext.com');
+INSERT INTO static_markets VALUES ('453', '0', '2', 'DUMX', 'DUBAI MERCANTILE EXCHANGE', '', 'DUBAI', 'www.dubaimerc.com');
+INSERT INTO static_markets VALUES ('454', '0', '74', 'BGCI', 'BGC INTERNATIONAL', '', 'LONDON', 'www.bgcpartners.com');
+INSERT INTO static_markets VALUES ('455', '0', '74', 'CCO2', 'CANTORCO2E.COM LIMITED', '', 'LONDON', 'www.cantorco2e.com');
+INSERT INTO static_markets VALUES ('456', '0', '74', 'FXMT', 'FXMARKETSPACE LIMITED', '', 'LONDON', 'www.fxmarketspace.com');
+INSERT INTO static_markets VALUES ('457', '0', '74', 'GFIC', 'GFI CREDITMATCH', '', 'LONDON', 'www.gfigroup.com/portal/index.jsp?pageID=def_broker_credit');
+INSERT INTO static_markets VALUES ('458', '0', '74', 'GFIF', 'GFI FOREXMATCH', '', 'LONDON', 'www.gfigroup.com/portal/index.jsp?pageID=def_broker_fx');
+INSERT INTO static_markets VALUES ('459', '0', '74', 'GFIN', 'GFI ENERGYMATCH', '', 'LONDON', 'www.gfigroup.com/portal/index.jsp?pageID=def_broker_encom');
+INSERT INTO static_markets VALUES ('460', '0', '74', 'ICAH', 'ICAP HYDE DERIVATIVES LTD', '', 'LONDON', 'http://www.icap.com/markets/energy/freight.html');
+INSERT INTO static_markets VALUES ('461', '0', '74', 'MAEL', 'MARKETAXESS EUROPE LIMITED', '', 'LONDON', 'www.marketaxess.com');
+INSERT INTO static_markets VALUES ('462', '0', '74', 'RMTS', 'MTS ISRAEL', '', 'LONDON', 'www.mtsisrael.com');
+INSERT INTO static_markets VALUES ('463', '0', '74', 'RTSL', 'REUTERS TRANSACTION SERVICES LIMITED', 'RTSL', 'LONDON', 'www.reuters.com');
+INSERT INTO static_markets VALUES ('464', '0', '74', 'TBLA', 'TRADEBLADE', '', 'LONDON', 'www.tradeblade.com');
+INSERT INTO static_markets VALUES ('465', '0', '74', 'TCDS', 'TRADITION CDS', '', 'LONDON', 'www.tradition.co.uk');
+INSERT INTO static_markets VALUES ('466', '0', '74', 'TFSG', 'TFS GREEN SCREEN', '', 'LONDON', 'www.tsfbrokers.com');
+INSERT INTO static_markets VALUES ('467', '0', '74', 'TFSS', 'TFS VARIANCE SWAPS SYSTEM', '', 'LONDON', 'www.tsfvarswaps.com');
+INSERT INTO static_markets VALUES ('468', '0', '74', 'TFSV', 'VOLBROKER', '', 'LONDON', 'www.tfsicap.com');
+INSERT INTO static_markets VALUES ('469', '0', '74', 'VMTS', 'MTS SLOVENIA', '', 'LONDON', 'www.mtsslovenia.com');
+INSERT INTO static_markets VALUES ('470', '0', '220', 'BNDD', 'BONDDESK', '', 'MILL VALLEY', 'www.bonddeskgroup.com');
 
 
