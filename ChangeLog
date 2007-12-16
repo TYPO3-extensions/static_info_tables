@@ -1,3 +1,10 @@
+2007-12-16  Franz Holzinger  <kontakt@fholzinger.com>
+	* remove dependancy from div extension
+	* new feature charset: extension setup for the character set of the tables
+	* fix bug with wrong '1 AND ...' SQL query with itemsProcFunc_config.hotlistOnly
+	* change Galician language
+	* fix bug 4589 with wrong SQL when no country code is available
+
 2007-08-03  David Bruehlmeier <typo3@bruehlmeier.com> 
 	* Updated static_markets
 

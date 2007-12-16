@@ -24,7 +24,11 @@ if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
 	}
 }
 
-$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = 'utf-8';
+$_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
+
+if (!isset($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']))	{
+	$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = $_EXTCONF['charset'] ? $_EXTCONF['charset'] : 'utf-8';
+}
 
 $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
 	'static_territories' => array(

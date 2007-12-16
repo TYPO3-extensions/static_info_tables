@@ -23,14 +23,14 @@
 ***************************************************************/
 
 
-
+global $TYPO3_CONF_VARS;
 
 /**
  * Class for updating the db
  *
  * $Id$
  *
- * @author	 René Fritz <r.fritz@colorcube.de>
+ * @author	 RenÃ© Fritz <r.fritz@colorcube.de>
  */
 class ext_update  {
 
@@ -43,32 +43,32 @@ class ext_update  {
 
 		require_once(t3lib_extMgm::extPath(STATIC_INFO_TABLES_EXTkey).'class.tx_staticinfotables_encoding.php');
 
-		$tables = array ('static_countries', 'static_country_zones', 'static_languages', 'static_currencies');
+		$tableArray = array ('static_countries', 'static_country_zones', 'static_languages', 'static_currencies');
 
 		$content = '';
-
 		$content.= '<br />Convert character encoding of the static info tables.';
 		$content.= '<br />The default encoding is UTF-8.';
+		$destEncoding = t3lib_div::_GP('dest_encoding');
 
-		if(t3lib_div::_GP('convert') AND $destEncoding = t3lib_div::_GP('dest_encoding')) {
-			foreach ($tables as $table) {
+		if(t3lib_div::_GP('convert') AND ($destEncoding != '')) {
+			foreach ($tableArray as $table) {
 				$content .= '<p>'.htmlspecialchars($table.' > '.$destEncoding).'</p>';
 				tx_staticinfotables_encoding::convertEncodingTable($table, 'utf-8', $destEncoding);
 			}
+			$content .= '<p>You must enter the charset \''.$destEncoding.'\' now manually in the EM for static_info_tables!</p>';
 			$content .= '<p>Done</p>';
-
 		} else {
-
-			$content .= '</form>';
-			$content .= '<form action="'.htmlspecialchars(t3lib_div::linkThisScript()).'" method="post">';
+/*			$content .= '</form>';
+			$content .= '<form action="'.htmlspecialchars(t3lib_div::linkThisScript()).'" method="post">';*/
+			$linkScript = t3lib_div::slashJS(t3lib_div::linkThisScript());
 			$content .= '<br /><br />';
-			$content .= 'This conversion works only once. When you converted the tables and you want to do it again to another encoding you have to reinstall the tables with the Extension Manager.';
+			$content .= 'This conversion works only once. When you converted the tables and you want to do it again to another encoding you have to reinstall the tables with the Extension Manager or select \'UPDATE!\'.';
 			$content .= '<br /><br />';
-            $content .= 'Destination character encoding:';
-            $content .= '<br />'.tx_staticinfotables_encoding::getEncodingSelect('dest_encoding', '', '', 'utf-8');
+			$content .= 'Destination character encoding:';
+			$content .= '<br />'.tx_staticinfotables_encoding::getEncodingSelect('dest_encoding', '', '', $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']);
 			$content .= '<br /><br />';
-			$content .= '<input type="submit" name="convert" value="Convert" />';
-			$content .= '</form>';
+			$content .= '<input type="submit" name="convert" value="Convert"  onclick="this.form.action=\''.$linkScript.'\';submit();" />';
+//			$content .= '</form>';
 		}
 
 		return $content;
