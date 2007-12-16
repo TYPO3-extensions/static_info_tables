@@ -38,28 +38,32 @@
  *
  *
  *
- *   64: class tx_staticinfotables_pi1 extends tslib_pibase
- *   92:     function init()
- *  131:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
- *  182:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selected='', $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE)
- *  250:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  300:     function initCountrySubdivisions($param, $addWhere='')
- *  345:     function initCurrencies($addWhere='')
- *  384:     function initLanguages($addWhere='')
- *  423:     function optionsConstructor($names, $selected='')
- *  444:     function loadCurrencyInfo($currencyCode)
- *  487:     function formatAmount($amount, $displayCurrencyCode='')
- *  511:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  559:     function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)
- *  678:     function getCurrentLanguage()
+ *   68: class tx_staticinfotables_pi1 extends tslib_pibase
+ *   96:     function init()
+ *  135:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
+ *  199:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
+ *  283:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  340:     function initCountrySubdivisions($param, $addWhere='')
+ *  386:     function initCurrencies($addWhere='')
+ *  426:     function initLanguages($addWhere='')
+ *  466:     function optionsConstructor($nameArray, $selectedArray=array())
+ *  487:     function loadCurrencyInfo($currencyCode)
+ *  532:     function formatAmount($amount, $displayCurrencyCode='')
+ *  560:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  609:     function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)
+ *  733:     function getCurrentLanguage()
  *
  * TOTAL FUNCTIONS: 13
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
 
+global $TYPO3_CONF_VARS;
+
+
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('static_info_tables').'class.tx_staticinfotables_div.php');
+
 
 class tx_staticinfotables_pi1 extends tslib_pibase {
 
@@ -92,7 +96,6 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	function init()	{
 		global $TSFE;
 
-		$this->tslib_pibase();
 		$this->conf = $TSFE->tmpl->setup['plugin.'][$this->prefixId.'.'];
 
 			//Get the default currency and make sure it does exist in table static_currencies
@@ -123,6 +126,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 *
 	 * @param	string		Defines the type of entry of the requested name: 'TERRIRORIES', 'COUNTRIES', 'SUBDIVISIONS', 'CURRENCIES', 'LANGUAGES', 'TAXES', 'SUBTAXES'
 	 * @param	string		The ISO alpha-3 code of a territory, country or currency, or the ISO alpha-2 code of a language or the code of a country subdivision
+	 * @param	string		The ISO alpha-3 code of a territory, country or currency, or the ISO alpha-2 code of a language or the code of a country subdivision, can be a comma ',' separated string, then all the single items are looked up and returned
 	 * @param	string		The value of the country code (cn_iso_3) for which a name of type 'SUBDIVISIONS', 'TAXES' or 'SUBTAXES' is requested (meaningful only in these cases)
 	 * @param	string		The value of the country subdivision code for which a name of type 'SUB_TAXES' is requested (meaningful only in this case)
 	 * @param	[type]		$self: ...
@@ -132,35 +136,46 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 
 		if (in_array($type, $this->types) && trim($code)) {
+			$codeArray = t3lib_div::trimExplode(',',($code));
+
 			$table = $this->tables[$type];
 			$lang = $this->getCurrentLanguage();
 			$isoCode = array();
 			$isoCode[] = trim($code);
-			switch($type)	{
-				case 'TERRITORIES':
-				case 'COUNTRIES':
-				case 'CURRENCIES':
-					$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCode, $lang);
-					break;
-				case 'SUBDIVISIONS':
-				case 'TAXES':
-					$isoCode[] = trim($country) ? trim($country) : $this->defaultCountry;
-					$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCode, $lang);
-					break;
-				case 'SUBTAXES':
-					$isoCode[] = trim($country) ? trim($country) : $this->defaultCountry;
-					$isoCode[] = trim($countrySubdivision) ? trim($countrySubdivision) : $this->defaultCountryZone;
-					$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCode, $lang);
-					break;
-				case 'LANGUAGES':
-					$isoCode = t3lib_div::trimExplode( '_', $code, 1);
-					$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCode, $lang, $self);
-					break;
+
+			$nameArray = array();
+			foreach ($codeArray as $tmpisoCode)	{
+				$isoCodeArray = array();
+				$isoCodeArray[] = $tmpisoCode;
+
+				switch($type)	{
+					case 'TERRITORIES':
+					case 'COUNTRIES':
+					case 'CURRENCIES':
+						$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCodeArray, $lang);
+						break;
+					case 'SUBDIVISIONS':
+					case 'TAXES':
+						$isoCodeArray[] = trim($country) ? trim($country) : $this->defaultCountry;
+						$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCodeArray, $lang);
+						break;
+					case 'SUBTAXES':
+						$isoCodeArray[] = trim($country) ? trim($country) : $this->defaultCountry;
+						$isoCodeArray[] = trim($countrySubdivision) ? trim($countrySubdivision) : $this->defaultCountryZone;
+						$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCodeArray, $lang);
+						break;
+					case 'LANGUAGES':
+						$isoCodeArray = t3lib_div::trimExplode( '_', $code, 1);
+						$name = tx_staticinfotables_div::getTitleFromIsoCode($table, $isoCodeArray, $lang, $self);
+						break;
+				}
+				$nameArray[] = $TSFE->csConv($name, $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
 			}
-			return $name = $TSFE->csConv($name, $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
+			$rc = implode(',',$nameArray);
 		} else {
-			return FALSE;
+			$rc = FALSE;
 		}
+		return $rc;
 	}
 
 	/**
@@ -169,7 +184,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		Defines the type of entries to be presented in the drop-down selector: 'COUNTRIES', 'SUBDIVISIONS', 'CURRENCIES' or 'LANGUAGES'
 	 * @param	string		A value for the name attribute of the <select> tag
 	 * @param	string		A value for the class attribute of the <select> tag
-	 * @param	string		The value of the code of the entry to be pre-selected in the drop-down selector: value of cn_iso_3, zn_code, cu_iso_3 or lg_iso_2
+	 * @param	array		The values of the code of the entries to be pre-selected in the drop-down selector: value of cn_iso_3, zn_code, cu_iso_3 or lg_iso_2
 	 * @param	string		The value of the country code (cn_iso_3) for which a drop-down selector of type 'SUBDIVISIONS' is requested (meaningful only in this case)
 	 * @param	boolean/string		If set to 1, an onchange attribute will be added to the <select> tag for immediate submit of the changed value; if set to other than 1, overrides the onchange script
 	 * @param	string		A value for the id attribute of the <select> tag
@@ -177,58 +192,76 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		A where clause for the records
 	 * @param	string		language to be used
 	 * @param	boolean		$local: If set, we are looking for the "local" title field
+	 * @param	array		additional array to be merged as key => value pair
+	 * @param	int		max elements that can be selected. Default: 1
 	 * @return	string		A set of HTML <select> and <option> tags
 	 */
-	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selected='', $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE)	{
+	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)	{
+		global $TSFE;
 
-		$selected = trim($selected);
+		if ($size > 1) {
+			$multiple = ' multiple="multiple"';
+			$name .= '[]';
+		} else {
+			$multiple="";
+		}
+
+		if (!is_array($selectedArray)) {
+			$selectedArray = t3lib_div::trimExplode (',',$selectedArray);
+		}
+
+		$charset = $TSFE->renderCharset;
 		$country = trim($country);
-		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name)).'" ' : '';
-		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class)).'" ' : '';
-		$idAttribute = (trim($id)) ? 'id="'.htmlspecialchars(trim($id)).'" ' : '';
-		$titleAttribute = (trim($title)) ? 'title="'.htmlspecialchars(trim($title)).'" ' : '';
+		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name),ENT_COMPAT,$charset).'" ' : '';
+		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class),ENT_COMPAT,$charset).'" ' : '';
+		$idAttribute = (trim($id)) ? 'id="'.htmlspecialchars(trim($id),ENT_COMPAT,$charset).'" ' : '';
+		$titleAttribute = (trim($title)) ? 'title="'.htmlspecialchars(trim($title),ENT_COMPAT,$charset).'" ' : '';
 		$onchangeAttribute = '';
 		if ($submit) {
 			if ($submit == 1) {
-				$onchangeAttribute = 'onchange='.t3lib_div::quoteJSvalue(str_replace('\'', '"', $this->conf['onChangeAttribute']));
+				$onchangeAttribute = $this->conf['onChangeAttribute'];
 			} else {
-				$onchangeAttribute = 'onchange='.t3lib_div::quoteJSvalue(str_replace('\'', '"', $submit));
+				$onchangeAttribute = $submit;
 			}
+			$onchangeAttribute = str_replace('"', '\'', $onchangeAttribute);
+			$onchangeAttribute = tx_staticinfotables_div::quoteJSvalue($onchangeAttribute);
+			$onchangeAttribute = 'onchange='.$onchangeAttribute;
 		}
-		$selector = '<select size="1" '.$idAttribute.$nameAttribute.$titleAttribute.$classAttribute.$onchangeAttribute.'>'.chr(10);
+		$selector = '<select size="'.$size.'" '.$idAttribute.$nameAttribute.$titleAttribute.$classAttribute.$onchangeAttribute.$multiple.'>'.chr(10);
 
 		switch($type)	{
 			case 'COUNTRIES':
-				$names = $this->initCountries('ALL',$lang,$local,$addWhere);
-				$selected = ($selected ? $selected : $this->defaultCountry);
-				reset($names);
-				$selected = ($selected ? $selected : key($names));
+				$nameArray = $this->initCountries('ALL',$lang,$local,$addWhere);
+				$defaultSelectedArray = array($this->defaultCountry);
 				break;
 			case 'SUBDIVISIONS':
 				$param = (trim($country) ? trim($country) : $this->defaultCountry);
-				$names = $this->initCountrySubdivisions($param,$addWhere);
-				if( $param == $this->defaultCountry ) {
-					$selected = ($selected ? $selected : $this->defaultCountryZone);
-				} else {
-					reset($names);
-					$selected = ($selected ? $selected : key($names));
+				$nameArray = $this->initCountrySubdivisions($param,$addWhere);
+				if($param == $this->defaultCountry) {
+					$selectedDefault = $this->defaultCountryZone;
 				}
 				break;
 			case 'CURRENCIES':
-				$names = $this->initCurrencies($addWhere);
-				$selected = ($selected ? $selected : $this->currency);
-				reset($names);
-				$selected = ($selected ? $selected : key($names));
+				$nameArray = $this->initCurrencies($addWhere);
+				$selectedDefault = $this->currency;
 				break;
 			case 'LANGUAGES':
-				$names = $this->initLanguages($addWhere);
-				$selected = ($selected ? $selected : $this->defaultLanguage);
-				reset($names);
-				$selected = ($selected ? $selected : key($names));
+				$nameArray = $this->initLanguages($addWhere);
+				$defaultSelectedArray = array($this->defaultLanguage);
 				break;
 		}
-		if( count($names) > 0 )	{
-			$selector .= $this->optionsConstructor($names, $selected);
+		if (!$defaultSelectedArray)	{
+			reset($nameArray);
+			$defaultSelectedArray = array(key($nameArray));
+		}
+		$selectedArray = ((!empty($selectedArray) || count($mergeArray)) ? $selectedArray : $defaultSelectedArray);
+
+		if (count($mergeArray))	{
+			$nameArray = array_merge($nameArray, $mergeArray);
+			uasort($nameArray, 'strcoll');
+		}
+		if(count($nameArray) > 0)	{
+			$selector .= $this->optionsConstructor($nameArray, $selectedArray);
 			$selector .= '</select>'.chr(10);
 		} else {
 			$selector = '';
@@ -251,15 +284,17 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 
 		$table = $this->tables['COUNTRIES'];
-		$lang = $this->getCurrentLanguage();
-		$names = array();
+		if (!$lang)	{
+			$lang = $this->getCurrentLanguage();
+		}
+		$nameArray = array();
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang, $local);
 		$prefixedTitleFields = array();
 		$prefixedTitleFields[] = $table.'.cn_iso_3';
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table.'.'.$titleField;
 		}
-		
+
 		array_unique($prefixedTitleFields);
 		$labelFields = implode(',', $prefixedTitleFields);
 		if ($param == 'UN') {
@@ -277,17 +312,19 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			$labelFields,
 			$table,
 			$where.$TSFE->sys_page->enableFields($table)
-			);
+		);
+
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$names[$row['cn_iso_3']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
+					$nameArray[$row['cn_iso_3']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
 					break;
 				}
 			}
 		}
-		uasort($names, 'strcoll');
-		return $names;
+		$TYPO3_DB->sql_free_result($res);
+		uasort($nameArray, 'strcoll');
+		return $nameArray;
 	}
 
 	/**
@@ -312,7 +349,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		}
 		$where .= ($addWhere ? ' AND '.$addWhere : '');
 		$lang = $this->getCurrentLanguage();
-		$names = array();
+		$nameArray = array();
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
@@ -328,13 +365,14 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$names[$row['zn_code']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
+					$nameArray[$row['zn_code']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
 					break;
 				}
 			}
 		}
-		uasort($names, 'strcoll');
-		return $names;
+		$TYPO3_DB->sql_free_result($res);
+		uasort($nameArray, 'strcoll');
+		return $nameArray;
 	}
 
 	/**
@@ -351,7 +389,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
 		$table = $this->tables['CURRENCIES'];
 		$lang = $this->getCurrentLanguage();
-		$names = array();
+		$nameArray = array();
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
@@ -366,13 +404,14 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$names[$row['cu_iso_3']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
+					$nameArray[$row['cu_iso_3']] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
 					break;
 				}
 			}
 		}
-		uasort($names, 'strcoll');
-		return $names;
+		$TYPO3_DB->sql_free_result($res);
+		uasort($nameArray, 'strcoll');
+		return $nameArray;
 	}
 
 	/**
@@ -390,7 +429,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
 		$table = $this->tables['LANGUAGES'];
 		$lang = $this->getCurrentLanguage();
-		$names = array();
+		$nameArray = array();
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
@@ -407,13 +446,14 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			$code = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$names[$code] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
+					$nameArray[$code] = $TSFE->csConv($row[$titleField], $TYPO3_CONF_VARS['EXTCONF'][$this->extKey]['charset']);
 					break;
 				}
 			}
 		}
-		uasort($names, 'strcoll');
-		return $names;
+		$TYPO3_DB->sql_free_result($res);
+		uasort($nameArray, 'strcoll');
+		return $nameArray;
 	}
 
 	/**
@@ -423,16 +463,16 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		A pre-selected value: if the value appears as a key, the <option> tag will bear a 'selected' attribute
 	 * @return	string		A string of HTML <option> tags
 	 */
-	function optionsConstructor($names, $selected='') {
+	function optionsConstructor($nameArray, $selectedArray=array()) {
+		global $TSFE;
 
 		$options = '';
-		reset($names);
-		while(list($value,$name)=each($names))	{
-			$options  .= '<option value="'.htmlspecialchars($value).'"';
-			if( $selected == $value) {
+		foreach($nameArray as $value => $name)	{
+			$options  .= '<option value="'.$value.'"';
+			if (in_array($value, $selectedArray))	{
 				$options  .= ' selected="selected"';
 			}
-			$options  .= '>'.htmlspecialchars($name).'</option>'.chr(10);
+			$options  .= '>'.$name.'</option>'.chr(10);
 		}
 
 		return $options;
@@ -448,8 +488,8 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		global $TYPO3_DB;
 
 			// Fetching the currency record
-	 	$this->currencyInfo['cu_iso_3'] = trim($currencyCode);
-	 	$this->currencyInfo['cu_iso_3'] = ($this->currencyInfo['cu_iso_3']) ? $this->currencyInfo['cu_iso_3'] : $this->currency;
+		$this->currencyInfo['cu_iso_3'] = trim($currencyCode);
+		$this->currencyInfo['cu_iso_3'] = ($this->currencyInfo['cu_iso_3']) ? $this->currencyInfo['cu_iso_3'] : $this->currency;
 		$res = $TYPO3_DB->exec_SELECTquery(
 			'*',
 			'static_currencies',
@@ -457,6 +497,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		);
 			// If not found we fetch the default currency!
 		if (!$TYPO3_DB->sql_num_rows($res)) {
+			$TYPO3_DB->sql_free_result($res);
 		 	$this->currencyInfo['cu_iso_3'] = $this->currency;
 			$res = $TYPO3_DB->exec_SELECTquery(
 				'*',
@@ -465,6 +506,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			);
 		}
 		$row = $TYPO3_DB->sql_fetch_assoc($res);
+		$TYPO3_DB->sql_free_result($res);
 
 		$this->currencyInfo['cu_name'] = $this->getStaticInfoName('CURRENCIES', $this->currencyInfo['cu_iso_3']);
 		$this->currencyInfo['cu_symbol_left'] = $row['cu_symbol_left'];
@@ -479,9 +521,9 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	/**
 	 * Formatting an amount in the currency loaded by loadCurrencyInfo($currencyCode)
 	 *
-	 * 								 '' - the currency code is not displayed
-	 * 								 'RIGHT' - the code is displayed at the right of the amount
-	 * 								 'LEFT' - the code is displayed at the left of the amount
+	 * 	 '' - the currency code is not displayed
+	 * 	 'RIGHT' - the code is displayed at the right of the amount
+	 * 	 'LEFT' - the code is displayed at the left of the amount
 	 *
 	 * @param	float		An amount to be displayed in the loaded currency
 	 * @param	string		A flag specifying if the the currency code should be displayed:
@@ -491,11 +533,15 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 
 		$formatedAmount = '';
 
-		if( $displayCurrencyCode == 'LEFT' ) { $formatedAmount .= $this->currencyInfo['cu_iso_3'].chr(32); }
+		if( $displayCurrencyCode == 'LEFT' )	{
+			$formatedAmount .= $this->currencyInfo['cu_iso_3'].chr(32);
+		}
 		$formatedAmount .= $this->currencyInfo['cu_symbol_left'];
 		$formatedAmount .= number_format($amount, intval($this->currencyInfo['cu_decimal_digits']), $this->currencyInfo['cu_decimal_point'], (($this->currencyInfo['cu_thousands_point'])?$this->currencyInfo['cu_thousands_point']:chr(32)));
 		$formatedAmount .= (($this->currencyInfo['cu_symbol_right'])?chr(32):'').$this->currencyInfo['cu_symbol_right'];
-		if( $displayCurrencyCode == 'RIGHT' ) { $formatedAmount .= chr(32).$this->currencyInfo['cu_iso_3']; }
+		if( $displayCurrencyCode == 'RIGHT' )	{
+			$formatedAmount .= chr(32).$this->currencyInfo['cu_iso_3'];
+		}
 
 		return $formatedAmount;
 	}
@@ -529,6 +575,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim((($countryCode)?$countryCode:$this->defaultCountry)),'static_countries')
 		);
 		$row = $TYPO3_DB->sql_fetch_assoc($res);
+		$TYPO3_DB->sql_free_result($res);
 		$addressFormat = $row['cn_address_format'];
 
 			// Get country subdivision name
@@ -567,12 +614,12 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$shopCountryCode = ($shopCountryCode) ? $shopCountryCode : $this->defaultCountry;
 		$buyerCountryCode = ($buyerCountryCode) ? $buyerCountryCode : $this->defaultCountry;
 
-	 		// Not taxable!
+			// Not taxable!
 		if (!$taxClass || !trim($shopCountryCode) || !trim($buyerCountryCode)) {
 			return $appliedTaxes;
 		}
 
-	 		// Get national taxes
+			// Get national taxes
 		if (trim($shopCountryCode) == trim($buyerCountryCode)) {
 			$res = $TYPO3_DB->exec_SELECTquery(
 				'*',
@@ -589,6 +636,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 				$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
 				$appliedTaxesIndex++;
 			}
+			$TYPO3_DB->sql_free_result($res);
 
 	 			// Get state or provincial taxes
 			if( trim($shopCountrySubdivisionCode) && trim($buyerCountrySubdivisionCode) &&  trim($shopCountrySubdivisionCode) == trim($buyerCountrySubdivisionCode) ) {
@@ -608,6 +656,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 					$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
 					$appliedTaxesIndex++;
 				}
+				$TYPO3_DB->sql_free_result($res);
 			}
 		} else	{
 	 			// Apply EU Internal Market rules for under threshold sales
@@ -617,6 +666,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 				'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($shopCountryCode),'static_countries')
 			);
 			$row = $TYPO3_DB->sql_fetch_assoc($res);
+			$TYPO3_DB->sql_free_result($res);
 			$shop_cn_eu_member = $row['cn_eu_member'];
 			if ($shop_cn_eu_member) {
 				$res = $TYPO3_DB->exec_SELECTquery(
@@ -625,6 +675,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 					'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($buyerCountryCode),'static_countries')
 				);
 				$row = $TYPO3_DB->sql_fetch_assoc($res);
+				$TYPO3_DB->sql_free_result($res);
 				$buyer_cn_eu_member = $row['cn_eu_member'];
 				if ($buyer_cn_eu_member) {
 							// Here we apply the rules of the European Union Internal Market
@@ -647,6 +698,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 						$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
 						$appliedTaxesIndex++;
 					}
+					$TYPO3_DB->sql_free_result($res);
 				}
 			}
 		}
@@ -681,20 +733,10 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	function getCurrentLanguage() {
 		global $TSFE, $TYPO3_DB;
 
-		$langCodeT3 = $TSFE->lang;
-		$csConvObj = $TSFE->csConvObj;
-
-		$res = $TYPO3_DB->exec_SELECTquery(
-			'lg_iso_2,lg_country_iso_2',
-			'static_languages',
-			'lg_typo3='.$TYPO3_DB->fullQuoteStr($langCodeT3,'static_languages')
-			);
-		while ($row = $TYPO3_DB->sql_fetch_assoc($res)) {
-			$lang = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
-		}
-
-		return $lang ? $lang : $csConvObj->conv_case('utf-8',$langCodeT3,'toUpper');
+		$rc = tx_staticinfotables_div::getCurrentLanguage();
+		return $rc;
 	}
+
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables/pi1/class.tx_staticinfotables_pi1.php'])	{

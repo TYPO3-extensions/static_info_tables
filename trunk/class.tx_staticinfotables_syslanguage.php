@@ -31,6 +31,8 @@
  */
 
 
+global $TYPO3_CONF_VARS;
+
 
 /**
  * example for using the hotlist functionality with the sys_language table

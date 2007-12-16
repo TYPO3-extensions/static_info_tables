@@ -34,23 +34,30 @@
  *
  *
  *
- *   54: class tx_staticinfotables_div
- *   65:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
- *  116:     function isoCodeType($isoCode)
- *  137:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
- *  162:     function getTCAsortField($table, $loadTCA=TRUE)
- *  172:     function getCurrentLanguage()
- *  203:     function getCollateLocale()
- *  235:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  289:     function replaceMarkersInSQL($sql, $table, $row)
- *  331:     function selectItemsTCA($params)
- *  425:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  492:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *   61: class tx_staticinfotables_div
+ *   72:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
+ *  124:     function isoCodeType($isoCode)
+ *  146:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
+ *  172:     function getTCAsortField($table, $loadTCA=TRUE)
+ *  184:     function getCurrentLanguage()
+ *  217:     function getCurrentSystemLanguage($where='')
+ *  250:     function getCollateLocale()
+ *  283:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
+ *  343:     function replaceMarkersInSQL($sql, $table, $row)
+ *  385:     function selectItemsTCA($params)
+ *  482:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  552:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *  597:     function quoteJSvalue($value, $inScriptTags = false)
+ *  619:     function loadTcaAdditions($ext_keys)
  *
- * TOTAL FUNCTIONS: 11
+ * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
+
+global $TYPO3_CONF_VARS;
+
+
 class tx_staticinfotables_div {
 
 	/**
@@ -86,7 +93,7 @@ class tx_staticinfotables_div {
 
 						// get all extending TCAs
 					if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
-						tx_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
+						tx_staticinfotables_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
 					}
 				}
 			}
@@ -107,6 +114,7 @@ class tx_staticinfotables_div {
 		return $labelFields;
 	}
 
+
 	/**
 	 * Returns the type of an iso code: nr, 2, 3
 	 *
@@ -124,6 +132,7 @@ class tx_staticinfotables_div {
 		}
 		return $type;
 	}
+
 
 	/**
 	 * Returns a iso code field for the passed table and iso code
@@ -152,6 +161,7 @@ class tx_staticinfotables_div {
 		return FALSE;
 	}
 
+
 	/**
 	 * Returns a sort field for the current language
 	 *
@@ -161,8 +171,10 @@ class tx_staticinfotables_div {
 	 */
 	function getTCAsortField($table, $loadTCA=TRUE) {
 		$labelFields = tx_staticinfotables_div::getTCAlabelField($table, $loadTCA);
+
 		return $labelFields[0];
 	}
+
 
 	/**
 	 * Returns the current language as iso-2-alpha code
@@ -190,8 +202,43 @@ class tx_staticinfotables_div {
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res)) {
 			$lang = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
 		}
+		$TYPO3_DB->sql_free_result($res);
 
-		return $lang ? $lang : $csConvObj->conv_case('utf-8',$langCodeT3,'toUpper');
+		$rc = $lang ? $lang : $csConvObj->conv_case('utf-8',$langCodeT3,'toUpper');
+		return $rc;
+	}
+
+	/**
+	 * Returns the row of the current system language
+	 *
+	 * @param	[type]		$where: ...
+	 * @return	array		row in the sys_language table
+	 */
+	function getCurrentSystemLanguage($where='') {
+		global $LANG, $TSFE, $TYPO3_DB;
+
+		$rc = array();
+
+		if (is_object($LANG)) {
+			$langCodeT3 = $LANG->lang;
+		} elseif (is_object($TSFE)) {
+			$langCodeT3 = $TSFE->lang;
+		} else {
+			return $rc;
+		}
+
+		$res = $TYPO3_DB->exec_SELECTquery(
+			'sys_language.uid',
+			'sys_language LEFT JOIN static_languages ON sys_language.static_lang_isocode=static_languages.uid',
+			'static_languages.lg_typo3='.$TYPO3_DB->fullQuoteStr($langCodeT3,'static_languages').
+				$where
+			);
+		while($row = $TYPO3_DB->sql_fetch_assoc($res)) {
+			$rc[$row['uid']] = $row;
+		}
+
+		$TYPO3_DB->sql_free_result($res);
+		return $rc;
 	}
 
 	/*
@@ -219,6 +266,7 @@ class tx_staticinfotables_div {
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res)) {
 			$locale = $row['lg_collate_locale'];
 		}
+		$TYPO3_DB->sql_free_result($res);
 		return $locale ? $locale : 'C';
 	}
 
@@ -249,10 +297,12 @@ class tx_staticinfotables_div {
 			}
 			$index = 0;
 			foreach ($isoCode as $index => $code) {
-				$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
-				$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
-				if ($tmpField && $tmpValue)	{
-					$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+				if ($code != '')	{
+					$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
+					$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
+					if ($tmpField && $tmpValue)	{
+						$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+					}
 				}
 			}
 
@@ -269,9 +319,13 @@ class tx_staticinfotables_div {
 				);
 			if ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) return $row[$titleField];
+					if ($row[$titleField]) {
+						$title = $row[$titleField];
+						break;
+					}
 				}
 			}
+			$TYPO3_DB->sql_free_result($res);
 		}
 
 		return $title;
@@ -381,6 +435,7 @@ class tx_staticinfotables_div {
 					}
 					$cnt++;
 				}
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 
 				if (!isset($config['itemsProcFunc_config']['hotlistSort']) || $config['itemsProcFunc_config']['hotlistSort']) {
 					asort ($rows);
@@ -399,7 +454,7 @@ class tx_staticinfotables_div {
 			$orderBy = $titleFields[0];
 
 			if(!$config['itemsProcFunc_config']['hotlistOnly']) {
-				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fields, $table, '1'.$where.t3lib_BEfunc::deleteClause($table), '', $orderBy);
+				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($fields, $table, '1=1'.$where.t3lib_BEfunc::deleteClause($table), '', $orderBy);
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					foreach ($titleFields as $titleField) {
 						if ($row[$titleField]) {
@@ -408,9 +463,11 @@ class tx_staticinfotables_div {
 						}
 					}
 				}
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 		}
 	}
+
 
 	/**
 	 * Updates the hotlist table.
@@ -441,6 +498,7 @@ class tx_staticinfotables_div {
 				if ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
 					$uid = $row['uid'];
 				}
+				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
 			if ($uid) {
@@ -474,10 +532,12 @@ class tx_staticinfotables_div {
 						'sorting' => 1,
 					);
 					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_staticinfotables_hotlist', $row);
+					$GLOBALS['TYPO3_DB']->sql_free_result($res);
 				}
 			}
 		}
 	}
+
 
 	/**
 	 * Get a list of countries by specific parameters or parts of names of countries
@@ -490,38 +550,85 @@ class tx_staticinfotables_div {
 	 * @return	array		Array of rows of country records
 	 */
 	function &fetchCountries($country, $iso2='', $iso3='', $isonr='')	{
+		global $TYPO3_DB;
+
 		$rcArray = array();
 		$where = '';
 
 		$table = 'static_countries';
 		if ($country != '')	{
-			$value = $GLOBALS['TYPO3_DB']->fullQuoteStr(trim('%'.$country.'%'),$table);
+			$value = $TYPO3_DB->fullQuoteStr(trim('%'.$country.'%'),$table);
 			$where = 'cn_official_name_local LIKE '.$value.' OR cn_official_name_en LIKE '.$value.' OR cn_short_local LIKE '.$value;
 		}
 
 		if ($isonr != '')	{
-			$where = 'cn_iso_nr='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($isonr),$table);
+			$where = 'cn_iso_nr='.$TYPO3_DB->fullQuoteStr(trim($isonr),$table);
 		}
 
 		if ($iso2 != '')	{
-			$where = 'cn_iso_2='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($iso2),$table);
+			$where = 'cn_iso_2='.$TYPO3_DB->fullQuoteStr(trim($iso2),$table);
 		}
 
 		if ($iso3 !='')	{
-			$where = 'cn_iso_3='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($iso3),$table);
+			$where = 'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($iso3),$table);
 		}
 
 		if ($where != '')	{
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', $table, $where);
+			$res = $TYPO3_DB->exec_SELECTquery('*', $table, $where);
 
 			if ($res)	{
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
 					$rcArray[] = $row;
 				}
 			}
+			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
-
 		return $rcArray;
+	}
+
+
+	/**
+	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it doesn't need/must not get htmlspecialchar'ed in this case)
+	 *
+	 * @param	string		The string to encode.
+	 * @param	boolean		If the values get's used in <script> tags.
+	 * @return	string		The encoded value already quoted
+	 */
+	function quoteJSvalue($value, $inScriptTags = false)	{
+		global $TSFE;
+
+		$value = addcslashes($value, '"'.chr(10).chr(13));
+		if (!$inScriptTags)	{
+
+			$charset = $TSFE->renderCharset;
+			$value = htmlspecialchars($value,ENT_COMPAT,$charset);
+		}
+		return '"'.$value.'"';
+	}
+
+
+	/**
+	 * loadTcaAdditions($ext_keys)
+	 *
+	 * See: div extension
+	 * It has been copied here in order not to depend on this class library only for this function.
+	 *
+	 * @param	array		extension keys which have TCA additions to load
+	 * @return	[type]		...
+	 */
+	function loadTcaAdditions($ext_keys){
+		global $_EXTKEY, $TCA;
+
+		//Merge all ext_keys
+		if (is_array($ext_keys)) {
+			for($i = 0; $i < sizeof($ext_keys); $i++)	{
+				if (t3lib_extMgm::isLoaded($ext_keys[$i]))	{
+					//Include the ext_table
+					$_EXTKEY = $ext_keys[$i];
+					include(t3lib_extMgm::extPath($ext_keys[$i]).'ext_tables.php');
+				}
+			}
+		}
 	}
 }
 
