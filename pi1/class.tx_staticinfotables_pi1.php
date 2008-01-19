@@ -38,20 +38,20 @@
  *
  *
  *
- *   68: class tx_staticinfotables_pi1 extends tslib_pibase
- *   96:     function init()
- *  135:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
- *  199:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
- *  283:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  340:     function initCountrySubdivisions($param, $addWhere='')
- *  386:     function initCurrencies($addWhere='')
- *  426:     function initLanguages($addWhere='')
- *  466:     function optionsConstructor($nameArray, $selectedArray=array())
- *  487:     function loadCurrencyInfo($currencyCode)
- *  532:     function formatAmount($amount, $displayCurrencyCode='')
- *  560:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  609:     function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)
- *  733:     function getCurrentLanguage()
+ *   67: class tx_staticinfotables_pi1 extends tslib_pibase
+ *   95:     function init()
+ *  134:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
+ *  198:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
+ *  282:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  339:     function initCountrySubdivisions($param, $addWhere='')
+ *  385:     function initCurrencies($addWhere='')
+ *  425:     function initLanguages($addWhere='')
+ *  465:     function optionsConstructor($nameArray, $selectedArray=array())
+ *  486:     function loadCurrencyInfo($currencyCode)
+ *  531:     function formatAmount($amount, $displayCurrencyCode='')
+ *  559:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  608:     function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)
+ *  732:     function getCurrentLanguage()
  *
  * TOTAL FUNCTIONS: 13
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -63,7 +63,6 @@ global $TYPO3_CONF_VARS;
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('static_info_tables').'class.tx_staticinfotables_div.php');
-
 
 class tx_staticinfotables_pi1 extends tslib_pibase {
 

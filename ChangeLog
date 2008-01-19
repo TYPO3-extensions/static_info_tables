@@ -4,6 +4,7 @@
 	* fix bug with wrong '1 AND ...' SQL query with itemsProcFunc_config.hotlistOnly
 	* change Galician language
 	* fix bug 4589 with wrong SQL when no country code is available
+	* new feature: mutliple countries and languages can be selected at once
 
 2007-08-03  David Bruehlmeier <typo3@bruehlmeier.com> 
 	* Updated static_markets
