@@ -12,11 +12,11 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Static Info Tables',
-	'description' => 'Some database tables with usefull informations about countries, languages and currencies. Still lacks some data but the overall concept is stable. Install the extension div version 0.0.5 before you make an update!',
+	'description' => 'Some database tables with usefull informations about countries, languages and currencies.',
 	'category' => 'misc',
 	'shy' => 0,
+	'dependencies' => '',
 	'version' => '2.0.5',
-	'dependencies' => 'div',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => '',
 	'clearcacheonload' => 0,
 	'lockType' => '',
-	'author' => 'René Fritz',
+	'author' => 'RenÃ© Fritz',
 	'author_email' => 'r.fritz@colorcube.de',
 	'author_company' => 'Colorcube - digital media lab, www.colorcube.de',
 	'CGLcompliance' => '',
