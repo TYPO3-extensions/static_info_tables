@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2005 René Fritz (r.fritz@colorcube.de)
+*  (c) 2004-2008 René Fritz (r.fritz@colorcube.de)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -31,8 +31,6 @@
  */
 
 
-global $TYPO3_CONF_VARS;
-
 
 /**
  * example for using the hotlist functionality with the sys_language table
@@ -51,7 +49,7 @@ class tx_staticinfotables_syslanguage {
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php'])    {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php']);
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php'])    {
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php']);
 }
 ?>

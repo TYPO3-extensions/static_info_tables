@@ -26,11 +26,11 @@ if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
 
 $_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
 
-if (!isset($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']))	{
-	$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = $_EXTCONF['charset'] ? $_EXTCONF['charset'] : 'utf-8';
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']))	{
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = $_EXTCONF['charset'] ? $_EXTCONF['charset'] : 'utf-8';
 }
 
-$TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
 	'static_territories' => array(
 		'label_fields' => array(	// possible label fields for different languages. Default as last.
 			'tr_name_##', 'tr_name_en',

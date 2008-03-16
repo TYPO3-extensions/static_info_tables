@@ -1,3 +1,12 @@
+2008-03-15  Franz Holzinger  <contact@fholzinger.com>
+	* fix bug 6059: Static_country_zones Canada wrong ISO-Nr
+	* set default country to DEU and contry zone to NRW because most persons using TYPO3 live here
+	* set default language to EN because most persons using TYPO3 understand English
+	* add a $conf parameter to the init routine. Other extensions may override the setup now.
+	* fix bug with not set default country
+	* fix bug with not getting rid of the div extension
+	* replace $TYPO3_CONF_VARS by $GLOBALS['TYPO3_CONF_VARS'] because some PHP5 versions loose its value
+
 2007-12-16  Franz Holzinger  <kontakt@fholzinger.com>
 	* remove dependancy from div extension
 	* new feature charset: extension setup for the character set of the tables
