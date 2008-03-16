@@ -1,5 +1,6 @@
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -47,9 +48,9 @@ INSERT INTO static_territories VALUES ('28', '0', '61', '9', 'Polynesia');
 INSERT INTO static_territories VALUES ('30', '0', '34', '142', 'Southern Asia');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -324,9 +325,9 @@ INSERT INTO static_countries VALUES ('240', '0', 'AX', 'ALA', '248', '154', 'Ål
 INSERT INTO static_countries VALUES ('241', '0', 'HM', 'HMD', '334', '53', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '', '', 'AUD', '36', '0', '0', '0', '0', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '0');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -819,9 +820,9 @@ INSERT INTO static_country_zones VALUES ('481', '0', 'BR', 'BRA', '76', 'SP', 'S
 INSERT INTO static_country_zones VALUES ('482', '0', 'BR', 'BRA', '76', 'TO', 'Tocantins', '');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1015,9 +1016,9 @@ INSERT INTO static_currencies VALUES ('174', '0', 'SRD', '968', 'Suriname dollar
 INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1231,9 +1232,9 @@ INSERT INTO static_languages VALUES ('160', '0', 'IO', 'Ido', '', '', '', 'Ido',
 INSERT INTO static_languages VALUES ('182', '0', 'PI', 'Pali', '', '', '', 'Pāli', '1', '0');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1277,7 +1278,7 @@ INSERT INTO static_taxes VALUES ('10', '0', '1078631800', '0', '0', '0', '0', '1
 INSERT INTO static_taxes VALUES ('11', '0', '1078671742', '0', '0', '0', '0', '56', 'BE', 'BEL', '', 'Belgium VAT', '1', 'VAT', '3', '0.21', '1');
 INSERT INTO static_taxes VALUES ('12', '0', '1078672536', '0', '0', '0', '0', '203', 'CZ', 'CZE', '', 'Czech Republic VAT', '1', 'GST', '3', '0.22', '1');
 INSERT INTO static_taxes VALUES ('13', '0', '1078672881', '0', '0', '0', '0', '208', 'DK', 'DNK', '', 'Denmark VAT', '1', 'VAT', '3', '0.25', '1');
-INSERT INTO static_taxes VALUES ('14', '0', '1078673059', '0', '0', '0', '0', '276', 'DE', 'DEU', '', 'Germany VAT', '1', 'VAT', '3', '0.16', '1');
+INSERT INTO static_taxes VALUES ('14', '0', '1078673059', '0', '0', '0', '0', '276', 'DE', 'DEU', '', 'Germany VAT', '1', 'VAT', '3', '0.19', '1');
 INSERT INTO static_taxes VALUES ('15', '0', '1078673324', '0', '0', '0', '0', '233', 'EE', 'EST', '', 'Estonia VAT', '1', 'VAT', '3', '0.18', '1');
 INSERT INTO static_taxes VALUES ('16', '0', '1078673460', '0', '0', '0', '0', '300', 'GR', 'GRC', '', 'Greece VAT', '1', 'VAT', '3', '0.18', '1');
 INSERT INTO static_taxes VALUES ('17', '0', '1078673622', '0', '0', '0', '0', '724', 'ES', 'ESP', '', 'Spain VAT', '1', 'VAT', '3', '0.16', '1');
@@ -1301,9 +1302,9 @@ INSERT INTO static_taxes VALUES ('34', '0', '1078676577', '0', '0', '0', '0', '8
 INSERT INTO static_taxes VALUES ('35', '0', '1078709361', '0', '0', '0', '0', '484', 'MX', 'MEX', '', 'Mexico VAT', '1', 'IVA', '3', '0.15', '1');
 
 
-
 # TYPO3 Extension Manager dump 1.1
 #
+# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 

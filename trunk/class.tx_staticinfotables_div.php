@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2007 René Fritz (r.fritz@colorcube.de)
+*  (c) 2004-2008 René Fritz (r.fritz@colorcube.de)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -55,8 +55,6 @@
  *
  */
 
-global $TYPO3_CONF_VARS;
-
 
 class tx_staticinfotables_div {
 
@@ -70,7 +68,7 @@ class tx_staticinfotables_div {
 	 * @return	string		field name
 	 */
 	function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE) {
-		global $TYPO3_CONF_VARS, $TCA, $LANG, $TSFE;
+		global $TCA, $LANG, $TSFE;
 
 		if (is_object($LANG)) {
 			$csConvObj = $LANG->csConvObj;
@@ -85,22 +83,19 @@ class tx_staticinfotables_div {
 		}
 
 		$labelFields = array();
-		if($table && is_array($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'])) {
+		if($table && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'])) {
 			if ($loadTCA)	{
 				t3lib_div::loadTCA($table);
-				if (defined ('DIV_EXTkey') && t3lib_extMgm::isLoaded(DIV_EXTkey)) {
-					include_once(PATH_BE_div.'class.tx_div.php');
 
-						// get all extending TCAs
-					if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
-						tx_staticinfotables_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
-					}
+					// get all extending TCAs
+				if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']))	{
+					tx_staticinfotables_div::loadTcaAdditions($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['extendingTCA']);
 				}
 			}
 
 			$lang = $lang ? $lang : tx_staticinfotables_div::getCurrentLanguage();
 
-			foreach ($TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'] as $field) {
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'] as $field) {
 				if ($local) {
 					$labelField = str_replace ('##', 'local', $field);
 				} else {
@@ -144,9 +139,9 @@ class tx_staticinfotables_div {
 	 * @return	string		field name
 	 */
 	function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0) {
-		global $TYPO3_CONF_VARS, $TCA;
+		global $TCA;
 
-		if ($isoCode && $table && ($isoCodeField = $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['isocode_field'][$index])) {
+		if ($isoCode && $table && ($isoCodeField = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['isocode_field'][$index])) {
 			if ($loadTCA) {
 				t3lib_div::loadTCA($table);
 			}
@@ -316,7 +311,7 @@ class tx_staticinfotables_div {
 				$fields,
 				$table,
 				$whereClause.$enableFields
-				);
+			);
 			if ($row = $TYPO3_DB->sql_fetch_assoc($res))	{
 				foreach ($titleFields as $titleField) {
 					if ($row[$titleField]) {
@@ -633,7 +628,7 @@ class tx_staticinfotables_div {
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_div.php'])    {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_div.php']);
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_div.php'])    {
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_div.php']);
 }
 ?>
