@@ -1,6 +1,5 @@
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -50,7 +49,6 @@ INSERT INTO static_territories VALUES ('30', '0', '34', '142', 'Southern Asia');
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -327,7 +325,6 @@ INSERT INTO static_countries VALUES ('241', '0', 'HM', 'HMD', '334', '53', 'Hear
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -402,19 +399,19 @@ INSERT INTO static_country_zones VALUES ('62', '0', 'US', 'USA', '840', 'WA', 'W
 INSERT INTO static_country_zones VALUES ('63', '0', 'US', 'USA', '840', 'WV', 'West Virginia', '');
 INSERT INTO static_country_zones VALUES ('64', '0', 'US', 'USA', '840', 'WI', 'Wisconsin', '');
 INSERT INTO static_country_zones VALUES ('65', '0', 'US', 'USA', '840', 'WY', 'Wyoming', '');
-INSERT INTO static_country_zones VALUES ('66', '0', 'CA', 'CAN', '142', 'AB', 'Alberta', '');
-INSERT INTO static_country_zones VALUES ('67', '0', 'CA', 'CAN', '142', 'BC', 'British Columbia', '');
-INSERT INTO static_country_zones VALUES ('68', '0', 'CA', 'CAN', '142', 'MB', 'Manitoba', '');
-INSERT INTO static_country_zones VALUES ('69', '0', 'CA', 'CAN', '142', 'NF', 'Newfoundland and Labrabor', '');
-INSERT INTO static_country_zones VALUES ('70', '0', 'CA', 'CAN', '142', 'NB', 'New Brunswick', '');
-INSERT INTO static_country_zones VALUES ('71', '0', 'CA', 'CAN', '142', 'NS', 'Nova Scotia', '');
-INSERT INTO static_country_zones VALUES ('72', '0', 'CA', 'CAN', '142', 'NT', 'Northwest Territories', '');
-INSERT INTO static_country_zones VALUES ('73', '0', 'CA', 'CAN', '142', 'NU', 'Nunavut', '');
-INSERT INTO static_country_zones VALUES ('74', '0', 'CA', 'CAN', '142', 'ON', 'Ontario', '');
-INSERT INTO static_country_zones VALUES ('75', '0', 'CA', 'CAN', '142', 'PE', 'Prince Edward Island', '');
-INSERT INTO static_country_zones VALUES ('76', '0', 'CA', 'CAN', '142', 'QC', 'Québec', 'Quebec');
-INSERT INTO static_country_zones VALUES ('77', '0', 'CA', 'CAN', '142', 'SK', 'Saskatchewan', '');
-INSERT INTO static_country_zones VALUES ('78', '0', 'CA', 'CAN', '142', 'YT', 'Yukon Territory', '');
+INSERT INTO static_country_zones VALUES ('66', '0', 'CA', 'CAN', '124', 'AB', 'Alberta', '');
+INSERT INTO static_country_zones VALUES ('67', '0', 'CA', 'CAN', '124', 'BC', 'British Columbia', '');
+INSERT INTO static_country_zones VALUES ('68', '0', 'CA', 'CAN', '124', 'MB', 'Manitoba', '');
+INSERT INTO static_country_zones VALUES ('69', '0', 'CA', 'CAN', '124', 'NF', 'Newfoundland and Labrabor', '');
+INSERT INTO static_country_zones VALUES ('70', '0', 'CA', 'CAN', '124', 'NB', 'New Brunswick', '');
+INSERT INTO static_country_zones VALUES ('71', '0', 'CA', 'CAN', '124', 'NS', 'Nova Scotia', '');
+INSERT INTO static_country_zones VALUES ('72', '0', 'CA', 'CAN', '124', 'NT', 'Northwest Territories', '');
+INSERT INTO static_country_zones VALUES ('73', '0', 'CA', 'CAN', '124', 'NU', 'Nunavut', '');
+INSERT INTO static_country_zones VALUES ('74', '0', 'CA', 'CAN', '124', 'ON', 'Ontario', '');
+INSERT INTO static_country_zones VALUES ('75', '0', 'CA', 'CAN', '124', 'PE', 'Prince Edward Island', '');
+INSERT INTO static_country_zones VALUES ('76', '0', 'CA', 'CAN', '124', 'QC', 'Québec', 'Quebec');
+INSERT INTO static_country_zones VALUES ('77', '0', 'CA', 'CAN', '124', 'SK', 'Saskatchewan', '');
+INSERT INTO static_country_zones VALUES ('78', '0', 'CA', 'CAN', '124', 'YT', 'Yukon Territory', '');
 INSERT INTO static_country_zones VALUES ('79', '0', 'DE', 'DEU', '276', 'NDS', 'Niedersachsen', '');
 INSERT INTO static_country_zones VALUES ('80', '0', 'DE', 'DEU', '276', 'BAW', 'Baden-Württemberg', '');
 INSERT INTO static_country_zones VALUES ('81', '0', 'DE', 'DEU', '276', 'BAY', 'Bayern', '');
@@ -822,7 +819,6 @@ INSERT INTO static_country_zones VALUES ('482', '0', 'BR', 'BRA', '76', 'TO', 'T
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1018,7 +1014,6 @@ INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lir
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1234,7 +1229,6 @@ INSERT INTO static_languages VALUES ('182', '0', 'PI', 'Pali', '', '', '', 'Pāl
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
@@ -1265,16 +1259,16 @@ CREATE TABLE static_taxes (
 );
 
 
-INSERT INTO static_taxes VALUES ('1', '0', '1078592928', '0', '0', '0', '0', '142', 'CA', 'CAN', 'SK', 'Saskatchewan Retail Sales Tax', '2', 'SKRST', '3', '0.06', '1');
-INSERT INTO static_taxes VALUES ('2', '0', '1078593040', '0', '0', '0', '0', '142', 'CA', 'CAN', 'QC', 'Québec Sales Tax', '2', 'TVQ', '3', '0.075', '2');
-INSERT INTO static_taxes VALUES ('3', '0', '1078630120', '0', '0', '0', '0', '142', 'CA', 'CAN', '', 'Canada Goods and Services Tax', '1', 'GST', '3', '0.07', '1');
-INSERT INTO static_taxes VALUES ('4', '0', '1078630420', '0', '0', '0', '0', '142', 'CA', 'CAN', 'MB', 'Manitoba Retail Sales Tax', '2', 'MBRST', '3', '0.07', '1');
-INSERT INTO static_taxes VALUES ('5', '0', '1078630556', '0', '0', '0', '0', '142', 'CA', 'CAN', 'BC', 'British Columbia Retail Sales Tax', '2', 'BCRST', '3', '0.075', '1');
-INSERT INTO static_taxes VALUES ('6', '0', '1078630731', '0', '0', '0', '0', '142', 'CA', 'CAN', 'ON', 'Ontario Retail Sales Tax', '2', 'ONRST', '3', '0.08', '1');
-INSERT INTO static_taxes VALUES ('7', '0', '1078631374', '0', '0', '0', '0', '142', 'CA', 'CAN', 'NB', 'New Brunswick Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
-INSERT INTO static_taxes VALUES ('8', '0', '1078631540', '0', '0', '0', '0', '142', 'CA', 'CAN', 'NS', 'Nova Scotia Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
-INSERT INTO static_taxes VALUES ('9', '0', '1078631644', '0', '0', '0', '0', '142', 'CA', 'CAN', 'PE', 'Prince Edward Island Retail Sales Tax', '2', 'PERST', '3', '0.1', '2');
-INSERT INTO static_taxes VALUES ('10', '0', '1078631800', '0', '0', '0', '0', '142', 'CA', 'CAN', 'NL', 'Newfoundland and Labrador Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
+INSERT INTO static_taxes VALUES ('1', '0', '1078592928', '0', '0', '0', '0', '124', 'CA', 'CAN', 'SK', 'Saskatchewan Retail Sales Tax', '2', 'SKRST', '3', '0.06', '1');
+INSERT INTO static_taxes VALUES ('2', '0', '1078593040', '0', '0', '0', '0', '124', 'CA', 'CAN', 'QC', 'Québec Sales Tax', '2', 'TVQ', '3', '0.075', '2');
+INSERT INTO static_taxes VALUES ('3', '0', '1078630120', '0', '0', '0', '0', '124', 'CA', 'CAN', '', 'Canada Goods and Services Tax', '1', 'GST', '3', '0.07', '1');
+INSERT INTO static_taxes VALUES ('4', '0', '1078630420', '0', '0', '0', '0', '124', 'CA', 'CAN', 'MB', 'Manitoba Retail Sales Tax', '2', 'MBRST', '3', '0.07', '1');
+INSERT INTO static_taxes VALUES ('5', '0', '1078630556', '0', '0', '0', '0', '124', 'CA', 'CAN', 'BC', 'British Columbia Retail Sales Tax', '2', 'BCRST', '3', '0.075', '1');
+INSERT INTO static_taxes VALUES ('6', '0', '1078630731', '0', '0', '0', '0', '124', 'CA', 'CAN', 'ON', 'Ontario Retail Sales Tax', '2', 'ONRST', '3', '0.08', '1');
+INSERT INTO static_taxes VALUES ('7', '0', '1078631374', '0', '0', '0', '0', '124', 'CA', 'CAN', 'NB', 'New Brunswick Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
+INSERT INTO static_taxes VALUES ('8', '0', '1078631540', '0', '0', '0', '0', '124', 'CA', 'CAN', 'NS', 'Nova Scotia Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
+INSERT INTO static_taxes VALUES ('9', '0', '1078631644', '0', '0', '0', '0', '124', 'CA', 'CAN', 'PE', 'Prince Edward Island Retail Sales Tax', '2', 'PERST', '3', '0.1', '2');
+INSERT INTO static_taxes VALUES ('10', '0', '1078631800', '0', '0', '0', '0', '124', 'CA', 'CAN', 'NL', 'Newfoundland and Labrador Harmonized Sales Tax', '2', 'HST', '3', '0.08', '1');
 INSERT INTO static_taxes VALUES ('11', '0', '1078671742', '0', '0', '0', '0', '56', 'BE', 'BEL', '', 'Belgium VAT', '1', 'VAT', '3', '0.21', '1');
 INSERT INTO static_taxes VALUES ('12', '0', '1078672536', '0', '0', '0', '0', '203', 'CZ', 'CZE', '', 'Czech Republic VAT', '1', 'GST', '3', '0.22', '1');
 INSERT INTO static_taxes VALUES ('13', '0', '1078672881', '0', '0', '0', '0', '208', 'DK', 'DNK', '', 'Denmark VAT', '1', 'VAT', '3', '0.25', '1');
@@ -1304,7 +1298,6 @@ INSERT INTO static_taxes VALUES ('35', '0', '1078709361', '0', '0', '0', '0', '4
 
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: TYPO3
 #--------------------------------------------------------
 
 
