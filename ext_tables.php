@@ -97,31 +97,6 @@ $TCA['static_currencies'] = array(
 	)
 );
 
-$TCA['static_taxes'] = Array (
-	'ctrl' => Array (
-		'label' => 'tx_name_en',
-		'type' => 'tx_scope',
-		'readOnly' => 1,
-		'adminOnly' => 1,
-		'rootLevel' => 1,
-		'is_static' => 1,
-		'default_sortby' => 'ORDER BY tx_name_en',
-		'crdate' => 'crdate',
-		'delete' => 'deleted',
-		'enablecolumns' => Array (
-			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
-		),
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_taxes.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
-		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_currencies.gif',
-	),
-	'interface' => Array (
-		'showRecordFieldList' => 'tx_name_en,tx_scope,tx_code,tx_country_iso_3,tx_country_iso_2,tx_country_iso_nr,tx_zn_code,tx_class,tx_rate,tx_priority,crdate,hidden,starttime,endtime'
-	)
-);
-
 // Static markets from ISO 10383
 $TCA['static_markets'] = array (
 	'ctrl' => array (
@@ -145,7 +120,6 @@ $TCA['static_languages']['ctrl']['readOnly'] = 0;
 $TCA['static_country_zones']['ctrl']['readOnly'] = 0;
 $TCA['static_currencies']['ctrl']['readOnly'] = 0;
 $TCA['static_territories']['ctrl']['readOnly'] = 0;
-$TCA['static_taxes']['ctrl']['readOnly'] = 0;
 $TCA['static_markets']['ctrl']['readOnly'] = 0;
 
 

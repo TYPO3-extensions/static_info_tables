@@ -30,7 +30,7 @@ if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['ch
 	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = $_EXTCONF['charset'] ? $_EXTCONF['charset'] : 'utf-8';
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array(
+$labelTable = array(
 	'static_territories' => array(
 		'label_fields' => array(	// possible label fields for different languages. Default as last.
 			'tr_name_##', 'tr_name_en',
@@ -71,14 +71,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = ar
 			'cu_iso_##',
 		),
 	),
-	'static_taxes' => array(
-		'label_fields' => array(
-			'tx_name_##', 'tx_name_en',
-		),
-		'isocode_field' => array(
-			'tx_code', 'tx_country_iso_##', 'tx_zn_code',
-		),
-	),
 	'static_markets' => array(
 		'label_fields' => array(
 			'institution_description',
@@ -88,6 +80,12 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = ar
 		),
 	),
 );
+
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']))	{
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array_merge ($labelTable, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']);
+} else {
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = $labelTable;
+}
 
 require_once(t3lib_extMgm::extPath(STATIC_INFO_TABLES_EXTkey).'class.tx_staticinfotables_div.php');
 

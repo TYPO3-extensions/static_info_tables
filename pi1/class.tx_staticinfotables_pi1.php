@@ -50,7 +50,6 @@
  *  501:     function loadCurrencyInfo($currencyCode)
  *  546:     function formatAmount($amount, $displayCurrencyCode='')
  *  574:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  623:     function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)
  *  747:     function getCurrentLanguage()
  *
  * TOTAL FUNCTIONS: 13
@@ -250,18 +249,19 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 				$param = (trim($country) ? trim($country) : $this->defaultCountry);
 				$nameArray = $this->initCountrySubdivisions($param,$addWhere);
 				if($param == $this->defaultCountry) {
-					$selectedDefault = $this->defaultCountryZone;
+					$defaultSelectedArray = array($this->defaultCountryZone);
 				}
 				break;
 			case 'CURRENCIES':
 				$nameArray = $this->initCurrencies($addWhere);
-				$selectedDefault = $this->currency;
+				$defaultSelectedArray = array($this->currency);
 				break;
 			case 'LANGUAGES':
 				$nameArray = $this->initLanguages($addWhere);
 				$defaultSelectedArray = array($this->defaultLanguage);
 				break;
 		}
+
 		if (!$defaultSelectedArray)	{
 			reset($nameArray);
 			$defaultSelectedArray = array(key($nameArray));
@@ -605,137 +605,6 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$formatedAddress = implode($delim, t3lib_div::trimExplode(';', $formatedAddress, 1));
 
 		return $formatedAddress;
-	}
-
-	/**
-	 * Applying taxes to a given amount
-	 *
-	 * @param	float		An amount to which taxes should be applied
-	 * @param	integer		The class of taxation of the product
-	 * @param	string		The ISO alpha-3 code of the country of the selling shop
-	 * @param	string		The country subdivision code of the region of the selling shop
-	 * @param	string		The ISO alpha-3 code of the country of the buying consumer
-	 * @param	string		The country subdivision code of the region of the buying consumer
-	 * @param	boolean		Should be set if the shop has sales of goods beyond the regulatory threshold in the buyer's country (when both shop and buyer in EU)
-	 * @return	array		An array of 4-plets of applied taxes: ('tx_name','tx_rate','tx_amount','tx_priority')
-	 */
-	function applyConsumerTaxes($amount, $taxClass=0, $shopCountryCode, $shopCountrySubdivisionCode, $buyerCountryCode, $buyerCountrySubdivisionCode, $EUThreshold=0)	{
-		global $TYPO3_DB;
-
-		$appliedTaxesIndex = 0;
-		$appliedTaxes = array();
-		$shopCountryCode = ($shopCountryCode) ? $shopCountryCode : $this->defaultCountry;
-		$buyerCountryCode = ($buyerCountryCode) ? $buyerCountryCode : $this->defaultCountry;
-
-			// Not taxable!
-		if (!$taxClass || !trim($shopCountryCode) || !trim($buyerCountryCode)) {
-			return $appliedTaxes;
-		}
-
-			// Get national taxes
-		if (trim($shopCountryCode) == trim($buyerCountryCode)) {
-			$res = $TYPO3_DB->exec_SELECTquery(
-				'*',
-				'static_taxes',
-				'tx_country_iso_3='.$TYPO3_DB->fullQuoteStr(trim($shopCountryCode),'static_taxes').
-					' AND tx_scope="1"'.
-					' AND (tx_class='.$TYPO3_DB->fullQuoteStr($taxClass,'static_taxes').' OR tx_class="3")'.
-					$this->enableFields('static_taxes')
-			);
-			while($row = $TYPO3_DB->sql_fetch_assoc($res))	{
-				$appliedTaxes[$appliedTaxesIndex] = array();
-				$appliedTaxes[$appliedTaxesIndex]['tx_name'] =  $this->getStaticInfoName('TAXES', $row['tx_code'], trim($shopCountryCode));
-				$appliedTaxes[$appliedTaxesIndex]['tx_rate'] = doubleval($row['tx_rate']);
-				$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
-				$appliedTaxesIndex++;
-			}
-			$TYPO3_DB->sql_free_result($res);
-
-	 			// Get state or provincial taxes
-			if( trim($shopCountrySubdivisionCode) && trim($buyerCountrySubdivisionCode) &&  trim($shopCountrySubdivisionCode) == trim($buyerCountrySubdivisionCode) ) {
-				$res = $TYPO3_DB->exec_SELECTquery(
-					'*',
-					'static_taxes',
-					'tx_country_iso_3='.$TYPO3_DB->fullQuoteStr(trim($shopCountryCode),'static_taxes').
-						' AND tx_zn_code='.$TYPO3_DB->fullQuoteStr(trim($shopCountrySubdivisionCode),'static_taxes').
-						' AND tx_scope="2"'.
-						' AND (tx_class='.$TYPO3_DB->fullQuoteStr($taxClass,'static_taxes').' OR tx_class="3")'.
-						$this->enableFields('static_taxes')
-				);
-				while($row = $TYPO3_DB->sql_fetch_assoc($res))	{
-					$appliedTaxes[$appliedTaxesIndex] = array();
-					$appliedTaxes[$appliedTaxesIndex]['tx_name'] =  $this->getStaticInfoName('SUBTAXES', $row['tx_code'], trim($shopCountryCode), trim($shopCountrySubdivisionCode));
-					$appliedTaxes[$appliedTaxesIndex]['tx_rate'] = doubleval($row['tx_rate']);
-					$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
-					$appliedTaxesIndex++;
-				}
-				$TYPO3_DB->sql_free_result($res);
-			}
-		} else	{
-	 			// Apply EU Internal Market rules for under threshold sales
-			$res = $TYPO3_DB->exec_SELECTquery(
-				'cn_eu_member',
-				'static_countries',
-				'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($shopCountryCode),'static_countries')
-			);
-			$row = $TYPO3_DB->sql_fetch_assoc($res);
-			$TYPO3_DB->sql_free_result($res);
-			$shop_cn_eu_member = $row['cn_eu_member'];
-			if ($shop_cn_eu_member) {
-				$res = $TYPO3_DB->exec_SELECTquery(
-					'cn_eu_member',
-					'static_countries',
-					'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($buyerCountryCode),'static_countries')
-				);
-				$row = $TYPO3_DB->sql_fetch_assoc($res);
-				$TYPO3_DB->sql_free_result($res);
-				$buyer_cn_eu_member = $row['cn_eu_member'];
-				if ($buyer_cn_eu_member) {
-							// Here we apply the rules of the European Union Internal Market
-					$taxCountryCode = trim($shopCountryCode);
-					if ($taxClass == '1' && $EUThreshold)	{
-						$taxCountryCode = trim($buyerCountryCode);
-					}
-					$res = $TYPO3_DB->exec_SELECTquery(
-						'*',
-						'static_taxes',
-						'tx_country_iso_3='.$TYPO3_DB->fullQuoteStr($taxCountryCode,'static_taxes').
-							' AND tx_scope="1"'.
-							' AND (tx_class='.$TYPO3_DB->fullQuoteStr($taxClass,'static_taxes').' OR tx_class="3")'.
-							$this->enableFields('static_taxes')
-					);
-					while($row = $TYPO3_DB->sql_fetch_assoc($res))	{
-						$appliedTaxes[$appliedTaxesIndex] = array();
-						$appliedTaxes[$appliedTaxesIndex]['tx_name'] =  $this->getStaticInfoName('TAXES', $row['tx_code'], trim($shopCountryCode));
-						$appliedTaxes[$appliedTaxesIndex]['tx_rate'] = doubleval($row['tx_rate']);
-						$appliedTaxes[$appliedTaxesIndex]['tx_priority'] = $row['tx_priority'];
-						$appliedTaxesIndex++;
-					}
-					$TYPO3_DB->sql_free_result($res);
-				}
-			}
-		}
-
-	 		// Apply rates
-		if( count($appliedTaxes) )	{
-			foreach ($appliedTaxes as $key => $row) {
-				$priority[$key] = $row['tx_priority'];
-			}
-			array_multisort($priority, SORT_ASC, $appliedTaxes);
-			$priority = $priority['0'];
-			$appliedTaxesAmount = $amount;
-			$baseAmount = $appliedTaxesAmount;
-			foreach ($appliedTaxes as $key => $row) {
-				if( $row['tx_priority'] > $priority ) {
-					$baseAmount = $appliedTaxesAmount;
-					$priority = $row['tx_priority'];
-				}
-				$taxedAmount = $row['tx_rate']*$baseAmount;
-				$appliedTaxes[$key]['tx_amount'] = round($taxedAmount, ceil(0 - log10($taxedAmount)) + $this->currencyInfo['cu_decimal_digits']);
-				$appliedTaxesAmount += $appliedTaxes[$key]['tx_amount'];
-			}
-		}
-		return $appliedTaxes;
 	}
 
 	/**
