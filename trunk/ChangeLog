@@ -1,3 +1,7 @@
+2008-04-26  Franz Holzinger  <contact@fholzinger.com>
+	* fix bug 7930: default values for country zones and currencies have been wrong
+	* move static_taxes into a separate extension static_info_tables_taxes
+
 2008-03-15  Franz Holzinger  <contact@fholzinger.com>
 	* fix bug 6059: Static_country_zones Canada wrong ISO-Nr
 	* set default country to DEU and contry zone to NRW because most persons using TYPO3 live here

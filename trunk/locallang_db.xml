@@ -65,22 +65,6 @@
             <label index="static_currencies_item.cu_sub_divisor">Divisor:</label>
             <label index="static_currencies_item.cu_sub_symbol_left">Sub symbol left:</label>
             <label index="static_currencies_item.cu_sub_symbol_right">Sub symbol right:</label>
-            <label index="static_taxes.title">Static taxes</label>
-            <label index="static_taxes_item.cn_iso_2">ISO 3166-1 A2 Country code:</label>
-            <label index="static_taxes_item.cn_iso_3">ISO 3166-1 A3 Country code:</label>
-            <label index="static_taxes_item.cn_iso_nr">ISO 3166-1 Nr Country code:</label>
-            <label index="static_taxes_item.zn_code">ISO 3166-2 Country Zone code:</label>
-            <label index="static_taxes_item.tx_name_en">Tax name (EN):</label>
-            <label index="static_taxes_item.tx_code">Tax code:</label>
-            <label index="static_taxes_item.tx_scope">Juridiction:</label>
-            <label index="static_taxes_item.tx_scope.I.0">Country</label>
-            <label index="static_taxes_item.tx_scope.I.1">State/province</label>
-            <label index="static_taxes_item.tx_class">Class:</label>
-            <label index="static_taxes_item.tx_class.I.0">Taxable goods</label>
-            <label index="static_taxes_item.tx_class.I.1">Taxable services</label>
-            <label index="static_taxes_item.tx_class.I.2">Taxable goods and services</label>
-            <label index="static_taxes_item.tx_rate">Rate:</label>
-            <label index="static_taxes_item.tx_priority">Priority:</label>
 			<label index="static_markets.title">Markets</label>
 			<label index="static_markets.country">Country:</label>
 			<label index="static_markets.mic">MIC:</label>
@@ -138,22 +122,6 @@
             <label index="static_currencies_item.cu_sub_divisor">Divisor:</label>
             <label index="static_currencies_item.cu_sub_symbol_left">Sub-Symbol links:</label>
             <label index="static_currencies_item.cu_sub_symbol_right">Sub-Symbol rechts:</label>
-            <label index="static_taxes.title">Steuern</label>
-            <label index="static_taxes_item.cn_iso_2">Ländercode nach ISO 3166 A2:</label>
-            <label index="static_taxes_item.cn_iso_3">Ländercode nach ISO 3166 A3:</label>
-            <label index="static_taxes_item.cn_iso_nr">Ländercode nach ISO 3166 Nr:</label>
-            <label index="static_taxes_item.zn_code">Zonenkürzel:</label>
-            <label index="static_taxes_item.tx_name_en">Steuername (EN):</label>
-            <label index="static_taxes_item.tx_code">Steuerkürzel:</label>
-            <label index="static_taxes_item.tx_scope">Geltungsbereich:</label>
-            <label index="static_taxes_item.tx_scope.I.0">Land</label>
-            <label index="static_taxes_item.tx_scope.I.1">Bundesland/Provinz</label>
-            <label index="static_taxes_item.tx_class">Steuerklasse:</label>
-            <label index="static_taxes_item.tx_class.I.0">Steuerpflichtge Waren</label>
-            <label index="static_taxes_item.tx_class.I.1">Steuerpflichtge Dienstleistungen</label>
-            <label index="static_taxes_item.tx_class.I.2">Steuerpflichtge Waren und Dienstleistungen</label>
-            <label index="static_taxes_item.tx_rate">Steuersatz:</label>
-            <label index="static_taxes_item.tx_priority">Priorität:</label>
 			<label index="static_markets.title">Marktplätze</label>
 			<label index="static_markets.country">Land:</label>
 			<label index="static_markets.mic">MIC:</label>
@@ -259,22 +227,6 @@
             <label index="static_currencies_item.cu_sub_divisor">Diviseur:</label>
             <label index="static_currencies_item.cu_sub_symbol_left">Symbole à gauche - Subdivision:</label>
             <label index="static_currencies_item.cu_sub_symbol_right">Symbole à droite - Subdivision:</label>
-            <label index="static_taxes.title">Taxe</label>
-            <label index="static_taxes_item.cn_iso_2">Code de pays ISO 3166-1 A2:</label>
-            <label index="static_taxes_item.cn_iso_3">Code de pays ISO 3166-1 A3:</label>
-            <label index="static_taxes_item.cn_iso_nr">Code de pays ISO 3166-1 numérique:</label>
-            <label index="static_taxes_item.zn_code">Code de subdivision de pays ISO 3166-2:</label>
-            <label index="static_taxes_item.tx_name_en">Dénomination de la taxe (EN):</label>
-            <label index="static_taxes_item.tx_code">Code de taxe:</label>
-            <label index="static_taxes_item.tx_scope">Juridiction:</label>
-            <label index="static_taxes_item.tx_scope.I.0">Pays</label>
-            <label index="static_taxes_item.tx_scope.I.1">État/province</label>
-            <label index="static_taxes_item.tx_class">Classe:</label>
-            <label index="static_taxes_item.tx_class.I.0">Biens taxables</label>
-            <label index="static_taxes_item.tx_class.I.1">Services taxables</label>
-            <label index="static_taxes_item.tx_class.I.2">Biens et services taxables</label>
-            <label index="static_taxes_item.tx_rate">Taux:</label>
-            <label index="static_taxes_item.tx_priority">Priorité:</label>
         </languageKey>
         <languageKey index="es" type="array">
             <label index="static_countries.title">País - Datos státicos</label>
@@ -324,22 +276,6 @@
             <label index="static_currencies_item.cu_sub_divisor">Divisor:</label>
             <label index="static_currencies_item.cu_sub_symbol_left">Símbolo a la izquierda - Subdivisión:</label>
             <label index="static_currencies_item.cu_sub_symbol_right">Símbolo a la derecha - Subdivisión:</label>
-            <label index="static_taxes.title">Impuesto - Datos státicos</label>
-            <label index="static_taxes_item.cn_iso_2">Código de país ISO 2:</label>
-            <label index="static_taxes_item.cn_iso_3">Código de país ISO 3:</label>
-            <label index="static_taxes_item.cn_iso_nr">Código de país ISO numérico:</label>
-            <label index="static_taxes_item.zn_code">Código de subdivisión de país:</label>
-            <label index="static_taxes_item.tx_name_en">Denominación del impuesto (EN):</label>
-            <label index="static_taxes_item.tx_code">Código de impuesto:</label>
-            <label index="static_taxes_item.tx_scope">Juridicción:</label>
-            <label index="static_taxes_item.tx_scope.I.0">País</label>
-            <label index="static_taxes_item.tx_scope.I.1">Estado/provincia</label>
-            <label index="static_taxes_item.tx_class">Clase:</label>
-            <label index="static_taxes_item.tx_class.I.0">Bienes imponibles</label>
-            <label index="static_taxes_item.tx_class.I.1">Servicios imponibles</label>
-            <label index="static_taxes_item.tx_class.I.2">Bienes y servicios imponibles</label>
-            <label index="static_taxes_item.tx_rate">Tasa del impuesto:</label>
-            <label index="static_taxes_item.tx_priority">Prioridad:</label>
         </languageKey>
         <languageKey index="nl" type="array">
         </languageKey>
@@ -710,22 +646,6 @@
             <label index="static_currencies_item.cu_sub_divisor" type="integer">181976944</label>
             <label index="static_currencies_item.cu_sub_symbol_left" type="integer">257294363</label>
             <label index="static_currencies_item.cu_sub_symbol_right" type="integer">180538285</label>
-            <label index="static_taxes.title" type="integer">43562229</label>
-            <label index="static_taxes_item.cn_iso_2" type="integer">47145425</label>
-            <label index="static_taxes_item.cn_iso_3" type="integer">129658471</label>
-            <label index="static_taxes_item.cn_iso_nr" type="integer">46311532</label>
-            <label index="static_taxes_item.zn_code" type="integer">117876527</label>
-            <label index="static_taxes_item.tx_name_en" type="integer">226775552</label>
-            <label index="static_taxes_item.tx_code" type="integer">153496813</label>
-            <label index="static_taxes_item.tx_scope" type="integer">92266942</label>
-            <label index="static_taxes_item.tx_scope.I.0" type="integer">93787849</label>
-            <label index="static_taxes_item.tx_scope.I.1" type="integer">151152448</label>
-            <label index="static_taxes_item.tx_class" type="integer">108564327</label>
-            <label index="static_taxes_item.tx_class.I.0" type="integer">180454434</label>
-            <label index="static_taxes_item.tx_class.I.1" type="integer">109297838</label>
-            <label index="static_taxes_item.tx_class.I.2" type="integer">130964316</label>
-            <label index="static_taxes_item.tx_rate" type="integer">167203922</label>
-            <label index="static_taxes_item.tx_priority" type="integer">6238968</label>
         </languageKey>
         <languageKey index="dk" type="array">
         </languageKey>
@@ -776,22 +696,6 @@
             <label index="static_currencies_item.cu_sub_divisor" type="integer">181976944</label>
             <label index="static_currencies_item.cu_sub_symbol_left" type="integer">257294363</label>
             <label index="static_currencies_item.cu_sub_symbol_right" type="integer">180538285</label>
-            <label index="static_taxes.title" type="integer">43562229</label>
-            <label index="static_taxes_item.cn_iso_2" type="integer">47145425</label>
-            <label index="static_taxes_item.cn_iso_3" type="integer">129658471</label>
-            <label index="static_taxes_item.cn_iso_nr" type="integer">46311532</label>
-            <label index="static_taxes_item.zn_code" type="integer">117876527</label>
-            <label index="static_taxes_item.tx_name_en" type="integer">226775552</label>
-            <label index="static_taxes_item.tx_code" type="integer">153496813</label>
-            <label index="static_taxes_item.tx_scope" type="integer">92266942</label>
-            <label index="static_taxes_item.tx_scope.I.0" type="integer">93787849</label>
-            <label index="static_taxes_item.tx_scope.I.1" type="integer">151152448</label>
-            <label index="static_taxes_item.tx_class" type="integer">108564327</label>
-            <label index="static_taxes_item.tx_class.I.0" type="integer">180454434</label>
-            <label index="static_taxes_item.tx_class.I.1" type="integer">109297838</label>
-            <label index="static_taxes_item.tx_class.I.2" type="integer">130964316</label>
-            <label index="static_taxes_item.tx_rate" type="integer">167203922</label>
-            <label index="static_taxes_item.tx_priority" type="integer">6238968</label>
         </languageKey>
         <languageKey index="no" type="array">
         </languageKey>
@@ -890,22 +794,6 @@
             <label index="static_currencies_item.cu_sub_divisor" type="integer">181976944</label>
             <label index="static_currencies_item.cu_sub_symbol_left" type="integer">257294363</label>
             <label index="static_currencies_item.cu_sub_symbol_right" type="integer">180538285</label>
-            <label index="static_taxes.title" type="integer">43562229</label>
-            <label index="static_taxes_item.cn_iso_2" type="integer">47145425</label>
-            <label index="static_taxes_item.cn_iso_3" type="integer">129658471</label>
-            <label index="static_taxes_item.cn_iso_nr" type="integer">46311532</label>
-            <label index="static_taxes_item.zn_code" type="integer">117876527</label>
-            <label index="static_taxes_item.tx_name_en" type="integer">226775552</label>
-            <label index="static_taxes_item.tx_code" type="integer">153496813</label>
-            <label index="static_taxes_item.tx_scope" type="integer">92266942</label>
-            <label index="static_taxes_item.tx_scope.I.0" type="integer">93787849</label>
-            <label index="static_taxes_item.tx_scope.I.1" type="integer">151152448</label>
-            <label index="static_taxes_item.tx_class" type="integer">108564327</label>
-            <label index="static_taxes_item.tx_class.I.0" type="integer">180454434</label>
-            <label index="static_taxes_item.tx_class.I.1" type="integer">109297838</label>
-            <label index="static_taxes_item.tx_class.I.2" type="integer">130964316</label>
-            <label index="static_taxes_item.tx_rate" type="integer">167203922</label>
-            <label index="static_taxes_item.tx_priority" type="integer">6238968</label>
         </languageKey>
         <languageKey index="es" type="array">
             <label index="static_countries.title" type="integer">126932382</label>
@@ -955,22 +843,6 @@
             <label index="static_currencies_item.cu_sub_divisor" type="integer">181976944</label>
             <label index="static_currencies_item.cu_sub_symbol_left" type="integer">257294363</label>
             <label index="static_currencies_item.cu_sub_symbol_right" type="integer">180538285</label>
-            <label index="static_taxes.title" type="integer">43562229</label>
-            <label index="static_taxes_item.cn_iso_2" type="integer">47145425</label>
-            <label index="static_taxes_item.cn_iso_3" type="integer">129658471</label>
-            <label index="static_taxes_item.cn_iso_nr" type="integer">46311532</label>
-            <label index="static_taxes_item.zn_code" type="integer">117876527</label>
-            <label index="static_taxes_item.tx_name_en" type="integer">226775552</label>
-            <label index="static_taxes_item.tx_code" type="integer">153496813</label>
-            <label index="static_taxes_item.tx_scope" type="integer">92266942</label>
-            <label index="static_taxes_item.tx_scope.I.0" type="integer">93787849</label>
-            <label index="static_taxes_item.tx_scope.I.1" type="integer">151152448</label>
-            <label index="static_taxes_item.tx_class" type="integer">108564327</label>
-            <label index="static_taxes_item.tx_class.I.0" type="integer">180454434</label>
-            <label index="static_taxes_item.tx_class.I.1" type="integer">109297838</label>
-            <label index="static_taxes_item.tx_class.I.2" type="integer">130964316</label>
-            <label index="static_taxes_item.tx_rate" type="integer">167203922</label>
-            <label index="static_taxes_item.tx_priority" type="integer">6238968</label>
         </languageKey>
         <languageKey index="nl" type="array">
         </languageKey>
