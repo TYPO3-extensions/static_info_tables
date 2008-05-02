@@ -34,28 +34,26 @@
  *
  *
  *
- *   61: class tx_staticinfotables_div
- *   72:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
- *  124:     function isoCodeType($isoCode)
- *  146:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
- *  172:     function getTCAsortField($table, $loadTCA=TRUE)
- *  184:     function getCurrentLanguage()
- *  217:     function getCurrentSystemLanguage($where='')
- *  250:     function getCollateLocale()
- *  283:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  343:     function replaceMarkersInSQL($sql, $table, $row)
- *  385:     function selectItemsTCA($params)
- *  482:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  552:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  597:     function quoteJSvalue($value, $inScriptTags = false)
- *  619:     function loadTcaAdditions($ext_keys)
+ *   57: class tx_staticinfotables_div
+ *   68:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
+ *  117:     function isoCodeType($isoCode)
+ *  139:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
+ *  165:     function getTCAsortField($table, $loadTCA=TRUE)
+ *  177:     function getCurrentLanguage()
+ *  210:     function getCurrentSystemLanguage($where='')
+ *  243:     function getCollateLocale()
+ *  276:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
+ *  336:     function replaceMarkersInSQL($sql, $table, $row)
+ *  378:     function selectItemsTCA($params)
+ *  475:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  545:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *  590:     function quoteJSvalue($value, $inScriptTags = false)
+ *  612:     function loadTcaAdditions($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
-
-
 class tx_staticinfotables_div {
 
 	/**

@@ -38,21 +38,21 @@
  *
  *
  *
- *   67: class tx_staticinfotables_pi1 extends tslib_pibase
- *   96:     function init($conf=array())
- *  149:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
- *  213:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
- *  297:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  354:     function initCountrySubdivisions($param, $addWhere='')
- *  400:     function initCurrencies($addWhere='')
- *  440:     function initLanguages($addWhere='')
- *  480:     function optionsConstructor($nameArray, $selectedArray=array())
- *  501:     function loadCurrencyInfo($currencyCode)
- *  546:     function formatAmount($amount, $displayCurrencyCode='')
- *  574:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  747:     function getCurrentLanguage()
+ *   65: class tx_staticinfotables_pi1 extends tslib_pibase
+ *   94:     function init($conf=array())
+ *  147:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
+ *  211:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
+ *  296:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  353:     function initCountrySubdivisions($param, $addWhere='')
+ *  399:     function initCurrencies($addWhere='')
+ *  439:     function initLanguages($addWhere='')
+ *  479:     function optionsConstructor($nameArray, $selectedArray=array())
+ *  500:     function loadCurrencyInfo($currencyCode)
+ *  545:     function formatAmount($amount, $displayCurrencyCode='')
+ *  573:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  615:     function getCurrentLanguage()
  *
- * TOTAL FUNCTIONS: 13
+ * TOTAL FUNCTIONS: 12
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
