@@ -132,26 +132,27 @@ class tx_staticinfotables_div {
 	 *
 	 * @param	string		table name
 	 * @param	string		iso code
-	 * @param	boolean		If set (default) the TCA definition of the table should be loaded with t3lib_div::loadTCA(). It will be needed to set it to false if you call this function from inside of tca.php
-	 * @param	[type]		$index: ...
+	 * @param	boolean		If set (default) the TCA definition of the table should be loaded with t3lib_div::loadTCA(). It will be needed to set it to FALSE if you call this function from inside of tca.php
+	 * @param	integer		index in the table's isocode_field array in the global variable 
+	 *                                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']
 	 * @return	string		field name
 	 */
-	function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0) {
+	function getIsoCodeField($table, $isoCode, $bLoadTCA=TRUE, $index=0) {
 		global $TCA;
+		$rc = FALSE;
 
-		if ($isoCode && $table && ($isoCodeField = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['isocode_field'][$index])) {
-			if ($loadTCA) {
+		if ($isoCode && $table && (($isoCodeField = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['isocode_field'][$index]) != '')) {
+			if ($bLoadTCA) {
 				t3lib_div::loadTCA($table);
 			}
-
 			$type = tx_staticinfotables_div::isoCodeType($isoCode);
-
 			$isoCodeField = str_replace ('##', $type, $isoCodeField);
+
 			if (is_array($TCA[$table]['columns'][$isoCodeField])) {
-				return $isoCodeField;
+				$rc = $isoCodeField;
 			}
 		}
-		return FALSE;
+		return $rc;
 	}
 
 
@@ -298,7 +299,6 @@ class tx_staticinfotables_div {
 					}
 				}
 			}
-
 			if (is_object($TSFE)) {
 				$enableFields = $TSFE->sys_page->enableFields($table);
 			} else {
@@ -497,15 +497,6 @@ class tx_staticinfotables_div {
 			if ($uid) {
 					// update record from hotlist table
 				$newRow = array('sorting' => 'sorting+1');
-//				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-//						'tx_staticinfotables_hotlist',
-//						'uid_local='.$uid.
-//							' AND application='.$GLOBALS['TYPO3_DB']->fullQuoteStr($app,'tx_staticinfotables_hotlist').
-//							' AND tablenames='.$GLOBALS['TYPO3_DB']->fullQuoteStr($table,'tx_staticinfotables_hotlist').
-//							t3lib_BEfunc::deleteClause('tx_staticinfotables_hotlist'),
-//						$newRow
-//					);
-
 				// the dumb update function does not allow to use sorting+1 - that's why this trick is necessary
 
 				$GLOBALS['TYPO3_DB']->sql_query(str_replace('"sorting+1"', 'sorting+1', $GLOBALS['TYPO3_DB']->UPDATEquery(
@@ -607,7 +598,7 @@ class tx_staticinfotables_div {
 	 * It has been copied here in order not to depend on this class library only for this function.
 	 *
 	 * @param	array		extension keys which have TCA additions to load
-	 * @return	[type]		...
+	 * @return	void
 	 */
 	function loadTcaAdditions($ext_keys){
 		global $_EXTKEY, $TCA;
