@@ -436,7 +436,7 @@ INSERT INTO static_country_zones VALUES ('99', '0', 'AT', 'AUT', '40', 'KN', 'KÃ
 INSERT INTO static_country_zones VALUES ('100', '0', 'AT', 'AUT', '40', 'ST', 'Steiermark', '');
 INSERT INTO static_country_zones VALUES ('101', '0', 'AT', 'AUT', '40', 'TI', 'Tirol', '');
 INSERT INTO static_country_zones VALUES ('102', '0', 'AT', 'AUT', '40', 'BL', 'Burgenland', '');
-INSERT INTO static_country_zones VALUES ('103', '0', 'AT', 'AUT', '40', 'VB', 'Voralberg', '');
+INSERT INTO static_country_zones VALUES ('103', '0', 'AT', 'AUT', '40', 'VB', 'Vorarlberg', '');
 INSERT INTO static_country_zones VALUES ('104', '0', 'CH', 'CHE', '756', 'AG', 'Aargau', '');
 INSERT INTO static_country_zones VALUES ('105', '0', 'CH', 'CHE', '756', 'AI', 'Appenzell Innerrhoden', '');
 INSERT INTO static_country_zones VALUES ('106', '0', 'CH', 'CHE', '756', 'AR', 'Appenzell Ausserrhoden', '');

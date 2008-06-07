@@ -11,6 +11,7 @@ CREATE TABLE static_territories (
   UNIQUE uid (uid)
 );
 
+
 #
 # Table structure for table "static_countries"
 #
