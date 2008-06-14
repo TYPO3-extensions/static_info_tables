@@ -37,18 +37,18 @@
  *   57: class tx_staticinfotables_div
  *   68:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
  *  117:     function isoCodeType($isoCode)
- *  139:     function getIsoCodeField($table, $isoCode, $loadTCA=TRUE, $index=0)
- *  165:     function getTCAsortField($table, $loadTCA=TRUE)
- *  177:     function getCurrentLanguage()
- *  210:     function getCurrentSystemLanguage($where='')
- *  243:     function getCollateLocale()
- *  276:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  336:     function replaceMarkersInSQL($sql, $table, $row)
- *  378:     function selectItemsTCA($params)
- *  475:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  545:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  590:     function quoteJSvalue($value, $inScriptTags = false)
- *  612:     function loadTcaAdditions($ext_keys)
+ *  141:     function getIsoCodeField($table, $isoCode, $bLoadTCA=TRUE, $index=0)
+ *  167:     function getTCAsortField($table, $loadTCA=TRUE)
+ *  179:     function getCurrentLanguage()
+ *  212:     function getCurrentSystemLanguage($where='')
+ *  245:     function getCollateLocale()
+ *  278:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
+ *  337:     function replaceMarkersInSQL($sql, $table, $row)
+ *  379:     function selectItemsTCA($params)
+ *  476:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  537:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *  582:     function quoteJSvalue($value, $inScriptTags = false)
+ *  604:     function loadTcaAdditions($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -130,11 +130,12 @@ class tx_staticinfotables_div {
 	/**
 	 * Returns a iso code field for the passed table and iso code
 	 *
+	 *                                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']
+	 *
 	 * @param	string		table name
 	 * @param	string		iso code
 	 * @param	boolean		If set (default) the TCA definition of the table should be loaded with t3lib_div::loadTCA(). It will be needed to set it to FALSE if you call this function from inside of tca.php
-	 * @param	integer		index in the table's isocode_field array in the global variable 
-	 *                                 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']
+	 * @param	integer		index in the table's isocode_field array in the global variable
 	 * @return	string		field name
 	 */
 	function getIsoCodeField($table, $isoCode, $bLoadTCA=TRUE, $index=0) {
