@@ -38,21 +38,22 @@
  *
  *
  *
- *   65: class tx_staticinfotables_pi1 extends tslib_pibase
- *   94:     function init($conf=array())
- *  147:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $self=0)
- *  211:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
- *  296:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  353:     function initCountrySubdivisions($param, $addWhere='')
- *  399:     function initCurrencies($addWhere='')
- *  439:     function initLanguages($addWhere='')
- *  479:     function optionsConstructor($nameArray, $selectedArray=array())
- *  500:     function loadCurrencyInfo($currencyCode)
- *  545:     function formatAmount($amount, $displayCurrencyCode='')
- *  573:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  615:     function getCurrentLanguage()
+ *   66: class tx_staticinfotables_pi1 extends tslib_pibase
+ *   96:     function needsInit ()
+ *  106:     function init($conf=array())
+ *  163:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE)
+ *  234:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())
+ *  319:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  376:     function initCountrySubdivisions($param, $addWhere='')
+ *  422:     function initCurrencies($addWhere='')
+ *  462:     function initLanguages($addWhere='')
+ *  503:     function optionsConstructor($nameArray, $selectedArray=array(), &$outSelectedArray=array())
+ *  529:     function loadCurrencyInfo($currencyCode)
+ *  574:     function formatAmount($amount, $displayCurrencyCode='')
+ *  602:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  646:     function getCurrentLanguage()
  *
- * TOTAL FUNCTIONS: 12
+ * TOTAL FUNCTIONS: 13
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
@@ -130,7 +131,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		if (!$this->defaultCountryZone)	{
 			$this->defaultCountryZone = trim($this->conf['countryZoneCode']);
 		}
-		if (!$this->getStaticInfoName('SUBDIVISIONS', $this->defaultCountryZone, $this->defaultCountry))	{ 
+		if (!$this->getStaticInfoName('SUBDIVISIONS', $this->defaultCountryZone, $this->defaultCountry))	{
 			if ($this->defaultCountry == 'DEU') {
 				$this->defaultCountryZone = 'NRW';
 			} else {
