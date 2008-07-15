@@ -57,8 +57,7 @@ class ext_update  {
 			$content .= '<p>You must enter the charset \''.$destEncoding.'\' now manually in the EM for static_info_tables!</p>';
 			$content .= '<p>Done</p>';
 		} else {
-/*			$content .= '</form>';
-			$content .= '<form action="'.htmlspecialchars(t3lib_div::linkThisScript()).'" method="post">';*/
+			$content .= '<form name="static_info_tables_form" action="'.htmlspecialchars(t3lib_div::linkThisScript()).'" method="post">';
 			$linkScript = t3lib_div::slashJS(t3lib_div::linkThisScript());
 			$content .= '<br /><br />';
 			$content .= 'This conversion works only once. When you converted the tables and you want to do it again to another encoding you have to reinstall the tables with the Extension Manager or select \'UPDATE!\'.';
@@ -67,7 +66,7 @@ class ext_update  {
 			$content .= '<br />'.tx_staticinfotables_encoding::getEncodingSelect('dest_encoding', '', '', $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']);
 			$content .= '<br /><br />';
 			$content .= '<input type="submit" name="convert" value="Convert"  onclick="this.form.action=\''.$linkScript.'\';submit();" />';
-//			$content .= '</form>';
+			$content .= '</form>';
 		}
 
 		return $content;

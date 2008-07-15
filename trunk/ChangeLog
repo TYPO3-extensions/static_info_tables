@@ -1,3 +1,9 @@
+2008-07-15  Franz Holzinger  <contact@fholzinger.com>
+	* Add the form tags to the UPDATE! function in EM for TYPO3 4.2.1
+	* The versions 2.0.x are the last ones which will work under PHP 4.
+	* Fix bug with PHP4: http://www.jambage.com/index.php?id=215&tt_board_uid=1621
+	  Remove the parameter $outSelectedArray again for PHP4. This will be back again in version 2.1.0.
+
 2008-06-07  Franz Holzinger  <contact@fholzinger.com>
 	* fix bug 7930: return the resulting selected array in the methods buildStaticInfoSelector and optionsConstructor
 	* new method needsInit which tells if the object has already been initialised
