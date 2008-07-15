@@ -873,7 +873,7 @@ INSERT INTO static_currencies VALUES ('27', '0', 'BYR', '974', 'Belarussian Rubl
 INSERT INTO static_currencies VALUES ('28', '0', 'BZD', '84', 'Belize Dollar', 'BZ', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('29', '0', 'CAD', '124', 'Canadian Dollar', '$', '', '.', ',', '2', 'cent', '100', '', '¢');
 INSERT INTO static_currencies VALUES ('30', '0', 'CDF', '976', 'Congolese franc', 'FC', '', '.', ',', '2', 'centime', '100', '', '');
-INSERT INTO static_currencies VALUES ('31', '0', 'CHF', '756', 'Swiss franc', 'SFr.', '', '.', ',', '2', 'centime', '100', '', '');
+INSERT INTO static_currencies VALUES ('31', '0', 'CHF', '756', 'Swiss franc', 'SFr.', '', '''', '.', '2', 'centime', '100', '', '');
 INSERT INTO static_currencies VALUES ('33', '0', 'CLP', '152', 'Chilean Peso', '$', '', '.', '', '0', '', '1', '', '');
 INSERT INTO static_currencies VALUES ('34', '0', 'CNY', '156', 'Chinese Yuan Renminbi', 'Ұ', '', '.', ',', '2', 'fen', '100', '', '');
 INSERT INTO static_currencies VALUES ('35', '0', 'COP', '170', 'Colombian Peso', '$', '', '.', ',', '2', 'centavo', '100', '', '');

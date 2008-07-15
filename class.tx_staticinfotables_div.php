@@ -47,7 +47,7 @@
  *  379:     function selectItemsTCA($params)
  *  476:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
  *  537:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  582:     function quoteJSvalue($value, $inScriptTags = false)
+ *  582:     function quoteJSvalue($value, $inScriptTags=FALSE)
  *  604:     function loadTcaAdditions($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
@@ -193,7 +193,7 @@ class tx_staticinfotables_div {
 			'lg_iso_2,lg_country_iso_2',
 			'static_languages',
 			'lg_typo3='.$TYPO3_DB->fullQuoteStr($langCodeT3,'static_languages')
-			);
+		);
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res)) {
 			$lang = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
 		}
@@ -573,13 +573,13 @@ class tx_staticinfotables_div {
 
 
 	/**
-	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it doesn't need/must not get htmlspecialchar'ed in this case)
+	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it must not get `htmlspecialchar'ed in this case because this is done in this function)
 	 *
 	 * @param	string		The string to encode.
-	 * @param	boolean		If the values get's used in <script> tags.
+	 * @param	boolean		If the values are used inside of <script> tags.
 	 * @return	string		The encoded value already quoted
 	 */
-	function quoteJSvalue($value, $inScriptTags = false)	{
+	function quoteJSvalue($value, $inScriptTags=FALSE)	{
 		global $TSFE;
 
 		$value = addcslashes($value, '"'.chr(10).chr(13));
@@ -595,11 +595,11 @@ class tx_staticinfotables_div {
 	/**
 	 * loadTcaAdditions($ext_keys)
 	 *
-	 * See: div extension
-	 * It has been copied here in order not to depend on this class library only for this function.
+	 * It has been copied here in order not to depend on the div extension only for this function.
 	 *
 	 * @param	array		extension keys which have TCA additions to load
 	 * @return	void
+	 * @see div extension
 	 */
 	function loadTcaAdditions($ext_keys){
 		global $_EXTKEY, $TCA;
