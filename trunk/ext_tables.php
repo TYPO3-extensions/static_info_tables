@@ -144,29 +144,29 @@ $TCA['static_markets']['ctrl']['readOnly'] = 0;
 
 t3lib_div::loadTCA('sys_language');
 $TCA['sys_language']['columns']['static_lang_isocode']['config'] = array(
-			'type' => 'select',
-			'items' => array(
-				array('',0),
-			),
-			#'foreign_table' => 'static_languages',
-			#'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
-			'itemsProcFunc' => 'tx_staticinfotables_div->selectItemsTCA',
-			'itemsProcFunc_config' => array(
-				'table' => 'static_languages',
-				'indexField' => 'uid',
-				// I think that will make more sense in the future
-				// 'indexField' => 'lg_iso_2',
-				'prependHotlist' => 1,
-				//	defaults:
-				//'hotlistLimit' => 8,
-				//'hotlistSort' => 1,
-				//'hotlistOnly' => 0,
-				//'hotlistApp' => TYPO3_MODE,
-			),
-			'size' => 1,
-			'minitems' => 0,
-			'maxitems' => 1,
-		);
+	'type' => 'select',
+	'items' => array(
+		array('',0),
+	),
+	#'foreign_table' => 'static_languages',
+	#'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
+	'itemsProcFunc' => 'tx_staticinfotables_div->selectItemsTCA',
+	'itemsProcFunc_config' => array(
+		'table' => 'static_languages',
+		'indexField' => 'uid',
+		// I think that will make more sense in the future
+		// 'indexField' => 'lg_iso_2',
+		'prependHotlist' => 1,
+		//	defaults:
+		//'hotlistLimit' => 8,
+		//'hotlistSort' => 1,
+		//'hotlistOnly' => 0,
+		//'hotlistApp' => TYPO3_MODE,
+	),
+	'size' => 1,
+	'minitems' => 0,
+	'maxitems' => 1,
+);
 
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:'.STATIC_INFO_TABLES_EXTkey.'/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
 

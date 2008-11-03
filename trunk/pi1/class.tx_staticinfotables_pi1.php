@@ -42,16 +42,16 @@
  *   96:     function needsInit ()
  *  106:     function init($conf=array())
  *  163:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE)
- *  233:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)
- *  318:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  375:     function initCountrySubdivisions($param, $addWhere='')
- *  421:     function initCurrencies($addWhere='')
- *  461:     function initLanguages($addWhere='')
- *  501:     function optionsConstructor($nameArray, $selectedArray=array())
- *  528:     function loadCurrencyInfo($currencyCode)
- *  573:     function formatAmount($amount, $displayCurrencyCode='')
- *  601:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  645:     function getCurrentLanguage()
+ *  234:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())
+ *  319:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  376:     function initCountrySubdivisions($param, $addWhere='')
+ *  422:     function initCurrencies($addWhere='')
+ *  462:     function initLanguages($addWhere='')
+ *  503:     function optionsConstructor($nameArray, $selectedArray=array(), &$outSelectedArray=array())
+ *  529:     function loadCurrencyInfo($currencyCode)
+ *  574:     function formatAmount($amount, $displayCurrencyCode='')
+ *  602:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  646:     function getCurrentLanguage()
  *
  * TOTAL FUNCTIONS: 13
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -228,9 +228,10 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	boolean		$local: If set, we are looking for the "local" title field
 	 * @param	array		additional array to be merged as key => value pair
 	 * @param	int		max elements that can be selected. Default: 1
+	 * @param	array		out: resulting selected array with the ISO alpha-3 code of the countries
 	 * @return	string		A set of HTML <select> and <option> tags
 	 */
-	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1)	{
+	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())	{
 		global $TSFE;
 
 		if ($size > 1) {
@@ -296,7 +297,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			uasort($nameArray, 'strcoll');
 		}
 		if(count($nameArray) > 0)	{
-			$selector .= $this->optionsConstructor($nameArray, $selectedArray);
+			$selector .= $this->optionsConstructor($nameArray, $selectedArray, $outSelectedArray);
 			$selector .= '</select>'.chr(10);
 		} else {
 			$selector = '';
@@ -496,13 +497,13 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 *
 	 * @param	array		An array where the values will be the texts of an <option> tags and keys will be the values of the tags
 	 * @param	string		A pre-selected value: if the value appears as a key, the <option> tag will bear a 'selected' attribute
+	 * @param	array		out: resulting selected array with the ISO alpha-3 code of the countries
 	 * @return	string		A string of HTML <option> tags
 	 */
-	function optionsConstructor($nameArray, $selectedArray=array()) {
+	function optionsConstructor($nameArray, $selectedArray=array(), &$outSelectedArray=array()) {
 		global $TSFE;
 
 		$options = '';
-		$outSelectedArray=array();
 		foreach($nameArray as $value => $name)	{
 
 			$options  .= '<option value="'.$value.'"';
