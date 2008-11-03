@@ -296,9 +296,12 @@ class tx_staticinfotables_div {
 					$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
 					$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
 					if ($tmpField && $tmpValue)	{
-						$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+						$whereClause .= ($whereClause!='' ? ' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
 					}
 				}
+			}
+			if (strpos($whereClause,' AND ')===0)	{
+				$whereClause = '1=1'.$whereClause;
 			}
 			if (is_object($TSFE)) {
 				$enableFields = $TSFE->sys_page->enableFields($table);
@@ -489,10 +492,12 @@ class tx_staticinfotables_div {
 				$fields['uid'] = 'uid';
 
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(implode(',',$fields), $table, $indexField.'='.$GLOBALS['TYPO3_DB']->fullQuoteStr($indexValue,$table).t3lib_BEfunc::deleteClause($table));
-				if ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
-					$uid = $row['uid'];
+				if ($res !== FALSE)	{
+					if ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
+						$uid = $row['uid'];
+					}
+					$GLOBALS['TYPO3_DB']->sql_free_result($res);
 				}
-				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
 			if ($uid) {
@@ -517,7 +522,6 @@ class tx_staticinfotables_div {
 						'sorting' => 1,
 					);
 					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_staticinfotables_hotlist', $row);
-					$GLOBALS['TYPO3_DB']->sql_free_result($res);
 				}
 			}
 		}
