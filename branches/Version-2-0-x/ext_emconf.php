@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "static_info_tables"
 #
-# Auto generated 07-11-2008 09:21
+# Auto generated 07-11-2008 12:14
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -35,7 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '4.0-0.0.0',
-			'php' => '5.1.0-0.0.0',
+			'php' => '4.0.0-0.0.0',
 		),
 		'conflicts' => array(
 		),
