@@ -11,7 +11,6 @@ CREATE TABLE static_territories (
   UNIQUE uid (uid)
 );
 
-
 #
 # Table structure for table "static_countries"
 #
@@ -128,3 +127,4 @@ CREATE TABLE tx_staticinfotables_hotlist (
   sorting bigint(20) unsigned DEFAULT '0' NOT NULL,
   KEY uid_local (uid_local),
 );
+

@@ -1,3 +1,8 @@
+2008-11-07  Franz Holzinger  <contact@fholzinger.com>
+	* Fix bug 9351: Tennessee
+	* fix getTitleFromIsoCode: empty where clause must be '1=1' to allow AND combinations
+	* support for page module
+
 2008-07-15  Franz Holzinger  <contact@fholzinger.com>
 	* Add the form tags to the UPDATE! function in EM for TYPO3 4.2.1
 	* The versions 2.0.x are the last ones which will work under PHP 4.

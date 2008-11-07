@@ -296,7 +296,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 			uasort($nameArray, 'strcoll');
 		}
 		if(count($nameArray) > 0)	{
-			$selector .= $this->optionsConstructor($nameArray, $selectedArray);
+			$selector .= $this->optionsConstructor($nameArray, $selectedArray); // $outSelectedArray +++ removed for PHP4 compatibility
 			$selector .= '</select>'.chr(10);
 		} else {
 			$selector = '';
@@ -501,8 +501,8 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	function optionsConstructor($nameArray, $selectedArray=array()) {
 		global $TSFE;
 
+		$outSelectedArray = array();
 		$options = '';
-		$outSelectedArray=array();
 		foreach($nameArray as $value => $name)	{
 
 			$options  .= '<option value="'.$value.'"';

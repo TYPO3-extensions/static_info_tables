@@ -43,12 +43,12 @@
  *  212:     function getCurrentSystemLanguage($where='')
  *  245:     function getCollateLocale()
  *  278:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  337:     function replaceMarkersInSQL($sql, $table, $row)
- *  379:     function selectItemsTCA($params)
- *  476:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  537:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  582:     function quoteJSvalue($value, $inScriptTags=FALSE)
- *  604:     function loadTcaAdditions($ext_keys)
+ *  341:     function replaceMarkersInSQL($sql, $table, $row)
+ *  383:     function selectItemsTCA($params)
+ *  480:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  542:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *  587:     function quoteJSvalue($value, $inScriptTags=FALSE)
+ *  609:     function loadTcaAdditions($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -280,7 +280,8 @@ class tx_staticinfotables_div {
 
 		$title = '';
 		$titleFields = tx_staticinfotables_div::getTCAlabelField($table, TRUE, $lang, $local);
-		if (count ($titleFields))	{
+
+		if (count($titleFields))	{
 			$prefixedTitleFields = array();
 			foreach ($titleFields as $titleField) {
 				$prefixedTitleFields[] = $table.'.'.$titleField;
@@ -296,9 +297,12 @@ class tx_staticinfotables_div {
 					$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
 					$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
 					if ($tmpField && $tmpValue)	{
-						$whereClause .= ($index?' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+						$whereClause .= ($whereClause!='' ? ' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
 					}
 				}
+			}
+			if (strpos($whereClause,' AND ')===0)	{
+				$whereClause = '1=1'.$whereClause;
 			}
 			if (is_object($TSFE)) {
 				$enableFields = $TSFE->sys_page->enableFields($table);
@@ -489,10 +493,12 @@ class tx_staticinfotables_div {
 				$fields['uid'] = 'uid';
 
 				$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(implode(',',$fields), $table, $indexField.'='.$GLOBALS['TYPO3_DB']->fullQuoteStr($indexValue,$table).t3lib_BEfunc::deleteClause($table));
-				if ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
-					$uid = $row['uid'];
+				if ($res !== FALSE)	{
+					if ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
+						$uid = $row['uid'];
+					}
+					$GLOBALS['TYPO3_DB']->sql_free_result($res);
 				}
-				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 			}
 
 			if ($uid) {
@@ -517,7 +523,6 @@ class tx_staticinfotables_div {
 						'sorting' => 1,
 					);
 					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_staticinfotables_hotlist', $row);
-					$GLOBALS['TYPO3_DB']->sql_free_result($res);
 				}
 			}
 		}
