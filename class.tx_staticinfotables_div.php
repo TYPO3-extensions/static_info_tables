@@ -43,12 +43,12 @@
  *  212:     function getCurrentSystemLanguage($where='')
  *  245:     function getCollateLocale()
  *  278:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  337:     function replaceMarkersInSQL($sql, $table, $row)
- *  379:     function selectItemsTCA($params)
- *  476:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  537:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  582:     function quoteJSvalue($value, $inScriptTags=FALSE)
- *  604:     function loadTcaAdditions($ext_keys)
+ *  340:     function replaceMarkersInSQL($sql, $table, $row)
+ *  382:     function selectItemsTCA($params)
+ *  479:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  541:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
+ *  586:     function quoteJSvalue($value, $inScriptTags=FALSE)
+ *  608:     function loadTcaAdditions($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
