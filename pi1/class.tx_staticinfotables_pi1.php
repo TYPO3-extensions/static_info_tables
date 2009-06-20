@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2008 Stanislas Rolland <stanislas.rolland(arobas)sjbr.ca>
+*  (c) 2004-2009 Stanislas Rolland <stanislas.rolland(arobas)sjbr.ca>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -103,7 +103,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	array		$conf ... overwriting setup of extension
 	 * @return	boolean		Always returns true
 	 */
-	function init($conf=array())	{
+	function init ($conf=array())	{
 		global $TSFE;
 
 		$this->conf = $TSFE->tmpl->setup['plugin.'][$this->prefixId.'.'];
@@ -160,7 +160,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	boolean		local name only - if set local title is returned
 	 * @return	string		The name of the object in the current language
 	 */
-	function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE) {
+	function getStaticInfoName ($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE) {
 		global $TYPO3_DB, $TSFE;
 
 		if (in_array($type, $this->types) && trim($code)) {
@@ -231,7 +231,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	array		out: resulting selected array with the ISO alpha-3 code of the countries
 	 * @return	string		A set of HTML <select> and <option> tags
 	 */
-	function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())	{
+	function buildStaticInfoSelector ($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())	{
 		global $TSFE;
 
 		if ($size > 1) {
@@ -316,7 +316,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		additional WHERE clause
 	 * @return	array		An array of names of countries
 	 */
-	function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='') {
+	function initCountries ($param='UN', $lang='', $local=FALSE, $addWhere='') {
 		global $TYPO3_DB, $TSFE;
 
 		$table = $this->tables['COUNTRIES'];
@@ -373,7 +373,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		additional WHERE clause
 	 * @return	array		An array of names of country subdivisions
 	 */
-	function initCountrySubdivisions($param, $addWhere='')	{
+	function initCountrySubdivisions ($param, $addWhere='')	{
 		global $TYPO3_DB, $TSFE;
 
 		$table = $this->tables['SUBDIVISIONS'];
@@ -419,7 +419,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		additional WHERE clause
 	 * @return	array		An array of names of currencies
 	 */
-	function initCurrencies($addWhere='') {
+	function initCurrencies ($addWhere='') {
 		global $TYPO3_DB, $TSFE;
 
 		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
@@ -459,7 +459,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		additional WHERE clause
 	 * @return	array		An array of names of languages
 	 */
-	function initLanguages($addWhere='') {
+	function initLanguages ($addWhere='') {
 		global $TYPO3_DB, $TSFE;
 
 		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
@@ -500,7 +500,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	array		out: resulting selected array with the ISO alpha-3 code of the countries
 	 * @return	string		A string of HTML <option> tags
 	 */
-	function optionsConstructor($nameArray, $selectedArray=array(), &$outSelectedArray=array()) {
+	function optionsConstructor ($nameArray, $selectedArray=array(), &$outSelectedArray=array()) {
 		global $TSFE;
 
 		$options = '';
@@ -526,7 +526,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		An ISO alpha-3 currency code
 	 * @return	array		An array of information regarding the currrency
 	 */
-	function loadCurrencyInfo($currencyCode)	{
+	function loadCurrencyInfo ($currencyCode)	{
 		global $TYPO3_DB;
 
 			// Fetching the currency record
@@ -571,7 +571,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		A flag specifying if the the currency code should be displayed:
 	 * @return	string		The formated amounted
 	 */
-	function formatAmount($amount, $displayCurrencyCode='')	{
+	function formatAmount ($amount, $displayCurrencyCode='')	{
 
 		$formatedAmount = '';
 
@@ -599,7 +599,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 * @param	string		A zip code
 	 * @return	string		The formated address using the country address format (cn_address_format)
 	 */
-	function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')	{
+	function formatAddress ($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')	{
 		global $TYPO3_DB;
 
 		$formatedAddress = '';
@@ -643,7 +643,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	 *
 	 * @return	string		'DE', 'EN', 'DK', ...
 	 */
-	function getCurrentLanguage() {
+	function getCurrentLanguage () {
 		global $TSFE, $TYPO3_DB;
 
 		$rc = tx_staticinfotables_div::getCurrentLanguage();

@@ -1,3 +1,12 @@
+2009-06-20  Franz Holzinger  <franz@ttproducts.de>
+	* Fix bug 2397: loadTcaAdditions
+	* Add the field 'deleted' to static_countries because some countries like 'Serbia and Montenegro' have been divided.
+	* This makes it possible to keep lost countries for historical reasons.
+	* Add the new countries Serbia and Montenegro
+	* Add Dutch country zones
+	* fix the telephone precall number for some countries
+	* make Romania and Bulgaria to EU countries
+
 2008-11-03  Franz Holzinger  <contact@fholzinger.com>
 	* Fix bug 9351: Tennessee
 	* fix getTitleFromIsoCode: empty where clause must be '1=1' to allow AND combinations
@@ -37,23 +46,23 @@
 	* fix bug 4589 with wrong SQL when no country code is available
 	* new feature: mutliple countries and languages can be selected at once
 
-2007-08-03  David Bruehlmeier <typo3@bruehlmeier.com> 
+2007-08-03  David Bruehlmeier <typo3@bruehlmeier.com>
 	* Updated static_markets
 
 2007-07-17  Franz Holzinger  <kontakt@fholzinger.com>
 	* new function fetchCountries to get a list of countries which match the parameters
 
-2007-06-19  David Bruehlmeier <typo3@bruehlmeier.com> 
+2007-06-19  David Bruehlmeier <typo3@bruehlmeier.com>
 	* Updated static_markets
 
 2007-06-16  Franz Holzinger  <kontakt@fholzinger.com>
 	* support for custom where clauses with static_info_tables by Jeff Segars
 	* fix bug #5616: hook function processDatamap_postProcessFieldArray must not use $this as parameter name
 
-2007-05-22  David Bruehlmeier <typo3@bruehlmeier.com> 
+2007-05-22  David Bruehlmeier <typo3@bruehlmeier.com>
 	* Updated static_markets
 
-2007-05-16  David Bruehlmeier <typo3@bruehlmeier.com> 
+2007-05-16  David Bruehlmeier <typo3@bruehlmeier.com>
 	* Added static_markets to $TYPO3_CONF_VARS['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']
 
 2007-04-24  Franz Holzinger  <kontakt@fholzinger.com>
@@ -62,7 +71,7 @@
 2007-04-14  Franz Holzinger  <kontakt@fholzinger.com>
 	* small modifications using constants
 
-2007-04-03  David Bruehlmeier <typo3@bruehlmeier.com> 
+2007-04-03  David Bruehlmeier <typo3@bruehlmeier.com>
 	* Fixed small bug in selectItemsTCA()
 	* Added new table 'static_markets' (regulated by ISO 10383)
 

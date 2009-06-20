@@ -31,6 +31,7 @@ $TCA['static_countries'] = array(
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY cn_short_en',
+		'delete' => 'deleted',
 		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_countries.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_countries.gif',
@@ -100,7 +101,7 @@ $TCA['static_currencies'] = array(
 // Static markets from ISO 10383
 $TCA['static_markets'] = array (
 	'ctrl' => array (
-		'title'     => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_markets.title',	
+		'title'     => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_markets.title',
 		'label'     => 'institution_description',
 		'readOnly' => 1,
 		'adminOnly' => 1,
@@ -121,21 +122,6 @@ $TCA['static_country_zones']['ctrl']['readOnly'] = 0;
 $TCA['static_currencies']['ctrl']['readOnly'] = 0;
 $TCA['static_territories']['ctrl']['readOnly'] = 0;
 $TCA['static_markets']['ctrl']['readOnly'] = 0;
-
-
-// Unfortunately this do not work because the user will be initialized afterwards
-
-//$TCA['static_territories']['ctrl']['label'] = tx_staticinfotables_div::getTCAlabelField('static_territories', false);
-//$TCA['static_territories']['ctrl']['default_sortby'] = 'ORDER BY '.tx_staticinfotables_div::getTCAsortField('static_territories', false);
-//
-//$TCA['static_countries']['ctrl']['label'] = tx_staticinfotables_div::getTCAlabelField('static_countries', false);
-//$TCA['static_countries']['ctrl']['default_sortby'] = 'ORDER BY '.tx_staticinfotables_div::getTCAsortField('static_countries', false);
-//
-//$TCA['static_languages']['ctrl']['label'] = tx_staticinfotables_div::getTCAlabelField('static_languages', false);
-//$TCA['static_languages']['ctrl']['default_sortby'] = 'ORDER BY '.tx_staticinfotables_div::getTCAsortField('static_languages', false);
-//
-//$TCA['static_currencies']['ctrl']['label'] = tx_staticinfotables_div::getTCAlabelField('static_currencies');
-//$TCA['static_currencies']['ctrl']['default_sortby'] = 'ORDER BY '.tx_staticinfotables_div::getTCAsortField('static_currencies', false);
 
 
 // ******************************************************************
