@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2008 René Fritz (r.fritz@colorcube.de)
+*  (c) 2004-2009 René Fritz (r.fritz@colorcube.de)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -65,7 +65,7 @@ class tx_staticinfotables_div {
 	 * @param	boolean		If set, we are looking for the "local" title field
 	 * @return	string		field name
 	 */
-	function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE) {
+	function getTCAlabelField ($table, $loadTCA=TRUE, $lang='', $local=FALSE) {
 		global $TCA, $LANG, $TSFE;
 
 		if (is_object($LANG)) {
@@ -107,14 +107,13 @@ class tx_staticinfotables_div {
 		return $labelFields;
 	}
 
-
 	/**
 	 * Returns the type of an iso code: nr, 2, 3
 	 *
 	 * @param	string		iso code
 	 * @return	string		iso code type
 	 */
-	function isoCodeType($isoCode) {
+	function isoCodeType ($isoCode) {
 		$type = '';
 		if (t3lib_div::testInt($isoCode)) {
 			$type = 'nr';
@@ -125,7 +124,6 @@ class tx_staticinfotables_div {
 		}
 		return $type;
 	}
-
 
 	/**
 	 * Returns a iso code field for the passed table and iso code
@@ -138,7 +136,7 @@ class tx_staticinfotables_div {
 	 * @param	integer		index in the table's isocode_field array in the global variable
 	 * @return	string		field name
 	 */
-	function getIsoCodeField($table, $isoCode, $bLoadTCA=TRUE, $index=0) {
+	function getIsoCodeField ($table, $isoCode, $bLoadTCA=TRUE, $index=0) {
 		global $TCA;
 		$rc = FALSE;
 
@@ -156,7 +154,6 @@ class tx_staticinfotables_div {
 		return $rc;
 	}
 
-
 	/**
 	 * Returns a sort field for the current language
 	 *
@@ -164,19 +161,18 @@ class tx_staticinfotables_div {
 	 * @param	boolean		If set (default) the TCA definition of the table should be loaded
 	 * @return	string		field name
 	 */
-	function getTCAsortField($table, $loadTCA=TRUE) {
+	function getTCAsortField ($table, $loadTCA=TRUE) {
 		$labelFields = tx_staticinfotables_div::getTCAlabelField($table, $loadTCA);
 
 		return $labelFields[0];
 	}
-
 
 	/**
 	 * Returns the current language as iso-2-alpha code
 	 *
 	 * @return	string		'DE', 'EN', 'DK', ...
 	 */
-	function getCurrentLanguage() {
+	function getCurrentLanguage () {
 		global $LANG, $TSFE, $TYPO3_DB;
 
 		if (is_object($LANG)) {
@@ -209,7 +205,7 @@ class tx_staticinfotables_div {
 	 * @param	[type]		$where: ...
 	 * @return	array		row in the sys_language table
 	 */
-	function getCurrentSystemLanguage($where='') {
+	function getCurrentSystemLanguage ($where='') {
 		global $LANG, $TSFE, $TYPO3_DB;
 
 		$rc = array();
@@ -242,7 +238,7 @@ class tx_staticinfotables_div {
 	 *
 	 * @return	string	locale
 	 */
-	function getCollateLocale() {
+	function getCollateLocale () {
 		global $LANG, $TSFE, $TYPO3_DB;
 
 		if (is_object($LANG)) {
@@ -265,7 +261,6 @@ class tx_staticinfotables_div {
 		return $locale ? $locale : 'C';
 	}
 
-
 	/**
 	 * Fetches short title from an iso code
 	 *
@@ -275,7 +270,7 @@ class tx_staticinfotables_div {
 	 * @param	boolean		local name only - if set local title is returned
 	 * @return	string		short title
 	 */
-	function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE) {
+	function getTitleFromIsoCode ($table, $isoCode, $lang='', $local=FALSE) {
 		global $TSFE, $TYPO3_DB;
 
 		$title = '';
@@ -328,16 +323,15 @@ class tx_staticinfotables_div {
 		return $title;
 	}
 
-
 	/**
 	 * Replaces any dynamic markers in a SQL statement.
 	 *
 	 * @param	string		The SQL statement with dynamic markers.
 	 * @param	string		Name of the table.
-	 * @param	array		Database row.
+	 * @param	array		row from table.
 	 * @return	string		SQL query with dynamic markers subsituted.
 	 */
-	function replaceMarkersInSQL($sql, $table, $row)	{
+	function replaceMarkersInSQL ($sql, $table, $row)	{
 
 		$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table, $row);
 
@@ -364,7 +358,6 @@ class tx_staticinfotables_div {
 		return $sql;
 	}
 
-
 	/**
 	 * Function to use in own TCA definitions
 	 * Adds additional select items
@@ -379,7 +372,7 @@ class tx_staticinfotables_div {
 	 * @param	array		itemsProcFunc data array:
 	 * @return	void		The $items array may have been modified
 	 */
-	function selectItemsTCA($params) {
+	function selectItemsTCA ($params) {
 		global $TCA;
 
 		$where = '';
@@ -465,7 +458,6 @@ class tx_staticinfotables_div {
 		}
 	}
 
-
 	/**
 	 * Updates the hotlist table.
 	 * This means that a hotlist entry will be created or the counter of an existing entry will be increased
@@ -527,7 +519,6 @@ class tx_staticinfotables_div {
 		}
 	}
 
-
 	/**
 	 * Get a list of countries by specific parameters or parts of names of countries
 	 * in different languages. Parameters might be left empty.
@@ -538,7 +529,7 @@ class tx_staticinfotables_div {
 	 * @param	array		Database row.
 	 * @return	array		Array of rows of country records
 	 */
-	function &fetchCountries($country, $iso2='', $iso3='', $isonr='')	{
+	function &fetchCountries ($country, $iso2='', $iso3='', $isonr='')	{
 		global $TYPO3_DB;
 
 		$rcArray = array();
@@ -575,7 +566,6 @@ class tx_staticinfotables_div {
 		return $rcArray;
 	}
 
-
 	/**
 	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it must not get `htmlspecialchar'ed in this case because this is done in this function)
 	 *
@@ -583,7 +573,7 @@ class tx_staticinfotables_div {
 	 * @param	boolean		If the values are used inside of <script> tags.
 	 * @return	string		The encoded value already quoted
 	 */
-	function quoteJSvalue($value, $inScriptTags=FALSE)	{
+	function quoteJSvalue ($value, $inScriptTags=FALSE)	{
 		global $TSFE;
 
 		$value = addcslashes($value, '"'.chr(10).chr(13));
@@ -595,7 +585,6 @@ class tx_staticinfotables_div {
 		return '"'.$value.'"';
 	}
 
-
 	/**
 	 * loadTcaAdditions($ext_keys)
 	 *
@@ -605,16 +594,15 @@ class tx_staticinfotables_div {
 	 * @return	void
 	 * @see div extension
 	 */
-	function loadTcaAdditions($ext_keys){
+	function loadTcaAdditions ($ext_keys){
 		global $_EXTKEY, $TCA;
 
 		//Merge all ext_keys
 		if (is_array($ext_keys)) {
-			for($i = 0; $i < sizeof($ext_keys); $i++)	{
-				if (t3lib_extMgm::isLoaded($ext_keys[$i]))	{
+			foreach ($ext_keys as $_EXTKEY)	{
+				if (t3lib_extMgm::isLoaded($_EXTKEY))	{
 					//Include the ext_table
-					$_EXTKEY = $ext_keys[$i];
-					include(t3lib_extMgm::extPath($ext_keys[$i]).'ext_tables.php');
+					include(t3lib_extMgm::extPath($_EXTKEY).'ext_tables.php');
 				}
 			}
 		}
