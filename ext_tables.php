@@ -98,30 +98,11 @@ $TCA['static_currencies'] = array(
 	)
 );
 
-// Static markets from ISO 10383
-$TCA['static_markets'] = array (
-	'ctrl' => array (
-		'title'     => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_markets.title',
-		'label'     => 'institution_description',
-		'readOnly' => 1,
-		'adminOnly' => 1,
-		'rootLevel' => 1,
-		'is_static' => 1,
-		'default_sortby' => 'ORDER BY institution_description',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
-		'iconfile'          => PATH_BE_staticinfotables_rel.'icon_static_markets.gif',
-	),
-	'interface' => Array (
-		'showRecordFieldList' => 'country,mic,institution_description,acronym,city,url',
-	)
-);
-
 $TCA['static_countries']['ctrl']['readOnly'] = 0;
 $TCA['static_languages']['ctrl']['readOnly'] = 0;
 $TCA['static_country_zones']['ctrl']['readOnly'] = 0;
 $TCA['static_currencies']['ctrl']['readOnly'] = 0;
 $TCA['static_territories']['ctrl']['readOnly'] = 0;
-$TCA['static_markets']['ctrl']['readOnly'] = 0;
 
 
 // ******************************************************************

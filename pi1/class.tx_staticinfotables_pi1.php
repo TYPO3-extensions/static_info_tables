@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2009 Stanislas Rolland <stanislas.rolland(arobas)sjbr.ca>
+*  (c) 2004-2010 Stanislas Rolland <stanislas.rolland(arobas)sjbr.ca>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -133,7 +133,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		}
 		if (!$this->getStaticInfoName('SUBDIVISIONS', $this->defaultCountryZone, $this->defaultCountry))	{
 			if ($this->defaultCountry == 'DEU') {
-				$this->defaultCountryZone = 'NRW';
+				$this->defaultCountryZone = 'NW';
 			} else {
 				$this->defaultCountryZone = '';
 			}

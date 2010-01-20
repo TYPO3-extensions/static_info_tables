@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2004-2009 René Fritz (r.fritz@colorcube.de)
+*  (c) 2004-2010 René Fritz (r.fritz@colorcube.de)
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -92,6 +92,7 @@ class tx_staticinfotables_div {
 			}
 
 			$lang = $lang ? $lang : tx_staticinfotables_div::getCurrentLanguage();
+			$lang = isset($csConvObj->isoArray[$lang]) ? $csConvObj->isoArray[$lang] : $lang;
 
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'][$table]['label_fields'] as $field) {
 				if ($local) {
@@ -175,12 +176,12 @@ class tx_staticinfotables_div {
 	function getCurrentLanguage () {
 		global $LANG, $TSFE, $TYPO3_DB;
 
-		if (is_object($LANG)) {
-			$langCodeT3 = $LANG->lang;
-			$csConvObj = $LANG->csConvObj;
-		} elseif (is_object($TSFE)) {
+ 		if (is_object($TSFE)) {
 			$langCodeT3 = $TSFE->lang;
 			$csConvObj = $TSFE->csConvObj;
+ 		} elseif (is_object($LANG)) {
+ 			$langCodeT3 = $LANG->lang;
+ 			$csConvObj = $LANG->csConvObj;
 		} else {
 			return 'EN';
 		}
@@ -281,7 +282,7 @@ class tx_staticinfotables_div {
 				$prefixedTitleFields[] = $table.'.'.$titleField;
 			}
 			$fields = implode(',', $prefixedTitleFields);
-			$whereClause = '';
+			$whereClause = '1=1';
 			if (!is_array($isoCode)) {
 				$isoCode = array($isoCode);
 			}
@@ -291,12 +292,9 @@ class tx_staticinfotables_div {
 					$tmpField = tx_staticinfotables_div::getIsoCodeField($table, $code, TRUE, $index);
 					$tmpValue = $TYPO3_DB->fullQuoteStr($code,$table);
 					if ($tmpField && $tmpValue)	{
-						$whereClause .= ($whereClause!='' ? ' AND ':'').$table.'.'.$tmpField.' = '.$tmpValue;
+						$whereClause .= ' AND ' . $table . '.' . $tmpField . ' = ' . $tmpValue;
 					}
 				}
-			}
-			if (strpos($whereClause,' AND ')===0)	{
-				$whereClause = '1=1'.$whereClause;
 			}
 			if (is_object($TSFE)) {
 				$enableFields = $TSFE->sys_page->enableFields($table);
