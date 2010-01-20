@@ -13,16 +13,6 @@ if (!defined ('PATH_BE_staticinfotables_rel')) {
 	define('PATH_BE_staticinfotables_rel', t3lib_extMgm::extRelPath(STATIC_INFO_TABLES_EXTkey));
 }
 
-if (!defined ('DIV_EXTkey')) {
-	define('DIV_EXTkey','div');
-}
-
-if (t3lib_extMgm::isLoaded(DIV_EXTkey)) {
-	if (!defined ('PATH_BE_div')) {
-		define('PATH_BE_div', t3lib_extMgm::extPath(DIV_EXTkey));
-	}
-}
-
 $_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
 
 if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']))	{
@@ -70,15 +60,18 @@ $labelTable = array(
 			'cu_iso_##',
 		),
 	),
-	'static_markets' => array(
+);
+
+if (t3lib_extMgm::isLoaded('static_info_tables_markets')) {
+	$labelTable['static_markets'] = array(
 		'label_fields' => array(
 			'institution_description',
 		),
 		'isocode_field' => array(
 			'institution_description',
 		),
-	),
-);
+	);
+}
 
 if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']))	{
 
