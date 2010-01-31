@@ -35,26 +35,27 @@
  *
  *
  *   57: class tx_staticinfotables_div
- *   68:     function getTCAlabelField($table, $loadTCA=TRUE, $lang='', $local=FALSE)
- *  117:     function isoCodeType($isoCode)
- *  141:     function getIsoCodeField($table, $isoCode, $bLoadTCA=TRUE, $index=0)
- *  167:     function getTCAsortField($table, $loadTCA=TRUE)
- *  179:     function getCurrentLanguage()
- *  212:     function getCurrentSystemLanguage($where='')
- *  245:     function getCollateLocale()
- *  278:     function getTitleFromIsoCode($table, $isoCode, $lang='', $local=FALSE)
- *  340:     function replaceMarkersInSQL($sql, $table, $row)
- *  382:     function selectItemsTCA($params)
- *  479:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
- *  541:     function &fetchCountries($country, $iso2='', $iso3='', $isonr='')
- *  586:     function quoteJSvalue($value, $inScriptTags=FALSE)
- *  608:     function loadTcaAdditions($ext_keys)
+ *   69:     function getTCAlabelField ($table, $loadTCA=TRUE, $lang='', $local=FALSE)
+ *  119:     function isoCodeType ($isoCode)
+ *  143:     function getIsoCodeField ($table, $isoCode, $bLoadTCA=TRUE, $index=0)
+ *  169:     function getTCAsortField ($table, $loadTCA=TRUE)
+ *  181:     function getCurrentLanguage ()
+ *  215:     function getCurrentSystemLanguage ($where='')
+ *  249:     function getCollateLocale ()
+ *  282:     function getTitleFromIsoCode ($table, $isoCode, $lang='', $local=FALSE)
+ *  341:     function replaceMarkersInSQL ($sql, $table, $row)
+ *  383:     function selectItemsTCA ($params)
+ *  480:     function updateHotlist ($table, $indexValue, $indexField='', $app='')
+ *  542:     function &fetchCountries ($country, $iso2='', $iso3='', $isonr='')
+ *  587:     function quoteJSvalue ($value, $inScriptTags=FALSE)
+ *  609:     function loadTcaAdditions ($ext_keys)
  *
  * TOTAL FUNCTIONS: 14
  * (This index is automatically created/updated by the extension "extdeveval")
  *
  */
 class tx_staticinfotables_div {
+
 
 	/**
 	 * Returns a label field for the current language
@@ -108,6 +109,7 @@ class tx_staticinfotables_div {
 		return $labelFields;
 	}
 
+
 	/**
 	 * Returns the type of an iso code: nr, 2, 3
 	 *
@@ -125,6 +127,7 @@ class tx_staticinfotables_div {
 		}
 		return $type;
 	}
+
 
 	/**
 	 * Returns a iso code field for the passed table and iso code
@@ -155,6 +158,7 @@ class tx_staticinfotables_div {
 		return $rc;
 	}
 
+
 	/**
 	 * Returns a sort field for the current language
 	 *
@@ -167,6 +171,7 @@ class tx_staticinfotables_div {
 
 		return $labelFields[0];
 	}
+
 
 	/**
 	 * Returns the current language as iso-2-alpha code
@@ -199,6 +204,7 @@ class tx_staticinfotables_div {
 		$rc = $lang ? $lang : $csConvObj->conv_case('utf-8',$langCodeT3,'toUpper');
 		return $rc;
 	}
+
 
 	/**
 	 * Returns the row of the current system language
@@ -233,6 +239,7 @@ class tx_staticinfotables_div {
 		return $rc;
 	}
 
+
 	/*
 	 *
 	 * Returns the locale to used when sorting labels
@@ -261,6 +268,7 @@ class tx_staticinfotables_div {
 		$TYPO3_DB->sql_free_result($res);
 		return $locale ? $locale : 'C';
 	}
+
 
 	/**
 	 * Fetches short title from an iso code
@@ -321,6 +329,7 @@ class tx_staticinfotables_div {
 		return $title;
 	}
 
+
 	/**
 	 * Replaces any dynamic markers in a SQL statement.
 	 *
@@ -355,6 +364,7 @@ class tx_staticinfotables_div {
 
 		return $sql;
 	}
+
 
 	/**
 	 * Function to use in own TCA definitions
@@ -456,6 +466,7 @@ class tx_staticinfotables_div {
 		}
 	}
 
+
 	/**
 	 * Updates the hotlist table.
 	 * This means that a hotlist entry will be created or the counter of an existing entry will be increased
@@ -517,6 +528,7 @@ class tx_staticinfotables_div {
 		}
 	}
 
+
 	/**
 	 * Get a list of countries by specific parameters or parts of names of countries
 	 * in different languages. Parameters might be left empty.
@@ -564,6 +576,7 @@ class tx_staticinfotables_div {
 		return $rcArray;
 	}
 
+
 	/**
 	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it must not get `htmlspecialchar'ed in this case because this is done in this function)
 	 *
@@ -582,6 +595,7 @@ class tx_staticinfotables_div {
 		}
 		return '"'.$value.'"';
 	}
+
 
 	/**
 	 * loadTcaAdditions($ext_keys)

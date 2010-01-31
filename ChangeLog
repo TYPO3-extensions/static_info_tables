@@ -1,4 +1,4 @@
-2010-01-20  Franz Holzinger  <franz@ttproducts.de>
+2010-01-31  Franz Holzinger  <franz@ttproducts.de>
 	* fix bug in getTitleFromIsoCode: SQL error due to wrong starting AND in where statement
 	* remove static_markets: New extension static_info_tables_markets
 	* fix bug 10037: add Albacete to Spain
@@ -6,6 +6,8 @@
 	* fix bug 12854: getCurrentLanguage doesn't use FE language
 	* fix bug 12145: static_info_tables, syntax errors in "ext_tables_static+adt.sql"
 	* fix bug 0011739: Wrong abbreviations for german federal states
+	* add Italian provinces
+	* make Stanlislas Rolland <stanislas.rolland@sjbr.ca> the new maintainer of static_info_tables
 
 2009-06-20  Franz Holzinger  <franz@ttproducts.de>
 	* Fix bug 2397: loadTcaAdditions
