@@ -39,19 +39,19 @@
  *
  *
  *   66: class tx_staticinfotables_pi1 extends tslib_pibase
- *   96:     function needsInit ()
- *  106:     function init($conf=array())
- *  163:     function getStaticInfoName($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE)
- *  234:     function buildStaticInfoSelector($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())
- *  319:     function initCountries($param='UN', $lang='', $local=FALSE, $addWhere='')
- *  376:     function initCountrySubdivisions($param, $addWhere='')
- *  422:     function initCurrencies($addWhere='')
- *  462:     function initLanguages($addWhere='')
- *  503:     function optionsConstructor($nameArray, $selectedArray=array(), &$outSelectedArray=array())
- *  529:     function loadCurrencyInfo($currencyCode)
- *  574:     function formatAmount($amount, $displayCurrencyCode='')
- *  602:     function formatAddress($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
- *  646:     function getCurrentLanguage()
+ *   97:     function needsInit ()
+ *  108:     function init ($conf=array())
+ *  166:     function getStaticInfoName ($type='COUNTRIES', $code, $country='', $countrySubdivision='', $local=FALSE)
+ *  238:     function buildStaticInfoSelector ($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array())
+ *  324:     function initCountries ($param='UN', $lang='', $local=FALSE, $addWhere='')
+ *  382:     function initCountrySubdivisions ($param, $addWhere='')
+ *  429:     function initCurrencies ($addWhere='')
+ *  470:     function initLanguages ($addWhere='')
+ *  512:     function optionsConstructor ($nameArray, $selectedArray=array(), &$outSelectedArray=array())
+ *  539:     function loadCurrencyInfo ($currencyCode)
+ *  585:     function formatAmount ($amount, $displayCurrencyCode='')
+ *  614:     function formatAddress ($delim, $streetAddress, $city, $zip, $subdivisionCode='', $countryCode='')
+ *  659:     function getCurrentLanguage ()
  *
  * TOTAL FUNCTIONS: 13
  * (This index is automatically created/updated by the extension "extdeveval")
@@ -87,6 +87,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	);
 	var $bHasBeenInitialised = FALSE;
 
+
 	/**
 	 * Returns info if the tx_staticinfotables_pi1 object has already been initialised.
 	 * You need to initialise this object only once.
@@ -96,6 +97,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 	function needsInit ()	{
 		return !$this->bHasBeenInitialised;
 	}
+
 
 	/**
 	 * Initializing the class: sets the language based on the TS configuration language property
@@ -149,6 +151,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		$this->bHasBeenInitialised = TRUE;
 		return TRUE;
 	}
+
 
 	/**
 	 * Getting the name of a country, country subdivision, currency, language, tax
@@ -211,6 +214,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		}
 		return $rc;
 	}
+
 
 	/**
 	 * Buils a HTML drop-down selector of countries, country subdivisions, currencies or languages
@@ -305,6 +309,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $selector;
 	}
 
+
 	/**
 	 * Getting all countries into an array
 	 * 	where the key is the ISO alpha-3 code of the country
@@ -363,6 +368,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $nameArray;
 	}
 
+
 	/**
 	 * Getting all country subdivisions of a given country into an array
 	 * 	where the key is the code of the subdivision
@@ -411,6 +417,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $nameArray;
 	}
 
+
 	/**
 	 * Getting all currencies into an array
 	 * 	where the key is the ISO alpha-3 code of the currency
@@ -449,6 +456,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		uasort($nameArray, 'strcoll');
 		return $nameArray;
 	}
+
 
 	/**
 	 * Getting all languages into an array
@@ -492,6 +500,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $nameArray;
 	}
 
+
 	/**
 	 * Builds a list of <option> tags
 	 *
@@ -519,6 +528,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		}
 		return $options;
 	}
+
 
 	/**
 	 * Loading currency display parameters from Static Info Tables
@@ -560,6 +570,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $this->currencyInfo;
 	}
 
+
 	/**
 	 * Formatting an amount in the currency loaded by loadCurrencyInfo($currencyCode)
 	 *
@@ -587,6 +598,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 
 		return $formatedAmount;
 	}
+
 
 	/**
 	 * Formatting an address in the format specified
@@ -638,6 +650,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $formatedAddress;
 	}
 
+
 	/**
 	 * Returns the current language as iso-2-alpha code
 	 *
@@ -650,6 +663,7 @@ class tx_staticinfotables_pi1 extends tslib_pibase {
 		return $rc;
 	}
 }
+
 
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/pi1/class.tx_staticinfotables_pi1.php'])	{
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/pi1/class.tx_staticinfotables_pi1.php']);
