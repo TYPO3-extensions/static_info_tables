@@ -1,3 +1,6 @@
+2010-04-29  Franz Holzinger  <franz@ttproducts.de>
+	* new feature: countriesAllowed gives the ordered ISO-3 codes of the countries which are allowed in the select box.
+
 2010-01-31  Franz Holzinger  <franz@ttproducts.de>
 	* fix bug in getTitleFromIsoCode: SQL error due to wrong starting AND in where statement
 	* remove static_markets: New extension static_info_tables_markets
