@@ -1,4 +1,9 @@
+2011-01-24  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Fixed issue #12506: Add missing languages and/or missing TYPO3 language codes (Albanian, Canadian French, Filipino, Georgian, Khmer, Serbian)
+
 2010-04-29  Franz Holzinger  <franz@ttproducts.de>
+
 	* new feature: countriesAllowed gives the ordered ISO-3 codes of the countries which are allowed in the select box.
 
 2010-01-31  Franz Holzinger  <franz@ttproducts.de>

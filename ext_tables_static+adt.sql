@@ -8,7 +8,7 @@
 #
 DROP TABLE IF EXISTS static_territories;
 CREATE TABLE static_territories (
-  uid int(11) unsigned auto_increment,
+  uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
   tr_iso_nr int(11) unsigned default '0',
   tr_parent_iso_nr int(11) unsigned default '0',
@@ -47,6 +47,7 @@ INSERT INTO static_territories VALUES ('28', '0', '61', '9', 'Polynesia');
 INSERT INTO static_territories VALUES ('30', '0', '34', '142', 'Southern Asia');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
 #--------------------------------------------------------
@@ -57,9 +58,9 @@ INSERT INTO static_territories VALUES ('30', '0', '34', '142', 'Southern Asia');
 #
 DROP TABLE IF EXISTS static_countries;
 CREATE TABLE static_countries (
-  uid int(11) unsigned auto_increment,
+  uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
-  deleted tinyint(4) DEFAULT '0' NOT NULL,
+  deleted tinyint(4) NOT NULL default '0',
   cn_iso_2 char(2) default '',
   cn_iso_3 char(3) default '',
   cn_iso_nr int(11) unsigned default '0',
@@ -325,6 +326,8 @@ INSERT INTO static_countries VALUES ('241', '0', '0', 'HM', 'HMD', '334', '53', 
 INSERT INTO static_countries VALUES ('242', '0', '0', 'ME', 'MNE', '499', '39', 'Republike Crne Gore', 'Republic of Montenegro', 'Podgorica', 'me', 'EUR', '978', '382', '0', '1', '0', 'Crna Gora', 'Montenegro', '1');
 INSERT INTO static_countries VALUES ('243', '0', '0', 'RS', 'SRB', '688', '39', 'Republika Srbija', 'Republic of Serbia', 'Belgrade', 'rs', 'RSD', '941', '381', '0', '1', '0', 'Srbija', 'Serbia', '1');
 
+
+
 # TYPO3 Extension Manager dump 1.1
 #
 #--------------------------------------------------------
@@ -335,7 +338,7 @@ INSERT INTO static_countries VALUES ('243', '0', '0', 'RS', 'SRB', '688', '39', 
 #
 DROP TABLE IF EXISTS static_country_zones;
 CREATE TABLE static_country_zones (
-  uid int(11) unsigned auto_increment,
+  uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
   zn_country_iso_2 char(2) default '',
   zn_country_iso_3 char(3) default '',
@@ -517,7 +520,6 @@ INSERT INTO static_country_zones VALUES ('178', '0', 'ES', 'ESP', '724', 'Vizcay
 INSERT INTO static_country_zones VALUES ('179', '0', 'ES', 'ESP', '724', 'Zamora', 'Zamora', '');
 INSERT INTO static_country_zones VALUES ('180', '0', 'ES', 'ESP', '724', 'Zaragoza', 'Zaragoza', '');
 INSERT INTO static_country_zones VALUES ('181', '0', 'ES', 'ESP', '724', 'Melilla', 'Melilla', '');
-
 INSERT INTO static_country_zones VALUES ('182', '0', 'MX', 'MEX', '484', 'AGS', 'Aguascalientes', '');
 INSERT INTO static_country_zones VALUES ('183', '0', 'MX', 'MEX', '484', 'BCS', 'Baja California Sur', '');
 INSERT INTO static_country_zones VALUES ('184', '0', 'MX', 'MEX', '484', 'BC', 'Baja California Norte', '');
@@ -840,6 +842,7 @@ INSERT INTO static_country_zones VALUES ('540', '0', 'NL', 'NLD', '528', 'ZH', '
 INSERT INTO static_country_zones VALUES ('541', '0', 'NL', 'NLD', '528', 'ZE', 'Zeeland', '');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
 #--------------------------------------------------------
@@ -850,7 +853,7 @@ INSERT INTO static_country_zones VALUES ('541', '0', 'NL', 'NLD', '528', 'ZE', '
 #
 DROP TABLE IF EXISTS static_currencies;
 CREATE TABLE static_currencies (
-  uid int(11) unsigned auto_increment,
+  uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
   cu_iso_3 char(3) default '',
   cu_iso_nr int(11) unsigned default '0',
@@ -1035,6 +1038,7 @@ INSERT INTO static_currencies VALUES ('174', '0', 'SRD', '968', 'Suriname dollar
 INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
 
 
+
 # TYPO3 Extension Manager dump 1.1
 #
 #--------------------------------------------------------
@@ -1045,7 +1049,7 @@ INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lir
 #
 DROP TABLE IF EXISTS static_languages;
 CREATE TABLE static_languages (
-  uid int(11) unsigned auto_increment,
+  uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
   lg_iso_2 char(2) default '',
   lg_name_en varchar(50) default '',
@@ -1064,7 +1068,7 @@ CREATE TABLE static_languages (
 INSERT INTO static_languages VALUES ('1', '0', 'AB', 'Abkhazian', '', '', '', 'Аҧсуа бызшәа', '0', '0');
 INSERT INTO static_languages VALUES ('2', '0', 'AA', 'Afar', '', '', '', 'Afaraf', '0', '0');
 INSERT INTO static_languages VALUES ('3', '0', 'AF', 'Afrikaans', '', '', '', 'Afrikaans', '0', '0');
-INSERT INTO static_languages VALUES ('4', '0', 'SQ', 'Albanian', '', '', '', 'Gjuha shqipe', '0', '0');
+INSERT INTO static_languages VALUES ('4', '0', 'SQ', 'Albanian', 'sq', '', 'sq', 'Gjuha shqipe', '0', '0');
 INSERT INTO static_languages VALUES ('5', '0', 'AM', 'Amharic', '', '', '', 'አማርኛ', '0', '0');
 INSERT INTO static_languages VALUES ('6', '0', 'AR', 'Arabic', 'ar', '', 'ar_SA', 'العربية', '0', '0');
 INSERT INTO static_languages VALUES ('7', '0', 'HY', 'Armenian', '', '', '', 'Հայերեն', '0', '0');
@@ -1081,7 +1085,7 @@ INSERT INTO static_languages VALUES ('17', '0', 'BR', 'Breton', '', '', '', 'Bre
 INSERT INTO static_languages VALUES ('18', '0', 'BG', 'Bulgarian', 'bg', '', 'bg_BG', 'Български', '0', '0');
 INSERT INTO static_languages VALUES ('19', '0', 'MY', 'Burmese', 'my', '', 'my_MM', 'မ္ရန္‌မာစာ', '0', '0');
 INSERT INTO static_languages VALUES ('20', '0', 'BE', 'Belarusian', '', '', '', 'Беларуская', '0', '0');
-INSERT INTO static_languages VALUES ('21', '0', 'KM', 'Khmer', '', '', '', 'ភាសាខ្មែរ', '0', '0');
+INSERT INTO static_languages VALUES ('21', '0', 'KM', 'Khmer', 'km', '', 'km', 'ភាសាខ្មែរ', '0', '0');
 INSERT INTO static_languages VALUES ('22', '0', 'CA', 'Catalan', 'ca', '', 'ca_ES', 'Català', '0', '0');
 INSERT INTO static_languages VALUES ('23', '0', 'ZA', 'Zhuang', '', '', '', 'Sawcuengh', '0', '0');
 INSERT INTO static_languages VALUES ('24', '0', 'ZH', 'Chinese (Traditional)', 'hk', 'HK', 'zh_HK', '漢語', '0', '0');
@@ -1102,7 +1106,7 @@ INSERT INTO static_languages VALUES ('38', '0', 'FY', 'Frisian', '', '', '', 'Fr
 INSERT INTO static_languages VALUES ('39', '0', 'GL', 'Galician', 'ga', '', 'gl_ES', 'Galego', '0', '0');
 INSERT INTO static_languages VALUES ('40', '0', 'GD', 'Scottish Gaelic', '', '', '', 'Gàidhlig', '0', '0');
 INSERT INTO static_languages VALUES ('41', '0', 'GV', 'Manx', '', '', '', 'Gaelg', '0', '0');
-INSERT INTO static_languages VALUES ('42', '0', 'KA', 'Georgian', '', '', '', 'ქართული', '0', '0');
+INSERT INTO static_languages VALUES ('42', '0', 'KA', 'Georgian', 'ge', '', 'ka', 'ქართული', '0', '0');
 INSERT INTO static_languages VALUES ('43', '0', 'DE', 'German', 'de', '', 'de_DE', 'Deutsch', '0', '0');
 INSERT INTO static_languages VALUES ('44', '0', 'EL', 'Greek', 'gr', '', 'el_GR', 'Ελληνικά', '0', '0');
 INSERT INTO static_languages VALUES ('45', '0', 'KL', 'Greenlandic', 'gl', '', 'kl_DK', 'Kalaallisut', '0', '0');
@@ -1248,6 +1252,8 @@ INSERT INTO static_languages VALUES ('187', '0', 'VE', 'Venda', '', '', '', 'tsh
 INSERT INTO static_languages VALUES ('188', '0', 'WA', 'Walloon', '', '', '', 'Walon', '0', '0');
 INSERT INTO static_languages VALUES ('189', '0', 'PT', 'Brazilian Portuguese', 'br', 'BR', 'pt_BR', 'Português brasileiro', '0', '0');
 INSERT INTO static_languages VALUES ('190', '0', 'ZH', 'Chinese (Simplified)', 'ch', 'CN', 'zh_CN', '汉语', '0', '0');
+INSERT INTO static_languages VALUES ('191', '0', 'FR', 'Canadian French', 'qc', 'CA', 'fr_CA', 'Français canadien', '0', '0');
+INSERT INTO static_languages VALUES ('192', '0', 'TL', 'Filipino', '', 'PH', 'fil', 'Filipino', '0', '0');
 
 
 
