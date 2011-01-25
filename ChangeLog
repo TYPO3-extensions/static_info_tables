@@ -3,6 +3,7 @@
 	* Fixed issue #12506: Add missing languages and/or missing TYPO3 language codes (Albanian, Canadian French, Filipino, Georgian, Khmer, Serbian)
 	* Fixed issue #12508: Update countries to level of ISO 3166-1:2006 - Newsletter VI-8 (2010-12-15)
 	* Fixed issue #10897: Missing (non-existent) territory for some countries
+	* Fixed bugtracker issue #8739: Swiss Currency Symbols are wrong
 
 2010-04-29  Franz Holzinger  <franz@ttproducts.de>
 
