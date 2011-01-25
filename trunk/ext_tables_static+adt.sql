@@ -90,7 +90,7 @@ INSERT INTO static_countries VALUES ('4', '0', '0', 'AG', 'ATG', '28', '29', 'An
 INSERT INTO static_countries VALUES ('5', '0', '0', 'AI', 'AIA', '660', '29', 'Anguilla', 'Anguilla', 'The Valley', 'ai', 'XCD', '951', '1264', '0', '1', '0', 'Anguilla', 'Anguilla', '0');
 INSERT INTO static_countries VALUES ('6', '0', '0', 'AL', 'ALB', '8', '39', 'Republika e Shqipërisë', 'Republic of Albania', 'Tirana', 'al', 'ALL', '8', '355', '0', '1', '0', 'Shqipëria', 'Albania', '1');
 INSERT INTO static_countries VALUES ('7', '0', '0', 'AM', 'ARM', '51', '172', 'Հայաստանի Հանրապետություն', 'Republic of Armenia', 'Yerevan', 'am', 'AMD', '51', '374', '0', '1', '0', 'Հայաստան', 'Armenia', '1');
-INSERT INTO static_countries VALUES ('8', '0', '0', 'AN', 'ANT', '530', '29', 'Nederlandse Antillen', 'Netherlands Antilles', 'Willemstad', 'an', 'ANG', '532', '599', '0', '1', '0', 'Nederlandse Antillen', 'Netherlands Antilles', '0');
+INSERT INTO static_countries VALUES ('8', '0', '1', 'AN', 'ANT', '530', '29', 'Nederlandse Antillen', 'Netherlands Antilles', 'Willemstad', 'an', 'ANG', '532', '599', '0', '1', '0', 'Nederlandse Antillen', 'Netherlands Antilles', '0');
 INSERT INTO static_countries VALUES ('9', '0', '0', 'AO', 'AGO', '24', '17', 'República de Angola', 'Republic of Angola', 'Luanda', 'ao', 'AOA', '973', '244', '0', '1', '0', 'Angola', 'Angola', '1');
 INSERT INTO static_countries VALUES ('10', '0', '0', 'AQ', 'ATA', '10', '0', 'Antarctica', 'Antarctica', '', 'aq', '', '0', '67212', '0', '1', '0', 'Antarctica', 'Antarctica', '0');
 INSERT INTO static_countries VALUES ('11', '0', '0', 'AR', 'ARG', '32', '5', 'República Argentina', 'Argentine Republic', 'Buenos Aires', 'ar', 'ARS', '32', '54', '0', '2', '0', 'Argentina', 'Argentina', '1');
@@ -110,7 +110,7 @@ INSERT INTO static_countries VALUES ('24', '0', '0', 'BI', 'BDI', '108', '14', '
 INSERT INTO static_countries VALUES ('25', '0', '0', 'BJ', 'BEN', '204', '11', 'République du Bénin', 'Republic of Benin', 'Porto Novo', 'bj', 'XOF', '952', '229', '0', '1', '0', 'Bénin', 'Benin', '1');
 INSERT INTO static_countries VALUES ('26', '0', '0', 'BM', 'BMU', '60', '21', 'Bermuda', 'Bermuda', 'Hamilton', 'bm', 'BMD', '60', '1441', '0', '1', '0', 'Bermuda', 'Bermuda', '0');
 INSERT INTO static_countries VALUES ('27', '0', '0', 'BN', 'BRN', '96', '35', 'برني دارالسلام', 'Sultanate of Brunei', 'Bandar Seri Begawan', 'bn', 'BND', '96', '673', '0', '1', '0', 'دارالسلام', 'Brunei', '1');
-INSERT INTO static_countries VALUES ('28', '0', '0', 'BO', 'BOL', '68', '5', 'República de Bolivia', 'Republic of Bolivia', 'Sucre', 'bo', 'BOB', '68', '591', '0', '1', '0', 'Bolivia', 'Bolivia', '1');
+INSERT INTO static_countries VALUES ('28', '0', '0', 'BO', 'BOL', '68', '5', 'Estado Plurinacional de Bolivia', 'Plurinational State of Bolivia', 'Sucre', 'bo', 'BOB', '68', '591', '0', '1', '0', 'Bolivia', 'Bolivia', '1');
 INSERT INTO static_countries VALUES ('29', '0', '0', 'BR', 'BRA', '76', '5', 'República Federativa do Brasil', 'Federative Republic of Brazil', 'Brasilia', 'br', 'BRL', '986', '55', '0', '9', '0', 'Brasil', 'Brazil', '1');
 INSERT INTO static_countries VALUES ('30', '0', '0', 'BS', 'BHS', '44', '29', 'Commonwealth of The Bahamas', 'Commonwealth of The Bahamas', 'Nassau', 'bs', 'BSD', '44', '1242', '0', '1', '0', 'The Bahamas', 'The Bahamas', '1');
 INSERT INTO static_countries VALUES ('31', '0', '0', 'BT', 'BTN', '64', '34', 'Druk-Yul', 'Kingdom of Bhutan', 'Thimphu', 'bt', 'BTN', '64', '975', '0', '1', '0', 'Druk-Yul', 'Bhutan', '1');
@@ -241,7 +241,7 @@ INSERT INTO static_countries VALUES ('155', '0', '0', 'NG', 'NGA', '566', '11', 
 INSERT INTO static_countries VALUES ('156', '0', '0', 'NI', 'NIC', '558', '13', 'República de Nicaragua', 'Republic of Nicaragua', 'Managua', 'ni', 'NIO', '558', '505', '0', '1', '0', 'Nicaragua', 'Nicaragua', '1');
 INSERT INTO static_countries VALUES ('157', '0', '0', 'NL', 'NLD', '528', '155', 'Koninkrijk der Nederlanden', 'Kingdom of the Netherlands', 'Amsterdam', 'nl', 'EUR', '978', '31', '1', '1', '0', 'Nederland', 'Netherlands', '1');
 INSERT INTO static_countries VALUES ('158', '0', '0', 'NO', 'NOR', '578', '154', 'Kongeriket Norge', 'Kingdom of Norway', 'Oslo', 'no', 'NOK', '578', '47', '0', '1', '0', 'Norge', 'Norway', '1');
-INSERT INTO static_countries VALUES ('159', '0', '0', 'NP', 'NPL', '524', '34', 'नेपाल अधिराज्य', 'Kingdom of Nepal', 'Kathmandu', 'np', 'NPR', '524', '977', '0', '1', '0', 'नेपाल', 'Nepal', '1');
+INSERT INTO static_countries VALUES ('159', '0', '0', 'NP', 'NPL', '524', '34', 'सङ्घीय लोकतान्त्रिक गणतन्त्र नेपाल', 'Federal Democratic Republic of Nepal', 'Kathmandu', 'np', 'NPR', '524', '977', '0', '1', '0', 'नेपाल', 'Nepal', '1');
 INSERT INTO static_countries VALUES ('160', '0', '0', 'NR', 'NRU', '520', '57', 'Ripublik Naoero', 'Republic of Nauru', 'Yaren', 'nr', 'AUD', '36', '674', '0', '1', '0', 'Naoero', 'Nauru', '1');
 INSERT INTO static_countries VALUES ('161', '0', '0', 'NU', 'NIU', '570', '61', 'Niue', 'Niue', 'Alofi', 'nu', 'NZD', '554', '683', '0', '1', '0', 'Niue', 'Niue', '0');
 INSERT INTO static_countries VALUES ('162', '0', '0', 'NZ', 'NZL', '554', '53', 'New Zealand / Aotearoa', 'New Zealand', 'Wellington', 'nz', 'NZD', '554', '64', '0', '2', '0', 'New Zealand / Aotearoa', 'New Zealand', '1');
@@ -270,7 +270,7 @@ INSERT INTO static_countries VALUES ('184', '0', '0', 'SC', 'SYC', '690', '14', 
 INSERT INTO static_countries VALUES ('185', '0', '0', 'SD', 'SDN', '736', '15', 'جمهورية السودان', 'Republic of the Sudan', 'Khartoum', 'sd', 'SDD', '736', '249', '0', '1', '0', 'السودان', 'Sudan', '1');
 INSERT INTO static_countries VALUES ('186', '0', '0', 'SE', 'SWE', '752', '154', 'Konungariket Sverige', 'Kingdom of Sweden', 'Stockholm', 'se', 'SEK', '752', '46', '1', '1', '0', 'Sverige', 'Sweden', '1');
 INSERT INTO static_countries VALUES ('187', '0', '0', 'SG', 'SGP', '702', '35', 'Republic of Singapore / 新加坡共和国 / Republik Singapura / சிங்கப்பூர் குடியரசு', 'Republic of Singapore', 'Singapore', 'sg', 'SGD', '702', '65', '0', '2', '0', 'Singapore', 'Singapore', '1');
-INSERT INTO static_countries VALUES ('188', '0', '0', 'SH', 'SHN', '654', '11', 'Saint Helena', 'Saint Helena', 'Jamestown', 'sh', 'SHP', '654', '290', '0', '1', '0', 'Saint Helena', 'Saint Helena', '0');
+INSERT INTO static_countries VALUES ('188', '0', '0', 'SH', 'SHN', '654', '11', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', 'Jamestown', 'sh', 'SHP', '654', '290', '0', '1', '0', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', '0');
 INSERT INTO static_countries VALUES ('189', '0', '0', 'SI', 'SVN', '705', '39', 'Republika Slovenija', 'Republic of Slovenia', 'Ljubljana', 'si', 'SIT', '705', '386', '1', '1', '0', 'Slovenija', 'Slovenia', '1');
 INSERT INTO static_countries VALUES ('190', '0', '0', 'SJ', 'SJM', '744', '154', 'Svalbard', 'Svalbard', 'Longyearbyen', 'sj', 'NOK', '578', '47', '0', '1', '0', 'Svalbard', 'Svalbard', '0');
 INSERT INTO static_countries VALUES ('191', '0', '0', 'SK', 'SVK', '703', '151', 'Slovenská republika', 'Slovak Republic', 'Bratislava', 'sk', 'SKK', '703', '421', '1', '1', '0', 'Slovensko', 'Slovakia', '1');
@@ -319,12 +319,20 @@ INSERT INTO static_countries VALUES ('233', '0', '0', 'YT', 'MYT', '175', '14', 
 INSERT INTO static_countries VALUES ('235', '0', '0', 'ZA', 'ZAF', '710', '18', 'Republic of South Africa / Republiek van Suid-Afrika / Rephaboliki ya Afrika-Borwa', 'Republic of South Africa', 'Pretoria', 'za', 'ZAR', '710', '27', '0', '2', '0', 'Afrika-Borwa', 'South Africa', '1');
 INSERT INTO static_countries VALUES ('236', '0', '0', 'ZM', 'ZMB', '894', '14', 'Republic of Zambia', 'Republic of Zambia', 'Lusaka', 'zm', 'ZMK', '894', '260', '0', '1', '0', 'Zambia', 'Zambia', '1');
 INSERT INTO static_countries VALUES ('237', '0', '0', 'ZW', 'ZWE', '716', '14', 'Republic of Zimbabwe', 'Republic of Zimbabwe', 'Harare', 'zw', 'ZWD', '716', '263', '0', '1', '0', 'Zimbabwe', 'Zimbabwe', '1');
-INSERT INTO static_countries VALUES ('238', '0', '0', 'PS', 'PSE', '275', '145', 'Palestinian territories', 'Palestinian territories', '', 'ps', '0', '0', '0', '0', '0', '0', 'Palestine', 'Palestine', '0');
+INSERT INTO static_countries VALUES ('238', '0', '0', 'PS', 'PSE', '275', '145', 'دولة فلسطين', 'Palestinian territories', '', 'ps', '0', '0', '0', '0', '0', '0', 'فلسطين', 'Palestine', '0');
 INSERT INTO static_countries VALUES ('239', '0', '1', 'CS', 'CSG', '891', '39', 'Државна заједница Србија и Црна Гора', 'State Union of Serbia and Montenegro', 'Belgrade', 'cs', 'CSD', '891', '381', '0', '0', '0', 'Србија и Црна Гора', 'Serbia and Montenegro', '1');
-INSERT INTO static_countries VALUES ('240', '0', '0', 'AX', 'ALA', '248', '154', 'Åland Islands', 'Åland Islands', 'Mariehamn', 'fi', 'EUR', '978', '35818', '1', '0', '0', 'Åland Islands', 'Åland Islands', '0');
+INSERT INTO static_countries VALUES ('240', '0', '0', 'AX', 'ALA', '248', '154', 'Landskapet Åland', 'Åland Islands', 'Mariehamn', 'fi', 'EUR', '978', '35818', '1', '0', '0', 'Landskapet Åland', 'Åland Islands', '0');
 INSERT INTO static_countries VALUES ('241', '0', '0', 'HM', 'HMD', '334', '53', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '', '', 'AUD', '36', '0', '0', '0', '0', 'Heard Island and McDonald Islands', 'Heard Island and McDonald Islands', '0');
-INSERT INTO static_countries VALUES ('242', '0', '0', 'ME', 'MNE', '499', '39', 'Republike Crne Gore', 'Republic of Montenegro', 'Podgorica', 'me', 'EUR', '978', '382', '0', '1', '0', 'Crna Gora', 'Montenegro', '1');
+INSERT INTO static_countries VALUES ('242', '0', '0', 'ME', 'MNE', '499', '39', 'Republike Crne Gore', 'Montenegro', 'Podgorica', 'me', 'EUR', '978', '382', '0', '1', '0', 'Crna Gora', 'Montenegro', '1');
 INSERT INTO static_countries VALUES ('243', '0', '0', 'RS', 'SRB', '688', '39', 'Republika Srbija', 'Republic of Serbia', 'Belgrade', 'rs', 'RSD', '941', '381', '0', '1', '0', 'Srbija', 'Serbia', '1');
+INSERT INTO static_countries VALUES ('244', '0', '0', 'JE', 'JEY', '832', '154', 'Bailiwick of Jersey', 'Bailiwick of Jersey', 'Saint Helier', 'je', 'GBP', '826', '44', '0', '5', '0', 'Jersey', 'Jersey', '0');
+INSERT INTO static_countries VALUES ('245', '0', '0', 'GG', 'GGY', '831', '154', 'Bailiwick of Guernsey', 'Bailiwick of Guernsey', 'Saint Peter Port', 'gg', 'GBP', '826', '44', '0', '5', '0', 'Guernsey', 'Guernsey', '0');
+INSERT INTO static_countries VALUES ('246', '0', '0', 'IM', 'IMN', '833', '154', 'Isle of Man / Ellan Vannin', 'Isle of Man', 'Douglas', 'im', 'GBP', '826', '44', '0', '5', '0', 'Mann / Mannin', 'Isle of Man', '0');
+INSERT INTO static_countries VALUES ('247', '0', '0', 'MF', 'MAF', '652', '29', 'Collectivité de Saint-Martin', 'Collectivity of Saint Martin', 'Marigot', 'fr', 'EUR', '978', '590', '0', '1', '0', 'Saint-Martin', 'Saint Martin', '0');
+INSERT INTO static_countries VALUES ('248', '0', '0', 'BL', 'BLM', '652', '29', 'Collectivité de Saint-Barthélemy', 'Collectivity of Saint Barthélemy', 'Gustavia', 'fr', 'EUR', '978', '590', '0', '1', '0', 'Saint-Barthélemy', 'Saint Barthélemy', '0');
+INSERT INTO static_countries VALUES ('249', '0', '0', 'BQ', 'BES', '535', '29', 'Bonaire, Sint Eustatius en Saba', 'Bonaire, Saint Eustatius and Saba', '', 'bq', '0', '0', '599', '0', '0', '0', 'Bonaire, Sint Eustatius en Saba', 'Bonaire, Saint Eustatius and Saba', '0');
+INSERT INTO static_countries VALUES ('250', '0', '0', 'CW', 'CUW', '531', '29', 'Curaçao', 'Curaçao', 'Willemstad', 'cw', '0', '0', '599', '0', '0', '0', 'Curaçao', 'Curaçao', '0');
+INSERT INTO static_countries VALUES ('251', '0', '0', 'SX', 'SXM', '534', '29', 'Sint Maarten', 'Sint Maarten', 'Philipsburg', 'sx', '0', '0', '599', '0', '0', '0', 'Sint Maarten', 'Sint Maarten', '0');
 
 
 
