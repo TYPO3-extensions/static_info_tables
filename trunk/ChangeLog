@@ -3,6 +3,7 @@
 	* Added feature #9423: Add country zones for the regions and departments of France
 	* Fixed issue #12530: Erroneous country zone codes for Austria
 	* Follow-up to issue #12530: Erroneous country zone codes for Austria (remove country code)
+	* Follow-up to feature #9423: Add country zones for the regions and departments of France (remove country code)
 
 2011-01-24  Stanislas Rolland  <typo3@sjbr.ca>
 
