@@ -1,3 +1,7 @@
+2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Added feature #9423: Add country zones for the regions and departments of France
+
 2011-01-24  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fixed issue #12506: Add missing languages and/or missing TYPO3 language codes (Albanian, Canadian French, Filipino, Georgian, Khmer, Serbian)
