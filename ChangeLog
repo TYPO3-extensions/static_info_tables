@@ -6,6 +6,7 @@
 	* Follow-up to feature #9423: Add country zones for the regions and departments of France (remove country code)
 	* Fixed bugtracker issue #6901: Remove DEFAULT '0' from uid fields sql definition
 	* Fixed issue #12531: Remove reference to extension patch1822
+	* Updated Manual
 
 2011-01-24  Stanislas Rolland  <typo3@sjbr.ca>
 
