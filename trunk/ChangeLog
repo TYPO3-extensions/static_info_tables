@@ -9,6 +9,7 @@
 	* Added feature #32637: Update countries to level of ISO 3166-1:2006 - Newsletter VI-11 (2011-11-08)
 	* Added feature #28104: Polish country zones (Thanks to Tomasz Krawczyk)
 	* Fixed issue #27646: Territory of United Arab Emirates
+	* Follow-up to feature #28104: Polish country zones
 
 2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
 
