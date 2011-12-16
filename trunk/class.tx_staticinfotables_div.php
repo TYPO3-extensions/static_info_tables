@@ -118,7 +118,11 @@ class tx_staticinfotables_div {
 	 */
 	function isoCodeType ($isoCode) {
 		$type = '';
-		if (t3lib_div::testInt($isoCode)) {
+			// t3lib_utility_Math was introduced in TYPO3 4.6
+		$isoCodeAsInteger = class_exists('t3lib_utility_Math')
+			? t3lib_utility_Math::canBeInterpretedAsInteger($isoCode)
+			: t3lib_div::testInt($isoCode);
+		if ($isoCodeAsInteger) {
 			$type = 'nr';
 		} elseif (strlen($isoCode) == 2) {
 			$type = '2';
