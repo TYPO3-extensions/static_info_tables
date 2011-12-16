@@ -979,22 +979,22 @@ INSERT INTO static_country_zones VALUES ('669', '0', 'FR', 'FRA', '250', 'MF', '
 INSERT INTO static_country_zones VALUES ('670', '0', 'FR', 'FRA', '250', 'PM', 'Saint-Pierre-et-Miquelon', 'Saint Pierre and Miquelon');
 INSERT INTO static_country_zones VALUES ('671', '0', 'FR', 'FRA', '250', 'TF', 'Terres australes françaises', 'French Southern Territories');
 INSERT INTO static_country_zones VALUES ('672', '0', 'FR', 'FRA', '250', 'WF', 'Wallis-et-Futuna', 'Wallis and Futuna');
-INSERT INTO static_country_zones VALUES ('673', '0', 'PL', 'POL', '616', 'DS', 'Dolnośląskie');
-INSERT INTO static_country_zones VALUES ('674', '0', 'PL', 'POL', '616', 'KP', 'Kujawsko-pomorskie');
-INSERT INTO static_country_zones VALUES ('675', '0', 'PL', 'POL', '616', 'LU', 'Lubelskie');
-INSERT INTO static_country_zones VALUES ('676', '0', 'PL', 'POL', '616', 'LB', 'Lubuskie');
-INSERT INTO static_country_zones VALUES ('677', '0', 'PL', 'POL', '616', 'LD', 'Łódzkie');
-INSERT INTO static_country_zones VALUES ('678', '0', 'PL', 'POL', '616', 'MA', 'Małopolskie');
-INSERT INTO static_country_zones VALUES ('679', '0', 'PL', 'POL', '616', 'MZ', 'Mazowieckie');
-INSERT INTO static_country_zones VALUES ('680', '0', 'PL', 'POL', '616', 'OP', 'Opolskie');
-INSERT INTO static_country_zones VALUES ('681', '0', 'PL', 'POL', '616', 'PK', 'Podkarpackie');
-INSERT INTO static_country_zones VALUES ('682', '0', 'PL', 'POL', '616', 'PD', 'Podlaskie');
-INSERT INTO static_country_zones VALUES ('683', '0', 'PL', 'POL', '616', 'PM', 'Pomorskie');
-INSERT INTO static_country_zones VALUES ('684', '0', 'PL', 'POL', '616', 'SL', 'Śląskie');
-INSERT INTO static_country_zones VALUES ('685', '0', 'PL', 'POL', '616', 'SK', 'Świętokrzyskie');
-INSERT INTO static_country_zones VALUES ('686', '0', 'PL', 'POL', '616', 'WN', 'Warmińsko-mazurskie');
-INSERT INTO static_country_zones VALUES ('687', '0', 'PL', 'POL', '616', 'WP', 'Wielkopolskie');
-INSERT INTO static_country_zones VALUES ('688', '0', 'PL', 'POL', '616', 'ZP', 'Zachodniopomorskie');
+INSERT INTO static_country_zones VALUES ('673', '0', 'PL', 'POL', '616', 'DS', 'Dolnośląskie', '');
+INSERT INTO static_country_zones VALUES ('674', '0', 'PL', 'POL', '616', 'KP', 'Kujawsko-pomorskie', '');
+INSERT INTO static_country_zones VALUES ('675', '0', 'PL', 'POL', '616', 'LU', 'Lubelskie', '');
+INSERT INTO static_country_zones VALUES ('676', '0', 'PL', 'POL', '616', 'LB', 'Lubuskie', '');
+INSERT INTO static_country_zones VALUES ('677', '0', 'PL', 'POL', '616', 'LD', 'Łódzkie', '');
+INSERT INTO static_country_zones VALUES ('678', '0', 'PL', 'POL', '616', 'MA', 'Małopolskie', '');
+INSERT INTO static_country_zones VALUES ('679', '0', 'PL', 'POL', '616', 'MZ', 'Mazowieckie', '');
+INSERT INTO static_country_zones VALUES ('680', '0', 'PL', 'POL', '616', 'OP', 'Opolskie', '');
+INSERT INTO static_country_zones VALUES ('681', '0', 'PL', 'POL', '616', 'PK', 'Podkarpackie', '');
+INSERT INTO static_country_zones VALUES ('682', '0', 'PL', 'POL', '616', 'PD', 'Podlaskie', '');
+INSERT INTO static_country_zones VALUES ('683', '0', 'PL', 'POL', '616', 'PM', 'Pomorskie', '');
+INSERT INTO static_country_zones VALUES ('684', '0', 'PL', 'POL', '616', 'SL', 'Śląskie', '');
+INSERT INTO static_country_zones VALUES ('685', '0', 'PL', 'POL', '616', 'SK', 'Świętokrzyskie', '');
+INSERT INTO static_country_zones VALUES ('686', '0', 'PL', 'POL', '616', 'WN', 'Warmińsko-mazurskie', '');
+INSERT INTO static_country_zones VALUES ('687', '0', 'PL', 'POL', '616', 'WP', 'Wielkopolskie', '');
+INSERT INTO static_country_zones VALUES ('688', '0', 'PL', 'POL', '616', 'ZP', 'Zachodniopomorskie', '');
 
 
 # TYPO3 Extension Manager dump 1.1
