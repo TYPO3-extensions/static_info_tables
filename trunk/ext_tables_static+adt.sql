@@ -84,7 +84,7 @@ CREATE TABLE static_countries (
 
 
 INSERT INTO static_countries VALUES ('1', '0', '0', 'AD', 'AND', '20', '39', 'Principat d\'Andorra', 'Principality of Andorra', 'Andorra la Vella', 'ad', 'EUR', '978', '376', '0', '1', '0', 'Andorra', 'Andorra', '1');
-INSERT INTO static_countries VALUES ('2', '0', '0', 'AE', 'ARE', '784', '0', 'الإمارات العربيّة المتّحدة', 'United Arab Emirates', 'Abu Dhabi', 'ae', 'AED', '784', '971', '0', '1', '0', 'الإمارات العربيّة المتّحدة', 'United Arab Emirates', '1');
+INSERT INTO static_countries VALUES ('2', '0', '0', 'AE', 'ARE', '784', '145', 'الإمارات العربيّة المتّحدة', 'United Arab Emirates', 'Abu Dhabi', 'ae', 'AED', '784', '971', '0', '1', '0', 'الإمارات العربيّة المتّحدة', 'United Arab Emirates', '1');
 INSERT INTO static_countries VALUES ('3', '0', '0', 'AF', 'AFG', '4', '34', 'د افغانستان اسلامي دولت', 'Islamic Republic of Afghanistan', 'Kabul', 'af', 'AFN', '971', '93', '0', '2', '0', 'افغانستان', 'Afghanistan', '1');
 INSERT INTO static_countries VALUES ('4', '0', '0', 'AG', 'ATG', '28', '29', 'Antigua and Barbuda', 'Antigua and Barbuda', 'St John\'s', 'ag', 'XCD', '951', '1268', '0', '1', '0', 'Antigua and Barbuda', 'Antigua and Barbuda', '1');
 INSERT INTO static_countries VALUES ('5', '0', '0', 'AI', 'AIA', '660', '29', 'Anguilla', 'Anguilla', 'The Valley', 'ai', 'XCD', '951', '1264', '0', '1', '0', 'Anguilla', 'Anguilla', '0');
@@ -182,7 +182,7 @@ INSERT INTO static_countries VALUES ('96', '0', '0', 'ID', 'IDN', '360', '35', '
 INSERT INTO static_countries VALUES ('97', '0', '0', 'IE', 'IRL', '372', '154', 'Poblacht na hÉireann / Republic of Ireland', 'Republic of Ireland', 'Dublin', 'ie', 'EUR', '978', '353', '1', '1', '0', 'Éire', 'Ireland', '1');
 INSERT INTO static_countries VALUES ('98', '0', '0', 'IL', 'ISR', '376', '145', 'دولة إسرائيل / מדינת ישראלل', 'State of Israel', 'Tel Aviv', 'il', 'ILS', '376', '972', '0', '2', '0', 'ישראל', 'Israel', '1');
 INSERT INTO static_countries VALUES ('99', '0', '0', 'IN', 'IND', '356', '34', 'Bharat; Republic of India', 'Republic of India', 'New Delhi', 'in', 'INR', '356', '91', '0', '2', '0', 'India', 'India', '1');
-INSERT INTO static_countries VALUES ('100', '0', '0', 'IO', 'IOT', '86', '0', 'British Indian Ocean Territory', 'British Indian Ocean Territory', '', 'io', '', '0', '0', '0', '1', '0', 'British Indian Ocean Territory', 'British Indian Ocean Territory', '0');
+INSERT INTO static_countries VALUES ('100', '0', '0', 'IO', 'IOT', '86', '34', 'British Indian Ocean Territory', 'British Indian Ocean Territory', '', 'io', '', '0', '0', '0', '1', '0', 'British Indian Ocean Territory', 'British Indian Ocean Territory', '0');
 INSERT INTO static_countries VALUES ('101', '0', '0', 'IQ', 'IRQ', '368', '145', 'الجمهورية العراقية', 'Republic of Iraq', 'Baghdad', 'iq', 'IQD', '368', '964', '0', '1', '0', 'العراق / عيَراق', 'Iraq', '1');
 INSERT INTO static_countries VALUES ('102', '0', '0', 'IR', 'IRN', '364', '34', 'جمهوری اسلامی ايران', 'Islamic Republic of Iran', 'Tehran', 'ir', 'IRR', '364', '98', '0', '1', '0', 'ايران', 'Iran', '1');
 INSERT INTO static_countries VALUES ('103', '0', '0', 'IS', 'ISL', '352', '154', 'Lýðveldið Ísland', 'Republic of Iceland', 'Reykjavík', 'is', 'ISK', '352', '354', '0', '1', '0', 'Ísland', 'Iceland', '1');
