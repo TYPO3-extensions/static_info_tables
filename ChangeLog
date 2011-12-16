@@ -3,6 +3,7 @@
 	* Fixed issue #32614: Errors in names of two provinces of Italy
 	* Fixed issue #32094: Usage of deprecated testInt method (Thanks to Stefan Galinski)
 	* Fixed issue #29241: NZ static currencies thousands decimal
+	* Fixed issue #28830: cn_short_local for Czech Republic misses an accent mark
 
 2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
 
