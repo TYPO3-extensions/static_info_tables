@@ -1117,7 +1117,7 @@ INSERT INTO static_currencies VALUES ('109', '0', 'NGN', '566', 'Nigerian naira'
 INSERT INTO static_currencies VALUES ('110', '0', 'NIO', '558', 'Nicaraguan córdoba', 'C$', '', '.', ',', '2', 'centavo', '100', '', '');
 INSERT INTO static_currencies VALUES ('111', '0', 'NOK', '578', 'Norvegian krone', 'kr', '', '.', ',', '2', 'øre', '100', '', '');
 INSERT INTO static_currencies VALUES ('112', '0', 'NPR', '524', 'Nepalese rupee', 'Rs.', '', '.', ',', '2', 'paisa', '100', '', '');
-INSERT INTO static_currencies VALUES ('113', '0', 'NZD', '554', 'New Zealand dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
+INSERT INTO static_currencies VALUES ('113', '0', 'NZD', '554', 'New Zealand dollar', '$', '', ',', '.', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('114', '0', 'OMR', '512', 'Omani rial', 'OR', '', '.', ',', '3', 'baiza', '1000', '', '');
 INSERT INTO static_currencies VALUES ('115', '0', 'PAB', '590', 'Panamanian balboa', 'B', '', '.', ',', '2', 'centésimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('116', '0', 'PEN', '604', 'Peruvian nuevo sol', 'Sl.', '', '.', ',', '2', 'centimo', '100', '', '');
