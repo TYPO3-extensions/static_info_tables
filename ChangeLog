@@ -1,5 +1,7 @@
 2011-12-16  Stanislas Rolland  <typo3@sjbr.ca>
+
 	* Fixed issue #32614: Errors in names of two provinces of Italy
+	* Fixed issue #32094: Usage of deprecated testInt method (Thanks to Stefan Galinski)
 
 2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
 
