@@ -267,7 +267,7 @@ INSERT INTO static_countries VALUES ('181', '0', '0', 'RW', 'RWA', '646', '14', 
 INSERT INTO static_countries VALUES ('182', '0', '0', 'SA', 'SAU', '682', '145', 'المملكة العربية السعودية', 'Kingdom of Saudi Arabia', 'Riyadh', 'sa', 'SAR', '682', '966', '0', '2', '0', 'السعودية', 'Saudi Arabia', '1');
 INSERT INTO static_countries VALUES ('183', '0', '0', 'SB', 'SLB', '90', '54', 'Solomon Islands', 'Solomon Islands', 'Honiara', 'sb', 'SBD', '90', '677', '0', '1', '0', 'Solomon Islands', 'Solomon Islands', '1');
 INSERT INTO static_countries VALUES ('184', '0', '0', 'SC', 'SYC', '690', '14', 'Repiblik Sesel / Republic of Seychelles / République des Seychelles', 'Republic of Seychelles', 'Victoria', 'sc', 'SCR', '690', '248', '0', '1', '0', 'Seychelles', 'Seychelles', '1');
-INSERT INTO static_countries VALUES ('185', '0', '0', 'SD', 'SDN', '736', '15', 'جمهورية السودان', 'Republic of the Sudan', 'Khartoum', 'sd', 'SDD', '736', '249', '0', '1', '0', 'السودان', 'Sudan', '1');
+INSERT INTO static_countries VALUES ('185', '0', '0', 'SD', 'SDN', '729', '15', 'جمهورية السودان', 'Republic of the Sudan', 'Khartoum', 'sd', 'SDG', '938', '249', '0', '1', '0', 'السودان', 'Sudan', '1');
 INSERT INTO static_countries VALUES ('186', '0', '0', 'SE', 'SWE', '752', '154', 'Konungariket Sverige', 'Kingdom of Sweden', 'Stockholm', 'se', 'SEK', '752', '46', '1', '1', '0', 'Sverige', 'Sweden', '1');
 INSERT INTO static_countries VALUES ('187', '0', '0', 'SG', 'SGP', '702', '35', 'Republic of Singapore / 新加坡共和国 / Republik Singapura / சிங்கப்பூர் குடியரசு', 'Republic of Singapore', 'Singapore', 'sg', 'SGD', '702', '65', '0', '2', '0', 'Singapore', 'Singapore', '1');
 INSERT INTO static_countries VALUES ('188', '0', '0', 'SH', 'SHN', '654', '11', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', 'Jamestown', 'sh', 'SHP', '654', '290', '0', '1', '0', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', '0');
@@ -333,7 +333,7 @@ INSERT INTO static_countries VALUES ('248', '0', '0', 'BL', 'BLM', '652', '29', 
 INSERT INTO static_countries VALUES ('249', '0', '0', 'BQ', 'BES', '535', '29', 'Bonaire, Sint Eustatius en Saba', 'Bonaire, Sint Eustatius and Saba', '', 'bq', '0', '0', '599', '0', '0', '0', 'Bonaire, Sint Eustatius en Saba', 'Bonaire, Sint Eustatius and Saba', '0');
 INSERT INTO static_countries VALUES ('250', '0', '0', 'CW', 'CUW', '531', '29', 'Curaçao', 'Curaçao', 'Willemstad', 'cw', '0', '0', '599', '0', '0', '0', 'Curaçao', 'Curaçao', '0');
 INSERT INTO static_countries VALUES ('251', '0', '0', 'SX', 'SXM', '534', '29', 'Sint Maarten', 'Sint Maarten', 'Philipsburg', 'sx', '0', '0', '599', '0', '0', '0', 'Sint Maarten', 'Sint Maarten', '0');
-
+INSERT INTO static_countries VALUES ('252', '0', '0', 'SS', 'SSD', '728', '15', 'Republic of South Sudan', 'Republic of South Sudan', 'Juba', 'ss', 'SSP', '728', '211', '0', '0', '0', 'South Sudan', 'South Sudan', '0');
 
 
 # TYPO3 Extension Manager dump 1.1
@@ -1133,7 +1133,7 @@ INSERT INTO static_currencies VALUES ('126', '0', 'RWF', '646', 'Rwandan franc',
 INSERT INTO static_currencies VALUES ('127', '0', 'SAR', '682', 'Saudi riyal', 'SR', '', '.', ',', '2', 'hallalah', '100', '', '');
 INSERT INTO static_currencies VALUES ('128', '0', 'SBD', '90', 'Solomon Islands dollar', 'SI$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('129', '0', 'SCR', '690', 'Seychelles rupee', 'SR', '', '.', ',', '2', 'cent', '100', '', '');
-INSERT INTO static_currencies VALUES ('130', '0', 'SDD', '736', 'Sudanese dinar', 'sD', '', '.', ',', '0', '', '1', '', '');
+INSERT INTO static_currencies VALUES ('130', '0', 'SDG', '938', 'Sudanese pound', '£', '', '.', ',', '2', 'piastre', '100', '', '');
 INSERT INTO static_currencies VALUES ('131', '0', 'SEK', '752', 'Swedish krona', '', 'kr', '.', ',', '2', 'öre', '100', '', '');
 INSERT INTO static_currencies VALUES ('132', '0', 'SGD', '702', 'Singapore dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('133', '0', 'SHP', '654', 'Saint Helena pound', '£', '', '.', ',', '2', 'penny', '100', '', '');
@@ -1175,7 +1175,7 @@ INSERT INTO static_currencies VALUES ('172', '0', 'CSD', '891', 'Serbian dinar',
 INSERT INTO static_currencies VALUES ('173', '0', 'MGA', '969', 'Malagasy ariary', '', '', '.', ',', '1', 'iraimbilanja', '5', '', '');
 INSERT INTO static_currencies VALUES ('174', '0', 'SRD', '968', 'Suriname dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
-
+INSERT INTO static_currencies VALUES ('176', '0', 'SSP', '728', 'South Sudanese pound', '£', '', '.', ',', '2', 'piastre', '100', '', '');
 
 
 # TYPO3 Extension Manager dump 1.1
