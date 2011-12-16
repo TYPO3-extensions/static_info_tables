@@ -1,3 +1,6 @@
+2011-12-16  Stanislas Rolland  <typo3@sjbr.ca>
+	* Fixed issue #32614: Errors in names of two provinces of Italy
+
 2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Added feature #9423: Add country zones for the regions and departments of France

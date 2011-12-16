@@ -604,7 +604,7 @@ INSERT INTO static_country_zones VALUES ('254', '0', 'IT', 'ITA', '380', 'FE', '
 INSERT INTO static_country_zones VALUES ('255', '0', 'IT', 'ITA', '380', 'FG', 'Foggia', '');
 INSERT INTO static_country_zones VALUES ('256', '0', 'IT', 'ITA', '380', 'FI', 'Firenze', 'Florence');
 INSERT INTO static_country_zones VALUES ('257', '0', 'IT', 'ITA', '380', 'FM', 'Fermo', '');
-INSERT INTO static_country_zones VALUES ('258', '0', 'IT', 'ITA', '380', 'FC', 'Forli', '');
+INSERT INTO static_country_zones VALUES ('258', '0', 'IT', 'ITA', '380', 'FC', 'Forlì-Cesena', '');
 INSERT INTO static_country_zones VALUES ('259', '0', 'IT', 'ITA', '380', 'FR', 'Frosinone', '');
 INSERT INTO static_country_zones VALUES ('260', '0', 'IT', 'ITA', '380', 'GE', 'Genova', '');
 INSERT INTO static_country_zones VALUES ('261', '0', 'IT', 'ITA', '380', 'GO', 'Gorizia', '');
@@ -618,7 +618,7 @@ INSERT INTO static_country_zones VALUES ('268', '0', 'IT', 'ITA', '380', 'LI', '
 INSERT INTO static_country_zones VALUES ('269', '0', 'IT', 'ITA', '380', 'LO', 'Lodi', '');
 INSERT INTO static_country_zones VALUES ('270', '0', 'IT', 'ITA', '380', 'LT', 'Latina', '');
 INSERT INTO static_country_zones VALUES ('271', '0', 'IT', 'ITA', '380', 'LU', 'Lucca', '');
-INSERT INTO static_country_zones VALUES ('272', '0', 'IT', 'ITA', '380', 'MB', 'Monza e della Brianza', '');
+INSERT INTO static_country_zones VALUES ('272', '0', 'IT', 'ITA', '380', 'MB', 'Monza e Brianza', '');
 INSERT INTO static_country_zones VALUES ('273', '0', 'IT', 'ITA', '380', 'MC', 'Macerata', '');
 INSERT INTO static_country_zones VALUES ('274', '0', 'IT', 'ITA', '380', 'ME', 'Messina', '');
 INSERT INTO static_country_zones VALUES ('275', '0', 'IT', 'ITA', '380', 'MI', 'Milano', '');
