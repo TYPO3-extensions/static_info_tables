@@ -11,6 +11,7 @@
 	* Fixed issue #27646: Territory of United Arab Emirates
 	* Follow-up to feature #28104: Polish country zones
 	* Fixed issue #13284: tx_staticinfotables_div::getCurrentLanguage should return 'EN' if language is 'default' (Thanks to Robert Heel)
+	* Fixed issue #28483: tx_staticinfotables_div::getCurrentLanguage issues repetitive SQL queries (Thanks to Raphaël Riel)
 
 2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
 
