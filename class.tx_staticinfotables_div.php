@@ -194,18 +194,22 @@ class tx_staticinfotables_div {
 		} else {
 			return 'EN';
 		}
+		
+		if ($langCodeT3 === 'default') {
+			return 'EN';
+		}
 
 		$res = $TYPO3_DB->exec_SELECTquery(
 			'lg_iso_2,lg_country_iso_2',
 			'static_languages',
-			'lg_typo3='.$TYPO3_DB->fullQuoteStr($langCodeT3,'static_languages')
+			'lg_typo3=' . $TYPO3_DB->fullQuoteStr($langCodeT3, 'static_languages')
 		);
 		while ($row = $TYPO3_DB->sql_fetch_assoc($res)) {
-			$lang = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
+			$lang = $row['lg_iso_2'] . ($row['lg_country_iso_2'] ? '_' . $row['lg_country_iso_2'] : '');
 		}
 		$TYPO3_DB->sql_free_result($res);
 
-		$rc = $lang ? $lang : $csConvObj->conv_case('utf-8',$langCodeT3,'toUpper');
+		$rc = $lang ? $lang : $csConvObj->conv_case('utf-8', $langCodeT3, 'toUpper');
 		return $rc;
 	}
 
