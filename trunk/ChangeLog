@@ -6,7 +6,8 @@
 	* Added feature #43009: Add federal states of croatia to static_country_zones
 	* Fixed issue #45372: Update Åland Islands tdl
 	* Added feature #45630: Update currencies in accordance with ISO 4217 Amendment Number 154
-	* Fixed issue #35775: Remove redundant indexes	
+	* Fixed issue #35775: Remove redundant indexes
+	* Fixed issue #40509: Wrong ISO codes for currency Serbian Dinar
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 

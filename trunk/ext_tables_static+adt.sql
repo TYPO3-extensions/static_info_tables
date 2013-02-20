@@ -13,8 +13,7 @@ CREATE TABLE static_territories (
   tr_iso_nr int(11) unsigned default '0',
   tr_parent_iso_nr int(11) unsigned default '0',
   tr_name_en varchar(50) default '',
-  PRIMARY KEY (uid),
-  UNIQUE uid (uid)
+  PRIMARY KEY (uid)
 );
 
 
@@ -78,8 +77,7 @@ CREATE TABLE static_countries (
   cn_short_local varchar(70) default '',
   cn_short_en varchar(50) default '',
   cn_uno_member tinyint(3) unsigned default '0',
-  PRIMARY KEY (uid),
-  UNIQUE uid (uid)
+  PRIMARY KEY (uid)
 );
 
 
@@ -354,8 +352,7 @@ CREATE TABLE static_country_zones (
   zn_code varchar(45) default '',
   zn_name_local varchar(128) default '',
   zn_name_en varchar(50) default '',
-  PRIMARY KEY (uid),
-  UNIQUE uid (uid)
+  PRIMARY KEY (uid)
 );
 
 
@@ -1043,7 +1040,6 @@ CREATE TABLE static_currencies (
   cu_sub_symbol_left varchar(12) default '',
   cu_sub_symbol_right varchar(12) default '',
   PRIMARY KEY (uid),
-  UNIQUE uid (uid),
   KEY parent (pid)
 );
 
@@ -1207,7 +1203,7 @@ INSERT INTO static_currencies VALUES ('168', '0', 'ZAR', '710', 'South African r
 INSERT INTO static_currencies VALUES ('169', '0', 'ZMW', '967', 'Zambian kwacha', 'K', '', '.', ',', '2', 'ngwee', '100', '', '');
 INSERT INTO static_currencies VALUES ('170', '0', 'ZWD', '716', 'Zimbabwean dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('171', '0', 'AFN', '971', 'Afghan afghani', 'Af', '', '.', ',', '2', 'pul', '100', '', '');
-INSERT INTO static_currencies VALUES ('172', '0', 'CSD', '891', 'Serbian dinar', '', '', '.', ',', '2', 'para', '100', '', '');
+INSERT INTO static_currencies VALUES ('172', '0', 'RSD', '941', 'Serbian dinar', '', '', '.', ',', '2', 'para', '100', '', '');
 INSERT INTO static_currencies VALUES ('173', '0', 'MGA', '969', 'Malagasy ariary', '', '', '.', ',', '1', 'iraimbilanja', '5', '', '');
 INSERT INTO static_currencies VALUES ('174', '0', 'SRD', '968', 'Suriname dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('175', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
@@ -1235,7 +1231,6 @@ CREATE TABLE static_languages (
   lg_sacred tinyint(3) unsigned default '0',
   lg_constructed tinyint(3) unsigned default '0',
   PRIMARY KEY (uid),
-  UNIQUE uid (uid),
   KEY parent (pid)
 );
 
