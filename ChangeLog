@@ -1,3 +1,7 @@
+2013-02-20  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Fixed issue #39552: Default TS constants contain superfluous dot
+
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Update version to 2.3.1
