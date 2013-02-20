@@ -1,4 +1,9 @@
+2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Update version to 2.3.1
+
 2012-05-29  Stanislas Rolland  <typo3@sjbr.ca>
+
 	* Fixed security issue [Ticket#2011101510000057] XSS in static_info_tables 2.3.0
 
 2011-12-16  Stanislas Rolland  <typo3@sjbr.ca>
