@@ -8,6 +8,7 @@
 	* Added feature #45630: Update currencies in accordance with ISO 4217 Amendment Number 154
 	* Fixed issue #35775: Remove redundant indexes
 	* Fixed issue #40509: Wrong ISO codes for currency Serbian Dinar
+	* Follow up to feature #45630: Update currencies in accordance with ISO 4217 Amendment Number 154
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 
