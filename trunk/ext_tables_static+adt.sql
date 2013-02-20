@@ -1194,7 +1194,7 @@ INSERT INTO static_currencies VALUES ('154', '0', 'UGX', '800', 'Ugandan shillin
 INSERT INTO static_currencies VALUES ('155', '0', 'USD', '840', 'US dollar', '$', '', ',', '.', '2', 'cent', '100', '', '¢');
 INSERT INTO static_currencies VALUES ('156', '0', 'UYU', '858', 'Uruguayan peso', 'UR$', '', '.', ',', '2', 'centésimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('157', '0', 'UZS', '860', 'Uzbekistani som', 'U.S.', '', '.', ',', '2', 'tiyin', '100', '', '');
-INSERT INTO static_currencies VALUES ('158', '0', 'VEB', '862', 'Bolivar', 'Bs.', '', '.', ',', '2', 'céntimo', '100', '', '');
+INSERT INTO static_currencies VALUES ('158', '0', 'VEF', '937', 'Bolivar', 'Bs.', '', '.', ',', '2', 'céntimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('159', '0', 'VND', '704', 'Vietnamese đồng', '', '₫', '.', ',', '2', 'xu', '100', '', '');
 INSERT INTO static_currencies VALUES ('160', '0', 'VUV', '548', 'Vatu', '', 'VT', '.', '', '0', 'centime', '1', '', '');
 INSERT INTO static_currencies VALUES ('161', '0', 'WST', '882', 'Samoan tala', 'WS$', '', '.', ',', '2', 'sene', '100', '', '');
@@ -1204,7 +1204,7 @@ INSERT INTO static_currencies VALUES ('164', '0', 'XOF', '952', 'CFA Franc BCEAO
 INSERT INTO static_currencies VALUES ('165', '0', 'XPF', '953', 'CFP Franc', 'CFPF', '', '.', '', '0', '', '1', '', '');
 INSERT INTO static_currencies VALUES ('166', '0', 'YER', '886', 'Yemeni rial', 'RI', '', '.', ',', '2', 'fils', '100', '', '');
 INSERT INTO static_currencies VALUES ('168', '0', 'ZAR', '710', 'South African rand', 'R', '', '.', ',', '2', 'cent', '100', '', '');
-INSERT INTO static_currencies VALUES ('169', '0', 'ZMK', '894', 'Zambian kwacha', 'K', '', '.', ',', '2', 'ngwee', '100', '', '');
+INSERT INTO static_currencies VALUES ('169', '0', 'ZMW', '967', 'Zambian kwacha', 'K', '', '.', ',', '2', 'ngwee', '100', '', '');
 INSERT INTO static_currencies VALUES ('170', '0', 'ZWD', '716', 'Zimbabwean dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('171', '0', 'AFN', '971', 'Afghan afghani', 'Af', '', '.', ',', '2', 'pul', '100', '', '');
 INSERT INTO static_currencies VALUES ('172', '0', 'CSD', '891', 'Serbian dinar', '', '', '.', ',', '2', 'para', '100', '', '');
