@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Data and API for countries, languages and currencies.',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '2.3.2',
+	'version' => '2.4.0',
 	'dependencies' => '',
 	'conflicts' => 'sr_static_info',
 	'priority' => '',
@@ -35,7 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '4.7-0.0.0',
-			'php' => '5.2.0-0.0.0',
+			'php' => '5.3.0-0.0.0',
 		),
 		'conflicts' => array(
 			'sr_static_info' => '',
