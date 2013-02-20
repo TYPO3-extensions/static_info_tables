@@ -995,6 +995,27 @@ INSERT INTO static_country_zones VALUES ('685', '0', 'PL', 'POL', '616', 'SK', '
 INSERT INTO static_country_zones VALUES ('686', '0', 'PL', 'POL', '616', 'WN', 'Warmińsko-mazurskie', '');
 INSERT INTO static_country_zones VALUES ('687', '0', 'PL', 'POL', '616', 'WP', 'Wielkopolskie', '');
 INSERT INTO static_country_zones VALUES ('688', '0', 'PL', 'POL', '616', 'ZP', 'Zachodniopomorskie', '');
+INSERT INTO static_country_zones VALUES ('689', '0', 'HR', 'HRV', '191', '21', 'Grad Zagreb', 'City of Zagreb');
+INSERT INTO static_country_zones VALUES ('690', '0', 'HR', 'HRV', '191', '07', 'Bjelovarsko-bilogorska županija', 'Bjelovar-Bilogora');
+INSERT INTO static_country_zones VALUES ('691', '0', 'HR', 'HRV', '191', '12', 'Brodsko-posavska županija', 'Brod-Posavina');
+INSERT INTO static_country_zones VALUES ('692', '0', 'HR', 'HRV', '191', '19', 'Dubrovačko-neretvanska županija', 'Dubrovnik-Neretva');
+INSERT INTO static_country_zones VALUES ('693', '0', 'HR', 'HRV', '191', '18', 'Istarska županija', 'Istria');
+INSERT INTO static_country_zones VALUES ('694', '0', 'HR', 'HRV', '191', '04', 'Karlovačka županija', 'Karlovac');
+INSERT INTO static_country_zones VALUES ('695', '0', 'HR', 'HRV', '191', '06', 'Koprivničko-križevačka županija', 'Koprivnica-Križevci');
+INSERT INTO static_country_zones VALUES ('696', '0', 'HR', 'HRV', '191', '02', 'Krapinsko-zagorska županija', 'Krapina-Zagorje');
+INSERT INTO static_country_zones VALUES ('697', '0', 'HR', 'HRV', '191', '09', 'Ličko-senjska županija', 'Lika-Senj');
+INSERT INTO static_country_zones VALUES ('698', '0', 'HR', 'HRV', '191', '20', 'Međimurska županija', 'Međimurje');
+INSERT INTO static_country_zones VALUES ('699', '0', 'HR', 'HRV', '191', '14', 'Osječko-baranjska županija', 'Osijek-Baranja');
+INSERT INTO static_country_zones VALUES ('700', '0', 'HR', 'HRV', '191', '11', 'Požeško-slavonska županija', 'Požega-Slavonia');
+INSERT INTO static_country_zones VALUES ('701', '0', 'HR', 'HRV', '191', '08', 'Primorsko-goranska županija', 'Primorje-Gorski Kotar');
+INSERT INTO static_country_zones VALUES ('702', '0', 'HR', 'HRV', '191', '03', 'Sisačko-moslavačka županija', 'Sisak-Moslavina');
+INSERT INTO static_country_zones VALUES ('703', '0', 'HR', 'HRV', '191', '17', 'Splitsko-dalmatinska županija', 'Split-Dalmatia');
+INSERT INTO static_country_zones VALUES ('704', '0', 'HR', 'HRV', '191', '15', 'Šibensko-kninska županija', 'Šibenik-Knin');
+INSERT INTO static_country_zones VALUES ('705', '0', 'HR', 'HRV', '191', '05', 'Varaždinska županija', 'Varaždin');
+INSERT INTO static_country_zones VALUES ('706', '0', 'HR', 'HRV', '191', '10', 'Virovitičko-podravska županija', 'Virovitica-Podravina');
+INSERT INTO static_country_zones VALUES ('707', '0', 'HR', 'HRV', '191', '16', 'Vukovarsko-srijemska županija', 'Vukovar-Syrmia');
+INSERT INTO static_country_zones VALUES ('708', '0', 'HR', 'HRV', '191', '13', 'Zadarska županija', 'Zadar');
+INSERT INTO static_country_zones VALUES ('709', '0', 'HR', 'HRV', '191', '01', 'Zagrebačka županija', 'Zagreb');
 
 
 # TYPO3 Extension Manager dump 1.1
