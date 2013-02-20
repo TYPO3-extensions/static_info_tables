@@ -603,14 +603,10 @@ class tx_staticinfotables_div {
 	 * @param	boolean		If the values are used inside of <script> tags.
 	 * @return	string		The encoded value already quoted
 	 */
-	function quoteJSvalue ($value, $inScriptTags=FALSE)	{
-		global $TSFE;
-
+	function quoteJSvalue ($value, $inScriptTags=FALSE) {
 		$value = addcslashes($value, '"'.chr(10).chr(13));
-		if (!$inScriptTags)	{
-
-			$charset = $TSFE->renderCharset;
-			$value = htmlspecialchars($value,ENT_COMPAT,$charset);
+		if (!$inScriptTags) {
+			$value = htmlspecialchars($value, ENT_COMPAT, $GLOBALS['TSFE']->renderCharset);
 		}
 		return '"'.$value.'"';
 	}
