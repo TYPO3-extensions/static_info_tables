@@ -62,17 +62,6 @@ $labelTable = array(
 	),
 );
 
-if (t3lib_extMgm::isLoaded('static_info_tables_markets')) {
-	$labelTable['static_markets'] = array(
-		'label_fields' => array(
-			'institution_description',
-		),
-		'isocode_field' => array(
-			'institution_description',
-		),
-	);
-}
-
 if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'])) {
 	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables'] = array_merge ($labelTable, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['tables']);
 } else {
