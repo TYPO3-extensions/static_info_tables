@@ -15,6 +15,7 @@
 	* Resolves #45684: Add autoloading
 	* Follow up to #45684: Add autoloading
 	* Fixed issue #45686: Remove reference to static_info_tables_markets
+	* Resolves #45688: Always keep tables utf-8-encoded
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 

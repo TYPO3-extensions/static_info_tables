@@ -13,15 +13,13 @@ if (!defined ('PATH_BE_staticinfotables_rel')) {
 	define('PATH_BE_staticinfotables_rel', t3lib_extMgm::extRelPath(STATIC_INFO_TABLES_EXTkey));
 }
 
-$_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
+// Unserializing the configuration so we can use it here
+$_EXTCONF = unserialize($_EXTCONF);
 
-if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset']))	{
-	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][STATIC_INFO_TABLES_EXTkey]['charset'] = (isset($_EXTCONF) && is_array($_EXTCONF) && $_EXTCONF['charset'] ? $_EXTCONF['charset'] : 'utf-8');
-}
-
+// Possible label fields for different languages. Default as last.
 $labelTable = array(
 	'static_territories' => array(
-		'label_fields' => array(	// possible label fields for different languages. Default as last.
+		'label_fields' => array(
 			'tr_name_##', 'tr_name_en',
 		),
 		'isocode_field' => array(
