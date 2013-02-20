@@ -1,6 +1,7 @@
 2013-02-20  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fixed issue #39552: Default TS constants contain superfluous dot
+	* Added feature #45626: Update countries to level of ISO 3166-1:2006 - Newsletter VI-12 (2012-02-15)
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 
