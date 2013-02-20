@@ -1,3 +1,6 @@
+2012-05-29  Stanislas Rolland  <typo3@sjbr.ca>
+	* Fixed security issue [Ticket#2011101510000057] XSS in static_info_tables 2.3.0
+
 2011-12-16  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fixed issue #32614: Errors in names of two provinces of Italy
