@@ -58,11 +58,6 @@
  *
  */
 
-
-
-require_once(PATH_tslib.'class.tslib_pibase.php');
-require_once(t3lib_extMgm::extPath('static_info_tables').'class.tx_staticinfotables_div.php');
-
 class tx_staticinfotables_pi1 extends tslib_pibase {
 
 	var $cObj;		// The backReference to the mother cObj object set at call time

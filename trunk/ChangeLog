@@ -12,6 +12,7 @@
 	* Update version to 2.3.2
 	* Resolves #45681: Require TYPO3 4.7
 	* Update version to 2.4
+	* Resolves #45684: Add autoloading
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 
