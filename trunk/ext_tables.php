@@ -3,7 +3,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
 t3lib_extMgm::addStaticFile(STATIC_INFO_TABLES_EXTkey, 'Configuration/TypoScript/', 'Static Info tables');
 
-$TCA['static_territories'] = array(
+$GLOBALS['TCA']['static_territories'] = array(
 	'ctrl' => array(
 		'label' => 'tr_name_en',
 		'label_alt' => 'tr_name_en,tr_iso_nr',
@@ -12,7 +12,7 @@ $TCA['static_territories'] = array(
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY tr_name_en',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_territories.title',
+		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_territories.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_territories.gif',
 	),
@@ -22,7 +22,7 @@ $TCA['static_territories'] = array(
 );
 
 // Country reference data from ISO 3166-1
-$TCA['static_countries'] = array(
+$GLOBALS['TCA']['static_countries'] = array(
 	'ctrl' => array(
 		'label' => 'cn_short_en',
 		'label_alt' => 'cn_short_en,cn_iso_2',
@@ -32,7 +32,7 @@ $TCA['static_countries'] = array(
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY cn_short_en',
 		'delete' => 'deleted',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_countries.title',
+		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_countries.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_countries.gif',
 	),
@@ -42,7 +42,7 @@ $TCA['static_countries'] = array(
 );
 
 // Country subdivision reference data from ISO 3166-2
-$TCA['static_country_zones'] = array(
+$GLOBALS['TCA']['static_country_zones'] = array(
 	'ctrl' => array(
 		'label' => 'zn_name_local',
 		'label_alt' => 'zn_name_local,zn_code',
@@ -51,7 +51,7 @@ $TCA['static_country_zones'] = array(
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY zn_name_local',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_country_zones.title',
+		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_country_zones.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_countries.gif',
 	),
@@ -61,7 +61,7 @@ $TCA['static_country_zones'] = array(
 );
 
 // Language reference data from ISO 639-1
-$TCA['static_languages'] = array(
+$GLOBALS['TCA']['static_languages'] = array(
 	'ctrl' => array(
 		'label' => 'lg_name_en',
 		'label_alt' => 'lg_name_en,lg_iso_2',
@@ -70,7 +70,7 @@ $TCA['static_languages'] = array(
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY lg_name_en',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_languages.title',
+		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_languages.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_languages.gif',
 	),
@@ -80,7 +80,7 @@ $TCA['static_languages'] = array(
 );
 
 // Currency reference data from ISO 4217
-$TCA['static_currencies'] = array(
+$GLOBALS['TCA']['static_currencies'] = array(
 	'ctrl' => array(
 		'label' => 'cu_name_en',
 		'label_alt' => 'cu_name_en,cu_iso_3',
@@ -89,7 +89,7 @@ $TCA['static_currencies'] = array(
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY cu_name_en',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/locallang_db.xml:static_currencies.title',
+		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
 		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_currencies.gif',
 	),
@@ -98,11 +98,11 @@ $TCA['static_currencies'] = array(
 	)
 );
 
-$TCA['static_countries']['ctrl']['readOnly'] = 0;
-$TCA['static_languages']['ctrl']['readOnly'] = 0;
-$TCA['static_country_zones']['ctrl']['readOnly'] = 0;
-$TCA['static_currencies']['ctrl']['readOnly'] = 0;
-$TCA['static_territories']['ctrl']['readOnly'] = 0;
+$GLOBALS['TCA']['static_countries']['ctrl']['readOnly'] = 0;
+$GLOBALS['TCA']['static_languages']['ctrl']['readOnly'] = 0;
+$GLOBALS['TCA']['static_country_zones']['ctrl']['readOnly'] = 0;
+$GLOBALS['TCA']['static_currencies']['ctrl']['readOnly'] = 0;
+$GLOBALS['TCA']['static_territories']['ctrl']['readOnly'] = 0;
 
 
 // ******************************************************************
@@ -110,7 +110,7 @@ $TCA['static_territories']['ctrl']['readOnly'] = 0;
 // ******************************************************************
 
 t3lib_div::loadTCA('sys_language');
-$TCA['sys_language']['columns']['static_lang_isocode']['config'] = array(
+$GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = array(
 	'type' => 'select',
 	'items' => array(
 		array('',0),

@@ -17,6 +17,7 @@
 	* Fixed issue #45686: Remove reference to static_info_tables_markets
 	* Resolves #45688: Always keep tables utf-8-encoded
 	* Resolves #45692: Move static template to Configuration directory
+	* Resolves #45689: Convert locallang files to XLIFF
 
 2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
 
