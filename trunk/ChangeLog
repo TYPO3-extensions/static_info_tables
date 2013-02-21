@@ -1,3 +1,7 @@
+2013-02-21  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #10037: Connect static_territories with static_countries
+
 2013-02-20  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fixed issue #39552: Default TS constants contain superfluous dot

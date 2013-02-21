@@ -20,11 +20,28 @@ $GLOBALS['TCA']['static_territories'] = array(
 				'default' => '0'
 			)
 		),
+		'tr_parent_territory_uid' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_territory_uid',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'static_territories',
+				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
+				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortTerritoriesSelector',
+				'size' => 1,
+				'minitems' => 1,
+				'maxitems' => 1,
+			)
+		),
 		'tr_parent_iso_nr' => array(
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
+				'readOnly' => 1,
 				'size' => '7',
 				'max' => '7',
 				'eval' => 'int',
@@ -46,9 +63,14 @@ $GLOBALS['TCA']['static_territories'] = array(
 	),
 	'types' => array(
 		'1' => array(
-			'showitem' => 'tr_iso_nr,tr_name_en,tr_parent_iso_nr'
+			'showitem' => 'tr_iso_nr,tr_name_en,--palette--;;1;;'
 		)
 	),
+	'palettes' => array(
+		'1' => array(
+			'showitem' => 'tr_parent_territory_uid,tr_parent_iso_nr', 'canNotCollapse' => '1'
+		)
+	)
 );
 
 $GLOBALS['TCA']['static_countries'] = array(
@@ -90,11 +112,28 @@ $GLOBALS['TCA']['static_countries'] = array(
 				'default' => '0'
 			)
 		),
+		'cn_parent_territory_uid' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_parent_territory_uid',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'static_territories',
+				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
+				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortTerritoriesSelector',
+				'size' => 1,
+				'minitems' => 1,
+				'maxitems' => 1,
+			)
+		),
 		'cn_parent_tr_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_parent_tr_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
+				'readOnly' => 1,
 				'size' => '7',
 				'max' => '7',
 				'eval' => 'int',
@@ -252,12 +291,12 @@ $GLOBALS['TCA']['static_countries'] = array(
 	),
 	'types' => array(
 		'1' => array(
-			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;2;;,--palette--;;3;;,--palette--;;4;;,cn_short_en'
+			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;5;;,--palette--;;2;;,--palette--;;3;;,--palette--;;4;;,cn_short_en'
 		)
 	),
-	'palettes'	=> array(
+	'palettes' => array(
 		'1' => array(
-			'showitem' => 'cn_iso_nr,cn_iso_2,cn_iso_3,cn_parent_tr_iso_nr', 'canNotCollapse' => '1'
+			'showitem' => 'cn_iso_nr,cn_iso_2,cn_iso_3', 'canNotCollapse' => '1'
 		),
 		'2' => array(
 			'showitem' => 'cn_currency_iso_nr,cn_currency_iso_3', 'canNotCollapse' => '1'
@@ -267,6 +306,9 @@ $GLOBALS['TCA']['static_countries'] = array(
 		),
 		'4' => array(
 			'showitem' => 'cn_address_format,cn_zone_flag', 'canNotCollapse' => '1'
+		),
+		'5' => array(
+			'showitem' => 'cn_parent_territory_uid,cn_parent_tr_iso_nr', 'canNotCollapse' => '1'
 		)
 	)
 );

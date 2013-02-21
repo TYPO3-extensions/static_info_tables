@@ -9,8 +9,11 @@
 			<trans-unit id="static_territories_item.tr_iso_nr" xml:space="preserve">
 				<source>ISO nr territory code:</source>
 			</trans-unit>
+			<trans-unit id="static_territories_item.tr_parent_territory_uid" xml:space="preserve">
+				<source>Territory in which this one is contained:</source>
+			</trans-unit>
 			<trans-unit id="static_territories_item.tr_parent_iso_nr" xml:space="preserve">
-				<source>Parent territory code:</source>
+				<source>ISO numeric code of territory in which this one is contained:</source>
 			</trans-unit>
 			<trans-unit id="static_territories_item.tr_name_en" xml:space="preserve">
 				<source>Name (EN):</source>
@@ -32,6 +35,12 @@
 			</trans-unit>
 			<trans-unit id="static_countries_item.cn_official_name_en" xml:space="preserve">
 				<source>Official name (EN):</source>
+			</trans-unit>
+			<trans-unit id="static_countries_item.cn_parent_territory_uid" xml:space="preserve">
+				<source>Territory in which this country is located:</source>
+			</trans-unit>
+			<trans-unit id="static_countries_item.cn_parent_tr_iso_nr" xml:space="preserve">
+				<source>ISO numeric code of territory in which this country is located:</source>
 			</trans-unit>
 			<trans-unit id="static_countries_item.cn_capital" xml:space="preserve">
 				<source>Capital:</source>

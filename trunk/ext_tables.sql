@@ -2,39 +2,41 @@
 # Table structure for table "static_territories"
 #
 CREATE TABLE static_territories (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned DEFAULT '0' NOT NULL,
-  tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-  tr_parent_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-  tr_name_en varchar(50) DEFAULT '' NOT NULL,
-  PRIMARY KEY (uid)
+	uid int(11) unsigned NOT NULL auto_increment,
+	pid int(11) unsigned DEFAULT '0' NOT NULL,
+	tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	tr_parent_territory_uid int(11) DEFAULT '0' NOT NULL,
+	tr_parent_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	tr_name_en varchar(50) DEFAULT '' NOT NULL,
+	PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table "static_countries"
 #
 CREATE TABLE static_countries (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned DEFAULT '0' NOT NULL,
-  deleted tinyint(4) DEFAULT '0' NOT NULL,
-  cn_iso_2 char(2) DEFAULT '' NOT NULL,
-  cn_iso_3 char(3) DEFAULT '' NOT NULL,
-  cn_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-  cn_parent_tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-  cn_official_name_local varchar(128) DEFAULT '' NOT NULL,
-  cn_official_name_en varchar(128) DEFAULT '' NOT NULL,
-  cn_capital varchar(45) DEFAULT '' NOT NULL,
-  cn_tldomain char(2) DEFAULT '' NOT NULL,
-  cn_currency_iso_3 char(3) DEFAULT '' NOT NULL,
-  cn_currency_iso_nr int(10) unsigned DEFAULT '0' NOT NULL,
-  cn_phone int(10) unsigned DEFAULT '0' NOT NULL,
-  cn_eu_member tinyint(3) unsigned DEFAULT '0' NOT NULL,
-  cn_uno_member tinyint(3) unsigned DEFAULT '0' NOT NULL,
-  cn_address_format tinyint(3) unsigned DEFAULT '0' NOT NULL,
-  cn_zone_flag tinyint(4) DEFAULT '0' NOT NULL,
-  cn_short_local varchar(70) DEFAULT '' NOT NULL,
-  cn_short_en varchar(50) DEFAULT '' NOT NULL,
-  PRIMARY KEY (uid)
+	uid int(11) unsigned NOT NULL auto_increment,
+	pid int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	cn_iso_2 char(2) DEFAULT '' NOT NULL,
+	cn_iso_3 char(3) DEFAULT '' NOT NULL,
+	cn_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	cn_parent_territory_uid int(11) DEFAULT '0' NOT NULL,
+	cn_parent_tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	cn_official_name_local varchar(128) DEFAULT '' NOT NULL,
+	cn_official_name_en varchar(128) DEFAULT '' NOT NULL,
+	cn_capital varchar(45) DEFAULT '' NOT NULL,
+	cn_tldomain char(2) DEFAULT '' NOT NULL,
+	cn_currency_iso_3 char(3) DEFAULT '' NOT NULL,
+	cn_currency_iso_nr int(10) unsigned DEFAULT '0' NOT NULL,
+	cn_phone int(10) unsigned DEFAULT '0' NOT NULL,
+	cn_eu_member tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	cn_uno_member tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	cn_address_format tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	cn_zone_flag tinyint(4) DEFAULT '0' NOT NULL,
+	cn_short_local varchar(70) DEFAULT '' NOT NULL,
+	cn_short_en varchar(50) DEFAULT '' NOT NULL,
+	PRIMARY KEY (uid)
 );
 
 
