@@ -1,7 +1,7 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-t3lib_extMgm::addStaticFile(STATIC_INFO_TABLES_EXTkey, 'static/static_info_tables/', 'Static Info tables');
+t3lib_extMgm::addStaticFile(STATIC_INFO_TABLES_EXTkey, 'Configuration/TypoScript/', 'Static Info tables');
 
 $TCA['static_territories'] = array(
 	'ctrl' => array(
