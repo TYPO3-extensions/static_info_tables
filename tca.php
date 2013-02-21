@@ -1,14 +1,16 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+if (!defined ('TYPO3_MODE')) {
+	die ('Access denied.');
+}
 
-$TCA['static_territories'] = array(
-	'ctrl' => $TCA['static_territories']['ctrl'],
+$GLOBALS['TCA']['static_territories'] = array(
+	'ctrl' => $GLOBALS['TCA']['static_territories']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'tr_iso_nr,tr_parent_iso_nr,tr_name_en'
 	),
 	'columns' => array(
 		'tr_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_territories_item.tr_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -19,7 +21,7 @@ $TCA['static_territories'] = array(
 			)
 		),
 		'tr_parent_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_territories_item.tr_parent_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -30,7 +32,7 @@ $TCA['static_territories'] = array(
 			)
 		),
 		'tr_name_en' => array(
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.name',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.name',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -49,14 +51,14 @@ $TCA['static_territories'] = array(
 	),
 );
 
-$TCA['static_countries'] = array(
-	'ctrl' => $TCA['static_countries']['ctrl'],
+$GLOBALS['TCA']['static_countries'] = array(
+	'ctrl' => $GLOBALS['TCA']['static_countries']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'cn_iso_2,cn_iso_3,cn_iso_nr,cn_official_name_local,cn_official_name_en,cn_capital,cn_tldomain,cn_currency_iso_3,cn_currency_iso_nr,cn_phone,cn_uno_member,cn_eu_member,cn_address_format,cn_short_en'
 	),
 	'columns' => array(
 		'cn_iso_2' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_iso_2',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_2',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -67,7 +69,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -78,7 +80,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -89,7 +91,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_parent_tr_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_territories_item.tr_parent_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -100,7 +102,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_official_name_local' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_official_name_local',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_official_name_local',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -112,7 +114,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_official_name_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_official_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_official_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -124,7 +126,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_capital' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_capital',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_capital',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -136,7 +138,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_tldomain' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_tldomain',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_tldomain',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -147,7 +149,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_currency_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_currency_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -158,7 +160,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_currency_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_currency_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -169,7 +171,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_phone' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_phone',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_phone',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -180,7 +182,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_eu_member' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_eu_member',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_eu_member',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -188,7 +190,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_uno_member' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_uno_member',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_uno_member',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -196,27 +198,27 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_address_format' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
 					array('','0'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_1','1'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_2','2'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_3','3'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_4','4'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_5','5'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_6','6'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_7','7'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_8','8'),
-					array('LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_address_format_9','9'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_1','1'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_2','2'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_3','3'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_4','4'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_5','5'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_6','6'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_7','7'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_8','8'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_9','9'),
 					),
 				'default' => '0'
 			)
 		),
 		'cn_zone_flag' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_zone_flag',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_zone_flag',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -224,7 +226,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_short_local' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_short_local',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_short_local',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -236,7 +238,7 @@ $TCA['static_countries'] = array(
 			)
 		),
 		'cn_short_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_short_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_short_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -269,14 +271,14 @@ $TCA['static_countries'] = array(
 	)
 );
 
-$TCA['static_currencies'] = array(
-	'ctrl' => $TCA['static_currencies']['ctrl'],
+$GLOBALS['TCA']['static_currencies'] = array(
+	'ctrl' => $GLOBALS['TCA']['static_currencies']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'cu_iso_3,cu_iso_nr,cu_name_en,cu_symbol_left,cu_symbol_right,cu_thousands_point,cu_decimal_point,cu_decimal_digits,cu_sub_name_en,cu_sub_divisor,cu_sub_symbol_left,cu_sub_symbol_right'
 	),
 	'columns' => array(
 		'cu_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -287,7 +289,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -298,7 +300,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_name_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -310,7 +312,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_sub_name_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_sub_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -322,7 +324,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_symbol_left' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_symbol_left',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_symbol_left',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -334,7 +336,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_symbol_right' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_symbol_right',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_symbol_right',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -346,7 +348,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_thousands_point' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_thousands_point',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_thousands_point',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -357,7 +359,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_decimal_point' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_decimal_point',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_decimal_point',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -368,7 +370,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_decimal_digits' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_decimal_digits',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_decimal_digits',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -379,7 +381,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_sub_divisor' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_sub_divisor',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_divisor',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -390,7 +392,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_sub_symbol_left' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_sub_symbol_left',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_symbol_left',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -402,7 +404,7 @@ $TCA['static_currencies'] = array(
 			)
 		),
 		'cu_sub_symbol_right' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_currencies_item.cu_sub_symbol_right',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_symbol_right',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -432,14 +434,14 @@ $TCA['static_currencies'] = array(
 	)
 );
 
-$TCA['static_languages'] = array(
-	'ctrl' => $TCA['static_languages']['ctrl'],
+$GLOBALS['TCA']['static_languages'] = array(
+	'ctrl' => $GLOBALS['TCA']['static_languages']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'lg_name_local,lg_name_en,lg_iso_2,lg_typo3,lg_country_iso_2,lg_collate_locale,lg_sacred,lg_constructed'
 	),
 	'columns' => array(
 		'lg_iso_2' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_iso_2',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_iso_2',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -450,7 +452,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_name_local' => array(
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.name',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.name',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -462,7 +464,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_name_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -474,7 +476,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_typo3' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_typo3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_typo3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -485,7 +487,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_country_iso_2' => Array (
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_countries_item.cn_iso_2',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_2',
 			'exclude' => '0',
 			'config' => Array (
 				'type' => 'input',
@@ -496,7 +498,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_collate_locale' => Array (
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_collate_locale',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_collate_locale',
 			'exclude' => '0',
 			'config' => Array (
 				'type' => 'input',
@@ -507,7 +509,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_sacred' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_sacred',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_sacred',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -515,7 +517,7 @@ $TCA['static_languages'] = array(
 			)
 		),
 		'lg_constructed' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_languages_item.lg_constructed',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages_item.lg_constructed',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -530,14 +532,14 @@ $TCA['static_languages'] = array(
 	)
 );
 
-$TCA['static_country_zones'] = array(
-	'ctrl' => $TCA['static_country_zones']['ctrl'],
+$GLOBALS['TCA']['static_country_zones'] = array(
+	'ctrl' => $GLOBALS['TCA']['static_country_zones']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3,zn_code,zn_name_local,zn_name_en'
 	),
 	'columns' => array(
 		'zn_country_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_country_zones_item.zn_country_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -548,7 +550,7 @@ $TCA['static_country_zones'] = array(
 			)
 		),
 		'zn_country_iso_2' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_country_zones_item.zn_country_iso_2',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_2',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -559,7 +561,7 @@ $TCA['static_country_zones'] = array(
 			)
 		),
 		'zn_country_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_country_zones_item.zn_country_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -570,7 +572,7 @@ $TCA['static_country_zones'] = array(
 			)
 		),
 		'zn_code' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_country_zones_item.zn_code',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_code',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -582,7 +584,7 @@ $TCA['static_country_zones'] = array(
 			)
 		),
 		'zn_name_local' => array(
-			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.name',
+			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.name',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -594,7 +596,7 @@ $TCA['static_country_zones'] = array(
 			)
 		),
 		'zn_name_en' => array(
-			'label' => 'LLL:EXT:static_info_tables/locallang_db.xml:static_country_zones_item.zn_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -617,5 +619,4 @@ $TCA['static_country_zones'] = array(
 		)
 	)
 );
-
 ?>
