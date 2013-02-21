@@ -1,20 +1,23 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-t3lib_extMgm::addStaticFile(STATIC_INFO_TABLES_EXTkey, 'Configuration/TypoScript/', 'Static Info tables');
+t3lib_extMgm::addStaticFile('static_info_tables', 'Configuration/TypoScript/', 'Static Info tables');
 
 $GLOBALS['TCA']['static_territories'] = array(
 	'ctrl' => array(
 		'label' => 'tr_name_en',
-		'label_alt' => 'tr_name_en,tr_iso_nr',
-		'readOnly' => 1,	// This should always be true, as it prevents the static data from being altered
+		'label_alt' => 'tr_iso_nr',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:tx_staticinfotables_renderElement->addIsoCodeToLabel',
+		// This should always be true, as it prevents the static data from being altered
+		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY tr_name_en',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_territories.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
-		'iconfile' => PATH_BE_staticinfotables_rel.'icon_static_territories.gif',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories.title',
+		'dynamicConfigFile' => PATH_BE_staticinfotables . 'tca.php',
+		'iconfile' => PATH_BE_staticinfotables_rel . 'icon_static_territories.gif',
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'tr_name_en,tr_iso_nr'
@@ -25,8 +28,11 @@ $GLOBALS['TCA']['static_territories'] = array(
 $GLOBALS['TCA']['static_countries'] = array(
 	'ctrl' => array(
 		'label' => 'cn_short_en',
-		'label_alt' => 'cn_short_en,cn_iso_2',
-		'readOnly' => 1,	// This should always be true, as it prevents the static data from being altered
+		'label_alt' => 'cn_iso_2',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:tx_staticinfotables_renderElement->addIsoCodeToLabel',
+		// This should always be true, as it prevents the static data from being altered
+		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
@@ -134,7 +140,8 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = ar
 	'minitems' => 0,
 	'maxitems' => 1,
 );
-
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:'.STATIC_INFO_TABLES_EXTkey.'/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
+// Add data handling hooks
+$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/Classes/Hook/Core/DataHandling/class.tx_staticinfotables_processdatamap.php:&tx_staticinfotables_processdatamap';
+$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
 
 ?>
