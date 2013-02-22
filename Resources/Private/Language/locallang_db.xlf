@@ -48,6 +48,9 @@
 			<trans-unit id="static_countries_item.cn_tldomain" xml:space="preserve">
 				<source>Top level domain:</source>
 			</trans-unit>
+			<trans-unit id="static_countries_item.cn_currency_uid" xml:space="preserve">
+				<source>Currency:</source>
+			</trans-unit>
 			<trans-unit id="static_countries_item.cn_currency_iso_nr" xml:space="preserve">
 				<source>ISO 4217 Nr Currency code:</source>
 			</trans-unit>

@@ -2,6 +2,7 @@
 
 	* Resolves #10037: Connect static_territories with static_countries
 	* Resolves #45733: Move icons to Resources directory
+	* Resolves #45734: Connect static_countries to static_currencies
 
 2013-02-20  Stanislas Rolland  <typo3@sjbr.ca>
 
