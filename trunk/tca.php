@@ -37,15 +37,8 @@ $GLOBALS['TCA']['static_territories'] = array(
 			)
 		),
 		'tr_parent_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_iso_nr',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'readOnly' => 1,
-				'size' => '7',
-				'max' => '7',
-				'eval' => 'int',
-				'default' => '0'
+				'type' => 'passthrough',
 			)
 		),
 		'tr_name_en' => array(
@@ -129,15 +122,8 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_parent_tr_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_parent_tr_iso_nr',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'readOnly' => 1,
-				'size' => '7',
-				'max' => '7',
-				'eval' => 'int',
-				'default' => '0'
+				'type' => 'passthrough',
 			)
 		),
 		'cn_official_name_local' => array(
@@ -204,27 +190,13 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_currency_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_iso_nr',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'readOnly' => 1,
-				'size' => '5',
-				'max' => '3',
-				'eval' => '',
-				'default' => ''
+				'type' => 'passthrough',
 			)
 		),
 		'cn_currency_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_iso_3',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'readOnly' => 1,
-				'size' => '7',
-				'max' => '7',
-				'eval' => '',
-				'default' => '0'
+				'type' => 'passthrough',
 			)
 		),
 		'cn_phone' => array(
@@ -306,10 +278,26 @@ $GLOBALS['TCA']['static_countries'] = array(
 				'_is_string' => '1'
 			)
 		),
+		'cn_country_zones' => array(
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_country_zones',
+			'exclude' => '0',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'static_country_zones',
+				'foreign_field' => 'zn_country_uid',
+				'foreign_table_field' => 'zn_country_table',
+				'foreign_default_sortby' => 'zn_name_local',
+				'maxitems' => '100',
+				'appearance' => array(
+					'expandSingle' => 1,
+					'newRecordLinkAddTitle' => 1
+				)
+			)
+		)
 	),
 	'types' => array(
 		'1' => array(
-			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;5;;,--palette--;;2;;,--palette--;;3;;,--palette--;;4;;,cn_short_en'
+			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;5;;,--palette--;;2;;,--palette--;;3;;,--palette--;;4;;,cn_short_en,cn_country_zones'
 		)
 	),
 	'palettes' => array(
@@ -598,37 +586,29 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 		'showRecordFieldList' => 'zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3,zn_code,zn_name_local,zn_name_en'
 	),
 	'columns' => array(
-		'zn_country_iso_nr' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_nr',
-			'exclude' => '0',
+		'zn_country_uid' => array(
 			'config' => array(
-				'type' => 'input',
-				'size' => '5',
-				'max' => '20',
-				'eval' => 'int',
-				'default' => '0'
+				'type' => 'passthrough',
+			)
+		),
+		'zn_country_table' => array(
+			'config' => array(
+				'type' => 'passthrough',
+			)
+		),
+		'zn_country_iso_nr' => array(
+			'config' => array(
+				'type' => 'passthrough',
 			)
 		),
 		'zn_country_iso_2' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_2',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'size' => '3',
-				'max' => '2',
-				'eval' => '',
-				'default' => ''
-			)
+				'type' => 'passthrough',
+			)		
 		),
 		'zn_country_iso_3' => array(
-			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_country_iso_3',
-			'exclude' => '0',
 			'config' => array(
-				'type' => 'input',
-				'size' => '5',
-				'max' => '3',
-				'eval' => '',
-				'default' => ''
+				'type' => 'passthrough',
 			)
 		),
 		'zn_code' => array(
@@ -675,7 +655,7 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 	),
 	'palettes'	=> array(
 		'1' => array(
-			'showitem' => 'zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3', 'canNotCollapse' => '1'
+			'showitem' => 'zn_country_uid,zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3', 'canNotCollapse' => '1'
 		)
 	)
 );

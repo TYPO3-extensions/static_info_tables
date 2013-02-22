@@ -25,53 +25,101 @@
  * Hook on Core/DataHandling/DataHandler to manage redundancy of ISO codes in static info tables
  */
 class tx_staticinfotables_processDataMap {
+
 	/**
-	 * Pre-process redundant ISO codes fields
+	 * Post-process redundant ISO codes fields
 	 *
 	 * @param	object		$fobj TCEmain object reference
 	 * @return	void
 	 */
-	public function processDatamap_preProcessFieldArray (&$incomingFieldArray, $table, $id, &$fObj) {
+	public function processDatamap_postProcessFieldArray ($status, $table, $id, &$incomingFieldArray, &$fObj) {
 		switch ($table) {
 			case 'static_territories':
-				//Pre-process territory ISO number
+			case 'cc_static_territories':
+				//Post-process containing territory ISO numeric code
+				$tablePrefix = ($table == 'cc_static_territories' ? 'cc_': '');
 				if ($incomingFieldArray['tr_parent_territory_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
-						'static_territories',
-						'uid = ' . intval($incomingFieldArray['tr_parent_territory_uid']) . t3lib_befunc::deleteClause('static_territories')
+						$tablePrefix . 'static_territories',
+						'uid = ' . intval($incomingFieldArray['tr_parent_territory_uid']) . t3lib_befunc::deleteClause($tablePrefix . 'static_territories')
 					);
 					$incomingFieldArray['tr_parent_iso_nr'] = $rows[0]['tr_iso_nr'];
-				} else {
+				} else if (isset($incomingFieldArray['tr_parent_territory_uid'])) {
 					$incomingFieldArray['tr_parent_iso_nr'] = NULL;
 				}
 				break;
 			case 'static_countries':
-				//Pre-process territory ISO number
+			case 'cc_static_countries':
+				$tablePrefix = ($table == 'cc_static_countries' ? 'cc_': '');
+				//Post-process containing territory ISO numeric code
 				if ($incomingFieldArray['cn_parent_territory_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
-						'static_territories',
-						'uid = ' . intval($incomingFieldArray['cn_parent_territory_uid']) . t3lib_befunc::deleteClause('static_territories')
+						$tablePrefix . 'static_territories',
+						'uid = ' . intval($incomingFieldArray['cn_parent_territory_uid']) . t3lib_befunc::deleteClause($tablePrefix . 'static_territories')
 					);
 					$incomingFieldArray['cn_parent_tr_iso_nr'] = $rows[0]['tr_iso_nr'];
-				} else {
+				} else if (isset($incomingFieldArray['cn_parent_territory_uid'])) {
 					$incomingFieldArray['cn_parent_tr_iso_nr'] = NULL;
 				}
-				//Pre-process currency ISO numeric and A3 code
+				//Post-process currency ISO numeric and A3 codes
 				if ($incomingFieldArray['cn_currency_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,cu_iso_nr,cu_iso_3',
-						'static_currencies',
-						'uid = ' . intval($incomingFieldArray['cn_currency_uid']) . t3lib_befunc::deleteClause('static_currencies')
+						$tablePrefix . 'static_currencies',
+						'uid = ' . intval($incomingFieldArray['cn_currency_uid']) . t3lib_befunc::deleteClause($tablePrefix . 'static_currencies')
 					);
 					$incomingFieldArray['cn_currency_iso_nr'] = $rows[0]['cu_iso_nr'];
 					$incomingFieldArray['cn_currency_iso_3'] = $rows[0]['cu_iso_3'];
-				} else {
+				} else if (isset($incomingFieldArray['cn_currency_uid'])) {
 					$incomingFieldArray['cn_currency_iso_nr'] = NULL;
 					$incomingFieldArray['cn_currency_iso_3'] = NULL;
 				}
-				break;
+				break;			
+		}
+	}
+	/**
+	 * Post-process redundant ISO codes fields of IRRE child
+	 *
+	 * @param	object		$fobj TCEmain object reference
+	 * @return	void
+	 */
+	public function processDatamap_afterDatabaseOperations ($status, $table, $id, &$fieldArray, &$fObj) {
+		switch ($table) {
+			case 'static_countries':
+			case 'cc_static_countries':
+				//Post-process country ISO numeric, A2 and A3 codes on country zones
+				$tablePrefix = ($table == 'cc_static_countries' ? 'cc_': '');
+				// Get the country record uid
+				if ($status == 'new') {
+					$id = $fObj->substNEWwithIDs[$id];
+				}
+				// Get the country zones
+				$countryZones = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+					'*',
+					$tablePrefix . 'static_country_zones',
+					'zn_country_uid = ' . intval($id) . t3lib_befunc::deleteClause($tablePrefix . 'static_country_zones')
+				);
+				if (is_array($countryZones) && count($countryZones)) {
+					$countries = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+						'uid,cn_iso_nr,cn_iso_2,cn_iso_3',
+						$table,
+						'uid = ' . intval($id) . t3lib_befunc::deleteClause($table)
+					);
+					foreach ($countryZones as $countryZone) {
+						$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+							$tablePrefix . 'static_country_zones',
+							'uid = ' . intval($countryZone['uid']),
+							array (
+								'zn_country_iso_nr' => intval($countries[0]['cn_iso_nr']),
+								'zn_country_iso_2' => $countries[0]['cn_iso_2'],
+								'zn_country_iso_3' => $countries[0]['cn_iso_3']
+							)
+						);
+					}
+				}
+				break;				
 		}
 	}
 }
