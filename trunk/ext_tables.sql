@@ -27,6 +27,7 @@ CREATE TABLE static_countries (
 	cn_official_name_en varchar(128) DEFAULT '' NOT NULL,
 	cn_capital varchar(45) DEFAULT '' NOT NULL,
 	cn_tldomain char(2) DEFAULT '' NOT NULL,
+	cn_currency_uid int(11) DEFAULT '0' NOT NULL,
 	cn_currency_iso_3 char(3) DEFAULT '' NOT NULL,
 	cn_currency_iso_nr int(10) unsigned DEFAULT '0' NOT NULL,
 	cn_phone int(10) unsigned DEFAULT '0' NOT NULL,

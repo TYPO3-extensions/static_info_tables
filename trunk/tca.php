@@ -187,11 +187,28 @@ $GLOBALS['TCA']['static_countries'] = array(
 				'default' => ''
 			)
 		),
+		'cn_currency_uid' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_uid',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'static_currencies',
+				'foreign_table_where' => 'ORDER BY static_currencies.cu_name_en',
+				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortCurrenciesSelector',
+				'size' => 1,
+				'minitems' => 1,
+				'maxitems' => 1,
+			)
+		),
 		'cn_currency_iso_nr' => array(
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
+				'readOnly' => 1,
 				'size' => '5',
 				'max' => '3',
 				'eval' => '',
@@ -203,6 +220,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
+				'readOnly' => 1,
 				'size' => '7',
 				'max' => '7',
 				'eval' => '',
@@ -299,7 +317,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			'showitem' => 'cn_iso_nr,cn_iso_2,cn_iso_3', 'canNotCollapse' => '1'
 		),
 		'2' => array(
-			'showitem' => 'cn_currency_iso_nr,cn_currency_iso_3', 'canNotCollapse' => '1'
+			'showitem' => 'cn_currency_uid,cn_currency_iso_nr,cn_currency_iso_3', 'canNotCollapse' => '1'
 		),
 		'3' => array(
 			'showitem' => 'cn_capital,cn_uno_member,cn_eu_member,cn_phone,cn_tldomain', 'canNotCollapse' => '1'

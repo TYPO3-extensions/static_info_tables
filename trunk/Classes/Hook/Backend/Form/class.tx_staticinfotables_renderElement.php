@@ -40,7 +40,7 @@ class tx_staticinfotables_renderElement {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,tr_iso_nr',
 							$PA['table'],
-							'uid = ' . $PA['row']['uid'] . t3lib_befunc::deleteClause($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . t3lib_befunc::deleteClause($PA['table'])
 						);
 						$isoCode = $rows[0]['tr_iso_nr'];
 					}
@@ -54,9 +54,23 @@ class tx_staticinfotables_renderElement {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,cn_iso_2',
 							$PA['table'],
-							'uid = ' . $PA['row']['uid'] . t3lib_befunc::deleteClause($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . t3lib_befunc::deleteClause($PA['table'])
 						);
 						$isoCode = $rows[0]['cn_iso_2'];
+					}
+					if ($isoCode) {
+						$PA['title'] = tx_staticinfotables_div::getTitleFromIsoCode($PA['table'], $isoCode) . ' (' . $isoCode . ')';
+					}
+					break;
+				case 'static_currencies':
+					$isoCode = $PA['row']['cu_iso_3'];
+					if (!$isoCode) {
+						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+							'uid,cu_iso_3',
+							$PA['table'],
+							'uid = ' . intval($PA['row']['uid']) . t3lib_befunc::deleteClause($PA['table'])
+						);
+						$isoCode = $rows[0]['cu_iso_3'];
 					}
 					if ($isoCode) {
 						$PA['title'] = tx_staticinfotables_div::getTitleFromIsoCode($PA['table'], $isoCode) . ' (' . $isoCode . ')';
@@ -82,6 +96,17 @@ class tx_staticinfotables_renderElement {
 					}
 				}
 			case 'static_countries':
+				asort($PA['items']);
+				break;
+		}
+	}
+
+	/*
+	 * Sort the currencies selector using the current locale
+	 */
+	public function sortCurrenciesSelector ($PA, $fObj) {
+		switch ($PA['table']) {
+			case 'static_currencies':
 				asort($PA['items']);
 				break;
 		}

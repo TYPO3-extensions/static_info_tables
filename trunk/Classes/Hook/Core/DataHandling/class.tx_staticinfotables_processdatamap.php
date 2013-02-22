@@ -39,7 +39,7 @@ class tx_staticinfotables_processDataMap {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
 						'static_territories',
-						'uid = ' . $incomingFieldArray['tr_parent_territory_uid'] . t3lib_befunc::deleteClause('static_territories')
+						'uid = ' . intval($incomingFieldArray['tr_parent_territory_uid']) . t3lib_befunc::deleteClause('static_territories')
 					);
 					$incomingFieldArray['tr_parent_iso_nr'] = $rows[0]['tr_iso_nr'];
 				} else {
@@ -52,11 +52,24 @@ class tx_staticinfotables_processDataMap {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
 						'static_territories',
-						'uid = ' . $incomingFieldArray['cn_parent_territory_uid'] . t3lib_befunc::deleteClause('static_territories')
+						'uid = ' . intval($incomingFieldArray['cn_parent_territory_uid']) . t3lib_befunc::deleteClause('static_territories')
 					);
 					$incomingFieldArray['cn_parent_tr_iso_nr'] = $rows[0]['tr_iso_nr'];
 				} else {
 					$incomingFieldArray['cn_parent_tr_iso_nr'] = NULL;
+				}
+				//Pre-process currency ISO numeric and A3 code
+				if ($incomingFieldArray['cn_currency_uid']) {
+					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+						'uid,cu_iso_nr,cu_iso_3',
+						'static_currencies',
+						'uid = ' . intval($incomingFieldArray['cn_currency_uid']) . t3lib_befunc::deleteClause('static_currencies')
+					);
+					$incomingFieldArray['cn_currency_iso_nr'] = $rows[0]['cu_iso_nr'];
+					$incomingFieldArray['cn_currency_iso_3'] = $rows[0]['cu_iso_3'];
+				} else {
+					$incomingFieldArray['cn_currency_iso_nr'] = NULL;
+					$incomingFieldArray['cn_currency_iso_3'] = NULL;
 				}
 				break;
 		}
