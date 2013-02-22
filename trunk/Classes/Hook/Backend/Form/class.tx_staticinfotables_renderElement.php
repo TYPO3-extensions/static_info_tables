@@ -35,6 +35,7 @@ class tx_staticinfotables_renderElement {
 		if (TYPO3_MODE == 'BE') {
 			switch ($PA['table']) {
 				case 'static_territories':
+				case 'cc_static_territories':
 					$isoCode = $PA['row']['tr_iso_nr']; 
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -49,6 +50,7 @@ class tx_staticinfotables_renderElement {
 					}
 					break;
 				case 'static_countries':
+				case 'cc_static_countries':
 					$isoCode = $PA['row']['cn_iso_2']; 
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -63,6 +65,7 @@ class tx_staticinfotables_renderElement {
 					}
 					break;
 				case 'static_currencies':
+				case 'cc_static_currencies':
 					$isoCode = $PA['row']['cu_iso_3'];
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -88,6 +91,7 @@ class tx_staticinfotables_renderElement {
 	public function sortTerritoriesSelector ($PA, $fObj) {
 		switch ($PA['table']) {
 			case 'static_territories':
+			case 'cc_static_territories':
 				// Avoid circular relation
 				$row = $PA['row'];
 				foreach ($PA['items'] as $index => $item) {
@@ -96,6 +100,7 @@ class tx_staticinfotables_renderElement {
 					}
 				}
 			case 'static_countries':
+			case 'cc_static_countries':
 				asort($PA['items']);
 				break;
 		}
@@ -107,6 +112,7 @@ class tx_staticinfotables_renderElement {
 	public function sortCurrenciesSelector ($PA, $fObj) {
 		switch ($PA['table']) {
 			case 'static_currencies':
+			case 'cc_static_currencies':
 				asort($PA['items']);
 				break;
 		}
