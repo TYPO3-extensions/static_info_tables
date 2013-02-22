@@ -105,6 +105,9 @@
 			<trans-unit id="static_countries_item.cn_short_en" xml:space="preserve">
 				<source>Short name (EN):</source>
 			</trans-unit>
+			<trans-unit id="static_countries_item.cn_country_zones" xml:space="preserve">
+				<source>Country subdivisions:</source>
+			</trans-unit>
 			<trans-unit id="static_country_zones.title" xml:space="preserve">
 				<source>Country subdivisions</source>
 			</trans-unit>
