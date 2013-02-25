@@ -2,15 +2,18 @@
 /*
  * Register necessary class names with autoloader
  *
- * $Id: ext_autoload.php $
  */
 $extensionPath = t3lib_extMgm::extPath('static_info_tables');
+$extensionClassesPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'Classes/';
 return array(
-	'tx_staticinfotables_renderElement' => $extensionPath . 'Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php',
-	'tx_staticinfotables_processdatamap' => $extensionPath . 'Classes/Hook/Core/DataHandling/class.tx_staticinfotables_processdatamap.php',
-	'tx_staticinfotables_div' => $extensionPath . 'class.tx_staticinfotables_div.php',
+	'SJBR\StaticInfoTables\PiBaseApi' => $extensionClassesPath . 'PiBaseApi.php',
+	'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper' => $extensionClassesPath . 'Hook/Backend/Form/ElementRenderingHelper.php',
+	'SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap' => $extensionClassesPath . 'Hook/Core/DataHandling/ProcessDataMap.php',
+	'SJBR\StaticInfoTables\Utility\EntityLabelUtility' => $extensionClassesPath . 'Utility/EntityLabelUtility.php',
+	'SJBR\StaticInfoTables\Utility\LocalizationUtility' => $extensionClassesPath . 'Utility/LocalizationUtility.php',
+	'SJBR\StaticInfoTables\Utility\TcaUtility' => $extensionClassesPath . 'Utility/TcaUtility.php',
 	'tx_staticinfotables_syslanguage' => $extensionPath . 'class.tx_staticinfotables_syslanguage.php',
-	'tx_staticinfotables_pi1' => $extensionPath . 'pi1/class.tx_staticinfotables_pi1.php',
 );
 unset($extensionPath);
+unset($extensionClassesPath);
 ?>

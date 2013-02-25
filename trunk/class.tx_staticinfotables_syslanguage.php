@@ -41,15 +41,11 @@
 class tx_staticinfotables_syslanguage {
 
 	function processDatamap_postProcessFieldArray($status, $table, $id, $fieldArray, &$pObj) {
-		if($table == 'sys_language' AND $fieldArray['static_lang_isocode']) {
-				// the hotlist will be updated only if the field changed, because only then it's in the $fieldArray
-			tx_staticinfotables_div::updateHotlist ('static_languages', $fieldArray['static_lang_isocode'], 'uid');
+		if($table == 'sys_language' && $fieldArray['static_lang_isocode']) {
+			// the hotlist will be updated only if the field changed, because only then it's in the $fieldArray
+			\SJBR\StaticInfoTables\Utility\EntityLabelUtility::updateHotlist('static_languages', $fieldArray['static_lang_isocode'], 'uid');
 		}
 	}
 }
 
-
-if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php'])    {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/static_info_tables/class.tx_staticinfotables_syslanguage.php']);
-}
 ?>
