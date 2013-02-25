@@ -30,9 +30,9 @@ $GLOBALS['TCA']['static_territories'] = array(
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
-				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortTerritoriesSelector',
+				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateTerritoriesSelector',
 				'size' => 1,
-				'minitems' => 1,
+				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
@@ -52,11 +52,28 @@ $GLOBALS['TCA']['static_territories'] = array(
 				'default' => '',
 				'_is_string' => '1'
 			)
-		)
+		),
+'fk_billing_country' => array (
+  'exclude' => 1,
+  'label' => 'Voici',
+  'config' => array (
+    'type' => 'group',
+    'internal_type' => 'db',
+    'allowed' => 'static_countries',
+    'size' => 1,
+    'minitems' => 1,
+    'maxitems' => 1,
+    'wizards' => array(
+      'suggest' => array(
+        'type' => 'suggest',
+      ),
+    ),
+  )
+),
 	),
 	'types' => array(
 		'1' => array(
-			'showitem' => 'tr_iso_nr,tr_name_en,--palette--;;1;;'
+			'showitem' => 'tr_iso_nr,tr_name_en,fk_billing_country,--palette--;;1;;'
 		)
 	),
 	'palettes' => array(
@@ -115,9 +132,9 @@ $GLOBALS['TCA']['static_countries'] = array(
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
-				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortTerritoriesSelector',
+				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateTerritoriesSelector',
 				'size' => 1,
-				'minitems' => 1,
+				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
@@ -183,9 +200,9 @@ $GLOBALS['TCA']['static_countries'] = array(
 				),
 				'foreign_table' => 'static_currencies',
 				'foreign_table_where' => 'ORDER BY static_currencies.cu_name_en',
-				'itemsProcFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:&tx_staticinfotables_renderElement->sortCurrenciesSelector',
+				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateCurrenciesSelector',
 				'size' => 1,
-				'minitems' => 1,
+				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),

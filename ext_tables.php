@@ -1,15 +1,17 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+if (!defined ('TYPO3_MODE')) {
+	die ('Access denied.');
+}
 
-t3lib_extMgm::addStaticFile('static_info_tables', 'Configuration/TypoScript/', 'Static Info tables');
+// Configure extension static template
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('static_info_tables', 'Configuration/TypoScript/', 'Static Info Tables');
 
 $GLOBALS['TCA']['static_territories'] = array(
 	'ctrl' => array(
 		'label' => 'tr_name_en',
 		'label_alt' => 'tr_iso_nr',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:tx_staticinfotables_renderElement->addIsoCodeToLabel',
-		// This should always be true, as it prevents the static data from being altered
+		'label_userFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->addIsoCodeToLabel',
 		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
@@ -31,16 +33,15 @@ $GLOBALS['TCA']['static_countries'] = array(
 		'label' => 'cn_short_en',
 		'label_alt' => 'cn_iso_2',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:tx_staticinfotables_renderElement->addIsoCodeToLabel',
-		// This should always be true, as it prevents the static data from being altered
+		'label_userFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->addIsoCodeToLabel',
 		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY cn_short_en',
 		'delete' => 'deleted',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_countries.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries.title',
+		'dynamicConfigFile' => PATH_BE_staticinfotables . 'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel . 'Resources/Public/Images/Icons/icon_static_countries.gif',
 	),
 	'interface' => array(
@@ -59,8 +60,8 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY zn_name_local',
 		'delete' => 'deleted',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_country_zones.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones.title',
+		'dynamicConfigFile' => PATH_BE_staticinfotables . 'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel . 'Resources/Public/Images/Icons/icon_static_countries.gif',
 	),
 	'interface' => array(
@@ -72,15 +73,17 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 $GLOBALS['TCA']['static_languages'] = array(
 	'ctrl' => array(
 		'label' => 'lg_name_en',
-		'label_alt' => 'lg_name_en,lg_iso_2',
+		'label_alt' => 'lg_iso_2',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->addIsoCodeToLabel',
 		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY lg_name_en',
 		'delete' => 'deleted',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_languages.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages.title',
+		'dynamicConfigFile' => PATH_BE_staticinfotables . 'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel . 'Resources/Public/Images/Icons/icon_static_languages.gif',
 	),
 	'interface' => array(
@@ -94,15 +97,15 @@ $GLOBALS['TCA']['static_currencies'] = array(
 		'label' => 'cu_name_en',
 		'label_alt' => 'cu_iso_3',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'EXT:static_info_tables/Classes/Hook/Backend/Form/class.tx_staticinfotables_renderElement.php:tx_staticinfotables_renderElement->addIsoCodeToLabel',
+		'label_userFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->addIsoCodeToLabel',
 		'readOnly' => 1,
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'default_sortby' => 'ORDER BY cu_name_en',
 		'delete' => 'deleted',
-		'title' => 'LLL:EXT:'.STATIC_INFO_TABLES_EXTkey.'/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
-		'dynamicConfigFile' => PATH_BE_staticinfotables.'tca.php',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
+		'dynamicConfigFile' => PATH_BE_staticinfotables . 'tca.php',
 		'iconfile' => PATH_BE_staticinfotables_rel . 'Resources/Public/Images/Icons/icon_static_currencies.gif',
 	),
 	'interface' => array(
@@ -117,11 +120,8 @@ $GLOBALS['TCA']['static_currencies']['ctrl']['readOnly'] = 0;
 $GLOBALS['TCA']['static_territories']['ctrl']['readOnly'] = 0;
 
 
-// ******************************************************************
-// sys_language
-// ******************************************************************
-
-t3lib_div::loadTCA('sys_language');
+// Configure static language field of sys_language table
+\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('sys_language');
 $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = array(
 	'type' => 'select',
 	'items' => array(
@@ -129,7 +129,7 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = ar
 	),
 	#'foreign_table' => 'static_languages',
 	#'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
-	'itemsProcFunc' => 'tx_staticinfotables_div->selectItemsTCA',
+	'itemsProcFunc' => 'SJBR\StaticInfoTables\Utility\EntityLabelUtility->selectItemsTCA',
 	'itemsProcFunc_config' => array(
 		'table' => 'static_languages',
 		'indexField' => 'uid',
@@ -142,12 +142,15 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = ar
 		//'hotlistOnly' => 0,
 		//'hotlistApp' => TYPO3_MODE,
 	),
+	/*'foreign_table' => 'static_languages',
+	'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
+	'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateLanguagesSelector',*/
 	'size' => 1,
 	'minitems' => 0,
-	'maxitems' => 1,
+	'maxitems' => 1
 );
 // Add data handling hooks
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/Classes/Hook/Core/DataHandling/class.tx_staticinfotables_processdatamap.php:&tx_staticinfotables_processdatamap';
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
+$GLOBSALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = '&SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap';
+$GLOBSALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
 
 ?>
