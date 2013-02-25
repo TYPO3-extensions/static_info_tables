@@ -119,7 +119,6 @@ $GLOBALS['TCA']['static_country_zones']['ctrl']['readOnly'] = 0;
 $GLOBALS['TCA']['static_currencies']['ctrl']['readOnly'] = 0;
 $GLOBALS['TCA']['static_territories']['ctrl']['readOnly'] = 0;
 
-
 // Configure static language field of sys_language table
 \TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('sys_language');
 $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = array(
@@ -127,30 +126,23 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = ar
 	'items' => array(
 		array('',0),
 	),
-	#'foreign_table' => 'static_languages',
-	#'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
-	'itemsProcFunc' => 'SJBR\StaticInfoTables\Utility\EntityLabelUtility->selectItemsTCA',
-	'itemsProcFunc_config' => array(
-		'table' => 'static_languages',
-		'indexField' => 'uid',
-		// I think that will make more sense in the future
-		// 'indexField' => 'lg_iso_2',
-		'prependHotlist' => 1,
-		//	defaults:
-		//'hotlistLimit' => 8,
-		//'hotlistSort' => 1,
-		//'hotlistOnly' => 0,
-		//'hotlistApp' => TYPO3_MODE,
-	),
-	/*'foreign_table' => 'static_languages',
+	'foreign_table' => 'static_languages',
 	'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
-	'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateLanguagesSelector',*/
+	'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateLanguagesSelector',
 	'size' => 1,
-	'minitems' => 0,
-	'maxitems' => 1
+	'minitems' => '0',
+	'maxitems' => 1,
+	'wizards' => array(
+		'suggest' => array(
+			'type' => 'suggest',
+			'default' => array(
+				'receiverClass' => 'SJBR\StaticInfoTables\Hook\Backend\Form\SuggestReceiver'
+			)
+		)
+	)
 );
-// Add data handling hooks
-$GLOBSALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = '&SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap';
-$GLOBSALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'EXT:static_info_tables/class.tx_staticinfotables_syslanguage.php:&tx_staticinfotables_syslanguage';
+
+// Add data handling hook to manage ISO codes redundancies on records
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap';
 
 ?>

@@ -53,23 +53,6 @@ $GLOBALS['TCA']['static_territories'] = array(
 				'_is_string' => '1'
 			)
 		),
-'fk_billing_country' => array (
-  'exclude' => 1,
-  'label' => 'Voici',
-  'config' => array (
-    'type' => 'group',
-    'internal_type' => 'db',
-    'allowed' => 'static_countries',
-    'size' => 1,
-    'minitems' => 1,
-    'maxitems' => 1,
-    'wizards' => array(
-      'suggest' => array(
-        'type' => 'suggest',
-      ),
-    ),
-  )
-),
 	),
 	'types' => array(
 		'1' => array(
