@@ -101,14 +101,3 @@ CREATE TABLE static_languages (
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );
-
-#
-# Table structure for table "tx_staticinfotables_hotlist"
-#
-CREATE TABLE tx_staticinfotables_hotlist (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	tablenames varchar(30) DEFAULT '' NOT NULL,
-	application varchar(20) DEFAULT '' NOT NULL,
-	sorting bigint(20) unsigned DEFAULT '0' NOT NULL,
-	KEY uid_local (uid_local)
-);
