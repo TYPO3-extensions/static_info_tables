@@ -3,7 +3,9 @@
  * Register necessary class names with autoloader
  */
 $extensionClassesPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'Classes/';
-return array(
+require_once($extensionClassesPath . 'Cache/ClassCacheBuilder.php');
+
+$default = array(
 	'SJBR\StaticInfoTables\PiBaseApi' => $extensionClassesPath . 'PiBaseApi.php',
 	'SJBR\StaticInfoTables\Domain\Model\Country' => $extensionClassesPath . 'Domain/Model/Country.php',
 	'SJBR\StaticInfoTables\Domain\Model\CountryZone' => $extensionClassesPath . 'Domain/Model/CountryZone.php',
@@ -16,5 +18,10 @@ return array(
 	'SJBR\StaticInfoTables\Utility\LocalizationUtility' => $extensionClassesPath . 'Utility/LocalizationUtility.php',
 	'SJBR\StaticInfoTables\Utility\TcaUtility' => $extensionClassesPath . 'Utility/TcaUtility.php',
 );
+$classCacheBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
+$mergedClasses = array_merge($default, $classCacheBuilder->build());
 unset($extensionClassesPath);
+unset($default);
+unset($classCacheBuilder);
+return $mergedClasses;
 ?>
