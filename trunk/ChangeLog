@@ -2,6 +2,7 @@
 
 	* Resolves #45823: Remove hotlist feature
 	* Resolves #45847: Move TCA arrays to Configuration directory
+	* Resolves #45848: Add domain model
 
 2013-02-24  Stanislas Rolland  <typo3@sjbr.ca>
 
