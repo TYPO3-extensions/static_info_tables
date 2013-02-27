@@ -1,6 +1,6 @@
 plugin.tx_staticinfotables_pi1 {
 
-    # cat=plugin.tx_staticinfotables_pi1//; type=user[EXT:static_info_tables/Classes/Configuration/TypoScript/class.tx_staticinfotables_typoscriptconfiguationhelper.php:tx_staticinfotables_typoscriptconfigurationhelper->buildCurrencySelector];; label= Default currency: ISO alpha-3 code of the default currency used to format an amount.
+    # cat=plugin.tx_staticinfotables_pi1//; type=string; label= Default currency: ISO alpha-3 code of the default currency used to format an amount.
    currencyCode = EUR
 
     # cat=plugin.tx_staticinfotables_pi1//; type=string; label= Default country: ISO alpha-3 code of the default selected country in the drop-down selector.
