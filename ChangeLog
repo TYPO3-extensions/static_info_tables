@@ -1,3 +1,7 @@
+2013-02-27  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #45901: Add extbase persistence configuration and field mapping
+
 2013-02-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #45862: Enable domain model extension

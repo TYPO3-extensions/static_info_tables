@@ -15,6 +15,9 @@ if (!defined ('PATH_BE_staticinfotables_rel')) {
 	define('PATH_BE_staticinfotables_rel', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY));
 }
 
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TypoScript/Extbase/setup.txt">');
+
 // Unserializing the configuration so we can use it here
 $_EXTCONF = unserialize($_EXTCONF);
 
