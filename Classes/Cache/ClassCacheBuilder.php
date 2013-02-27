@@ -80,7 +80,7 @@ class ClassCacheBuilder {
 		// Get the extensions which want to extend static_info_tables
 		$extensibleExtensions = array();
 		foreach ($loadedExtensions as $extensionKey) {
-			$extensionInfoFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . 'Resources/Private/extend-static-info-tables.txt';
+			$extensionInfoFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . 'Configuration/DomainModelExtension/StaticInfoTables.txt';
 			if (file_exists($extensionInfoFile)) {
 				$info = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extensionInfoFile);
 				$classes = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $info, TRUE);

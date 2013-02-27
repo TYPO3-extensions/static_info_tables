@@ -1,6 +1,7 @@
 2013-02-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #45862: Enable domain model extension
+	* Resolves #45874: Move domain model extension configuration to Configuration directory
 
 2013-02-25  Stanislas Rolland  <typo3@sjbr.ca>
 
