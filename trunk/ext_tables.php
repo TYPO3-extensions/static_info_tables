@@ -4,7 +4,7 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 // Configure extension static template
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('static_info_tables', 'Configuration/TypoScript/', 'Static Info Tables');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('static_info_tables', 'Configuration/TypoScript/Static', 'Static Info Tables');
 
 $extensionResourcesLanguagePath = 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:';
 $extensionConfigurationTcaPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'Configuration/Tca/';
