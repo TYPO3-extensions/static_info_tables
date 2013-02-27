@@ -2,6 +2,7 @@
 
 	* Resolves #45862: Enable domain model extension
 	* Resolves #45874: Move domain model extension configuration to Configuration directory
+	* Follow-up to #45848: Add domain model
 
 2013-02-25  Stanislas Rolland  <typo3@sjbr.ca>
 
