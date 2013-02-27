@@ -210,7 +210,7 @@ class Currency extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @return void
 	 */
-	public function setName($nameEn) {
+	public function setNameEn($nameEn) {
 		$this->nameEn = $nameEn;
 	}
 
