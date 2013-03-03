@@ -1,3 +1,7 @@
+2013-03-03  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #45986: Add domain repositories classes
+
 2013-02-27  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #45901: Add extbase persistence configuration and field mapping
