@@ -1,3 +1,7 @@
+2013-03-05  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #46051: Make the extension version and constraints available when creating language packs
+
 2013-03-03  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #45986: Add domain repositories classes
