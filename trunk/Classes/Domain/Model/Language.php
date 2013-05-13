@@ -51,6 +51,12 @@ class Language extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $constructedLanguage = FALSE;
 
 	/**
+	 * Deletion status of the object
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
+	/**
 	 * @var string ISO 639-1 A2 Language code
 	 */
 	protected $isoCodeA2 = '';
@@ -144,6 +150,25 @@ class Language extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function isConstructedLanguage() {
 		return $this->getConstructedLanguage();
+	}
+
+	/**
+	 * Gets the deletion status of the entity
+	 *
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * Sets the deletion status of the entity
+	 *
+	 * @param boolean $deleted
+	 * @return void
+	 */
+	public function setDeleted($deleted) {
+		return $this->deleted = $deleted;
 	}
 
 	/**

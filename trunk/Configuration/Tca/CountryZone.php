@@ -9,6 +9,13 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 		'showRecordFieldList' => 'zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3,zn_code,zn_name_local,zn_name_en'
 	),
 	'columns' => array(
+		'deleted' => array(
+			'readonly' => 1,
+			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'config' => array(
+				'type' => 'check'
+			)
+		),
 		'zn_country_uid' => array(
 			'config' => array(
 				'type' => 'passthrough',

@@ -32,6 +32,13 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Territory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+
+	/**
+	 * Deletion status of the object
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
 	/**
 	 * @var integer UN numeric territory code
 	 */
@@ -46,6 +53,25 @@ class Territory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var integer UN numeric territory code of parent territory
 	 */
 	protected $parentTerritoryUnCodeNumber = 0;
+
+	/**
+	 * Gets the deletion status of the entity
+	 *
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * Sets the deletion status of the entity
+	 *
+	 * @param boolean $deleted
+	 * @return void
+	 */
+	public function setDeleted($deleted) {
+		return $this->deleted = $deleted;
+	}
 
 	/**
 	 * Sets the English name

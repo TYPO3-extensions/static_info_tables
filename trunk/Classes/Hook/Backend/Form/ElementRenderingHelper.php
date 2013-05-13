@@ -36,7 +36,6 @@ class ElementRenderingHelper {
 		if (TYPO3_MODE == 'BE') {
 			switch ($PA['table']) {
 				case 'static_territories':
-				case 'cc_static_territories':
 					$isoCode = $PA['row']['tr_iso_nr'];
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -51,7 +50,6 @@ class ElementRenderingHelper {
 					}
 					break;
 				case 'static_countries':
-				case 'cc_static_countries':
 					$isoCode = $PA['row']['cn_iso_2'];
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -66,7 +64,6 @@ class ElementRenderingHelper {
 					}
 					break;
 				case 'static_languages':
-				case 'cc_static_languages':
 					$isoCodes = array($PA['row']['lg_iso_2']);
 					if ($PA['row']['lg_country_iso_2']) {
 						$isoCodes[] = $PA['row']['lg_country_iso_2'];
@@ -89,7 +86,6 @@ class ElementRenderingHelper {
 					}
 					break;
 				case 'static_currencies':
-				case 'cc_static_currencies':
 					$isoCode = $PA['row']['cu_iso_3'];
 					if (!$isoCode) {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -115,7 +111,6 @@ class ElementRenderingHelper {
 	public function translateTerritoriesSelector ($PA, $fObj) {
 		switch ($PA['table']) {
 			case 'static_territories':
-			case 'cc_static_territories':
 				// Avoid circular relation
 				$row = $PA['row'];
 				foreach ($PA['items'] as $index => $item) {

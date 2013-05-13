@@ -33,6 +33,11 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 class CountryZoneRepository extends AbstractEntityRepository {
 
 	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array('zn_country_iso_2', 'zn_code');
+
+	/**
 	 * Finds country zone by country
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country

@@ -9,6 +9,13 @@ $GLOBALS['TCA']['static_languages'] = array(
 		'showRecordFieldList' => 'lg_name_local,lg_name_en,lg_iso_2,lg_typo3,lg_country_iso_2,lg_collate_locale,lg_sacred,lg_constructed'
 	),
 	'columns' => array(
+		'deleted' => array(
+			'readonly' => 1,
+			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'config' => array(
+				'type' => 'check'
+			)
+		),
 		'lg_iso_2' => array(
 			'label' => $extensionResourcesLanguagePath . 'static_languages_item.lg_iso_2',
 			'exclude' => '0',

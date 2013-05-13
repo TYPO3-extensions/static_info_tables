@@ -9,6 +9,13 @@ $GLOBALS['TCA']['static_territories'] = array(
 		'showRecordFieldList' => 'tr_iso_nr,tr_parent_iso_nr,tr_name_en'
 	),
 	'columns' => array(
+		'deleted' => array(
+			'readonly' => 1,
+			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'config' => array(
+				'type' => 'check'
+			)
+		),
 		'tr_iso_nr' => array(
 			'label' => $extensionResourcesLanguagePath . 'static_territories_item.tr_iso_nr',
 			'exclude' => '0',

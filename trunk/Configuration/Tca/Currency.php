@@ -9,6 +9,13 @@ $GLOBALS['TCA']['static_currencies'] = array(
 		'showRecordFieldList' => 'cu_iso_3,cu_iso_nr,cu_name_en,cu_symbol_left,cu_symbol_right,cu_thousands_point,cu_decimal_point,cu_decimal_digits,cu_sub_name_en,cu_sub_divisor,cu_sub_symbol_left,cu_sub_symbol_right'
 	),
 	'columns' => array(
+		'deleted' => array(
+			'readonly' => 1,
+			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'config' => array(
+				'type' => 'check'
+			)
+		),
 		'cu_iso_3' => array(
 			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_iso_3',
 			'exclude' => '0',

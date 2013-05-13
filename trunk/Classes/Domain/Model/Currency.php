@@ -44,6 +44,12 @@ class Currency extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $decimalPoint = '';
 
 	/**
+	 * Deletion status of the object
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
+	/**
 	 * The divisor used to obtain the subdivision of the currency
 	 * @var integer
 	 */
@@ -141,6 +147,25 @@ class Currency extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getDecimalPoint() {
 		return $this->decimalPoint;
+	}
+
+	/**
+	 * Gets the deletion status of the entity
+	 *
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * Sets the deletion status of the entity
+	 *
+	 * @param boolean $deleted
+	 * @return void
+	 */
+	public function setDeleted($deleted) {
+		return $this->deleted = $deleted;
 	}
 
 	/**

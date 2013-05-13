@@ -31,5 +31,10 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class CountryRepository extends AbstractEntityRepository {
+
+	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array('cn_iso_2');
 }
 ?>

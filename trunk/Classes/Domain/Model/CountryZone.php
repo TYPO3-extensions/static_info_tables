@@ -50,6 +50,12 @@ class CountryZone extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $countryIsoCodeNumber = 0;
 
 	/**
+	 * Deletion status of the object
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
+	/**
 	 * Country zone code as string
 	 * @var string ISO 3166-2 Country Zone code
 	 */
@@ -125,6 +131,25 @@ class CountryZone extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getCountryIsoCodeNumber() {
 		return $this->countryIsoCodeNumber;
+	}
+
+	/**
+	 * Gets the deletion status of the entity
+	 *
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * Sets the deletion status of the entity
+	 *
+	 * @param boolean $deleted
+	 * @return void
+	 */
+	public function setDeleted($deleted) {
+		return $this->deleted = $deleted;
 	}
 
 	/**

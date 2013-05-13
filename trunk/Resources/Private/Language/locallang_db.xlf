@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="static_territories.title" xml:space="preserve">
-				<source>Territory</source>
+				<source>Territories</source>
 			</trans-unit>
 			<trans-unit id="static_territories_item.tr_iso_nr" xml:space="preserve">
 				<source>ISO nr territory code:</source>
@@ -185,6 +185,9 @@
 			</trans-unit>
 			<trans-unit id="static_currencies_item.cu_sub_symbol_right" xml:space="preserve">
 				<source>Sub symbol right:</source>
+			</trans-unit>
+			<trans-unit id="deleted" xml:space="preserve">
+				<source>Deleted</source>
 			</trans-unit>
 		</body>
 	</file>

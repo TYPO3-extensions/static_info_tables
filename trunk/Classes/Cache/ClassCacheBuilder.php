@@ -196,6 +196,18 @@ class ClassCacheBuilder {
 			'this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF;
 	}
 
+	/**
+	 * Clear the class cache
+	 *
+	 * @return void
+	 */
+	public function clear() {
+		$path = PATH_site . self::CACHE_FILE_LOCATION;
+		if (is_dir($path)) {
+			\TYPO3\CMS\Core\Utility\GeneralUtility::rmdir($path, TRUE);
+		}
+	}
+
 }
 
 ?>
