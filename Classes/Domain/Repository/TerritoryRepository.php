@@ -32,6 +32,11 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 class TerritoryRepository extends AbstractEntityRepository {
 
 	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array('tr_iso_nr');
+
+	/**
 	 * Finds territories by country
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country

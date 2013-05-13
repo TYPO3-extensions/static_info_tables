@@ -31,6 +31,45 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+
+	/**
+	 * @var string Name of the extension this class belongs to
+	 */
+	protected $extensionName = 'StaticInfoTables';
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper
+	 */
+	protected $dataMapper;
+
+	/**
+	 * Injects the DataMapper to map nodes to objects
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper
+	 * @return void
+	 */
+	public function injectDataMapper(\TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper) {
+		$this->dataMapper = $dataMapper;
+	}
+
+	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array();
+	
+	/**
+	 * Find all with deleted included
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries
+	 */
+	public function findAll() {
+		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
+		$querySettings->setStoragePageIds(array(0));
+		$querySettings->setIncludeDeleted(TRUE);
+		$this->setDefaultQuerySettings($querySettings);
+		return parent::findAll();
+	}
+
 	/**
 	 * Find all ordered by given field name
 	 *
@@ -42,7 +81,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	public function findAllOrderedBy($fieldName, $orderDirection = 'asc') {
 		$query = $this->createQuery();
 
-		$object = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($this->objectType);
+		$object = $this->objectManager->create($this->objectType);
 		if (!array_key_exists($fieldName, $object->_getProperties())) {
 			throw new InvalidArgumentException('The model "' . $this->objectType . '" has no attribute "' . $fieldName . '" to order by.', 1316607579);
 		}
@@ -58,6 +97,126 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		$query->setOrderings(array($fieldName => $orderDirection));
 
 		return $query->execute();
+	}
+
+	/**
+	 * Adds localization columns, if needed
+	 *
+	 * @param string $locale: the locale for which localization columns should be added
+	 * @return AbstractEntityRepository $this
+	 */
+	public function addLocalizationColumns($locale) {
+		$dataMap = $this->dataMapper->getDataMap($this->objectType);
+		$tableName = $dataMap->getTableName();
+		$fieldsInfo = $this->getFieldsInfo();
+		foreach ($fieldsInfo as $field => $fieldInfo) {
+			if ($field != 'cn_official_name_en') {
+				$matches = array();
+				if (preg_match('#_en$#', $field, $matches)) {
+					// Make localization field name
+					$localizationField = preg_replace('#_en$#', '_' . $locale, $field);
+					// Add the field if it does not yet exist
+					if (!$fieldsInfo[$localizationField]) {
+						// Get field length
+						$matches = array();
+						if (preg_match('#\(([0-9]+)\)#', $fieldInfo['Type'], $matches)) {
+							$localizationFieldLength = intval($matches[1]);
+							// Add the localization field
+							$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $localizationField . ' varchar(' . $localizationFieldLength . ') DEFAULT \'\' NOT NULL;';
+							$res = $GLOBALS['TYPO3_DB']->admin_query($query);
+						}
+					}
+				}
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Get the information on the table fields
+	 *
+	 * @return array table fields information array
+	 */
+	protected function getFieldsInfo() {
+		$fieldsInfo = array();
+		$dataMap = $this->dataMapper->getDataMap($this->objectType);
+		$tableName = $dataMap->getTableName();
+		$fieldsInfo = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+		return $fieldsInfo;
+	}
+
+	/**
+	 * Get update queries for the localization columns for a given locale
+	 *
+	 * @return array Update queries
+	 */
+	public function getUpdateQueries($locale) {
+		// Get the information of the table and its fields
+		$dataMap = $this->dataMapper->getDataMap($this->objectType);
+		$tableName = $dataMap->getTableName();
+		$tableFields = array_keys($this->getFieldsInfo());
+
+		$updateQueries = array();
+
+		// If the language pack is not yet created or not yet installed, the localization columns are not yet part of the domain model
+		$exportFields = array();
+		foreach ($tableFields as $field) {
+			$matches = array();
+			if (preg_match('#_' . strtolower($locale) . '$#', $field, $matches)) {
+				$exportFields[] = $field;
+			}
+		}
+		if (count($exportFields)) {
+			$updateQueries[] = '## ' . $tableName;
+			$exportFields = array_merge($exportFields, $this->isoKeys);
+			$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(implode(',', $exportFields), $tableName, '');
+			foreach ($rows as $row) {
+				$set = array();
+				foreach ($row as $field => $value) {
+					if (!in_array($field, $this->isoKeys)) {
+						$set[] = $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value, $tableName);
+					}
+				}
+				$whereClause = '';
+				foreach ($this->isoKeys as $field) {
+					$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($row[$field], $tableName);
+				}
+				$updateQueries[] = 'UPDATE ' . $tableName . ' SET ' . implode(',', $set) . $whereClause . ';';
+			}
+		}
+		return $updateQueries;
+	}
+
+	/**
+	 * Dump non-localized contents of the repository
+	 *
+	 * @return	void
+	 */
+	public function sqlDumpNonLocalizedData() {
+		// Get the information of the table and its fields
+		$dataMap = $this->dataMapper->getDataMap($this->objectType);
+		$tableName = $dataMap->getTableName();
+
+		$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Sql\\SchemaMigrator');
+		$dbFieldDefinitions = $installToolSqlParser->getFieldDefinitions_database();
+		$dbFields = array();
+		$dbFields[$tableName] = $dbFieldDefinitions[$tableName];
+		
+		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
+		$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
+		$ext_tables = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extensionPath . 'ext_tables.sql');
+
+		$tableFields = array_keys($dbFields[$tableName]['fields']);
+		foreach ($tableFields as $field) {
+			// This is a very simple check if the field is from static_info_tables and not from a language pack
+			$match = array();
+			if (!preg_match('#' . preg_quote($field) . '#m', $ext_tables, $match)) {
+				unset($dbFields[$tableName]['fields'][$field]);
+			}
+		}
+
+		$databaseUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUtility');
+		return $databaseUtility->dumpStaticTables($dbFields);
 	}
 }
 ?>

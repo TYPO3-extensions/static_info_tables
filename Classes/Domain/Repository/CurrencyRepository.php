@@ -33,6 +33,11 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 class CurrencyRepository extends AbstractEntityRepository {
 
 	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array('cu_iso_3');
+
+	/**
 	 * Finds currency by country
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country

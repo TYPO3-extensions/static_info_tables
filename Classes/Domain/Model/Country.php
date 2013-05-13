@@ -54,6 +54,12 @@ class Country extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $currencyIsoCodeA3 = '';
 
 	/**
+	 * Deletion status of the object
+	 * @var boolean
+	 */
+	protected $deleted = FALSE;
+
+	/**
 	 * Whether or not the country is a member of the European Union
 	 * @var boolean
 	 */
@@ -90,6 +96,7 @@ class Country extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $officialNameLocal = '';
 
 	/**
+	 * UN number of territory in which the country is located
 	 * @var integer
 	 */
 	protected $parentTerritoryUnCodeNumber = 0;
@@ -216,6 +223,25 @@ class Country extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setEuMember($euMember) {
 		$this->euMember = $euMember;
+	}
+
+	/**
+	 * Gets the deletion status of the entity
+	 *
+	 * @return boolean
+	 */
+	public function getDeleted() {
+		return $this->deleted;
+	}
+
+	/**
+	 * Sets the deletion status of the entity
+	 *
+	 * @param boolean $deleted
+	 * @return void
+	 */
+	public function setDeleted($deleted) {
+		return $this->deleted = $deleted;
 	}
 
 	/**

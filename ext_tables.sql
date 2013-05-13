@@ -1,18 +1,4 @@
 #
-# Table structure for table "static_territories"
-#
-CREATE TABLE static_territories (
-	uid int(11) unsigned NOT NULL auto_increment,
-	pid int(11) unsigned DEFAULT '0' NOT NULL,
-	deleted tinyint(4) DEFAULT '0' NOT NULL,
-	tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-	tr_parent_territory_uid int(11) DEFAULT '0' NOT NULL,
-	tr_parent_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
-	tr_name_en varchar(50) DEFAULT '' NOT NULL,
-	PRIMARY KEY (uid)
-);
-
-#
 # Table structure for table "static_countries"
 #
 CREATE TABLE static_countries (
@@ -100,4 +86,18 @@ CREATE TABLE static_languages (
 	lg_constructed tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid)
+);
+
+#
+# Table structure for table "static_territories"
+#
+CREATE TABLE static_territories (
+	uid int(11) unsigned NOT NULL auto_increment,
+	pid int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	tr_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	tr_parent_territory_uid int(11) DEFAULT '0' NOT NULL,
+	tr_parent_iso_nr int(11) unsigned DEFAULT '0' NOT NULL,
+	tr_name_en varchar(50) DEFAULT '' NOT NULL,
+	PRIMARY KEY (uid)
 );

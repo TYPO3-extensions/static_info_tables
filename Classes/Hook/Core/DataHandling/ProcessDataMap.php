@@ -36,14 +36,12 @@ class ProcessDataMap {
 	public function processDatamap_postProcessFieldArray ($status, $table, $id, &$incomingFieldArray, &$fObj) {
 		switch ($table) {
 			case 'static_territories':
-			case 'cc_static_territories':
 				//Post-process containing territory ISO numeric code
-				$tablePrefix = ($table == 'cc_static_territories' ? 'cc_': '');
 				if ($incomingFieldArray['tr_parent_territory_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
-						$tablePrefix . 'static_territories',
-						'uid = ' . intval($incomingFieldArray['tr_parent_territory_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($tablePrefix . 'static_territories')
+						'static_territories',
+						'uid = ' . intval($incomingFieldArray['tr_parent_territory_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('static_territories')
 					);
 					$incomingFieldArray['tr_parent_iso_nr'] = $rows[0]['tr_iso_nr'];
 				} else if (isset($incomingFieldArray['tr_parent_territory_uid'])) {
@@ -51,14 +49,12 @@ class ProcessDataMap {
 				}
 				break;
 			case 'static_countries':
-			case 'cc_static_countries':
-				$tablePrefix = ($table == 'cc_static_countries' ? 'cc_': '');
 				//Post-process containing territory ISO numeric code
 				if ($incomingFieldArray['cn_parent_territory_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,tr_iso_nr',
-						$tablePrefix . 'static_territories',
-						'uid = ' . intval($incomingFieldArray['cn_parent_territory_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($tablePrefix . 'static_territories')
+						'static_territories',
+						'uid = ' . intval($incomingFieldArray['cn_parent_territory_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('static_territories')
 					);
 					$incomingFieldArray['cn_parent_tr_iso_nr'] = $rows[0]['tr_iso_nr'];
 				} else if (isset($incomingFieldArray['cn_parent_territory_uid'])) {
@@ -68,8 +64,8 @@ class ProcessDataMap {
 				if ($incomingFieldArray['cn_currency_uid']) {
 					$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 						'uid,cu_iso_nr,cu_iso_3',
-						$tablePrefix . 'static_currencies',
-						'uid = ' . intval($incomingFieldArray['cn_currency_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($tablePrefix . 'static_currencies')
+						'static_currencies',
+						'uid = ' . intval($incomingFieldArray['cn_currency_uid']) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('static_currencies')
 					);
 					$incomingFieldArray['cn_currency_iso_nr'] = $rows[0]['cu_iso_nr'];
 					$incomingFieldArray['cn_currency_iso_3'] = $rows[0]['cu_iso_3'];
@@ -89,9 +85,7 @@ class ProcessDataMap {
 	public function processDatamap_afterDatabaseOperations ($status, $table, $id, &$fieldArray, &$fObj) {
 		switch ($table) {
 			case 'static_countries':
-			case 'cc_static_countries':
 				//Post-process country ISO numeric, A2 and A3 codes on country zones
-				$tablePrefix = ($table == 'cc_static_countries' ? 'cc_': '');
 				// Get the country record uid
 				if ($status == 'new') {
 					$id = $fObj->substNEWwithIDs[$id];
@@ -99,8 +93,8 @@ class ProcessDataMap {
 				// Get the country zones
 				$countryZones = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 					'*',
-					$tablePrefix . 'static_country_zones',
-					'zn_country_uid = ' . intval($id) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause($tablePrefix . 'static_country_zones')
+					'static_country_zones',
+					'zn_country_uid = ' . intval($id) . \TYPO3\CMS\Backend\Utility\BackendUtility::deleteClause('static_country_zones')
 				);
 				if (is_array($countryZones) && count($countryZones)) {
 					$countries = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
@@ -110,7 +104,7 @@ class ProcessDataMap {
 					);
 					foreach ($countryZones as $countryZone) {
 						$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-							$tablePrefix . 'static_country_zones',
+							'static_country_zones',
 							'uid = ' . intval($countryZone['uid']),
 							array (
 								'zn_country_iso_nr' => intval($countries[0]['cn_iso_nr']),
