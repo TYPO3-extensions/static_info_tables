@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables;
+use \SJBR\StaticInfoTables\Utility\LocalizationUtility;
 /***************************************************************
 *  Copyright notice
 *
@@ -51,7 +52,7 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		'LANGUAGES' 	=> 'static_languages'
 	);
 	var $bHasBeenInitialised = FALSE;
-
+	protected $renderCharset = 'utf-8';
 
 	/**
 	 * Returns info if the tx_staticinfotables_pi1 object has already been initialised.
@@ -72,7 +73,10 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 */
 	public function init ($conf=array()) {
 
-		$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.'][$this->prefixId.'.'];
+		if (TYPO3_MODE === 'FE') {
+			$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.'][$this->prefixId.'.'];
+			$this->renderCharset = $GLOBALS['TSFE']->renderCharset;
+		}
 
 			//Get the default currency and make sure it does exist in table static_currencies
 		$this->currency = $conf['currencyCode'];
@@ -146,7 +150,7 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 						$isoCodeArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode( '_', $code, 1);
 						break;
 				}
-				$nameArray[] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('iso' => $isoCodeArray), $tableName, $local);
+				$nameArray[] = LocalizationUtility::translate(array('iso' => $isoCodeArray), $tableName, $local);
 			}
 			$names = implode(',', $nameArray);
 		}
@@ -184,12 +188,11 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$selectedArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode (',', $selectedArray);
 		}
 
-		$charset = $GLOBALS['TSFE']->renderCharset;
 		$country = trim($country);
-		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name), ENT_COMPAT, $charset).'" ' : '';
-		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class), ENT_COMPAT, $charset).'" ' : '';
-		$idAttribute = (trim($id)) ? 'id="'.htmlspecialchars(trim($id), ENT_COMPAT, $charset).'" ' : '';
-		$titleAttribute = (trim($title)) ? 'title="'.htmlspecialchars(trim($title), ENT_COMPAT, $charset).'" ' : '';
+		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name), ENT_COMPAT, $this->renderCharset).'" ' : '';
+		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class), ENT_COMPAT, $this->renderCharset).'" ' : '';
+		$idAttribute = (trim($id)) ? 'id="'.htmlspecialchars(trim($id), ENT_COMPAT, $this->renderCharset).'" ' : '';
+		$titleAttribute = (trim($title)) ? 'title="'.htmlspecialchars(trim($title), ENT_COMPAT, $this->renderCharset).'" ' : '';
 		$onchangeAttribute = '';
 		if ($submit) {
 			if ($submit == 1) {
@@ -261,11 +264,11 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		$table = $this->tables['COUNTRIES'];
 		if (!$lang) {
-			$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-			$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
+			$lang = LocalizationUtility::getCurrentLanguage();
+			$lang = LocalizationUtility::getIsoLanguageKey($lang);
 		}
 		$nameArray = array();
-		$titleFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($table, $lang, $local);
+		$titleFields = LocalizationUtility::getLabelFields($table, $lang, $local);
 		$prefixedTitleFields = array();
 		$prefixedTitleFields[] = $table.'.cn_iso_3';
 		foreach ($titleFields as $titleField) {
@@ -288,14 +291,14 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			$labelFields,
 			$table,
-			$where.$GLOBALS['TSFE']->sys_page->enableFields($table)
+			$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
 		);
 
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
+		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['cn_iso_3']] = $GLOBALS['TSFE']->csConv($row[$titleField], 'utf-8');
+					$nameArray[$row['cn_iso_3']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
 					break;
 				}
 			}
@@ -338,10 +341,10 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$where = '1=1';
 		}
 		$where .= ($addWhere ? ' AND '.$addWhere : '');
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
+		$lang = LocalizationUtility::getCurrentLanguage();
+		$lang = LocalizationUtility::getIsoLanguageKey($lang);
 		$nameArray = array();
-		$titleFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($table, $lang);
+		$titleFields = LocalizationUtility::getLabelFields($table, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table.'.'.$titleField;
@@ -350,13 +353,12 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			$table.'.zn_code,'.$labelFields,
 			$table,
-			$where.
-				$GLOBALS['TSFE']->sys_page->enableFields($table)
-			);
+			$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
+		);
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['zn_code']] = $GLOBALS['TSFE']->csConv($row[$titleField], 'utf-8');
+					$nameArray[$row['zn_code']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
 					break;
 				}
 			}
@@ -378,24 +380,24 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
 		$table = $this->tables['CURRENCIES'];
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
+		$lang = LocalizationUtility::getCurrentLanguage();
+		$lang = LocalizationUtility::getIsoLanguageKey($lang);
 		$nameArray = array();
-		$titleFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($table, $lang);
+		$titleFields = LocalizationUtility::getLabelFields($table, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table.'.'.$titleField;
 		}
 		$labelFields = implode(',', $prefixedTitleFields);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			$table.'.cu_iso_3,'.$labelFields,
+			$table . '.cu_iso_3,' . $labelFields,
 			$table,
-			$where.$GLOBALS['TSFE']->sys_page->enableFields($table)
-			);
+			$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
+		);
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['cu_iso_3']] = $GLOBALS['TSFE']->csConv($row[$titleField], 'utf-8');
+					$nameArray[$row['cu_iso_3']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
 					break;
 				}
 			}
@@ -418,10 +420,11 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		$where = '1=1' . ($addWhere ? ' AND ' . $addWhere : '');
 		$table = $this->tables['LANGUAGES'];
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
+		$lang = LocalizationUtility::getCurrentLanguage();
+		$lang = LocalizationUtility::getIsoLanguageKey($lang);
 		$nameArray = array();
-		$titleFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($table, $lang);
+
+		$titleFields = LocalizationUtility::getLabelFields($table, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
@@ -430,14 +433,13 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			$table . '.lg_iso_2,' . $table . '.lg_country_iso_2,' . $labelFields,
 			$table,
-			$where . ' AND lg_sacred = 0 AND lg_constructed = 0 ' .
-				$GLOBALS['TSFE']->sys_page->enableFields($table)
-			);
+			$where . ' AND lg_sacred = 0 AND lg_constructed = 0 ' . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
+		);
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			$code = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$code] = $GLOBALS['TSFE']->csConv($row[$titleField], 'utf-8');
+					$nameArray[$code] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
 					break;
 				}
 			}
@@ -597,7 +599,7 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	protected function quoteJSvalue ($value, $inScriptTags=FALSE) {
 		$value = addcslashes($value, '"'.chr(10).chr(13));
 		if (!$inScriptTags) {
-			$value = htmlspecialchars($value, ENT_COMPAT, $GLOBALS['TSFE']->renderCharset);
+			$value = htmlspecialchars($value, ENT_COMPAT, $this->renderCharset);
 		}
 		return '"'.$value.'"';
 	}

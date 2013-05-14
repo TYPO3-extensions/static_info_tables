@@ -2,6 +2,7 @@
 
 	* Resolves #48156: Add backend module to generate language packs
 	* Resolves #48161: Localization should honour alternative languages
+	* Resolves #48162: Make pibase-style api usable in backend
 
 2013-03-05  Stanislas Rolland  <typo3@sjbr.ca>
 
