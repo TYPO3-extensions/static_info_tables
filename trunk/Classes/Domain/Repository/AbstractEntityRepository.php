@@ -62,7 +62,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries
 	 */
-	public function findAll() {
+	public function findAllDeletedIncluded() {
 		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
 		$querySettings->setStoragePageIds(array(0));
 		$querySettings->setIncludeDeleted(TRUE);
