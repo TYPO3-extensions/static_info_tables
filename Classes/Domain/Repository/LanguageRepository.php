@@ -3,7 +3,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
+*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -27,8 +27,6 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\Language
  *
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class LanguageRepository extends AbstractEntityRepository {
 
@@ -36,5 +34,19 @@ class LanguageRepository extends AbstractEntityRepository {
 	 * @var array ISO keys for this static table
 	 */
 	protected $isoKeys = array('lg_iso_2', 'lg_country_iso_2');
+
+	/**
+	 * Find all neither constructed nor sacred languages
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all languages neither constructed nor sacred
+	 */
+	public function findAllNonConstructedNonSacred() {
+		$query = $this->createQuery();
+		$query->matching($query->logicalAnd(
+			$query->equals('constructedLanguage', FALSE),
+			$query->equals('sacredLanguage', FALSE)
+		));
+		return $query->execute();	 	 
+	}
 }
 ?>
