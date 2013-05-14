@@ -6,6 +6,7 @@
 	* Resolves #48163: Add repository method to retrieve all non-constructed and non-sacred languages
 	* Resolves #48164: Add repository method to retrieve all entities including deleted ones
 	* Update version to 6.0.0
+	* Simplify EM configuration template
 
 2013-03-05  Stanislas Rolland  <typo3@sjbr.ca>
 
