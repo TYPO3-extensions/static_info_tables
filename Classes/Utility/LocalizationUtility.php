@@ -61,17 +61,6 @@ class LocalizationUtility {
 		$value = self::getLabelFieldValue($identifiers, $tableName, $isoLanguage, $local);
 		if ($value) {
 			$value = self::convertCharset($value, 'utf-8');
-		} else if (count(self::$alternativeLanguageKeys)) {
-			// To do: modify configuration to deal with alternative language keys
-			$languages = array_reverse(self::$alternativeLanguageKeys);
-			foreach ($languages as $language) {
-				$isoLanguage = self::getIsoLanguageKey($language);
-				$value = self::getLabelFieldValue($identifiers, $tableName, $isoLanguage);
-				if ($value) {
-					$value = self::convertCharset($value, 'utf-8');
-					break;
-				}
-			}
 		}
 		return $value;
 	}
@@ -98,7 +87,7 @@ class LocalizationUtility {
 			//Build the where clause
 			$whereClause = '';
 			if ($identifiers['uid']) {
-				$whereClause .= $tableName . '.uid = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($identifiers['uid'], $tableName);
+				$whereClause .= $tableName . '.uid = ' . intval($identifiers['uid']);
 			} else if (!empty($identifiers['iso'])) {
 				$isoCode = is_array($identifiers['iso']) ? $identifiers['iso'] : array($identifiers['iso']);
 				foreach ($isoCode as $index => $code) {
@@ -141,14 +130,30 @@ class LocalizationUtility {
 	public static function getLabelFields ($tableName, $lang, $local = FALSE) {
 		$labelFields = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$tableName]['label_fields'])) {
+			$alternativeLanguages = array();
+			if (count(self::$alternativeLanguageKeys)) {
+				$alternativeLanguages = array_reverse(self::$alternativeLanguageKeys);
+			}
 			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$tableName]['label_fields'] as $field) {
 				if ($local) {
 					$labelField = str_replace ('##', 'local', $field);
 				} else {
 					$labelField = str_replace ('##', strtolower($lang), $field);
 				}
+				// Make sure the resulting field name exists in the table
 				if (is_array($GLOBALS['TCA'][$tableName]['columns'][$labelField])) {
 					$labelFields[] = $labelField;
+				}
+				// Add fields for alternative languages
+				if (strpos($field, '##') !== FALSE && count($alternativeLanguages)) {
+					foreach ($alternativeLanguages as $language) {
+						$labelField = str_replace ('##', strtolower($language), $field);
+						// Make sure the resulting field name exists in the table
+						if (is_array($GLOBALS['TCA'][$tableName]['columns'][$labelField])) {
+							$labelFields[] = $labelField;
+						}
+					}
+					
 				}
 			}
 		}
@@ -201,21 +206,7 @@ class LocalizationUtility {
 	 * @return string the ISO language key
 	 */
 	public static function getIsoLanguageKey($key) {
-		if ($key === 'default') {
-			$lang = 'EN';
-		} else {
-			$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				'lg_iso_2,lg_country_iso_2',
-				'static_languages',
-				'lg_typo3 = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($key, 'static_languages')
-			);
-			if (is_array($rows) && count($rows)) {
-				$lang = $rows[0]['lg_iso_2'] . ($rows[0]['lg_country_iso_2'] ? '_' . $rows[0]['lg_country_iso_2'] : '');
-			}
-	
-			$lang = $lang ? $lang : strtoupper($key);
-		}
-		return $lang;
+		return ($key === 'default' ? 'EN' : $key);
 	}
 
 	/**
@@ -235,10 +226,8 @@ class LocalizationUtility {
 	 * Default values are "default" for language key and "" for language_alt key.
 	 *
 	 * @return void
-	 * @author Christopher Hlubek <hlubek@networkteam.com>
-	 * @author Bastian Waidelich <bastian@typo3.org>
 	 */
-	protected static function setLanguageKeys() {
+	protected function setLanguageKeys() {
 		self::$languageKey = 'default';
 		self::$alternativeLanguageKeys = array();
 		if (TYPO3_MODE === 'FE') {
@@ -256,10 +245,15 @@ class LocalizationUtility {
 					}
 				}
 			}
-		} else {
-			self::$languageKey = $GLOBALS['LANG']->lang;
-			if (strlen($GLOBALS['BE_USER']->uc['lang']) > 0) {
-				self::$languageKey = $GLOBALS['BE_USER']->uc['lang'];
+		} elseif (strlen($GLOBALS['BE_USER']->uc['lang']) > 0) {
+			self::$languageKey = $GLOBALS['BE_USER']->uc['lang'];
+			// Get standard locale dependencies for the backend
+			/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
+			$locales = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
+			if (in_array(self::$languageKey, $locales->getLocales())) {
+				foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
+					self::$alternativeLanguageKeys[] = $language;
+				}
 			}
 		}
 	}
@@ -269,11 +263,12 @@ class LocalizationUtility {
 	 * The current charset is defined by the TYPO3 mode.
 	 *
 	 * @param string $value string to be converted
+	 * @param string $charset The source charset
 	 * @return string converted string
 	 */
-	protected static function convertCharset($value) {
+	public function convertCharset($value, $charset) {
 		if (TYPO3_MODE === 'FE') {
-			return $GLOBALS['TSFE']->csConv($value, 'utf-8');
+			return $GLOBALS['TSFE']->csConv($value, $charset);
 		} else {
 			return $value;
 		}
