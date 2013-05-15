@@ -30,14 +30,14 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Territory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Territory extends AbstractEntity {
 	/**
-	 * @var string ###LANG_NAME### name
+	 * @var string ###LANG_NAME### name of the territory
 	 */
 	protected $name###LANG_ISO_CAMEL### = '';
 
 	/**
-	 * Sets the ###LANG_NAME### name
+	 * Sets the ###LANG_NAME### name of the territory
 	 *
 	 * @param string $name###LANG_ISO_CAMEL###
 	 *
@@ -48,7 +48,7 @@ class Territory extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * Returns the ###LANG_NAME### name
+	 * Returns the ###LANG_NAME### name of the territory
 	 *
 	 * @return string
 	 */

@@ -1,6 +1,7 @@
 2013-03-14  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #12683: Make TS template constants selectable
+	* Resolves #48197: Incorrect extension of the language domain model by language packs
 
 2013-03-13  Stanislas Rolland  <typo3@sjbr.ca>
 

@@ -31,30 +31,30 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Language extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Language extends AbstractEntity {
 	/**
-	 * @var string ###LANG_NAME### name
+	 * @var string ###LANG_NAME### name of the language
 	 */
-	protected $name###LANG_NAME### = '';
+	protected $name###LANG_ISO_CAMEL### = '';
 
 	/**
-	 * Sets the ###LANG_NAME### name
+	 * Sets the ###LANG_NAME### name of the language
 	 *
 	 * @param string $name###LANG_NAME###
 	 *
 	 * @return void
 	 */
-	public function setName###LANG_NAME###($name###LANG_NAME###) {
-		$this->name###LANG_NAME### = $name###LANG_NAME###;
+	public function setName###LANG_ISO_CAMEL###($name###LANG_ISO_CAMEL###) {
+		$this->name###LANG_ISO_CAMEL### = $name###LANG_ISO_CAMEL###;
 	}
 
 	/**
-	 * Gets the ###LANG_NAME### name
+	 * Gets the ###LANG_NAME### name of the language
 	 *
 	 * @return string
 	 */
-	public function getName###LANG_NAME###() {
-		return $this->name###LANG_NAME###;
+	public function getName###LANG_ISO_CAMEL###() {
+		return $this->name###LANG_ISO_CAMEL###;
 	}
 }
 ?>
