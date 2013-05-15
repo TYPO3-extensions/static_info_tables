@@ -1,3 +1,7 @@
+2013-03-15  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Follow-up to #12683: Make TS template constants selectable
+
 2013-03-14  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #12683: Make TS template constants selectable
