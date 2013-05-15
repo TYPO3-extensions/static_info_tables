@@ -2,6 +2,7 @@
 
 	* Follow-up to #12683: Make TS template constants selectable
 	* Follow-up to #45862: Enable domain model extension: rebuild class cache when updating extensions
+	* Remove unnecessary entries from ext_autoload.php
 
 2013-03-14  Stanislas Rolland  <typo3@sjbr.ca>
 
