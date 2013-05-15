@@ -30,7 +30,8 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Currency extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Currency extends AbstractEntity {
+
 	/**
 	 * The number of decimals to be shown when an amount is presented in this currency
 	 * @var integer
