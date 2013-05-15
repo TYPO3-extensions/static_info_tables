@@ -188,12 +188,12 @@ class ClassCacheBuilder {
 		$pos = strrpos($code, '}');
 		$code = substr($code, 0, $pos);
 		$code = trim($code);
-		return $code;
+		return $code . LF . LF;
 	}
 
 	protected function getPartialInfo($filePath) {
-		return LF . LF . '/*' . str_repeat('*', 70) . LF . TAB .
-			'this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF;
+		return '/*' . str_repeat('*', 70) . LF .
+			' * this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF . TAB;
 	}
 
 	/**
