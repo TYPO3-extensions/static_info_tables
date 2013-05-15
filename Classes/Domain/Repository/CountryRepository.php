@@ -36,5 +36,32 @@ class CountryRepository extends AbstractEntityRepository {
 	 * @var array ISO keys for this static table
 	 */
 	protected $isoKeys = array('cn_iso_2');
+
+	/**
+	 * Finds countries by territory
+	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+	 */
+	public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
+		$query = $this->createQuery();
+		$query->matching(
+			$query->equals('cn_parent_tr_iso_nr', $territory->getUnCodeNumber())
+		);
+		return $query->execute();
+	}
+
+	/**
+	 * Finds countries by territory ordered by localized name
+	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+	 *
+	 * @return array Countries of the territory sorted by localized name
+	 */
+	public function findByTerritoryOrderedByLocalizedName(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
+		$entities = $this->findByTerritory($territory);
+		return $this->localizedSort($entities);
+	}
 }
 ?>

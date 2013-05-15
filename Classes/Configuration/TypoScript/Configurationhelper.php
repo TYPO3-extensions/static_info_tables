@@ -45,19 +45,23 @@ class ConfigurationHelper {
 			case 'data[plugin.tx_staticinfotables_pi1.countryCode]':
 			case 'data[plugin.tx_staticinfotables_pi1.countriesAllowed]':
 				$repository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryRepository');
+				$entities = $repository->findAllOrderedByLocalizedName();
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.countryZoneCode]':
 				$repository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryZoneRepository');
+				$entities = $repository->findAllOrderedByLocalizedName();
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.currencyCode]':
 				$repository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CurrencyRepository');
+				$entities = $repository->findAllOrderedByLocalizedName();
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.languageCode]':
 				$repository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+				$entities = $repository->findAllNonConstructedNonSacred();
+				$entities = $repository->localizedSort($entities);
 				break;
 		}
-		if (is_object($repository)) {
-			$entities = $repository->findAllOrderedByLocalizedName();
+		if (is_array($entities) && count($entities)) {
 			$options = array();
 			foreach ($entities as $entity) {
 				switch ($params['fieldName']) {

@@ -4,6 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
+*  (c) 2013 Stanislas Rolland <typo3@sjbr.ca>
 *
 *  All rights reserved
 *
@@ -38,7 +39,7 @@ class CountryZoneRepository extends AbstractEntityRepository {
 	protected $isoKeys = array('zn_country_iso_2', 'zn_code');
 
 	/**
-	 * Finds country zone by country
+	 * Finds country zones by country
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
 	 *
@@ -50,6 +51,18 @@ class CountryZoneRepository extends AbstractEntityRepository {
 			$query->equals('zn_country_iso_nr', $country->getIsoCodeNumber())
 		);
 		return $query->execute();
+	}
+
+	/**
+	 * Finds country zones by country ordered by localized name
+	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
+	 *
+	 * @return array Country zones of the country sorted by localized name
+	 */
+	public function findByCountryOrderedByLocalizedName(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
+		$entities = $this->findByCountry($country);
+		return $this->localizedSort($entities);
 	}
 }
 ?>

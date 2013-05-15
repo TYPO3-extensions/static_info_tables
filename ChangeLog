@@ -2,6 +2,7 @@
 
 	* Resolves #12683: Make TS template constants selectable
 	* Resolves #48197: Incorrect extension of the language domain model by language packs
+	* Resolves #48198: Add methods to retrieve entities ordered by localized names
 
 2013-03-13  Stanislas Rolland  <typo3@sjbr.ca>
 
