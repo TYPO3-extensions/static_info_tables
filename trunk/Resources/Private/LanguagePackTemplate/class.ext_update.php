@@ -32,8 +32,14 @@ class ext_update {
 	 */
 	function main()	{
 		$content = '';
-
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+		// Clear the class cache
+		$classCacheBuilder = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
+		$classCacheBuilder->clear();
+		$classCacheBuilder->build();
+
+		// Update the database
 		$databaseUpdateUtility = $objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
 		$databaseUpdateUtility->doUpdate('static_info_tables_###LANG_ISO_LOWER###');
 		
