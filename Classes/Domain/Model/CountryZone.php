@@ -30,7 +30,7 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class CountryZone extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class CountryZone extends AbstractEntity {
 	/**
 	 * Country code as two digit string (i.e. AT)
 	 * @var string ISO 3166-1 A2 Country code

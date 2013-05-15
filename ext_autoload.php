@@ -7,6 +7,7 @@ require_once($extensionClassesPath . 'Cache/ClassCacheBuilder.php');
 
 $default = array(
 	'SJBR\StaticInfoTables\PiBaseApi' => $extensionClassesPath . 'PiBaseApi.php',
+	'SJBR\StaticInfoTables\Configuration\TypoScript\ConfigurationHelper' => $extensionClassesPath . 'Configuration/TypoScript/ConfigurationHelper.php',
 	'SJBR\StaticInfoTables\Controller\AbstractController' => $extensionClassesPath . 'Controller/AbstractController.php',
 	'SJBR\StaticInfoTables\Controller\ManagerController' => $extensionClassesPath . 'Controller/ManagerController.php',
 	'SJBR\StaticInfoTables\Domain\Model\AbstractEntity' => $extensionClassesPath . 'Domain/Model/AbstractEntity.php',	
@@ -26,7 +27,8 @@ $default = array(
 	'SJBR\StaticInfoTables\Hook\Backend\Form\SuggestReceiver' => $extensionClassesPath . 'Hook/Backend/Form/SuggestReceiver.php',
 	'SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap' => $extensionClassesPath . 'Hook/Core/DataHandling/ProcessDataMap.php',
 	'SJBR\StaticInfoTables\Utility\DatabaseUpdateUtility' => $extensionClassesPath . 'Utility/DatabaseUpdateUtility.php',
-	'SJBR\StaticInfoTables\Utility\DatabaseUtility' => $extensionClassesPath . 'Utility/DatabaseUtility.php',	
+	'SJBR\StaticInfoTables\Utility\DatabaseUtility' => $extensionClassesPath . 'Utility/DatabaseUtility.php',
+	'SJBR\StaticInfoTables\Utility\HtmlElementUtility' => $extensionClassesPath . 'Utility/HtmlElementUtility.php',	
 	'SJBR\StaticInfoTables\Utility\LocaleUtility' => $extensionClassesPath . 'Utility/LocaleUtility.php',	
 	'SJBR\StaticInfoTables\Utility\LocalizationUtility' => $extensionClassesPath . 'Utility/LocalizationUtility.php',
 	'SJBR\StaticInfoTables\Utility\TcaUtility' => $extensionClassesPath . 'Utility/TcaUtility.php',

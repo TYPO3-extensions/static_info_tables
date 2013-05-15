@@ -71,6 +71,26 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	}
 
 	/**
+	 * Find all ordered by the localized name
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by localized name
+	 */
+	public function findAllOrderedByLocalizedName() {
+		$entities = parent::findAll()->toArray();
+		usort($entities, array($this, 'localizedSort'));
+		return $entities;
+	}
+
+	/**
+	 * Sort using strcoll on localized names
+	 *
+	 * @return integer see strcoll
+	 */
+	protected function localizedSort($entityA, $entityB) {
+		return strcoll($entityA->getNameLocalized(), $entityB->getNameLocalized());
+	}
+
+	/**
 	 * Find all ordered by given field name
 	 *
 	 * @param string $fieldName field name to order by

@@ -33,12 +33,17 @@ use \SJBR\StaticInfoTables\Utility\LocalizationUtility;
  */
 class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
-	var $cObj;		// The backReference to the mother cObj object set at call time
-	var $prefixId = 'tx_staticinfotables_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_staticinfotables_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey = 'static_info_tables';		 // The extension key.
+	// The backReference to the mother cObj object set at call time
+	var $cObj;
+	// Same as class name
+	var $prefixId = 'tx_staticinfotables_pi1';
+	// Path to this script relative to the extension dir.
+	var $scriptRelPath = 'pi1/class.tx_staticinfotables_pi1.php';
+	// The extension key.
+	var $extKey = 'static_info_tables';
 	var $conf = array();
-	var $currency;		// default currency
+	// Default currency
+	var $currency;
 	var $currencyInfo = array();
 	var $defaultCountry;
 	var $defaultCountryZone;
@@ -52,7 +57,6 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		'LANGUAGES' 	=> 'static_languages'
 	);
 	var $bHasBeenInitialised = FALSE;
-	protected $renderCharset = 'utf-8';
 
 	/**
 	 * Returns info if the tx_staticinfotables_pi1 object has already been initialised.
@@ -64,7 +68,6 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		return !$this->bHasBeenInitialised;
 	}
 
-
 	/**
 	 * Initializing the class: sets the language based on the TS configuration language property
 	 *
@@ -75,15 +78,14 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		if (TYPO3_MODE === 'FE') {
 			$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.'][$this->prefixId.'.'];
-			$this->renderCharset = $GLOBALS['TSFE']->renderCharset;
 		}
 
-			//Get the default currency and make sure it does exist in table static_currencies
+		//Get the default currency and make sure it does exist in table static_currencies
 		$this->currency = $conf['currencyCode'];
 		if (!$this->currency) {
 			$this->currency = (trim($this->conf['currencyCode'])) ? trim($this->conf['currencyCode']) : 'EUR';
 		}
-			//If nothing is set, we use the Euro because TYPO3 is spread more in this area
+		//If nothing is set, we use the Euro because TYPO3 is spread more in this area
 		if (!$this->getStaticInfoName('CURRENCIES', $this->currency)) {
 			$this->currency = 'EUR';
 		}
@@ -178,33 +180,21 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 */
 	public function buildStaticInfoSelector ($type='COUNTRIES', $name='', $class='', $selectedArray=array(), $country='', $submit=0, $id='', $title='', $addWhere='', $lang='', $local=FALSE, $mergeArray=array(), $size=1, &$outSelectedArray=array()) {
 
-		if ($size > 1) {
-			$multiple = ' multiple="multiple"';
-			$name .= '[]';
-		} else {
-			$multiple="";
-		}
+		$selector = '';
+
 		if (isset($selectedArray) && !is_array($selectedArray)) {
 			$selectedArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode (',', $selectedArray);
 		}
 
 		$country = trim($country);
-		$nameAttribute = (trim($name)) ? 'name="'.htmlspecialchars(trim($name), ENT_COMPAT, $this->renderCharset).'" ' : '';
-		$classAttribute = (trim($class)) ? 'class="'.htmlspecialchars(trim($class), ENT_COMPAT, $this->renderCharset).'" ' : '';
-		$idAttribute = (trim($id)) ? 'id="'.htmlspecialchars(trim($id), ENT_COMPAT, $this->renderCharset).'" ' : '';
-		$titleAttribute = (trim($title)) ? 'title="'.htmlspecialchars(trim($title), ENT_COMPAT, $this->renderCharset).'" ' : '';
-		$onchangeAttribute = '';
+		$onChange = '';
 		if ($submit) {
 			if ($submit == 1) {
-				$onchangeAttribute = $this->conf['onChangeAttribute'];
+				$onChange = $this->conf['onChangeAttribute'];
 			} else {
-				$onchangeAttribute = $submit;
+				$onChange = $submit;
 			}
-			$onchangeAttribute = str_replace('"', '\'', $onchangeAttribute);
-			$onchangeAttribute = $this->quoteJSvalue($onchangeAttribute);
-			$onchangeAttribute = 'onchange='.$onchangeAttribute;
 		}
-		$selector = '<select size="'.$size.'" '.$idAttribute.$nameAttribute.$titleAttribute.$classAttribute.$onchangeAttribute.$multiple.'>'.chr(10);
 
 		switch ($type) {
 			case 'COUNTRIES':
@@ -241,10 +231,11 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 
 		if (count($nameArray) > 0) {
-			$selector .= $this->optionsConstructor($nameArray, $selectedArray, $outSelectedArray);
-			$selector .= '</select>'.chr(10);
-		} else {
-			$selector = '';
+			$items = array();
+			foreach ($nameArray as $itemKey => $itemName) {
+				$items[] = array('name' => $itemName, 'value' => $itemKey);
+			}
+			$selector = \SJBR\StaticInfoTables\Utility\HtmlElementUtility::selectConstructor($items, $selectedArray, $outSelectedArray, $name, $class, $id, $title, $onChange, $size);
 		}
 		return $selector;
 	}
@@ -270,9 +261,9 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$nameArray = array();
 		$titleFields = LocalizationUtility::getLabelFields($table, $lang, $local);
 		$prefixedTitleFields = array();
-		$prefixedTitleFields[] = $table.'.cn_iso_3';
+		$prefixedTitleFields[] = $table . '.cn_iso_3';
 		foreach ($titleFields as $titleField) {
-			$prefixedTitleFields[] = $table.'.'.$titleField;
+			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
 
 		array_unique($prefixedTitleFields);
@@ -281,13 +272,13 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$where = 'cn_uno_member=1';
 		} elseif ($param == 'EU') {
 			$where = 'cn_eu_member=1';
-		} elseif ($param == 'ALL')	{
+		} elseif ($param == 'ALL') {
 			$where = '1=1';
 		} else {
 			$where = '1=1';
 		}
 
-		$where .= ($addWhere ? ' AND '.$addWhere : '');
+		$where .= ($addWhere ? ' AND ' . $addWhere : '');
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			$labelFields,
 			$table,
@@ -298,18 +289,18 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['cn_iso_3']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
+					$nameArray[$row['cn_iso_3']] = $row[$titleField];
 					break;
 				}
 			}
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
 
-		if ($this->conf['countriesAllowed'] != '')	{
+		if ($this->conf['countriesAllowed'] != '') {
 			$countriesAllowedArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->conf['countriesAllowed']);
 			$newNameArray = array();
-			foreach ($countriesAllowedArray as $iso3)	{
-				if (isset($nameArray[$iso3]))	{
+			foreach ($countriesAllowedArray as $iso3) {
+				if (isset($nameArray[$iso3])) {
 					$newNameArray[$iso3] = $nameArray[$iso3];
 				}
 			}
@@ -336,7 +327,7 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$table = $this->tables['SUBDIVISIONS'];
 		if (strlen($param) == 3) {
 			$country = $param;
-			$where = 'zn_country_iso_3='.$GLOBALS['TYPO3_DB']->fullQuoteStr($country,$table);
+			$where = 'zn_country_iso_3=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country,$table);
 		} else {
 			$where = '1=1';
 		}
@@ -351,14 +342,14 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		}
 		$labelFields = implode(',', $prefixedTitleFields);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-			$table.'.zn_code,'.$labelFields,
+			$table . '.zn_code,' . $labelFields,
 			$table,
 			$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
 		);
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['zn_code']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
+					$nameArray[$row['zn_code']] = $row[$titleField];
 					break;
 				}
 			}
@@ -377,16 +368,15 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	 * @return	array		An array of names of currencies
 	 */
 	public function initCurrencies ($addWhere='') {
-
-		$where = '1=1'.($addWhere ? ' AND '.$addWhere : '');
+		$nameArray = array();
+		$where = '1=1' . ($addWhere ? ' AND ' . $addWhere : '');
 		$table = $this->tables['CURRENCIES'];
 		$lang = LocalizationUtility::getCurrentLanguage();
 		$lang = LocalizationUtility::getIsoLanguageKey($lang);
-		$nameArray = array();
 		$titleFields = LocalizationUtility::getLabelFields($table, $lang);
 		$prefixedTitleFields = array();
 		foreach ($titleFields as $titleField) {
-			$prefixedTitleFields[] = $table.'.'.$titleField;
+			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
 		$labelFields = implode(',', $prefixedTitleFields);
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
@@ -397,12 +387,13 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$row['cu_iso_3']] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
+					$nameArray[$row['cu_iso_3']] = $row[$titleField];
 					break;
 				}
 			}
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
+
 		uasort($nameArray, 'strcoll');
 		return $nameArray;
 	}
@@ -439,7 +430,7 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 			$code = $row['lg_iso_2'].($row['lg_country_iso_2']?'_'.$row['lg_country_iso_2']:'');
 			foreach ($titleFields as $titleField) {
 				if ($row[$titleField]) {
-					$nameArray[$code] = LocalizationUtility::convertCharset($row[$titleField], 'utf-8');
+					$nameArray[$code] = $row[$titleField];
 					break;
 				}
 			}
@@ -447,33 +438,6 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		uasort($nameArray, 'strcoll');
 		return $nameArray;
-	}
-
-	/**
-	 * Builds a list of <option> tags
-	 *
-	 * @param	array		An array where the values will be the texts of an <option> tags and keys will be the values of the tags
-	 * @param	string		A pre-selected value: if the value appears as a key, the <option> tag will bear a 'selected' attribute
-	 * @param	array		out: resulting selected array with the ISO alpha-3 code of the countries
-	 * @return	string		A string of HTML <option> tags
-	 */
-	public function optionsConstructor ($nameArray, $selectedArray=array(), &$outSelectedArray=array()) {
-
-		$options = '';
-		foreach ($nameArray as $value => $name)	{
-
-			$options  .= '<option value="'.$value.'"';
-			if (in_array($value, $selectedArray))	{
-				$options  .= ' selected="selected"';
-				$outSelectedArray[] = $value;
-			}
-			$options  .= '>'.$name.'</option>'.chr(10);
-		}
-		if (!isset($outSelectedArray) || count($outSelectedArray) == 0)	{
-			reset ($nameArray);
-			$outSelectedArray = array(key($nameArray));
-		}
-		return $options;
 	}
 
 	/**
@@ -557,13 +521,13 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$countryCode = ($countryCode ? trim($countryCode) : $this->defaultCountry);
 		$subdivisionCode = ($subdivisionCode ? trim($subdivisionCode) : ($countryCode == $this->defaultCountry ? $this->defaultCountryZone : ''));
 
-			// Get country name
+		// Get country name
 		$countryName = $this->getStaticInfoName('COUNTRIES', $countryCode);
 		if (!$countryName) {
 			return $formatedAddress;
 		}
 
-			// Get address format
+		// Get address format
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'cn_address_format',
 			'static_countries',
@@ -573,10 +537,10 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		$addressFormat = $row['cn_address_format'];
 
-			// Get country subdivision name
+		// Get country subdivision name
 		$countrySubdivisionName = $this->getStaticInfoName('SUBDIVISIONS', $subdivisionCode, $countryCode);
 
-			// Format the address
+		// Format the address
 		$formatedAddress = $this->conf['addressFormat.'][$addressFormat];
 		$formatedAddress = str_replace('%street', $streetAddress, $formatedAddress);
 		$formatedAddress = str_replace('%city', $city, $formatedAddress);
@@ -587,21 +551,6 @@ class PiBaseApi extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		$formatedAddress = implode($delim, \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(';', $formatedAddress, 1));
 
 		return $formatedAddress;
-	}
-
-	/**
-	 * Quotes a string for usage as JS parameter. Depends wheter the value is used in script tags (it must not get `htmlspecialchar'ed in this case because this is done in this function)
-	 *
-	 * @param	string		The string to encode.
-	 * @param	boolean		If the values are used inside of <script> tags.
-	 * @return	string		The encoded value already quoted
-	 */
-	protected function quoteJSvalue ($value, $inScriptTags=FALSE) {
-		$value = addcslashes($value, '"'.chr(10).chr(13));
-		if (!$inScriptTags) {
-			$value = htmlspecialchars($value, ENT_COMPAT, $this->renderCharset);
-		}
-		return '"'.$value.'"';
 	}
 }
 class_alias('SJBR\StaticInfoTables\PiBaseApi', 'tx_staticinfotables_pi1');
