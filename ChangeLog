@@ -1,3 +1,7 @@
+2013-03-16  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Re-introduce class tx_staticinfotables_div for backward compatibility
+
 2013-03-15  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Follow-up to #12683: Make TS template constants selectable

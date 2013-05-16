@@ -159,6 +159,12 @@ class LocalizationUtility {
 		}
 		return $labelFields;
 	}
+	/**
+	 * @deprecated use getLabelFields instead
+	 */
+	public static function getTCAlabelField ($tableName, $loadTCA = TRUE, $lang = '', $local = FALSE) {
+		return self::getLabelFields($tableName, $lang, $local);
+	}
 
 	/**
 	 * Returns a iso code field for the passed table name, iso code and index
@@ -227,7 +233,7 @@ class LocalizationUtility {
 	 *
 	 * @return void
 	 */
-	protected function setLanguageKeys() {
+	protected static function setLanguageKeys() {
 		self::$languageKey = 'default';
 		self::$alternativeLanguageKeys = array();
 		if (TYPO3_MODE === 'FE') {
@@ -266,7 +272,7 @@ class LocalizationUtility {
 	 * @param string $charset The source charset
 	 * @return string converted string
 	 */
-	public function convertCharset($value, $charset) {
+	public static function convertCharset($value, $charset) {
 		if (TYPO3_MODE === 'FE') {
 			return $GLOBALS['TSFE']->csConv($value, $charset);
 		} else {
@@ -274,4 +280,5 @@ class LocalizationUtility {
 		}
 	}
 }
+class_alias('SJBR\StaticInfoTables\Utility\LocalizationUtility', 'tx_staticinfotables_div');
 ?>
