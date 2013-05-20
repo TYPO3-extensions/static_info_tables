@@ -55,8 +55,6 @@ class LocalizationUtility {
 
 		$value = '';
 		self::setLanguageKeys();
-		\SJBR\StaticInfoTables\Utility\TcaUtility::loadTca($tableName);
-
 		$isoLanguage = self::getIsoLanguageKey(self::$languageKey);
 		$value = self::getLabelFieldValue($identifiers, $tableName, $isoLanguage, $local);
 		if ($value) {
@@ -128,6 +126,7 @@ class LocalizationUtility {
 	 * @return array field names
 	 */
 	public static function getLabelFields ($tableName, $lang, $local = FALSE) {
+		TcaUtility::loadTca($tableName);
 		$labelFields = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$tableName]['label_fields'])) {
 			$alternativeLanguages = array();
