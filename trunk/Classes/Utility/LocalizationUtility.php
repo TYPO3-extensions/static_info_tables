@@ -158,12 +158,6 @@ class LocalizationUtility {
 		}
 		return $labelFields;
 	}
-	/**
-	 * @deprecated use getLabelFields instead
-	 */
-	public static function getTCAlabelField ($tableName, $loadTCA = TRUE, $lang = '', $local = FALSE) {
-		return self::getLabelFields($tableName, $lang, $local);
-	}
 
 	/**
 	 * Returns a iso code field for the passed table name, iso code and index
@@ -279,5 +273,4 @@ class LocalizationUtility {
 		}
 	}
 }
-class_alias('SJBR\StaticInfoTables\Utility\LocalizationUtility', 'tx_staticinfotables_div');
 ?>
