@@ -24,15 +24,15 @@
 ***************************************************************/
 /**
  * Misc functions to access the static info tables
- * @deprecated since 6.0
- * This class is deprecated and will be removed in version 6.2
+ * This class is deprecated since 6.0 and will be removed in version 6.2
  */
 class tx_staticinfotables_div extends \SJBR\StaticInfoTables\Utility\LocalizationUtility {
 
 	/**
-	* @deprecated use \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields instead
+	 * @deprecated since 6.0, will be removed two versions later - Use \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields instead
 	 */
 	public static function getTCAlabelField ($tableName, $loadTCA = TRUE, $lang = '', $local = FALSE) {
+		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
 		return parent::getLabelFields($tableName, $lang, $local);
 	}
 
@@ -40,7 +40,7 @@ class tx_staticinfotables_div extends \SJBR\StaticInfoTables\Utility\Localizatio
 	 * Get a list of countries by specific parameters or parts of names of countries
 	 * in different languages. Parameters might be left empty.
 	 *
-	 * @deprecated since 6.0. Will be removed in version 6.2
+	 * @deprecated since 6.0, will be removed two versions later - Use methods of \SJBR\StaticInfoTables\Domain\Repository\CountryRepository directly
 	 *
 	 *
 	 * @param	string		a name of the country or a part of it in any language
@@ -49,34 +49,33 @@ class tx_staticinfotables_div extends \SJBR\StaticInfoTables\Utility\Localizatio
 	 * @param	array		Database row.
 	 * @return	array		Array of rows of country records
 	 */
-	public static function fetchCountries ($country, $iso2='', $iso3='', $isonr='')	{
-		global $TYPO3_DB;
-
+	public static function fetchCountries ($country, $iso2='', $iso3='', $isonr='') {
+		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
 		$rcArray = array();
 		$where = '';
 
 		$table = 'static_countries';
-		if ($country != '')	{
-			$value = $TYPO3_DB->fullQuoteStr(trim('%'.$country.'%'),$table);
+		if ($country != '') {
+			$value = $GLOBALS['TYPO3_DB']->fullQuoteStr(trim('%'.$country.'%'),$table);
 			$where = 'cn_official_name_local LIKE '.$value.' OR cn_official_name_en LIKE '.$value.' OR cn_short_local LIKE '.$value;
 		}
 
-		if ($isonr != '')	{
-			$where = 'cn_iso_nr='.$TYPO3_DB->fullQuoteStr(trim($isonr),$table);
+		if ($isonr != '') {
+			$where = 'cn_iso_nr='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($isonr),$table);
 		}
 
-		if ($iso2 != '')	{
-			$where = 'cn_iso_2='.$TYPO3_DB->fullQuoteStr(trim($iso2),$table);
+		if ($iso2 != '') {
+			$where = 'cn_iso_2='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($iso2),$table);
 		}
 
-		if ($iso3 !='')	{
-			$where = 'cn_iso_3='.$TYPO3_DB->fullQuoteStr(trim($iso3),$table);
+		if ($iso3 !='') {
+			$where = 'cn_iso_3='.$GLOBALS['TYPO3_DB']->fullQuoteStr(trim($iso3),$table);
 		}
 
-		if ($where != '')	{
-			$res = $TYPO3_DB->exec_SELECTquery('*', $table, $where);
+		if ($where != '') {
+			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', $table, $where);
 
-			if ($res)	{
+			if ($res) {
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					$rcArray[] = $row;
 				}
