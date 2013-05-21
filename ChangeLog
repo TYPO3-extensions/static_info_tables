@@ -1,3 +1,7 @@
+2013-05-21  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Log usage of deprecated functions
+
 2013-05-20  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fix for backward compatibility of class tx_staticinfotables_div

@@ -30,6 +30,8 @@ class tx_staticinfotables_encoding {
 	/**
 	 * Returns a selector box with charset encodings
 	 *
+	 * @deprecated since 6.0, will be removed two versions later - Language pack should be re-created
+	 *
 	 * @param	string		$elementName it the form elements name, probably something like "SET[...]"
 	 * @param	string		$currentKey is the key to be selected currently.
 	 * @param	string		$firstEntry is the key to be placed on top as first (default) entry.
@@ -37,7 +39,7 @@ class tx_staticinfotables_encoding {
 	 * @return	string		HTML code for selector box
 	 */
 	function getEncodingSelect ($elementName, $currentKey, $firstEntry='', $unsetEntries='') {
-
+		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
 		$menuItems = array(
 			'utf-8' => 'UTF-8',
 		);
