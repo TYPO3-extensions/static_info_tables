@@ -6,6 +6,8 @@
 $extensionClassesPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'Classes/';
 require_once($extensionClassesPath . 'Cache/ClassCacheBuilder.php');
 $classCacheBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
-return $classCacheBuilder->build();
-
+return array_merge(
+		array('tx_staticinfotables_div' => $extensionClassesPath . 'tx_staticinfotables_div'),
+		$classCacheBuilder->build()
+	);
 ?>
