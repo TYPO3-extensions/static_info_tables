@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3@sjbr.ca>
+*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -27,9 +27,6 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\CountryZone
- *
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class CountryZoneRepository extends AbstractEntityRepository {
 
