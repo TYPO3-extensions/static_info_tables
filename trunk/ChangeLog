@@ -2,6 +2,7 @@
 
 	* Log usage of deprecated functions
 	* Set TYPO3 version constraint to 6.0.6-6.1.99
+	* Delete unused partials
 
 2013-05-20  Stanislas Rolland  <typo3@sjbr.ca>
 
