@@ -71,22 +71,28 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	/**
 	 * Find all ordered by the localized name
 	 *
+	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by localized name
 	 */
-	public function findAllOrderedByLocalizedName() {
+	protected function findAllOrderedByLocalizedName($orderDirection = 'asc') {
 		$entities = parent::findAll();
-		return $this->localizedSort($entities);
+		return $this->localizedSort($entities, $orderDirection);
 	}
 
 	/**
 	 * Sort entities by the localized name
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities to be sorted
+	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 * @return array entities ordered by localized name
 	 */	
-	public function localizedSort(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities) {
+	public function localizedSort(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities, $orderDirection = 'asc') {
 		$result = $entities->toArray();
-		usort($result, array($this, 'strcollOnLocalizedName'));
+		if ($orderDirection === 'asc') {
+			usort($result, array($this, 'strcollOnLocalizedName'));
+		} else {
+			usort($result, array($this, 'strcollOnLocalizedNameDesc'));
+		}
 		return $result;
 	}
 
@@ -100,32 +106,49 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	}
 
 	/**
-	 * Find all ordered by given field name
+	 * Using strcoll comparison on localized names - descending order
 	 *
-	 * @param string $fieldName field name to order by
+	 * @return integer see strcoll
+	 */
+	protected function strcollOnLocalizedNameDesc($entityA, $entityB) {
+		return strcoll($entityB->getNameLocalized(), $entityA->getNameLocalized());
+	}
+
+	/**
+	 * Find all ordered by given property name
+	 *
+	 * @param string $propertyName property name to order by
 	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $fieldName
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $propertyName
 	 */
-	public function findAllOrderedBy($fieldName, $orderDirection = 'asc') {
-		$query = $this->createQuery();
+	public function findAllOrderedBy($propertyName, $orderDirection = 'asc') {
+		$queryResult = array();
 
-		$object = $this->objectManager->create($this->objectType);
-		if (!array_key_exists($fieldName, $object->_getProperties())) {
-			throw new InvalidArgumentException('The model "' . $this->objectType . '" has no attribute "' . $fieldName . '" to order by.', 1316607579);
-		}
 		if ($orderDirection !== 'asc' && $orderDirection !== 'desc') {
 			throw new InvalidArgumentException('Order direction must be "asc" or "desc".', 1316607580);
 		}
 
-		if ($orderDirection === 'asc') {
-			$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+		if ($propertyName == 'nameLocalized') {
+			$queryResult = $this->findAllOrderedByLocalizedName($orderDirection);
 		} else {
-			$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
-		}
-		$query->setOrderings(array($fieldName => $orderDirection));
+			$query = $this->createQuery();
 
-		return $query->execute();
+			$object = $this->objectManager->create($this->objectType);
+			if (!array_key_exists($propertyName, $object->_getProperties())) {
+				throw new InvalidArgumentException('The model "' . $this->objectType . '" has no property "' . $propertyName . '" to order by.', 1316607579);
+			}
+
+			if ($orderDirection === 'asc') {
+				$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+			} else {
+				$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+			}
+			$query->setOrderings(array($propertyName => $orderDirection));
+
+			return $query->execute();
+		}
+		return $queryResult;
 	}
 
 	/**

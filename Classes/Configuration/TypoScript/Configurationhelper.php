@@ -51,7 +51,7 @@ class ConfigurationHelper {
 			case 'data[plugin.tx_staticinfotables_pi1.countryCode]':
 			case 'data[plugin.tx_staticinfotables_pi1.countriesAllowed]':
 				$repository = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryRepository');
-				$entities = $repository->findAllOrderedByLocalizedName();
+				$entities = $repository->findAllOrderedBy('nameLocalized');
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.countryZoneCode]':
 				$repository = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryZoneRepository');
@@ -64,12 +64,12 @@ class ConfigurationHelper {
 					}
 				}
 				if (!$countryCode || (empty($entities) && $params['fieldValue'])) {
-					$entities = $repository->findAllOrderedByLocalizedName();
+					$entities = $repository->findAllOrderedBy('nameLocalized');
 				}
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.currencyCode]':
 				$repository = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CurrencyRepository');
-				$entities = $repository->findAllOrderedByLocalizedName();
+				$entities = $repository->findAllOrderedBy('nameLocalized');
 				break;
 			case 'data[plugin.tx_staticinfotables_pi1.languageCode]':
 				$repository = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
