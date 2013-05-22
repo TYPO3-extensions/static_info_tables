@@ -58,6 +58,24 @@
 			<trans-unit id="wasInstalled" xml:space="preserve">
 				<source>was installed.</source>
 			</trans-unit>
+			<trans-unit id="testForm" xml:space="preserve">
+				<source>Display the test form</source>
+			</trans-unit>
+			<trans-unit id="testFormTitle" xml:space="preserve">
+				<source>Use the test form to check the installation of Static Info Tables.</source>
+			</trans-unit>
+			<trans-unit id="testFormDescription" xml:space="preserve">
+				<source>This action allows to test the installation of the Static Info Tables and its language packs.
+					It will display a form containing some selector boxes.
+					If an appropriate language pack is installed, all data should be localized in the current language of the backend.
+				</source>
+			</trans-unit>
+			<trans-unit id="testFormSubmit" xml:space="preserve">
+				<source>Submit the test form</source>
+			</trans-unit>
+			<trans-unit id="testFormResultTitle" xml:space="preserve">
+				<source>Results of the test form of Static Info Tables.</source>
+			</trans-unit>
 			<trans-unit id="sqlDumpNonLocalizedData" xml:space="preserve">
 				<source>SQL dump of non-localized data</source>
 			</trans-unit>
@@ -81,6 +99,30 @@
 			</trans-unit>
 			<trans-unit id="nothingToDo" xml:space="preserve">
 				<source>Nothing to do: no language pack is installed.</source>
+			</trans-unit>
+			<trans-unit id="selectCountry" xml:space="preserve">
+				<source>Select a country</source>
+			</trans-unit>
+			<trans-unit id="selectCountryZone" xml:space="preserve">
+				<source>Select a country subdivision</source>
+			</trans-unit>
+			<trans-unit id="selectLanguage" xml:space="preserve">
+				<source>Select a language</source>
+			</trans-unit>
+			<trans-unit id="countryLocalizedName" xml:space="preserve">
+				<source>Country localized name</source>
+			</trans-unit>
+			<trans-unit id="countryZoneLocalizedName" xml:space="preserve">
+				<source>Country subdivision localized name</source>
+			</trans-unit>
+			<trans-unit id="currencyLocalizedName" xml:space="preserve">
+				<source>Currency localized name</source>
+			</trans-unit>
+			<trans-unit id="languageLocalizedName" xml:space="preserve">
+				<source>Language localized name</source>
+			</trans-unit>
+			<trans-unit id="territoryLocalizedName" xml:space="preserve">
+				<source>Territory localized name</source>
 			</trans-unit>
 		</body>
 	</file>
