@@ -44,7 +44,7 @@ class TerritoryRepository extends AbstractEntityRepository {
 	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
 		$query = $this->createQuery();
 		$query->matching(
-			$query->equals('tr_iso_nr', $country->getParentTerritoryCode())
+			$query->equals('unCodeNumber', $country->getParentTerritoryUnCodeNumber())
 		);
 		return $query->execute();
 	}

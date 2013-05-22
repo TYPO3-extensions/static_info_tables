@@ -45,7 +45,7 @@ class CurrencyRepository extends AbstractEntityRepository {
 	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
 		$query = $this->createQuery();
 		$query->matching(
-			$query->equals('cu_iso_nr', $country->getCurrencyIsoCodeNumber())
+			$query->equals('isoCodeNumber', $country->getCurrencyIsoCodeNumber())
 		);
 		return $query->execute();
 	}

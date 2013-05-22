@@ -45,7 +45,7 @@ class CountryZoneRepository extends AbstractEntityRepository {
 	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
 		$query = $this->createQuery();
 		$query->matching(
-			$query->equals('zn_country_iso_nr', $country->getIsoCodeNumber())
+			$query->equals('countryIsoCodeNumber', $country->getIsoCodeNumber())
 		);
 		return $query->execute();
 	}
