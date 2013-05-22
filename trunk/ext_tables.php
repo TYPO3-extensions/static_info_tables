@@ -163,7 +163,7 @@ if (TYPO3_MODE == 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 			'',
 			// An array holding the controller-action combinations that are accessible
 			array(
-				'Manager' => 'information,newLanguagePack,createLanguagePack,sqlDumpNonLocalizedData'
+				'Manager' => 'information,newLanguagePack,createLanguagePack,testForm,testFormResult,sqlDumpNonLocalizedData'
 			),
 			array(
 				'access' => 'user,group',

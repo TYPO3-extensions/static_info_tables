@@ -1,5 +1,8 @@
 <?php
 namespace SJBR\StaticInfoTables\Controller;
+use \SJBR\StaticInfoTables\Domain\Model\Country;
+use \SJBR\StaticInfoTables\Domain\Model\CountryZone;
+use \SJBR\StaticInfoTables\Domain\Model\Language;
 /***************************************************************
  *  Copyright notice
  *
@@ -121,6 +124,11 @@ class ManagerController extends AbstractController {
 					'description' => 'createLanguagePackDescription'
 				),
 				array(
+					'code' => 'testForm',
+					'title' => 'testFormTitle',
+					'description' => 'testFormDescription'
+				),
+				array(
 					'code' => 'sqlDumpNonLocalizedData',
 					'title' => 'sqlDumpNonLocalizedDataTitle',
 					'description' => 'sqlDumpNonLocalizedDataDescription'
@@ -178,6 +186,62 @@ class ManagerController extends AbstractController {
 			}
 		}
 		$this->forward('information');
+	}
+
+	/**
+	 * Display a test form
+	 *
+	 * @param Country $country
+	 * @param CountryZone $countryZone
+	 * @param Language $language
+	 * @return string An HTML form
+	 */
+	public function testFormAction(Country $country = NULL, CountryZone $countryZone = NULL, Language $language = NULL) {
+		if (is_object($country) && (is_object($countryZone) || !$this->countryZoneRepository->findByCountry($country)->count())) {
+			$this->forward('testFormResult', 'Manager', $this->extensionName, array('country' => $country, 'countryZone' => $countryZone, 'language' => $language));	
+		}
+		$countries = $this->countryRepository->findAllOrderedBy('nameLocalized');
+		if (is_object($country)) {
+			$countryZones = $this->countryZoneRepository->findByCountry($country);
+			$selectedCountry = $country->getUid();
+			$this->view->assign('selectedCountry', $country->getUid());
+		} else {
+			$countryZones = array();
+		}
+		$languages = $this->languageRepository->findAllNonConstructedNonSacred()->toArray();
+		if (is_object($language)) {
+			$this->view->assign('selectedLanguage', $language->getUid());
+		}
+		$this->view->assign('countries', $countries);
+		$this->view->assign('countryZones', $countryZones);
+		if (is_object($countryZone)) {
+			$this->view->assign('selectedCountryZone', $countryZone->getUid());
+		}
+		$this->view->assign('languages', $languages);
+	}
+
+	/**
+	 * Display the test form result
+	 *
+	 * @param Country $country
+	 * @param CountryZone $countryZone
+	 * @param Language $language
+	 * @return string HTML code presenting the localized data
+	 */
+	public function testFormResultAction(Country $country = NULL, CountryZone $countryZone = NULL, Language $language = NULL) {
+		$this->view->assign('country', $country);
+		$currencies = $this->currencyRepository->findByCountry($country);
+		if ($currencies->count()) {
+			$this->view->assign('currency', $currencies[0]);
+		}
+		if (is_object($countryZone)) {
+			$this->view->assign('countryZone', $countryZone);
+		}
+		$this->view->assign('language', $language);
+		$territories = $this->territoryRepository->findByCountry($country);
+		if ($territories->count()) {
+			$this->view->assign('territory', $territories[0]);
+		}		
 	}
 
 	/**

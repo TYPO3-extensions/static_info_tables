@@ -1,3 +1,7 @@
+2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #48473: Add action to test localization after installation of language pack
+
 2013-05-21  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Log usage of deprecated functions
