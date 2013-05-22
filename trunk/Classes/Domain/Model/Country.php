@@ -367,12 +367,12 @@ class Country extends AbstractEntity {
 	/**
 	 * Sets the parent territory UN numeric code.
 	 *
-	 * @param integer $parentTerritoryUnCodeNumeric
+	 * @param integer $parentTerritoryUnCodeNumber
 	 *
 	 * @return void
 	 */
-	public function setParentTerritoryUnCodeNumeric($parentTerritoryUnCodeNumeric) {
-		$this->parentTerritoryUnCodeNumeric = $parentTerritoryUnCodeNumeric;
+	public function setParentTerritoryUnCodeNumber($parentTerritoryUnCodeNumber) {
+		$this->parentTerritoryUnCodeNumber = $parentTerritoryUnCodeNumber;
 	}
 
 	/**
@@ -380,8 +380,8 @@ class Country extends AbstractEntity {
 	 *
 	 * @return integer
 	 */
-	public function getParentTerritoryUnCodeNumeric() {
-		return $this->parentTerritoryUnCodeNumeric;
+	public function getParentTerritoryUnCodeNumber() {
+		return $this->parentTerritoryUnCodeNumber;
 	}
 
 	/**
