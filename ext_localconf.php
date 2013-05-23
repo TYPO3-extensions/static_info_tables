@@ -22,11 +22,11 @@ $_EXTCONF = unserialize($_EXTCONF);
 
 // Configuring clear cache post processing for extended domain model
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Classes/Cache/ClassCacheManager.php:SJBR\StaticInfoTables\Cache\ClassCacheManager->reBuild';
-// For some reason, the rebuilt class loader cache misses those entries after caches are cleared
-$cacheEntries = array_values(require(PATH_BE_staticinfotables . 'ext_autoload.php'));
-foreach ($cacheEntries as $classFile) {
-	require_once($classFile);
-}
+// For some reason, the rebuilt class loader cache misses our ext_autoload entries after caches are cleared, therefore they are preloaded here
+require_once(PATH_BE_staticinfotables . 'Classes/Cache/ClassCacheManager.php');
+$classCacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+$classCacheManager->load();
+require_once(PATH_BE_staticinfotables . 'class.tx_staticinfotables_div.php');
 
 // Possible label fields for different languages. Default as last.
 $labelTable = array(

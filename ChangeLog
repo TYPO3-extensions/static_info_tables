@@ -1,6 +1,7 @@
 2013-05-23  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Fix extended domain model classes loading after class loader cache is cleared
+	* Improve class cache handling
 
 2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
 
