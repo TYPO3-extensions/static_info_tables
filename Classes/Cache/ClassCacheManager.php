@@ -3,6 +3,7 @@ namespace SJBR\StaticInfoTables\Cache;
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Georg Ringer <typo3@ringerge.org>
+ *  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,12 +20,12 @@ namespace SJBR\StaticInfoTables\Cache;
  ***************************************************************/
 
 /**
- * Class Cache builder
+ * Class Cache Manager
  *
  */
-class ClassCacheBuilder {
+class ClassCacheManager {
 
-	const CACHE_FILE_LOCATION = 'typo3temp/Cache/Code/cache_phpcode/';
+	const CACHE_FILE_LOCATION = 'typo3temp/Cache/Code/cache_phpcode/StaticInfoTables/';
 
 	/**
 	 * Builds the proxy files
@@ -55,8 +56,7 @@ class ClassCacheBuilder {
 				}
 			}
 
-			// If an extending class is found, the file is written and
-			// added to the autoloader info
+			// If an extending class is found, the file is written and added to the autoloader info
 			if ($extendingClassFound) {
 				$cacheIdentifier = 'SJBR\StaticInfoTables\\' . str_replace('/', '\\', $key);
 				try {
@@ -206,8 +206,19 @@ class ClassCacheBuilder {
 		if (is_dir($path)) {
 			\TYPO3\CMS\Core\Utility\GeneralUtility::rmdir($path, TRUE);
 		}
+		if (isset($GLOBALS['BE_USER'])) {
+			$GLOBALS['BE_USER']->writelog(3, 1, 0, 0, '[StaticInfoTables]: User %s has cleared the class cache', array($GLOBALS['BE_USER']->user['username']));
+		}
 	}
 
+	/**
+	 * Rebuild the class cache
+	 *
+	 * @return void
+	 */
+	public function reBuild() {
+		$this->clear();
+		$this->build();
+	}
 }
-
 ?>
