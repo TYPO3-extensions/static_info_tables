@@ -1,3 +1,7 @@
+2013-05-23  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Fix extended domain model classes loading after class loader cache is cleared
+
 2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #48473: Add action to test localization after installation of language pack

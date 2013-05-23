@@ -17,7 +17,16 @@ if (!defined ('PATH_BE_staticinfotables_rel')) {
 // Unserializing the configuration so we can use it here
 $_EXTCONF = unserialize($_EXTCONF);
 
+// Including Extbase configuration
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TypoScript/Extbase/setup.txt">');
+
+// Configuring clear cache post processing for extended domain model
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Classes/Cache/ClassCacheManager.php:SJBR\StaticInfoTables\Cache\ClassCacheManager->reBuild';
+// For some reason, the rebuilt class loader cache misses those entries after caches are cleared
+$cacheEntries = array_values(require(PATH_BE_staticinfotables . 'ext_autoload.php'));
+foreach ($cacheEntries as $classFile) {
+	require_once($classFile);
+}
 
 // Possible label fields for different languages. Default as last.
 $labelTable = array(
