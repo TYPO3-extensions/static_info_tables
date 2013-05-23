@@ -116,15 +116,18 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		}
 		if ($success) {
 			$classCacheBuilder = $this->objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
+			$installUtility = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility');
 			$classCacheBuilder->clear();
 			$installed = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded($languagePackExtensionKey);
 			if ($installed) {
+				$installUtility->uninstall($languagePackExtensionKey);
+				$installUtility->reloadCaches();
+				$installUtility->install($languagePackExtensionKey);
 				$content[] =  LocalizationUtility::translate('languagePack', $this->extensionName)
 					. ' ' . $languagePackExtensionKey
 					. ' ' . LocalizationUtility::translate('languagePackUpdated', $this->extensionName);
 			} else {
 				$content[] = LocalizationUtility::translate('languagePackCreated', $this->extensionName) . ' ' . $languagePack->getLanguage() . ' (' . $locale . ')';
-				$installUtility = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility');
 				$installUtility->install($languagePackExtensionKey);
 				$content[] = LocalizationUtility::translate('languagePack', $this->extensionName)
 					. ' ' . $languagePackExtensionKey
