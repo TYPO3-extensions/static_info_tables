@@ -6,6 +6,7 @@ if (!defined ('TYPO3_MODE')) {
 // Configure extension static template
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Static', 'Static Info Tables');
 
+$typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
 $extensionResourcesLanguagePath = 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:';
 $extensionConfigurationTcaPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/Tca/';
 $extensionResourcesIconsPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Images/Icons/';
@@ -123,7 +124,9 @@ unset($extensionConfigurationTcaPath);
 unset($extensionResourcesIconsPath);
 
 // Configure static language field of sys_language table
-\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('sys_language');
+if ($typo3Version < 6001000) {
+	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('sys_language');
+}
 $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = array(
 	'type' => 'select',
 	'items' => array(
@@ -178,7 +181,9 @@ if (TYPO3_MODE == 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'])) {
 			$tableNames = array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']);
 			foreach ($tableNames as $tableName) {
-				\SJBR\StaticInfoTables\Utility\TcaUtility::loadTCA($tableName);
+				if ($typo3Version < 6001000) {
+					\SJBR\StaticInfoTables\Utility\TcaUtility::loadTCA($tableName);
+				}
 				$GLOBALS['TCA'][$tableName]['ctrl']['readOnly'] = 0;
 			}
 		}

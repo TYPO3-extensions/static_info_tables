@@ -21,7 +21,9 @@ $tablesAdditionalFields = array (
 	),
 );
 foreach ($tablesAdditionalFields as $table => $additionalFields) {
-	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($table);
+	if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
+		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($table);
+	}
 	foreach ($additionalFields as $sourceField => $destField) {
 		$additionalColumns = array();
 		$additionalColumns[$destField] = $GLOBALS['TCA'][$table]['columns'][$sourceField];
