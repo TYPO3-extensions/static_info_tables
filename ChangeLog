@@ -4,6 +4,7 @@
 	* Improve class cache handling
 	* Relax extension conflicts
 	* Update manual
+	* GeneralUtility::loadTCA is deprecated in TYPO3 6.1
 
 2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
 
