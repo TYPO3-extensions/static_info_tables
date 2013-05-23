@@ -3,6 +3,7 @@
 	* Fix extended domain model classes loading after class loader cache is cleared
 	* Improve class cache handling
 	* Relax extension conflicts
+	* Update manual
 
 2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
 
