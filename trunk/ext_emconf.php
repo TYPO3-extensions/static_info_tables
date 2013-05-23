@@ -38,7 +38,6 @@ $EM_CONF[$_EXTKEY] = array(
 		'conflicts' => array(
 			'sr_static_info' => '',
 			'cc_infotablesmgm' => '',
-			'static_info_tables_extbase' => '',
 		),
 		'suggests' => array(
 		),
