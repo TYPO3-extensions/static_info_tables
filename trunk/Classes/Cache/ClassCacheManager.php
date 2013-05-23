@@ -220,5 +220,21 @@ class ClassCacheManager {
 		$this->clear();
 		$this->build();
 	}
+
+	/**
+	 * Load the cached classes
+	 *
+	 * @return void
+	 */
+	public function load() {
+		$path = PATH_site . self::CACHE_FILE_LOCATION;
+		if (!is_dir($path)) {
+			$this->build();
+		}
+		$classFiles = \TYPO3\CMS\Core\Utility\GeneralUtility::getFilesInDir($path, 'php', TRUE);
+		foreach ($classFiles as $classFile) {
+			require_once($classFile);
+		}		
+	}
 }
 ?>
