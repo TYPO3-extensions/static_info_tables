@@ -1,6 +1,7 @@
 2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #48473: Add action to test localization after installation of language pack
+	* Fix language pack update
 
 2013-05-21  Stanislas Rolland  <typo3@sjbr.ca>
 
