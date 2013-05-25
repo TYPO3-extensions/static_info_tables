@@ -9,11 +9,11 @@ $classCacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\
 return array_merge(
 		array(
 			'tx_staticinfotables_div' => $extensionPath . 'class.tx_staticinfotables_div.php',
-			'SJBR\StaticInfoTables\Domain\Model\Country' => $extensionPath . 'Classes/Domain/Model/CountryExtensible.php',
-			'SJBR\StaticInfoTables\Domain\Model\CountryZone' => $extensionPath . 'Classes/Domain/Model/CountryZoneExtensible.php',
-			'SJBR\StaticInfoTables\Domain\Model\Currency' => $extensionPath . 'Classes/Domain/Model/CurrencyExtensible.php',
-			'SJBR\StaticInfoTables\Domain\Model\Language' => $extensionPath . 'Classes/Domain/Model/LanguageExtensible.php',
-			'SJBR\StaticInfoTables\Domain\Model\Territory' => $extensionPath . 'Classes/Domain/Model/TerritoryExtensible.php'
+			'SJBR\StaticInfoTables\Domain\Model\Country' => $extensionPath . 'Classes/Domain/Model/Country.php',
+			'SJBR\StaticInfoTables\Domain\Model\CountryZone' => $extensionPath . 'Classes/Domain/Model/CountryZone.php',
+			'SJBR\StaticInfoTables\Domain\Model\Currency' => $extensionPath . 'Classes/Domain/Model/Currency.php',
+			'SJBR\StaticInfoTables\Domain\Model\Language' => $extensionPath . 'Classes/Domain/Model/Language.php',
+			'SJBR\StaticInfoTables\Domain\Model\Territory' => $extensionPath . 'Classes/Domain/Model/Territory.php'
 		),
 		$classCacheManager->build()
 	);
