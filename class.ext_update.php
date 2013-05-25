@@ -37,9 +37,8 @@ class ext_update {
 		$databaseUpdateUtility = $objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
 		
 		// Clear the class cache
-		$classCacheBuilder = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
-		$classCacheBuilder->clear();
-		$classCacheBuilder->build();
+		$classCacheManager = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+		$classCacheManager->reBuild();
 
 		// Get the extensions which want to extend static_info_tables
 		$loadedExtensions = array_unique(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getLoadedExtensionListArray());
