@@ -35,9 +35,8 @@ class ext_update {
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
 		// Clear the class cache
-		$classCacheBuilder = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheBuilder');
-		$classCacheBuilder->clear();
-		$classCacheBuilder->build();
+		$classCacheManager = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+		$classCacheManager->reBuild();
 
 		// Update the database
 		$databaseUpdateUtility = $objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
