@@ -2,6 +2,7 @@
 
 	* Resolves #48524: Missing file Classes/Domain/Model/LanguageExtensible.php
 	* Resolves #48528: Error in update script on TYPO3 6.1.1
+	* Update version to 6.0.1
 
 2013-05-23  Stanislas Rolland  <typo3@sjbr.ca>
 
