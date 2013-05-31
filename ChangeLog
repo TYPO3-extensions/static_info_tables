@@ -1,6 +1,7 @@
 2013-05-31  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #48659: Superfluous closing ">" in pi1/class.tx_staticinfotables_pi1.php
+	* Update version to 6.0.3
 
 2013-05-25  Stanislas Rolland  <typo3@sjbr.ca>
 

@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "static_info_tables".
  *
- * Auto generated 25-05-2013 12:52
+ * Auto generated 31-05-2013 18:47
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -15,7 +15,9 @@ $EM_CONF[$_EXTKEY] = array (
 	'description' => 'Data and API for countries, languages and currencies.',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '6.0.1',
+	'version' => '6.0.3',
+	'dependencies' => '',
+	'conflicts' => 'sr_static_info,cc_infotablesmgm',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
@@ -23,13 +25,13 @@ $EM_CONF[$_EXTKEY] = array (
 	'uploadfolder' => 0,
 	'createDirs' => '',
 	'modify_tables' => '',
-	'clearcacheonload' => 1,
+	'clearcacheonload' => 0,
 	'lockType' => '',
 	'author' => 'Stanislas Rolland/Rene Fritz',
 	'author_email' => 'typo3@sjbr.ca',
 	'author_company' => 'SJBR',
-	'CGLcompliance' => '',
-	'CGLcompliance_note' => '',
+	'CGLcompliance' => NULL,
+	'CGLcompliance_note' => NULL,
 	'constraints' => 
 	array (
 		'depends' => 
@@ -46,7 +48,9 @@ $EM_CONF[$_EXTKEY] = array (
 		array (
 		),
 	),
-	'_md5_values_when_last_written' => '',
+	'suggests' => 
+	array (
+	),
 );
 
 ?>
