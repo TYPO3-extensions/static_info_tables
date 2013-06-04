@@ -31,7 +31,7 @@ class ElementRenderingHelper {
 	/*
 	 * Add ISO codes to the label of entities
 	 */
-	public function addIsoCodeToLabel ($PA, $fObj) {
+	public function addIsoCodeToLabel ($PA, &$fObj) {
 		$PA['title'] = $PA['row'][$GLOBALS['TCA'][$PA['table']]['ctrl']['label']];
 		if (TYPO3_MODE == 'BE') {
 			switch ($PA['table']) {
@@ -108,7 +108,7 @@ class ElementRenderingHelper {
 	/*
 	 * Translate and sort the territories selector using the current locale
 	 */
-	public function translateTerritoriesSelector ($PA, $fObj) {
+	public function translateTerritoriesSelector ($PA, &$fObj) {
 		switch ($PA['table']) {
 			case 'static_territories':
 				// Avoid circular relation
@@ -131,7 +131,7 @@ class ElementRenderingHelper {
 	/*
 	 * Translate and sort the currencies selector using the current locale
 	 */
-	public function translateCurrenciesSelector ($PA, $fObj) {
+	public function translateCurrenciesSelector ($PA, &$fObj) {
 		foreach ($PA['items'] as $index => $item) {
 			if ($PA['items'][$index][1]) {
 				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_currencies');
@@ -143,7 +143,7 @@ class ElementRenderingHelper {
 	/*
 	 * Translate and sort the languages selector using the current locale
 	 */
-	public function translateLanguagesSelector ($PA, $fObj) {
+	public function translateLanguagesSelector ($PA, &$fObj) {
 		foreach ($PA['items'] as $index => $item) {
 			if ($PA['items'][$index][1]) {
 				//Get isocode if present
