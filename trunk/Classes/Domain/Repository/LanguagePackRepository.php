@@ -108,7 +108,7 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			foreach ($replace as $marker => $replacement) {
 				$fileContent = str_replace($marker, $replacement, $fileContent);
 			}
-			$success = GeneralUtility::writeFile($languagePackExtensionPath . $file, $fileContent);
+			$success = GeneralUtility::writeFile($languagePackExtensionPath . str_replace('.code', '.php', $file), $fileContent);
 			if (!$success) {
 				$content[] = LocalizationUtility::translate('couldNotWriteFile', $this->extensionName) . ' ' . $languagePackExtensionPath . $file;
 				break;
