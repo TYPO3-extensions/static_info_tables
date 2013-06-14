@@ -48,5 +48,22 @@ class LanguageRepository extends AbstractEntityRepository {
 		));
 		return $query->execute();	 	 
 	}
+
+	/**
+	 * Find the language object with the specified iso codes
+	 *
+	 * @param string $languageIsoCodeA2
+	 * @param string $countryIsoCodeA2
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $propertyName
+	 */
+	public function findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 = '') {
+		$query = $this->createQuery();
+		$query->matching($query->logicalAnd(
+			$query->equals('isoCodeA2', $languageIsoCodeA2),
+			$query->equals('countryIsoCodeA2', $countryIsoCodeA2)
+		));
+		return $query->execute()->getFirst();
+	}
 }
 ?>
