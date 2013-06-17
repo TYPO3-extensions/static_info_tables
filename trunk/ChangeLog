@@ -1,3 +1,7 @@
+2013-06-17  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Update version to 6.0.4
+
 2013-06-14  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #49124: Automated PHP Syntax check on LanguagePackTemplates fails
