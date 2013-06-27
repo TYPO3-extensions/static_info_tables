@@ -1,6 +1,7 @@
 2013-06-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #49462: Class tx_staticinfotables_pi1 not always available
+	* Resolves #49463: Make extension version available to other extensions
 
 2013-06-17  Stanislas Rolland  <typo3@sjbr.ca>
 
