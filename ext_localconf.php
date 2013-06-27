@@ -27,6 +27,7 @@ require_once(PATH_BE_staticinfotables . 'Classes/Cache/ClassCacheManager.php');
 $classCacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
 $classCacheManager->load();
 require_once(PATH_BE_staticinfotables . 'class.tx_staticinfotables_div.php');
+require_once(PATH_BE_staticinfotables . 'pi1/class.tx_staticinfotables_pi1.php');
 
 // Possible label fields for different languages. Default as last.
 $labelTable = array(
