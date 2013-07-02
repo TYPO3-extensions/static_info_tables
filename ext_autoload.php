@@ -10,11 +10,11 @@ return array_merge(
 		array(
 			'tx_staticinfotables_div' => $extensionPath . 'class.tx_staticinfotables_div.php',
 			'tx_staticinfotables_pi1' => $extensionPath . 'pi1/class.tx_staticinfotables_pi1.php',
-			'SJBR\StaticInfoTables\Domain\Model\Country' => $extensionPath . 'Classes/Domain/Model/Country.php',
-			'SJBR\StaticInfoTables\Domain\Model\CountryZone' => $extensionPath . 'Classes/Domain/Model/CountryZone.php',
-			'SJBR\StaticInfoTables\Domain\Model\Currency' => $extensionPath . 'Classes/Domain/Model/Currency.php',
-			'SJBR\StaticInfoTables\Domain\Model\Language' => $extensionPath . 'Classes/Domain/Model/Language.php',
-			'SJBR\StaticInfoTables\Domain\Model\Territory' => $extensionPath . 'Classes/Domain/Model/Territory.php'
+			'SJBR\\StaticInfoTables\\Domain\\Model\\Country' => $extensionPath . 'Classes/Domain/Model/Country.php',
+			'SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone' => $extensionPath . 'Classes/Domain/Model/CountryZone.php',
+			'SJBR\\StaticInfoTables\\Domain\\Model\\Currency' => $extensionPath . 'Classes/Domain/Model/Currency.php',
+			'SJBR\\StaticInfoTables\\Domain\Model\\Language' => $extensionPath . 'Classes/Domain/Model/Language.php',
+			'SJBR\\StaticInfoTables\\Domain\\Model\\Territory' => $extensionPath . 'Classes/Domain/Model/Territory.php'
 		),
 		$classCacheManager->build()
 	);

@@ -2,6 +2,7 @@
 
 	* Resolves #49397: No method name 'selectItemsTCA' in class tx_staticinfotables_div
 	* Follow-up to #49397: Correction to the manual
+	* Cleanup unescaped backslashes
 
 2013-06-26  Stanislas Rolland  <typo3@sjbr.ca>
 
