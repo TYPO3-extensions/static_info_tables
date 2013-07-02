@@ -84,5 +84,17 @@ class tx_staticinfotables_div extends \SJBR\StaticInfoTables\Utility\Localizatio
 		}
 		return $rcArray;
 	}
+
+	/**
+	 * Function to add additional select items in the form of a hotlist
+	 *
+	 * @deprecated since 6.0, will be removed two versions later - Use suggest wizard instead
+	 *
+	 * @param array	 itemsProcFunc data array:
+	 * @return void	 The $items array may have been modified
+	 */
+	public function selectItemsTCA ($params) {
+		\TYPO3\CMS\Core\Utility\GeneralUtility::logDeprecatedFunction();
+	}
 }
 ?>
