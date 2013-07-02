@@ -58,7 +58,7 @@ class ClassCacheManager {
 
 			// If an extending class is found, the file is written and added to the autoloader info
 			if ($extendingClassFound) {
-				$cacheIdentifier = 'SJBR\StaticInfoTables\\' . str_replace('/', '\\', $key);
+				$cacheIdentifier = 'SJBR\\StaticInfoTables\\\\' . str_replace('/', '\\', $key);
 				try {
 					$cacheEntries[$cacheIdentifier] = $this->writeFile($code, 'staticInfoTables_' . $key);
 				} catch (Exception $e) {
