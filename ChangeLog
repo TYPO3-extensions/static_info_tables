@@ -3,6 +3,7 @@
 	* Resolves #50034: Re-introduce tx_staticinfotables_div::getTitleFromIsoCode as deprecated method
 	* Resolves #50036: Clarify message from ext_update script
 	* Resolves #49878: clearCachePostProc should clear proxy classes only when cacheCmd=all
+	* Resolves #50050: Use TYPO3 caching framework for extended domain model classes
 
 2013-07-02  Stanislas Rolland  <typo3@sjbr.ca>
 

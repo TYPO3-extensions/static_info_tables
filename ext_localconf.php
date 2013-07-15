@@ -20,14 +20,33 @@ $_EXTCONF = unserialize($_EXTCONF);
 // Including Extbase configuration
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TypoScript/Extbase/setup.txt">');
 
+// Register cache static_info_tables
+if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY] = array();
+}
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend';
+}
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['backend'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['backend'] = 'TYPO3\\CMS\\Core\\Cache\\Backend\\FileBackend';
+}
+
+// Names of static entities
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['entities'] = array(
+	'Country',
+	'CountryZone',
+	'Currency',
+	'Language',
+	'Territory'
+);
+
 // Configuring clear cache post processing for extended domain model
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Classes/Cache/ClassCacheManager.php:SJBR\StaticInfoTables\Cache\ClassCacheManager->reBuild';
-// For some reason, the rebuilt class loader cache misses our ext_autoload entries after caches are cleared, therefore they are preloaded here
+
+// Domain model clasess extended by language packs are preloaded here
 require_once(PATH_BE_staticinfotables . 'Classes/Cache/ClassCacheManager.php');
 $classCacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
 $classCacheManager->load();
-require_once(PATH_BE_staticinfotables . 'class.tx_staticinfotables_div.php');
-require_once(PATH_BE_staticinfotables . 'pi1/class.tx_staticinfotables_pi1.php');
 
 // Possible label fields for different languages. Default as last.
 $labelTable = array(
