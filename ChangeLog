@@ -1,6 +1,7 @@
 2013-07-15  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #50034: Re-introduce tx_staticinfotables_div::getTitleFromIsoCode as deprecated method
+	* Resolves #50036: Clarify message from ext_update script
 
 2013-07-02  Stanislas Rolland  <typo3@sjbr.ca>
 
