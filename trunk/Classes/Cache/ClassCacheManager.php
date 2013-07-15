@@ -216,9 +216,11 @@ class ClassCacheManager {
 	 *
 	 * @return void
 	 */
-	public function reBuild() {
-		$this->clear();
-		$this->build();
+	public function reBuild(&$params) {
+		if ($params['cacheCmd'] == 'all') {
+			$this->clear();
+			$this->build();
+		}
 	}
 
 	/**
