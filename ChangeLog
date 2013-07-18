@@ -1,6 +1,7 @@
 2013-07-18  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Follow-up to #50050: Use TYPO3 caching framework for extended domain model classes
+	* Resolves #50164: Autoload cached extended domain model classes	
 
 2013-07-15  Stanislas Rolland  <typo3@sjbr.ca>
 
