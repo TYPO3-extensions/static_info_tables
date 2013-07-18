@@ -87,6 +87,9 @@ class ClassCacheManager {
 					$code .= $this->parseSingleFile($path);
 				}
 			}
+			
+			// Wrap the assembled code
+			$code .=  LF . '}' . LF . '?>';
 
 			// If an extending class is found, the file is written and added to the autoloader info
 			if ($extendingClassFound) {
@@ -221,13 +224,13 @@ class ClassCacheManager {
 	 * @return void
 	 */
 	public function load() {
-		$entities = array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extensionKey]['entities']);
+		$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extensionKey]['entities'];
 		foreach ($entities as $entity) {
 			$entryIdentifier = 'DomainModel' . $entity;
 			if ($this->cacheInstance->has($entryIdentifier)) {
 				$this->cacheInstance->requireOnce($entryIdentifier);
 			}
-		}		
+		}
 	}
 }
 ?>
