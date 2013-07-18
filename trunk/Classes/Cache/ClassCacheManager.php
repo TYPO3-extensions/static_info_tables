@@ -69,8 +69,9 @@ class ClassCacheManager {
 	 */
 	public function build() {
 		$extensibleExtensions = $this->getExtensibleExtensions();
-		foreach ($extensibleExtensions as $key => $extensionsWithThisClass) {
-			$extendingClassFound = FALSE;
+		$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extensionKey]['entities'];
+		foreach ($entities as $entity) {
+			$key = 'Domain/Model/' . $entity;
 
 			// Get the file from static_info_tables itself, this needs to be loaded as first
 			$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extensionKey) . 'Classes/' . $key . '.php';
@@ -79,26 +80,24 @@ class ClassCacheManager {
 			}
 			$code = $this->parseSingleFile($path, FALSE);
 
-			// Get the files from all other extensions
+			// Get the files from all other extensions that are extending this domain model class
+			$extensionsWithThisClass = $extensibleExtensions[$key];
 			foreach ($extensionsWithThisClass as $extension => $value) {
 				$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extension) . 'Classes/' . $key . '.php';
 				if (is_file($path)) {
-					$extendingClassFound = TRUE;
 					$code .= $this->parseSingleFile($path);
 				}
 			}
-			
-			// Wrap the assembled code
-			$code .=  LF . '}' . LF . '?>';
 
-			// If an extending class is found, the file is written and added to the autoloader info
-			if ($extendingClassFound) {
-				$entryIdentifier = str_replace('/', '', $key);
-				try {
-					$this->cacheInstance->set($entryIdentifier, $code, array(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::TAG_CLASS));
-				} catch (Exception $e) {
-					throw new Exception($e->getMessage());
-				}
+			// Close the class definition and the php tag
+			$code =  $this->closeClassDefinition($code);
+
+			// The file is added to the class cache
+			$entryIdentifier = str_replace('/', '', $key);
+			try {
+				$this->cacheInstance->set($entryIdentifier, $code);
+			} catch (Exception $e) {
+				throw new Exception($e->getMessage());
 			}
 		}
 	}
@@ -128,7 +127,7 @@ class ClassCacheManager {
 
 	/**
 	 * Parse a single file and does some magic
-	 * - Remove the <?php tags
+	 * - Remove the php tags
 	 * - Remove the class definition (if set)
 	 *
 	 * @param string $filePath path of the file
@@ -189,6 +188,10 @@ class ClassCacheManager {
 			' * this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF . TAB;
 	}
 
+	protected function closeClassDefinition($code) {
+		return $code . LF . '}';
+	}
+
 	/**
 	 * Clear the class cache
 	 *
@@ -215,21 +218,6 @@ class ClassCacheManager {
 		if ($isValidCall && isset($GLOBALS['BE_USER'])) {
 			$this->clear();
 			$this->build();
-		}
-	}
-
-	/**
-	 * Load the cached classes
-	 *
-	 * @return void
-	 */
-	public function load() {
-		$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extensionKey]['entities'];
-		foreach ($entities as $entity) {
-			$entryIdentifier = 'DomainModel' . $entity;
-			if ($this->cacheInstance->has($entryIdentifier)) {
-				$this->cacheInstance->requireOnce($entryIdentifier);
-			}
 		}
 	}
 }

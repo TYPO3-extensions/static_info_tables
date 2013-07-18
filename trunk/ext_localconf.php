@@ -31,6 +31,9 @@ if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['backend'] = 'TYPO3\\CMS\\Core\\Cache\\Backend\\FileBackend';
 }
 
+// Configure clear cache post processing for extended domain model
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Classes/Cache/ClassCacheManager.php:SJBR\StaticInfoTables\Cache\ClassCacheManager->reBuild';
+
 // Names of static entities
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['entities'] = array(
 	'Country',
@@ -40,13 +43,8 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['entities'] = array(
 	'Territory'
 );
 
-// Configuring clear cache post processing for extended domain model
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'EXT:' . $_EXTKEY . '/Classes/Cache/ClassCacheManager.php:SJBR\StaticInfoTables\Cache\ClassCacheManager->reBuild';
-
-// Domain model clasess extended by language packs are preloaded here
-require_once(PATH_BE_staticinfotables . 'Classes/Cache/ClassCacheManager.php');
-$classCacheManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
-$classCacheManager->load();
+// Regiter cached domain model classes autoloader
+\SJBR\StaticInfoTables\Cache\CachedClassLoader::registerAutoloader();
 
 // Possible label fields for different languages. Default as last.
 $labelTable = array(
