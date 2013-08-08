@@ -44,6 +44,13 @@ class LocalizationUtility {
 	protected static $alternativeLanguageKeys = array();
 
 	/**
+	 * Collating locale for the language in use
+	 *
+	 * @var string
+	 */
+	protected static $collatingLocale = '';
+
+	/**
 	 * Returns the localized label for a static info entity
 	 *
 	 * @param array $identifiers An array with key 1- 'uid' containing a uid and/or 2- 'iso' containing one or two iso codes (i.e. country zone code and country code, or language code and country code)
@@ -257,6 +264,22 @@ class LocalizationUtility {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Set the collating locale
+	 *
+	 * @return mixed the set locale or FALSE
+	 */
+	public static function setCollatingLocale() {
+		if (self::$collatingLocale === '') {
+			$languageCode = self::getCurrentLanguage();
+			$languageRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
+			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
+			self::$collatingLocale = $language->getCollatingLocale();
+		}
+		return setlocale(LC_COLLATE, self::$collatingLocale . '.UTF8');
 	}
 
 	/**
