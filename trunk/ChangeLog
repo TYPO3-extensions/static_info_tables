@@ -1,3 +1,7 @@
+2013-08-07  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #50804: Entities not sorted according to locale collation
+
 2013-07-24  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Update version to 6.0.5

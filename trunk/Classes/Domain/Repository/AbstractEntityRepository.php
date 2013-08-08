@@ -88,10 +88,13 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 */	
 	public function localizedSort(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities, $orderDirection = 'asc') {
 		$result = $entities->toArray();
-		if ($orderDirection === 'asc') {
-			usort($result, array($this, 'strcollOnLocalizedName'));
-		} else {
-			usort($result, array($this, 'strcollOnLocalizedNameDesc'));
+		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		if ($locale !== FALSE) {
+			if ($orderDirection === 'asc') {
+				uasort($result, array($this, 'strcollOnLocalizedName'));
+			} else {
+				uasort($result, array($this, 'strcollOnLocalizedNameDesc'));
+			}
 		}
 		return $result;
 	}

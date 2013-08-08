@@ -125,7 +125,10 @@ class ElementRenderingHelper {
 				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_territories');
 			}
 		}
-		asort($PA['items']);
+		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		if ($locale !== FALSE) {
+			uasort($PA['items'], array($this, 'strcollOnLabels'));
+		}
 	}
 
 	/*
@@ -137,7 +140,10 @@ class ElementRenderingHelper {
 				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_countries');
 			}
 		}
-		asort($PA['items']);
+		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		if ($locale !== FALSE) {
+			uasort($PA['items'], array($this, 'strcollOnLabels'));
+		}
 	}
 
 	/*
@@ -149,7 +155,10 @@ class ElementRenderingHelper {
 				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_currencies');
 			}
 		}
-		asort($PA['items']);
+		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		if ($locale !== FALSE) {
+			uasort($PA['items'], array($this, 'strcollOnLabels'));
+		}
 	}
 
 	/*
@@ -168,7 +177,19 @@ class ElementRenderingHelper {
 				$PA['items'][$index][0] = $PA['items'][$index][0] . ($code ? ' ' . $code : '');
 			}
 		}
-		asort($PA['items']);
+		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		if ($locale !== FALSE) {
+			uasort($PA['items'], array($this, 'strcollOnLabels'));
+		}
+	}
+
+	/**
+	 * Using strcoll comparison on labels
+	 *
+	 * @return integer see strcoll
+	 */
+	protected function strcollOnLabels($itemA, $itemB) {
+		return strcoll($itemA[0], $itemB[0]);
 	}
 }
 ?>
