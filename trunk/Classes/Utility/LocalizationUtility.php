@@ -279,7 +279,13 @@ class LocalizationUtility {
 			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
 			self::$collatingLocale = $language->getCollatingLocale();
 		}
-		return setlocale(LC_COLLATE, self::$collatingLocale . '.UTF8');
+		return setlocale(LC_COLLATE,
+			array(
+				self::$collatingLocale . '.UTF-8',
+				self::$collatingLocale . '.UTF8',
+				self::$collatingLocale . '.utf8'
+			)
+		);
 	}
 
 	/**
