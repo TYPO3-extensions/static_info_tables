@@ -1,5 +1,8 @@
 <?php
 namespace SJBR\StaticInfoTables\Hook\Backend\Form;
+use SJBR\StaticInfoTables\Utility\TcaUtility;
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 /***************************************************************
 *  Copyright notice
 *
@@ -27,6 +30,21 @@ namespace SJBR\StaticInfoTables\Hook\Backend\Form;
  *
  */
 class ElementRenderingHelper {
+	/**
+	 * Translate selcted items before rendering
+	 */
+	public function getSingleField_beforeRender($table, $field, $row, &$PA) {
+		if ($PA['fieldConf']['config']['form_type'] == 'select' && $PA['fieldConf']['config']['maxitems'] > 1) {
+			switch ($PA['fieldConf']['config']['foreign_table']) {
+				case 'static_countries':
+				case 'static_currencies':
+				case 'static_languages':
+				case 'static_territories':
+					$PA['itemFormElValue'] = $this->translateSelectedItems($PA['itemFormElValue'], $PA['fieldConf']['config']['foreign_table']);
+					break;
+			}
+		}
+	}
 
 	/*
 	 * Add ISO codes to the label of entities
@@ -41,7 +59,7 @@ class ElementRenderingHelper {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,tr_iso_nr',
 							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
 						);
 						$isoCode = $rows[0]['tr_iso_nr'];
 					}
@@ -55,7 +73,7 @@ class ElementRenderingHelper {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,cn_iso_2',
 							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
 						);
 						$isoCode = $rows[0]['cn_iso_2'];
 					}
@@ -73,7 +91,7 @@ class ElementRenderingHelper {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,lg_iso_2,lg_country_iso_2',
 							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
 						);
 						$isoCodes = array($rows[0]['lg_iso_2']);
 						if ($rows[0]['lg_country_iso_2']) {
@@ -91,7 +109,7 @@ class ElementRenderingHelper {
 						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 							'uid,cu_iso_3',
 							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($PA['table'])
+							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
 						);
 						$isoCode = $rows[0]['cu_iso_3'];
 					}
@@ -108,7 +126,7 @@ class ElementRenderingHelper {
 	/*
 	 * Translate and sort the territories selector using the current locale
 	 */
-	public function translateTerritoriesSelector ($PA, $fObj) {
+	public function translateTerritoriesSelector($PA, $fObj) {
 		switch ($PA['table']) {
 			case 'static_territories':
 				// Avoid circular relation
@@ -120,67 +138,86 @@ class ElementRenderingHelper {
 				}
 				break;
 		}
-		foreach ($PA['items'] as $index => $item) {
-			if ($PA['items'][$index][1]) {
-				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_territories');
-			}
-		}
-		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
-		if ($locale !== FALSE) {
-			uasort($PA['items'], array($this, 'strcollOnLabels'));
-		}
+		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_territories');
 	}
 
 	/*
 	 * Translate and sort the countries selector using the current locale
 	 */
-	public function translateCountriesSelector ($PA, $fObj) {
-		foreach ($PA['items'] as $index => $item) {
-			if ($PA['items'][$index][1]) {
-				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_countries');
-			}
-		}
-		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
-		if ($locale !== FALSE) {
-			uasort($PA['items'], array($this, 'strcollOnLabels'));
-		}
+	public function translateCountriesSelector($PA, $fObj) {
+		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_countries');
 	}
 
 	/*
 	 * Translate and sort the currencies selector using the current locale
 	 */
-	public function translateCurrenciesSelector ($PA, $fObj) {
-		foreach ($PA['items'] as $index => $item) {
-			if ($PA['items'][$index][1]) {
-				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_currencies');
-			}
-		}
-		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
-		if ($locale !== FALSE) {
-			uasort($PA['items'], array($this, 'strcollOnLabels'));
-		}
+	public function translateCurrenciesSelector($PA, $fObj) {
+		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_currencies');
 	}
 
-	/*
+	/**
 	 * Translate and sort the languages selector using the current locale
 	 */
-	public function translateLanguagesSelector ($PA, $fObj) {
-		foreach ($PA['items'] as $index => $item) {
-			if ($PA['items'][$index][1]) {
+	public function translateLanguagesSelector($PA, $fObj) {
+		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_languages');
+	}
+
+	/**
+	 * Translate selector items array
+	 *
+	 * @param array $items: array of value/label pairs
+	 * @param string $tableName: name of static info tables
+	 * @return array array of value/translated label pairs
+	 */
+	protected function translateSelectorItems($items, $tableName) {
+		$translatedItems = $items;
+		foreach ($translatedItems as $key => $item) {
+			if ($translatedItems[$key][1]) {
 				//Get isocode if present
 				$code = strstr($item[0], '(');
 				$code2 = strstr(substr($code, 1), '(');
 				$code = $code2 ? $code2 : $code;
 				// Translate
-				$PA['items'][$index][0] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $item[1]), 'static_languages');
+				$translatedItems[$key][0] = LocalizationUtility::translate(array('uid' => $item[1]), $tableName);
 				// Re-append isocode, if present
-				$PA['items'][$index][0] = $PA['items'][$index][0] . ($code ? ' ' . $code : '');
+				$translatedItems[$key][0] = $translatedItems[$key][0] . ($code ? ' ' . $code : '');
 			}
 		}
+		$currentLocale = setlocale(LC_COLLATE, '0');
 		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
 		if ($locale !== FALSE) {
-			uasort($PA['items'], array($this, 'strcollOnLabels'));
+			uasort($translatedItems, array($this, 'strcollOnLabels'));
 		}
+		setlocale(LC_COLLATE, $currentLocale);
+		return $translatedItems;
+	}
+
+	/**
+	 * Translate selector items array
+	 *
+	 * @param string $itemFormElValue: value of the form element
+	 * @param string $tableName: name of static info tables
+	 * @return string value of the form element with translated labels
+	 */
+	protected function translateSelectedItems($itemFormElValue, $tableName) {
+		// Get the array with selected items:
+		$itemArray = GeneralUtility::trimExplode(',', $itemFormElValue, 1);
+		// Perform modification of the selected items array:
+		foreach ($itemArray as $tk => $tv) {
+			$tvP = explode('|', $tv, 2);
+			if ($tvP[0]) {
+				//Get isocode if present
+				$code = strstr($tvP[1], '%28');
+				$code2 = strstr(substr($code, 1), '%28');
+				$code = $code2 ? $code2 : $code;
+				// Translate
+				$tvP[1] = LocalizationUtility::translate(array('uid' => $tvP[0]), $tableName);
+				// Re-append isocode, if present
+				$tvP[1] = $tvP[1] . ($code ? '%20' . $code : '');
+			}
+			$itemArray[$tk] = implode('|', $tvP);
+		}
+		return implode(',', $itemArray);
 	}
 
 	/**

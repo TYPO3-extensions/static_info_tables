@@ -1,6 +1,7 @@
 2013-08-12  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Follow-up to #50804: Entities not sorted according to locale collation
+	* Resolves #50742: Translation handling fails in multi select fields (TCA)
 
 2013-08-07  Stanislas Rolland  <typo3@sjbr.ca>
 
