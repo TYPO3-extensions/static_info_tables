@@ -130,14 +130,14 @@ if ($typo3Version < 6001000) {
 $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = array(
 	'type' => 'select',
 	'items' => array(
-		array('',0),
+		array('',0)
 	),
 	'foreign_table' => 'static_languages',
 	'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
 	'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateLanguagesSelector',
-	'size' => 1,
+	'size' => '1',
 	'minitems' => '0',
-	'maxitems' => 1,
+	'maxitems' => '1',
 	'wizards' => array(
 		'suggest' => array(
 			'type' => 'suggest',
@@ -147,9 +147,6 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config'] = ar
 		)
 	)
 );
-
-// Add data handling hook to manage ISO codes redundancies on records
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'SJBR\\StaticInfoTables\\Hook\\Core\\DataHandling\\ProcessDataMap';
 
 if (TYPO3_MODE == 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 	/**
