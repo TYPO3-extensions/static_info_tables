@@ -41,7 +41,8 @@ class Language extends AbstractEntity {
 	 * Country code as two digit string (i.e. AT)
 	 * Identifies this language as a variant of the language identified by the ISO 639-1 A2 Language code
 	 * See also RFC 4646
-	 * @var string ISO 3166-1 A2 Country code
+	 * ISO 3166-1 A2 Country code
+	 * @var string
 	 */
 	protected $countryIsoCodeA2 = '';
 
@@ -57,17 +58,20 @@ class Language extends AbstractEntity {
 	protected $deleted = FALSE;
 
 	/**
-	 * @var string ISO 639-1 A2 Language code
+	 * ISO 639-1 A2 Language code
+	 * @var string
 	 */
 	protected $isoCodeA2 = '';
 
 	/**
-	* @var string Local name: name of language in the language itself
+	 * Local name: name of language in the language itself
+	 * @var string
 	 */
 	protected $localName = '';
 
 	/**
-	 * @var string English name
+	 * English name
+	 * @var string
 	 */
 	protected $nameEn = '';
 

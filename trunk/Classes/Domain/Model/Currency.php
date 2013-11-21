@@ -58,13 +58,15 @@ class Currency extends AbstractEntity {
 
 	/**
 	 * Currency code as three digit string (i.e. EUR)
-	 * @var string ISO 4217 alpha-3 currency code
+	 * ISO 4217 alpha-3 currency code
+	 * @var string
 	 */
 	protected $isoCodeA3 = '';
 
 	/**
 	 * Currency code as number
-	 * @var integer ISO 4217 numeric currency code
+	 * ISO 4217 numeric currency code
+	 * @var integer
 	 */
 	protected $isoCodeNumber = 0;
 
