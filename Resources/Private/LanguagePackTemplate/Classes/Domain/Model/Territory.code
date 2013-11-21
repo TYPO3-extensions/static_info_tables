@@ -32,7 +32,8 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  */
 class Territory extends AbstractEntity {
 	/**
-	 * @var string ###LANG_NAME### name of the territory
+	 * ###LANG_NAME### name of the territory
+	 * @var string
 	 */
 	protected $name###LANG_ISO_CAMEL### = '';
 

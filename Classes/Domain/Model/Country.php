@@ -43,13 +43,15 @@ class Country extends AbstractEntity {
 
 	/**
 	 * Currency code as number (i.e. 978)
-	 * @var integer ISO 4217 Nr Currency code
+	 * ISO 4217 Nr Currency code
+	 * @var integer
 	 */
 	protected $currencyIsoCodeNumber = 0;
 
 	/**
 	 * Currency code as three digit string (i.e. EUR)
-	 * @var string ISO 4217 A3 Currency code
+	 * ISO 4217 A3 Currency code
+	 * @var string
 	 */
 	protected $currencyIsoCodeA3 = '';
 
@@ -67,19 +69,22 @@ class Country extends AbstractEntity {
 
 	/**
 	 * Country code as two digit string (i.e. AT)
-	 * @var string ISO 3166-1 A2 Country code
+	 * ISO 3166-1 A2 Country code
+	 * @var string
 	 */
 	protected $isoCodeA2 = '';
 
 	/**
 	 * Country code as three digit string (i.e. AUT)
-	 * @var string ISO 3166-1 A3 Country code
+	 * ISO 3166-1 A3 Country code
+	 * @var string
 	 */
 	protected $isoCodeA3 = '';
 
 	/**
 	 * Country code as number (i.e. 40)
-	 * @var integer ISO 3166-1 Nr Country code
+	 * ISO 3166-1 Nr Country code
+	 * @var integer
 	 */
 	protected $isoCodeNumber = 0;
 

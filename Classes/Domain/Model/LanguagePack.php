@@ -34,7 +34,8 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * @var string Name of the extension this class belongs to
+	 * Name of the extension this class belongs to
+	 * @var string
 	 */
 	protected $extensionName = 'StaticInfoTables';
 

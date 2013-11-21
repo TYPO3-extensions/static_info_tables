@@ -1,3 +1,7 @@
+2013-11-21  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #53840: Could not determine the child object type.
+
 2013-11-20  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #51754: PHP Warning in ClassCacheManager

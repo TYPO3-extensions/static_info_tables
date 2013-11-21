@@ -33,7 +33,8 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  */
 class Language extends AbstractEntity {
 	/**
-	 * @var string ###LANG_NAME### name of the language
+	 * ###LANG_NAME### name of the language
+	 * @var string
 	 */
 	protected $name###LANG_ISO_CAMEL### = '';
 

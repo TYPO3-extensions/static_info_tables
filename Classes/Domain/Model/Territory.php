@@ -40,17 +40,20 @@ class Territory extends AbstractEntity {
 	protected $deleted = FALSE;
 
 	/**
-	 * @var integer UN numeric territory code
+	 * UN numeric territory code
+	 * @var integer
 	 */
 	protected $unCodeNumber = 0;
 
 	/**
-	 * @var string English name
+	 * English name
+	 * @var string
 	 */
 	protected $nameEn = '';
 
 	/**
-	 * @var integer UN numeric territory code of parent territory
+	 * UN numeric territory code of parent territory
+	 * @var integer
 	 */
 	protected $parentTerritoryUnCodeNumber = 0;
 

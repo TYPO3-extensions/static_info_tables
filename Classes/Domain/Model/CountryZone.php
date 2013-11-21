@@ -33,19 +33,22 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 class CountryZone extends AbstractEntity {
 	/**
 	 * Country code as two digit string (i.e. AT)
-	 * @var string ISO 3166-1 A2 Country code
+	 * ISO 3166-1 A2 Country code
+	 * @var string
 	 */
 	protected $countryIsoCodeA2 = '';
 
 	/**
 	 * Country code as three digit string (i.e. AUT)
-	 * @var string ISO 3166-1 A3 Country code
+	 * ISO 3166-1 A3 Country code
+	 * @var string
 	 */
 	protected $countryIsoCodeA3 = '';
 
 	/**
 	 * Country code as number (i.e. 40)
-	 * @var integer ISO 3166-1 Nr Country code
+	 * ISO 3166-1 Nr Country code
+	 * @var integer
 	 */
 	protected $countryIsoCodeNumber = 0;
 
@@ -57,7 +60,8 @@ class CountryZone extends AbstractEntity {
 
 	/**
 	 * Country zone code as string
-	 * @var string ISO 3166-2 Country Zone code
+	 * ISO 3166-2 Country Zone code
+	 * @var string
 	 */
 	protected $isoCode = '';
 
