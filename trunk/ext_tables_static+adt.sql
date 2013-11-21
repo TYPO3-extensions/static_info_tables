@@ -86,7 +86,7 @@ INSERT INTO static_countries VALUES ('48', '0', '0', 'CR', 'CRI', '188', '17', '
 INSERT INTO static_countries VALUES ('49', '0', '0', 'CU', 'CUB', '192', '19', '29', 'República de Cuba', 'Republic of Cuba', 'Havana', 'cu', '37', 'CUP', '192', '53', '0', '1', '1', '0', 'Cuba', 'Cuba', '0');
 INSERT INTO static_countries VALUES ('50', '0', '0', 'CV', 'CPV', '132', '20', '11', 'República de Cabo Verde', 'Republic of Cape Verde', 'Praia', 'cv', '38', 'CVE', '132', '238', '0', '1', '1', '0', 'Cabo Verde', 'Cape Verde', '0');
 INSERT INTO static_countries VALUES ('51', '0', '0', 'CX', 'CXR', '162', '0', '0', 'Territory of Christmas Island', 'Territory of Christmas Island', 'Flying Fish Cove', 'cx', '9', 'AUD', '36', '6724', '0', '0', '1', '0', 'Christmas Island', 'Christmas Island', '0');
-INSERT INTO static_countries VALUES ('52', '0', '0', 'CY', 'CYP', '196', '9', '145', 'Κυπριακή Δημοκρατία / Kıbrıs Cumhuriyeti', 'Republic of Cyprus', 'Nicosia', 'cy', '39', 'CYP', '196', '357', '1', '1', '1', '0', 'Κύπρος / Kıbrıs', 'Cyprus', '0');
+INSERT INTO static_countries VALUES ('52', '0', '0', 'CY', 'CYP', '196', '9', '145', 'Κυπριακή Δημοκρατία / Kıbrıs Cumhuriyeti', 'Republic of Cyprus', 'Nicosia', 'cy', '49', 'EUR', '978', '357', '1', '1', '1', '0', 'Κύπρος / Kıbrıs', 'Cyprus', '0');
 INSERT INTO static_countries VALUES ('53', '0', '0', 'CZ', 'CZE', '203', '11', '151', 'Česká republika', 'Czech Republic', 'Prague', 'cz', '40', 'CZK', '203', '420', '1', '1', '1', '0', 'Česko', 'Czech Republic', '0');
 INSERT INTO static_countries VALUES ('54', '0', '0', 'DE', 'DEU', '276', '13', '155', 'Bundesrepublik Deutschland', 'Federal Republic of Germany', 'Berlin', 'de', '49', 'EUR', '978', '49', '1', '1', '1', '0', 'Deutschland', 'Germany', '16');
 INSERT INTO static_countries VALUES ('55', '0', '0', 'DJ', 'DJI', '262', '21', '14', 'جمهورية جيبوتي / République de Djibouti', 'Republic of Djibouti', 'Djibouti', 'dj', '41', 'DJF', '262', '253', '0', '1', '1', '0', 'جيبوتي /Djibouti', 'Djibouti', '0');
@@ -112,7 +112,7 @@ INSERT INTO static_countries VALUES ('74', '0', '0', 'GB', 'GBR', '826', '12', '
 INSERT INTO static_countries VALUES ('75', '0', '0', 'GD', 'GRD', '308', '19', '29', 'Grenada', 'Grenada', 'St George\'s', 'gd', '163', 'XCD', '951', '1473', '0', '1', '1', '0', 'Grenada', 'Grenada', '0');
 INSERT INTO static_countries VALUES ('76', '0', '0', 'GE', 'GEO', '268', '9', '145', 'საქართველო', 'Georgia', 'Tbilisi', 'ge', '53', 'GEL', '981', '995', '0', '1', '1', '0', 'საქართველო', 'Georgia', '0');
 INSERT INTO static_countries VALUES ('77', '0', '0', 'GF', 'GUF', '254', '16', '5', 'Guyane française', 'French Guiana', 'Cayenne', 'gf', '49', 'EUR', '978', '594', '0', '0', '1', '0', 'Guyane française', 'French Guiana', '0');
-INSERT INTO static_countries VALUES ('78', '0', '0', 'GH', 'GHA', '288', '20', '11', 'Republic of Ghana', 'Republic of Ghana', 'Accra', 'gh', '54', 'GHC', '288', '233', '0', '1', '1', '0', 'Ghana', 'Ghana', '0');
+INSERT INTO static_countries VALUES ('78', '0', '0', 'GH', 'GHA', '288', '20', '11', 'Republic of Ghana', 'Republic of Ghana', 'Accra', 'gh', '177', 'GHS', '936', '233', '0', '1', '1', '0', 'Ghana', 'Ghana', '0');
 INSERT INTO static_countries VALUES ('79', '0', '0', 'GI', 'GIB', '292', '10', '39', 'Gibraltar', 'Gibraltar', 'Gibraltar', 'gi', '55', 'GIP', '292', '350', '0', '0', '1', '0', 'Gibraltar', 'Gibraltar', '0');
 INSERT INTO static_countries VALUES ('80', '0', '0', 'GL', 'GRL', '304', '18', '21', 'Kalaallit Nunaat / Grønland', 'Greenland', 'Nuuk', 'gl', '42', 'DKK', '208', '299', '0', '0', '1', '0', 'Grønland', 'Greenland', '0');
 INSERT INTO static_countries VALUES ('81', '0', '0', 'GM', 'GMB', '270', '20', '11', 'Republic of The Gambia', 'Republic of The Gambia', 'Banjul', 'gm', '56', 'GMD', '270', '220', '0', '1', '1', '0', 'Gambia', 'Gambia', '0');
@@ -178,13 +178,13 @@ INSERT INTO static_countries VALUES ('140', '0', '0', 'MP', 'MNP', '580', '27', 
 INSERT INTO static_countries VALUES ('141', '0', '0', 'MQ', 'MTQ', '474', '19', '29', 'Département de la Martinique', 'Department of Martinique', 'Fort-de-France', 'mq', '49', 'EUR', '978', '596', '0', '0', '1', '0', 'Martinique', 'Martinique', '0');
 INSERT INTO static_countries VALUES ('142', '0', '0', 'MR', 'MRT', '478', '20', '11', 'الجمهورية الإسلامية الموريتانية', 'Islamic Republic of Mauritania', 'Nouakchott', 'mr', '99', 'MRO', '478', '222', '0', '1', '1', '0', 'الموريتانية', 'Mauritania', '0');
 INSERT INTO static_countries VALUES ('143', '0', '0', 'MS', 'MSR', '500', '19', '29', 'Montserrat', 'Montserrat', 'Plymouth', 'ms', '163', 'XCD', '951', '1664', '0', '0', '1', '0', 'Montserrat', 'Montserrat', '0');
-INSERT INTO static_countries VALUES ('144', '0', '0', 'MT', 'MLT', '470', '10', '39', 'Repubblika ta\' Malta / Republic of Malta', 'Republic of Malta', 'Valletta', 'mt', '100', 'MTL', '470', '356', '1', '1', '1', '0', 'Malta', 'Malta', '0');
+INSERT INTO static_countries VALUES ('144', '0', '0', 'MT', 'MLT', '470', '10', '39', 'Repubblika ta\' Malta / Republic of Malta', 'Republic of Malta', 'Valletta', 'mt', '49', 'EUR', '978', '356', '1', '1', '1', '0', 'Malta', 'Malta', '0');
 INSERT INTO static_countries VALUES ('145', '0', '0', 'MU', 'MUS', '480', '21', '14', 'Republic of Mauritius', 'Republic of Mauritius', 'Port Louis', 'mu', '101', 'MUR', '480', '230', '0', '1', '1', '0', 'Mauritius', 'Mauritius', '0');
 INSERT INTO static_countries VALUES ('146', '0', '0', 'MV', 'MDV', '462', '30', '34', 'ދިވެހިރާއްޖޭގެ ޖުމުހޫރިއްޔާ', 'Republic of Maldives', 'Malé', 'mv', '102', 'MVR', '462', '960', '0', '1', '1', '0', 'ޖުމުހޫރިއްޔ', 'Maldives', '0');
 INSERT INTO static_countries VALUES ('147', '0', '0', 'MW', 'MWI', '454', '21', '14', 'Republic of Malawi / Dziko la Malaŵi', 'Republic of Malawi', 'Lilongwe', 'mw', '103', 'MWK', '454', '265', '0', '1', '1', '0', 'Malawi', 'Malawi', '0');
 INSERT INTO static_countries VALUES ('148', '0', '0', 'MX', 'MEX', '484', '17', '13', 'Estados Unidos Mexicanos', 'United Mexican States', 'Mexico City', 'mx', '104', 'MXN', '484', '52', '0', '1', '6', '0', 'México', 'Mexico', '32');
 INSERT INTO static_countries VALUES ('149', '0', '0', 'MY', 'MYS', '458', '7', '35', 'ڤرسكوتوان مليسيا', 'Malaysia', 'Kuala Lumpur', 'my', '106', 'MYR', '458', '60', '0', '1', '1', '0', 'مليسيا', 'Malaysia', '0');
-INSERT INTO static_countries VALUES ('150', '0', '0', 'MZ', 'MOZ', '508', '21', '14', 'República de Moçambique', 'Republic of Mozambique', 'Maputo', 'mz', '107', 'MZM', '508', '258', '0', '1', '1', '0', 'Moçambique', 'Mozambique', '0');
+INSERT INTO static_countries VALUES ('150', '0', '0', 'MZ', 'MOZ', '508', '21', '14', 'República de Moçambique', 'Republic of Mozambique', 'Maputo', 'mz', '178', 'MZN', '943', '258', '0', '1', '1', '0', 'Moçambique', 'Mozambique', '0');
 INSERT INTO static_countries VALUES ('151', '0', '0', 'NA', 'NAM', '516', '24', '18', 'Republic of Namibia', 'Republic of Namibia', 'Windhoek', 'na', '108', 'NAD', '516', '264', '0', '1', '1', '0', 'Namibia', 'Namibia', '0');
 INSERT INTO static_countries VALUES ('152', '0', '0', 'NC', 'NCL', '540', '26', '54', 'Territoire de Nouvelle-Caledonie et Dépendances', 'Territory of New Caledonia', 'Nouméa', 'nc', '165', 'XPF', '953', '687', '0', '0', '1', '0', 'Nouvelle-Calédonie', 'New Caledonia', '0');
 INSERT INTO static_countries VALUES ('153', '0', '0', 'NE', 'NER', '562', '20', '11', 'République du Niger', 'Republic of Niger', 'Niamey', 'ne', '164', 'XOF', '952', '227', '0', '1', '1', '0', 'Niger', 'Niger', '0');
@@ -213,7 +213,7 @@ INSERT INTO static_countries VALUES ('175', '0', '0', 'PW', 'PLW', '585', '27', 
 INSERT INTO static_countries VALUES ('176', '0', '0', 'PY', 'PRY', '600', '16', '5', 'República del Paraguay / Tetä Paraguáype', 'Republic of Paraguay', 'Asunción', 'py', '121', 'PYG', '600', '595', '0', '1', '1', '0', 'Paraguay', 'Paraguay', '0');
 INSERT INTO static_countries VALUES ('177', '0', '0', 'QA', 'QAT', '634', '9', '145', 'دولة قطر', 'State of Qatar', 'Doha', 'qa', '122', 'QAR', '634', '974', '0', '1', '1', '0', 'قطر', 'Qatar', '0');
 INSERT INTO static_countries VALUES ('178', '0', '0', 'RE', 'REU', '638', '21', '14', 'Département de la Réunion', 'Department of Réunion', 'Saint-Denis', 're', '49', 'EUR', '978', '262', '0', '0', '1', '0', 'Réunion', 'Reunion', '0');
-INSERT INTO static_countries VALUES ('179', '0', '0', 'RO', 'ROU', '642', '11', '151', 'România', 'Romania', 'Bucharest', 'ro', '123', 'ROL', '642', '40', '1', '1', '1', '0', 'România', 'Romania', '0');
+INSERT INTO static_countries VALUES ('179', '0', '0', 'RO', 'ROU', '642', '11', '151', 'România', 'Romania', 'Bucharest', 'ro', '179', 'RON', '946', '40', '1', '1', '1', '0', 'România', 'Romania', '0');
 INSERT INTO static_countries VALUES ('180', '0', '0', 'RU', 'RUS', '643', '11', '151', 'Российская Федерация', 'Russian Federation', 'Moscow', 'ru', '124', 'RUB', '643', '7', '0', '1', '1', '0', 'Росси́я', 'Russia', '0');
 INSERT INTO static_countries VALUES ('181', '0', '0', 'RW', 'RWA', '646', '21', '14', 'Repubulika y\'u Rwanda / République Rwandaise', 'Republic of Rwanda', 'Kigali', 'rw', '126', 'RWF', '646', '250', '0', '1', '1', '0', 'Rwanda', 'Rwanda', '0');
 INSERT INTO static_countries VALUES ('182', '0', '0', 'SA', 'SAU', '682', '9', '145', 'المملكة العربية السعودية', 'Kingdom of Saudi Arabia', 'Riyadh', 'sa', '127', 'SAR', '682', '966', '0', '1', '2', '0', 'السعودية', 'Saudi Arabia', '0');
@@ -223,13 +223,13 @@ INSERT INTO static_countries VALUES ('185', '0', '0', 'SD', 'SDN', '729', '22', 
 INSERT INTO static_countries VALUES ('186', '0', '0', 'SE', 'SWE', '752', '12', '154', 'Konungariket Sverige', 'Kingdom of Sweden', 'Stockholm', 'se', '131', 'SEK', '752', '46', '1', '1', '1', '0', 'Sverige', 'Sweden', '0');
 INSERT INTO static_countries VALUES ('187', '0', '0', 'SG', 'SGP', '702', '7', '35', 'Republic of Singapore / 新加坡共和国 / Republik Singapura / சிங்கப்பூர் குடியரசு', 'Republic of Singapore', 'Singapore', 'sg', '132', 'SGD', '702', '65', '0', '1', '2', '0', 'Singapore', 'Singapore', '0');
 INSERT INTO static_countries VALUES ('188', '0', '0', 'SH', 'SHN', '654', '20', '11', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', 'Jamestown', 'sh', '133', 'SHP', '654', '290', '0', '0', '1', '0', 'Saint Helena, Ascension and Tristan da Cunha', 'Saint Helena, Ascension and Tristan da Cunha', '0');
-INSERT INTO static_countries VALUES ('189', '0', '0', 'SI', 'SVN', '705', '10', '39', 'Republika Slovenija', 'Republic of Slovenia', 'Ljubljana', 'si', '134', 'SIT', '705', '386', '1', '1', '1', '0', 'Slovenija', 'Slovenia', '0');
+INSERT INTO static_countries VALUES ('189', '0', '0', 'SI', 'SVN', '705', '10', '39', 'Republika Slovenija', 'Republic of Slovenia', 'Ljubljana', 'si', '49', 'EUR', '978', '386', '1', '1', '1', '0', 'Slovenija', 'Slovenia', '0');
 INSERT INTO static_countries VALUES ('190', '0', '0', 'SJ', 'SJM', '744', '12', '154', 'Svalbard', 'Svalbard', 'Longyearbyen', 'sj', '111', 'NOK', '578', '47', '0', '0', '1', '0', 'Svalbard', 'Svalbard', '0');
-INSERT INTO static_countries VALUES ('191', '0', '0', 'SK', 'SVK', '703', '11', '151', 'Slovenská republika', 'Slovak Republic', 'Bratislava', 'sk', '135', 'SKK', '703', '421', '1', '1', '1', '0', 'Slovensko', 'Slovakia', '0');
+INSERT INTO static_countries VALUES ('191', '0', '0', 'SK', 'SVK', '703', '11', '151', 'Slovenská republika', 'Slovak Republic', 'Bratislava', 'sk', '49', 'EUR', '978', '421', '1', '1', '1', '0', 'Slovensko', 'Slovakia', '0');
 INSERT INTO static_countries VALUES ('192', '0', '0', 'SL', 'SLE', '694', '20', '11', 'Republic of Sierra Leone', 'Republic of Sierra Leone', 'Freetown', 'sl', '136', 'SLL', '694', '232', '0', '1', '1', '0', 'Sierra Leone', 'Sierra Leone', '0');
 INSERT INTO static_countries VALUES ('193', '0', '0', 'SM', 'SMR', '674', '10', '39', 'Serenissima Repubblica di San Marino', 'Most Serene Republic of San Marino', 'San Marino', 'sm', '49', 'EUR', '978', '378', '0', '1', '1', '0', 'San Marino', 'San Marino', '0');
 INSERT INTO static_countries VALUES ('194', '0', '0', 'SN', 'SEN', '686', '20', '11', 'République de Sénégal', 'Republic of Senegal', 'Dakar', 'sn', '164', 'XOF', '952', '221', '0', '1', '1', '0', 'Sénégal', 'Senegal', '0');
-INSERT INTO static_countries VALUES ('195', '0', '0', 'SO', 'SOM', '706', '21', '14', 'Soomaaliya', 'Somalia', 'Mogadishu', 'so', '137', 'SOS', '706', '252', '0', '1', '1', '0', 'Soomaaliya', 'Somalia', '0');
+INSERT INTO static_countries VALUES ('195', '0', '0', 'SO', 'SOM', '706', '21', '14', 'Soomaaliya', 'Federal Republic of Somalia', 'Mogadishu', 'so', '137', 'SOS', '706', '252', '0', '1', '1', '0', 'Soomaaliya', 'Somalia', '0');
 INSERT INTO static_countries VALUES ('196', '0', '0', 'SR', 'SUR', '740', '16', '5', 'Republiek Suriname', 'Republic of Surinam', 'Paramaribo', 'sr', '174', 'SRD', '968', '597', '0', '1', '1', '0', 'Suriname', 'Suriname', '0');
 INSERT INTO static_countries VALUES ('197', '0', '0', 'ST', 'STP', '678', '23', '17', 'República Democrática de São Tomé e Príncipe', 'Democratic Republic of São Tomé e Príncipe', 'São Tomé', 'st', '139', 'STD', '678', '239', '0', '1', '1', '0', 'São Tomé e Príncipe', 'São Tomé e Príncipe', '0');
 INSERT INTO static_countries VALUES ('198', '0', '0', 'SV', 'SLV', '222', '17', '13', 'República de El Salvador', 'Republic of El Salvador', 'San Salvador', 'sv', '140', 'SVC', '222', '503', '0', '1', '1', '0', 'El Salvador', 'El Salvador', '0');
@@ -242,7 +242,7 @@ INSERT INTO static_countries VALUES ('204', '0', '0', 'TG', 'TGO', '768', '20', 
 INSERT INTO static_countries VALUES ('205', '0', '0', 'TH', 'THA', '764', '7', '35', 'ราชอาณาจักรไทย', 'Kingdom of Thailand', 'Bangkok', 'th', '143', 'THB', '764', '66', '0', '1', '2', '0', 'ไทย', 'Thailand', '0');
 INSERT INTO static_countries VALUES ('206', '0', '0', 'TJ', 'TJK', '762', '8', '143', 'Ҷумҳурии Тоҷикистон', 'Republic of Tajikistan', 'Dushanbe', 'tj', '144', 'TJS', '972', '992', '0', '1', '1', '0', 'Тоҷикистон', 'Tajikistan', '0');
 INSERT INTO static_countries VALUES ('207', '0', '0', 'TK', 'TKL', '772', '28', '61', 'Tokelau', 'Tokelau', 'Fakaofo', 'tk', '113', 'NZD', '554', '0', '0', '0', '1', '0', 'Tokelau', 'Tokelau', '0');
-INSERT INTO static_countries VALUES ('208', '0', '0', 'TM', 'TKM', '795', '8', '143', 'Türkmenistan Jumhuriyäti', 'Republic of Turkmenistan', 'Ashgabat', 'tm', '145', 'TMM', '795', '993', '0', '1', '1', '0', 'Türkmenistan', 'Turkmenistan', '0');
+INSERT INTO static_countries VALUES ('208', '0', '0', 'TM', 'TKM', '795', '8', '143', 'Türkmenistan Jumhuriyäti', 'Republic of Turkmenistan', 'Ashgabat', 'tm', '180', 'TMT', '934', '993', '0', '1', '1', '0', 'Türkmenistan', 'Turkmenistan', '0');
 INSERT INTO static_countries VALUES ('209', '0', '0', 'TN', 'TUN', '788', '22', '15', 'الجمهورية التونسية', 'Republic of Tunisia', 'Tunis', 'tn', '146', 'TND', '788', '216', '0', '1', '1', '0', 'التونسية', 'Tunisia', '0');
 INSERT INTO static_countries VALUES ('210', '0', '0', 'TO', 'TON', '776', '28', '61', 'Pule\'anga Fakatu\'i \'o Tonga / Kingdom of Tonga', 'Kingdom of Tonga', 'Nuku\'alofa', 'to', '147', 'TOP', '776', '676', '0', '1', '1', '0', 'Tonga', 'Tonga', '0');
 INSERT INTO static_countries VALUES ('211', '0', '0', 'TL', 'TLS', '626', '7', '35', 'Repúblika Demokrátika Timor Lorosa\'e / República Democrática de Timor-Leste', 'Democratic Republic of Timor-Leste', 'Dili', 'tp', '155', 'USD', '840', '670', '0', '1', '1', '0', 'Timor Lorosa\'e', 'Timor-Leste', '0');
@@ -270,7 +270,7 @@ INSERT INTO static_countries VALUES ('232', '0', '0', 'YE', 'YEM', '887', '9', '
 INSERT INTO static_countries VALUES ('233', '0', '0', 'YT', 'MYT', '175', '21', '14', 'Mayotte', 'Mayotte', 'Mamoudzou', 'yt', '49', 'EUR', '978', '269', '0', '0', '0', '0', 'Mayotte', 'Mayotte', '0');
 INSERT INTO static_countries VALUES ('235', '0', '0', 'ZA', 'ZAF', '710', '24', '18', 'Republic of South Africa / Republiek van Suid-Afrika / Rephaboliki ya Afrika-Borwa', 'Republic of South Africa', 'Pretoria', 'za', '168', 'ZAR', '710', '27', '0', '1', '2', '0', 'Afrika-Borwa', 'South Africa', '0');
 INSERT INTO static_countries VALUES ('236', '0', '0', 'ZM', 'ZMB', '894', '21', '14', 'Republic of Zambia', 'Republic of Zambia', 'Lusaka', 'zm', '169', 'ZMW', '967', '260', '0', '1', '1', '0', 'Zambia', 'Zambia', '0');
-INSERT INTO static_countries VALUES ('237', '0', '0', 'ZW', 'ZWE', '716', '21', '14', 'Republic of Zimbabwe', 'Republic of Zimbabwe', 'Harare', 'zw', '170', 'ZWD', '716', '263', '0', '1', '1', '0', 'Zimbabwe', 'Zimbabwe', '0');
+INSERT INTO static_countries VALUES ('237', '0', '0', 'ZW', 'ZWE', '716', '21', '14', 'Republic of Zimbabwe', 'Republic of Zimbabwe', 'Harare', 'zw', '169', 'ZMW', '967', '263', '0', '1', '1', '0', 'Zimbabwe', 'Zimbabwe', '0');
 INSERT INTO static_countries VALUES ('238', '0', '0', 'PS', 'PSE', '275', '9', '145', 'دولة فلسطين', 'State of Palestine', '', 'ps', '0', '', '0', '0', '0', '0', '0', '0', 'فلسطين', 'Palestine', '0');
 INSERT INTO static_countries VALUES ('239', '0', '1', 'CS', 'CSG', '891', '10', '39', 'Државна заједница Србија и Црна Гора', 'State Union of Serbia and Montenegro', 'Belgrade', 'cs', '0', 'CSD', '891', '381', '0', '1', '0', '0', 'Србија и Црна Гора', 'Serbia and Montenegro', '0');
 INSERT INTO static_countries VALUES ('240', '0', '0', 'AX', 'ALA', '248', '12', '154', 'Landskapet Åland', 'Åland Islands', 'Mariehamn', 'ax', '49', 'EUR', '978', '35818', '1', '0', '0', '0', 'Åland', 'Åland', '0');
@@ -1037,7 +1037,7 @@ INSERT INTO static_currencies VALUES ('35', '0', '0', 'COP', '170', 'Colombian P
 INSERT INTO static_currencies VALUES ('36', '0', '0', 'CRC', '188', 'Costa Rican colón', '₡', '', '.', ',', '2', 'centimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('37', '0', '0', 'CUP', '192', 'Cuban peso', 'Cub$', '', '.', ',', '2', 'centavo', '100', '', '');
 INSERT INTO static_currencies VALUES ('38', '0', '0', 'CVE', '132', 'Cape Verde Escudo', 'CVEsc.', '', '.', ',', '2', 'centavo', '100', '', '');
-INSERT INTO static_currencies VALUES ('39', '0', '0', 'CYP', '196', 'Cypriot pound', 'C£', '', '.', ',', '2', 'cent', '100', '', '');
+INSERT INTO static_currencies VALUES ('39', '0', '1', 'CYP', '196', 'Cypriot pound', 'C£', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('40', '0', '0', 'CZK', '203', 'Czech koruna', '', 'Kč', '.', ',', '2', 'haléř', '100', '', '');
 INSERT INTO static_currencies VALUES ('41', '0', '0', 'DJF', '262', 'Djibouti franc', 'FD', '', '.', '', '0', '', '1', '', '');
 INSERT INTO static_currencies VALUES ('42', '0', '0', 'DKK', '208', 'Danish krone', 'kr.', '', '.', ',', '2', 'Øre', '100', '', '');
@@ -1052,7 +1052,7 @@ INSERT INTO static_currencies VALUES ('50', '0', '0', 'FJD', '242', 'Fijian doll
 INSERT INTO static_currencies VALUES ('51', '0', '0', 'FKP', '238', 'Falkland Islands pound', 'Fl£', '', '.', ',', '2', 'penny', '100', '', '');
 INSERT INTO static_currencies VALUES ('52', '0', '0', 'GBP', '826', 'Pound sterling', '£', '', ',', '.', '2', 'penny', '100', '', 'p');
 INSERT INTO static_currencies VALUES ('53', '0', '0', 'GEL', '981', 'Georgian lari', '', 'lari', '.', ',', '2', 'tetri', '100', '', '');
-INSERT INTO static_currencies VALUES ('54', '0', '0', 'GHC', '288', 'Ghanaian cedi', '', '', '.', ',', '2', 'pesewa', '100', '', '');
+INSERT INTO static_currencies VALUES ('54', '0', '1', 'GHC', '288', 'Ghanaian cedi', '', '', '.', ',', '2', 'pesewa', '100', '', '');
 INSERT INTO static_currencies VALUES ('55', '0', '0', 'GIP', '292', 'Gibraltar pound', '£', '', '.', ',', '2', 'penny', '100', '', '');
 INSERT INTO static_currencies VALUES ('56', '0', '0', 'GMD', '270', 'Gambian dalasi', 'D', '', '.', ',', '2', 'butut', '100', '', '');
 INSERT INTO static_currencies VALUES ('57', '0', '0', 'GNF', '324', 'Guinea Franc', 'GF', '', '.', '', '0', '', '1', '', '');
@@ -1097,13 +1097,13 @@ INSERT INTO static_currencies VALUES ('96', '0', '0', 'MMK', '104', 'Myanmar kya
 INSERT INTO static_currencies VALUES ('97', '0', '0', 'MNT', '496', 'Mongolian tugrug', '₮', '', '.', ',', '2', 'mongo', '100', '', '');
 INSERT INTO static_currencies VALUES ('98', '0', '0', 'MOP', '446', 'Macanese pataca', 'Pat.', '', '.', ',', '2', 'avo', '100', '', '');
 INSERT INTO static_currencies VALUES ('99', '0', '0', 'MRO', '478', 'Mauritanian ouguiya', 'UM', '', '.', ',', '2', 'khoum', '100', '', '');
-INSERT INTO static_currencies VALUES ('100', '0', '0', 'MTL', '470', 'Maltese lira', 'Lm', '', '.', ',', '2', 'cent', '100', '', '');
+INSERT INTO static_currencies VALUES ('100', '0', '1', 'MTL', '470', 'Maltese lira', 'Lm', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('101', '0', '0', 'MUR', '480', 'Mauritian rupee', 'Rs', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('102', '0', '0', 'MVR', '462', 'Maldivian rufiyaa', 'Rf', '', '.', ',', '2', 'laari', '100', '', '');
 INSERT INTO static_currencies VALUES ('103', '0', '0', 'MWK', '454', 'Malawian kwacha', 'MK', '', '.', ',', '2', 'tambala', '100', '', '');
 INSERT INTO static_currencies VALUES ('104', '0', '0', 'MXN', '484', 'Mexican peso', '$', '', '.', ',', '2', 'centavo', '100', '', '');
 INSERT INTO static_currencies VALUES ('106', '0', '0', 'MYR', '458', 'Malaysian ringgit', 'RM', '', '.', ',', '2', 'sen', '100', '', '');
-INSERT INTO static_currencies VALUES ('107', '0', '0', 'MZM', '508', 'Mozambican metical', '', 'Mt', '.', ',', '2', 'centavo', '100', '', '');
+INSERT INTO static_currencies VALUES ('107', '0', '1', 'MZM', '508', 'Mozambican metical', '', 'Mt', '.', ',', '2', 'centavo', '100', '', '');
 INSERT INTO static_currencies VALUES ('108', '0', '0', 'NAD', '516', 'Namibian dollar', 'N$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('109', '0', '0', 'NGN', '566', 'Nigerian naira', '₦', '', '.', ',', '2', 'kobo', '100', '', '');
 INSERT INTO static_currencies VALUES ('110', '0', '0', 'NIO', '558', 'Nicaraguan córdoba', 'C$', '', '.', ',', '2', 'centavo', '100', '', '');
@@ -1119,7 +1119,7 @@ INSERT INTO static_currencies VALUES ('119', '0', '0', 'PKR', '586', 'Pakistani 
 INSERT INTO static_currencies VALUES ('120', '0', '0', 'PLN', '985', 'Polish złoty', '', 'zł', '.', ',', '2', 'grosz', '100', '', '');
 INSERT INTO static_currencies VALUES ('121', '0', '0', 'PYG', '600', 'Paraguayan guaraní', 'G', '', '.', '', '2', 'centimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('122', '0', '0', 'QAR', '634', 'Qatari riyal', 'QR', '', '.', ',', '2', 'dirham', '100', '', '');
-INSERT INTO static_currencies VALUES ('123', '0', '0', 'ROL', '642', 'Romanian leu', '', 'l', '.', ',', '2', 'ban', '100', '', '');
+INSERT INTO static_currencies VALUES ('123', '0', '1', 'ROL', '642', 'Romanian leu', '', 'l', '.', ',', '2', 'ban', '100', '', '');
 INSERT INTO static_currencies VALUES ('124', '0', '0', 'RUB', '643', 'Russian ruble', '', 'R', '.', ',', '2', 'kopek', '100', '', '');
 INSERT INTO static_currencies VALUES ('126', '0', '0', 'RWF', '646', 'Rwandan franc', 'frw', '', '.', '', '0', 'centime', '1', '', '');
 INSERT INTO static_currencies VALUES ('127', '0', '0', 'SAR', '682', 'Saudi riyal', 'SR', '', '.', ',', '2', 'hallalah', '100', '', '');
@@ -1129,8 +1129,8 @@ INSERT INTO static_currencies VALUES ('130', '0', '0', 'SDG', '938', 'Sudanese p
 INSERT INTO static_currencies VALUES ('131', '0', '0', 'SEK', '752', 'Swedish krona', '', 'kr', '.', ',', '2', 'öre', '100', '', '');
 INSERT INTO static_currencies VALUES ('132', '0', '0', 'SGD', '702', 'Singapore dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('133', '0', '0', 'SHP', '654', 'Saint Helena pound', '£', '', '.', ',', '2', 'penny', '100', '', '');
-INSERT INTO static_currencies VALUES ('134', '0', '0', 'SIT', '705', 'Slovenian tolar', 'SIT', '', '.', ',', '2', 'stotin', '100', '', '');
-INSERT INTO static_currencies VALUES ('135', '0', '0', 'SKK', '703', 'Slovak koruna', '', 'Sk', '.', ',', '2', 'halier', '100', '', 'h');
+INSERT INTO static_currencies VALUES ('134', '0', '1', 'SIT', '705', 'Slovenian tolar', 'SIT', '', '.', ',', '2', 'stotin', '100', '', '');
+INSERT INTO static_currencies VALUES ('135', '0', '1', 'SKK', '703', 'Slovak koruna', '', 'Sk', '.', ',', '2', 'halier', '100', '', 'h');
 INSERT INTO static_currencies VALUES ('136', '0', '0', 'SLL', '694', 'Sierra Leonean leone', 'Le', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('137', '0', '0', 'SOS', '706', 'Somali shilling', 'So.', '', '.', ',', '2', 'centesimo', '100', '', '');
 INSERT INTO static_currencies VALUES ('139', '0', '0', 'STD', '678', 'São Tomé and Príncipe dobra', 'Db', '', '.', ',', '2', 'cêntimo', '100', '', '');
@@ -1139,7 +1139,7 @@ INSERT INTO static_currencies VALUES ('141', '0', '0', 'SYP', '760', 'Syrian pou
 INSERT INTO static_currencies VALUES ('142', '0', '0', 'SZL', '748', 'Swazi lilangeni', '', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('143', '0', '0', 'THB', '764', 'Baht', '', 'Bt', '.', ',', '2', 'satang', '100', '', '');
 INSERT INTO static_currencies VALUES ('144', '0', '0', 'TJS', '972', 'Tajikistani somoni', '', '', '.', ',', '2', 'diram', '100', '', '');
-INSERT INTO static_currencies VALUES ('145', '0', '0', 'TMM', '795', 'Turkmenistani manat', '', '', '.', ',', '2', 'tenge', '100', '', '');
+INSERT INTO static_currencies VALUES ('145', '0', '1', 'TMM', '795', 'Turkmenistani manat', '', '', '.', ',', '2', 'tenge', '100', '', '');
 INSERT INTO static_currencies VALUES ('146', '0', '0', 'TND', '788', 'Tunisian dinar', 'TD', '', '.', ',', '3', 'millime', '1000', '', '');
 INSERT INTO static_currencies VALUES ('147', '0', '0', 'TOP', '776', 'Tongan pa\'anga', 'T$', '', '.', ',', '2', 'seniti', '100', '', '');
 INSERT INTO static_currencies VALUES ('150', '0', '0', 'TTD', '780', 'Trinidad and Tobago dollar', 'TT$', '', '.', ',', '2', 'cent', '100', '', '');
@@ -1161,13 +1161,17 @@ INSERT INTO static_currencies VALUES ('165', '0', '0', 'XPF', '953', 'CFP Franc'
 INSERT INTO static_currencies VALUES ('166', '0', '0', 'YER', '886', 'Yemeni rial', 'RI', '', '.', ',', '2', 'fils', '100', '', '');
 INSERT INTO static_currencies VALUES ('168', '0', '0', 'ZAR', '710', 'South African rand', 'R', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('169', '0', '0', 'ZMW', '967', 'Zambian kwacha', 'K', '', '.', ',', '2', 'ngwee', '100', '', '');
-INSERT INTO static_currencies VALUES ('170', '0', '0', 'ZWD', '716', 'Zimbabwean dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
+INSERT INTO static_currencies VALUES ('170', '0', '1', 'ZWD', '716', 'Zimbabwean dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('171', '0', '0', 'AFN', '971', 'Afghan afghani', 'Af', '', '.', ',', '2', 'pul', '100', '', '');
 INSERT INTO static_currencies VALUES ('172', '0', '0', 'RSD', '941', 'Serbian dinar', '', '', '.', ',', '2', 'para', '100', '', '');
 INSERT INTO static_currencies VALUES ('173', '0', '0', 'MGA', '969', 'Malagasy ariary', '', '', '.', ',', '1', 'iraimbilanja', '5', '', '');
 INSERT INTO static_currencies VALUES ('174', '0', '0', 'SRD', '968', 'Suriname dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
 INSERT INTO static_currencies VALUES ('175', '0', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
 INSERT INTO static_currencies VALUES ('176', '0', '0', 'SSP', '728', 'South Sudanese pound', '£', '', '.', ',', '2', 'piastre', '100', '', '');
+INSERT INTO static_currencies VALUES ('177', '0', '0', 'GHS', '936', 'Ghanaian cedi', 'GH₵', '', '.', ',', '2', 'pesewa', '100', '', 'Gp');
+INSERT INTO static_currencies VALUES ('178', '0', '0', 'MZN', '943', 'Mozambican metical', 'MT', '', '.', ',', '2', 'centavo', '100', '', '');
+INSERT INTO static_currencies VALUES ('179', '0', '0', 'RON', '946', 'Romanian new leu', '', 'l', '.', ',', '2', 'ban', '100', '', '');
+INSERT INTO static_currencies VALUES ('180', '0', '0', 'TMT', '934', 'Turkmenistani manat', 'T', '', '.', ',', '2', 'tenge', '100', '', '');
 
 
 

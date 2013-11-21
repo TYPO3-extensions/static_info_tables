@@ -1,6 +1,7 @@
 2013-11-21  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #53840: Could not determine the child object type.
+	* Resolves #51532: cn_currency_iso_3 in some african countries are wrong in table static_countries
 
 2013-11-20  Stanislas Rolland  <typo3@sjbr.ca>
 
