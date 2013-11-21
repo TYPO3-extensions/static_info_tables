@@ -81,11 +81,13 @@ class ClassCacheManager {
 			$code = $this->parseSingleFile($path, FALSE);
 
 			// Get the files from all other extensions that are extending this domain model class
-			$extensionsWithThisClass = $extensibleExtensions[$key];
-			foreach ($extensionsWithThisClass as $extension => $value) {
-				$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extension) . 'Classes/' . $key . '.php';
-				if (is_file($path)) {
-					$code .= $this->parseSingleFile($path);
+			if (isset($extensibleExtensions[$key]) && is_array($extensibleExtensions[$key]) && count($extensibleExtensions[$key]) > 0) {
+				$extensionsWithThisClass = array_keys($extensibleExtensions[$key]);
+				foreach ($extensionsWithThisClass as $extension) {
+					$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extension) . 'Classes/' . $key . '.php';
+					if (is_file($path)) {
+						$code .= $this->parseSingleFile($path);
+					}
 				}
 			}
 
