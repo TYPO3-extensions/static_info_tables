@@ -2,6 +2,7 @@
 
 	* Resolves #53840: Could not determine the child object type.
 	* Resolves #51532: cn_currency_iso_3 in some african countries are wrong in table static_countries
+	* Resolves #52572: countryRepository->findByTerritory does not respect territory hierarchy
 
 2013-11-20  Stanislas Rolland  <typo3@sjbr.ca>
 
