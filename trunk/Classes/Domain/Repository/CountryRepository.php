@@ -31,9 +31,25 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 class CountryRepository extends AbstractEntityRepository {
 
 	/**
-	 * @var array ISO keys for this static table
+	 * ISO keys for this static table
+	 * @var array
 	 */
 	protected $isoKeys = array('cn_iso_2');
+
+	/**
+	 * @var \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository
+	 */
+	protected $territoryRepository;
+
+ 	/**
+	 * Dependency injection of the Territory Repository
+ 	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository
+ 	 * @return void
+	 */
+	public function injectTerritoryRepository(\SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository) {
+		$this->territoryRepository = $territoryRepository;
+	}
 
 	/**
 	 * Finds countries by territory
@@ -43,9 +59,15 @@ class CountryRepository extends AbstractEntityRepository {
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
 	 */
 	public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
+		$unCodeNumbers = array($territory->getUnCodeNumber());
+		// Get UN code numbers of subterritories
+		$subterritories = $this->territoryRepository->findByTerritory($territory);
+		foreach ($subterritories as $subterritory) {
+			$unCodeNumbers[] = $subterritory->getUnCodeNumber();
+		}
 		$query = $this->createQuery();
 		$query->matching(
-			$query->equals('parentTerritoryUnCodeNumber', $territory->getUnCodeNumber())
+			$query->in('parentTerritoryUnCodeNumber', $unCodeNumbers)
 		);
 		return $query->execute();
 	}

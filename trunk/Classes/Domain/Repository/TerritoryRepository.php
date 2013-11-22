@@ -30,7 +30,8 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 class TerritoryRepository extends AbstractEntityRepository {
 
 	/**
-	 * @var array ISO keys for this static table
+	 * ISO keys for this static table
+	 * @var array
 	 */
 	protected $isoKeys = array('tr_iso_nr');
 
@@ -45,6 +46,21 @@ class TerritoryRepository extends AbstractEntityRepository {
 		$query = $this->createQuery();
 		$query->matching(
 			$query->equals('unCodeNumber', $country->getParentTerritoryUnCodeNumber())
+		);
+		return $query->execute();
+	}
+
+	/**
+	 * Finds territories within a territory
+	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+	 */
+	public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
+		$query = $this->createQuery();
+		$query->matching(
+			$query->equals('parentTerritoryUnCodeNumber', $territory->getUnCodeNumber())
 		);
 		return $query->execute();
 	}
