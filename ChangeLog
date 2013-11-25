@@ -1,3 +1,7 @@
+2013-11-25  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #52415: Caching issue while using static country repository
+
 2013-11-21  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #53840: Could not determine the child object type.

@@ -201,7 +201,9 @@ class ClassCacheManager {
 	 */
 	public function clear() {
 		$this->cacheInstance->flush();
-		$GLOBALS['BE_USER']->writelog(3, 1, 0, 0, '[StaticInfoTables]: User %s has cleared the class cache', array($GLOBALS['BE_USER']->user['username']));
+		if (isset($GLOBALS['BE_USER'])) {
+			$GLOBALS['BE_USER']->writelog(3, 1, 0, 0, '[StaticInfoTables]: User %s has cleared the class cache', array($GLOBALS['BE_USER']->user['username']));
+		}
 	}
 
 	/**
@@ -215,9 +217,10 @@ class ClassCacheManager {
 			|| (
 				!empty($parameters['cacheCmd'])
 				&& \TYPO3\CMS\Core\Utility\GeneralUtility::inList('all,temp_cached', $parameters['cacheCmd'])
+				&& isset($GLOBALS['BE_USER'])
 			)
 		);
-		if ($isValidCall && isset($GLOBALS['BE_USER'])) {
+		if ($isValidCall) {
 			$this->clear();
 			$this->build();
 		}
