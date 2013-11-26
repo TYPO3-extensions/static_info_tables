@@ -171,24 +171,26 @@ class ElementRenderingHelper {
 	 */
 	protected function translateSelectorItems($items, $tableName) {
 		$translatedItems = $items;
-		foreach ($translatedItems as $key => $item) {
-			if ($translatedItems[$key][1]) {
-				//Get isocode if present
-				$code = strstr($item[0], '(');
-				$code2 = strstr(substr($code, 1), '(');
-				$code = $code2 ? $code2 : $code;
-				// Translate
-				$translatedItems[$key][0] = LocalizationUtility::translate(array('uid' => $item[1]), $tableName);
-				// Re-append isocode, if present
-				$translatedItems[$key][0] = $translatedItems[$key][0] . ($code ? ' ' . $code : '');
+		if (isset($translatedItems) && is_array($translatedItems)) {
+			foreach ($translatedItems as $key => $item) {
+				if ($translatedItems[$key][1]) {
+					//Get isocode if present
+					$code = strstr($item[0], '(');
+					$code2 = strstr(substr($code, 1), '(');
+					$code = $code2 ? $code2 : $code;
+					// Translate
+					$translatedItems[$key][0] = LocalizationUtility::translate(array('uid' => $item[1]), $tableName);
+					// Re-append isocode, if present
+					$translatedItems[$key][0] = $translatedItems[$key][0] . ($code ? ' ' . $code : '');
+				}
 			}
+			$currentLocale = setlocale(LC_COLLATE, '0');
+			$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+			if ($locale !== FALSE) {
+				uasort($translatedItems, array($this, 'strcollOnLabels'));
+			}
+			setlocale(LC_COLLATE, $currentLocale);
 		}
-		$currentLocale = setlocale(LC_COLLATE, '0');
-		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
-		if ($locale !== FALSE) {
-			uasort($translatedItems, array($this, 'strcollOnLabels'));
-		}
-		setlocale(LC_COLLATE, $currentLocale);
 		return $translatedItems;
 	}
 
