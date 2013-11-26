@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="br" datatype="plaintext" original="messages" date="2013-02-21T01:35:44Z" product-name="static_info_tables">
+	<file source-language="en" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-02-21T01:35:44Z" product-name="static_info_tables">
 		<header/>
 		<body>
 			<trans-unit id="static_territories.title" xml:space="preserve" approved="yes">
