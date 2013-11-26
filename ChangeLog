@@ -1,6 +1,7 @@
 2013-11-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #52103: PHP Warning in ElementRenderingHelper
+	* Update version to 6.0.6
 
 2013-11-25  Stanislas Rolland  <typo3@sjbr.ca>
 
