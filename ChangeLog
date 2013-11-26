@@ -1,3 +1,7 @@
+2013-11-26  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #52103: PHP Warning in ElementRenderingHelper
+
 2013-11-25  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #52415: Caching issue while using static country repository
