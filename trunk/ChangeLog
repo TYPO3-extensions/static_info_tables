@@ -2,6 +2,7 @@
 
 	* Resolves #54008: CachedClassLoader not loaded in ext_localconf in TYPO3 6.2
 	* Enable in TYPO3 6.2
+	* Update version to 6.0.7
 
 2013-11-26  Stanislas Rolland  <typo3@sjbr.ca>
 
