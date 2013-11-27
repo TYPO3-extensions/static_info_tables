@@ -43,7 +43,8 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['entities'] = array(
 	'Territory'
 );
 
-// Regiter cached domain model classes autoloader
+// Register cached domain model classes autoloader
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Cache/CachedClassLoader.php');
 \SJBR\StaticInfoTables\Cache\CachedClassLoader::registerAutoloader();
 
 // Possible label fields for different languages. Default as last.
