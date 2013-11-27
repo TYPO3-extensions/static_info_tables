@@ -1,3 +1,7 @@
+2013-11-27  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #54008: CachedClassLoader not loaded in ext_localconf in TYPO3 6.2
+
 2013-11-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #52103: PHP Warning in ElementRenderingHelper
