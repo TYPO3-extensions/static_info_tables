@@ -16,8 +16,6 @@ $EM_CONF[$_EXTKEY] = array (
 	'category' => 'misc',
 	'shy' => 0,
 	'version' => '6.0.6',
-	'dependencies' => '',
-	'conflicts' => 'sr_static_info,cc_infotablesmgm',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
@@ -36,7 +34,7 @@ $EM_CONF[$_EXTKEY] = array (
 	array (
 		'depends' => 
 		array (
-			'typo3' => '6.0.6-6.1.99',
+			'typo3' => '6.0.6-6.2.99',
 			'php' => '5.3.7-0.0.0',
 		),
 		'conflicts' => 
@@ -47,9 +45,6 @@ $EM_CONF[$_EXTKEY] = array (
 		'suggests' => 
 		array (
 		),
-	),
-	'suggests' => 
-	array (
 	),
 );
 
