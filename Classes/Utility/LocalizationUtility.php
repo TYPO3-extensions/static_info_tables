@@ -253,8 +253,8 @@ class LocalizationUtility {
 					}
 				}
 			}
-		} elseif (strlen($GLOBALS['BE_USER']->uc['lang']) > 0) {
-			self::$languageKey = $GLOBALS['BE_USER']->uc['lang'];
+		} else {
+			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'EN';
 			// Get standard locale dependencies for the backend
 			/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
 			$locales = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
