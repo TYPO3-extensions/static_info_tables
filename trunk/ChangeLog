@@ -1,3 +1,7 @@
+2013-12-03  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #54160: List module broken on root page
+
 2013-11-27  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #54008: CachedClassLoader not loaded in ext_localconf in TYPO3 6.2
