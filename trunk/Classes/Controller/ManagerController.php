@@ -194,6 +194,7 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$localeUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\LocaleUtility');
 		$language = $localeUtility->getLanguageFromLocale($locale);
 		$languagePack->setLanguage($language);
+		$languagePack->setTypo3VersionRange($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['constraints']['depends']['typo3']);
 		// If version is not set, use the version of the base extension
 		if (!$languagePack->getVersion()) {
 			$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
