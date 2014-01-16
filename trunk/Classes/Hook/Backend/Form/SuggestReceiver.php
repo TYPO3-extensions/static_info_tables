@@ -1,9 +1,11 @@
 <?php
 namespace SJBR\StaticInfoTables\Hook\Backend\Form;
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2007-2011 Andreas Wolf <andreas.wolf@ikt-werk.de>
+ *  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -50,18 +52,12 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Element\SuggestDefaultRece
 		if (strlen($searchString)) {
 			$searchString = $GLOBALS['TYPO3_DB']->quoteStr($searchString, $this->table);
 			$likeCondition = ' LIKE \'' . ($searchWholePhrase ? '%' : '') . $GLOBALS['TYPO3_DB']->escapeStrForLike($searchString, $this->table) . '%\'';
-			// Search in all fields given by label or label_alt
-			
 			// Get the label field for the current language, if any is available
-			$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-			$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
-			$labelFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($this->table, $lang);
+			$lang = LocalizationUtility::getCurrentLanguage();
+			$lang = LocalizationUtility::getIsoLanguageKey($lang);
+			$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
 			$selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
-			
-			//$selectFieldsList = $GLOBALS['TCA'][$this->table]['ctrl']['label'] . ',' . $GLOBALS['TCA'][$this->table]['ctrl']['label_alt'] . ',' . $this->config['additionalSearchFields'];
 			$selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, TRUE);
-
-
 			$selectFields = array_unique($selectFields);
 			$selectParts = array();
 			foreach ($selectFields as $field) {
@@ -100,9 +96,9 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Element\SuggestDefaultRece
 			$this->orderByStatement = $GLOBALS['TCA'][$this->table]['ctrl']['label'];
 		}
 		// Get the label field for the current language, if any is available
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getCurrentLanguage();
-		$lang = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getIsoLanguageKey($lang);
-		$labelFields = \SJBR\StaticInfoTables\Utility\LocalizationUtility::getLabelFields($this->table, $lang);
+		$lang = LocalizationUtility::getCurrentLanguage();
+		$lang = LocalizationUtility::getIsoLanguageKey($lang);
+		$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
 		$this->orderByStatement = implode(',' , $labelFields);
 	}
 
@@ -113,7 +109,7 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Element\SuggestDefaultRece
 	 */
 	protected function manipulateRecord(&$row) {
 		// Localize the record
-		$row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = \SJBR\StaticInfoTables\Utility\LocalizationUtility::translate(array('uid' => $row['uid']), $this->table);
+		$row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = LocalizationUtility::translate(array('uid' => $row['uid']), $this->table);
 	}
 }
 ?>
