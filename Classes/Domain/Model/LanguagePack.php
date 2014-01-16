@@ -75,6 +75,11 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * @var string
 	 */
+	protected $typo3VersionRange;
+
+	/**
+	 * @var string
+	 */
 	protected $version;
 
 	/**
@@ -214,6 +219,14 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	public function getLanguage() {
 		return $this->language;
+	}
+
+	public function setTypo3VersionRange($typo3VersionRange) {
+		$this->typo3VersionRange = $typo3VersionRange;
+	}
+
+	public function getTypo3VersionRange() {
+		return $this->typo3VersionRange;
 	}
 
 	public function setVersion($version) {

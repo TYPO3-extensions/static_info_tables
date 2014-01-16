@@ -92,6 +92,7 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			'###LANG_ISO_LOWER###' => $localeLowerCase,
 			'###LANG_ISO_UPPER###' => $localeUpperCase,
 			'###LANG_ISO_CAMEL###' => $localeCamel,
+			'###TYPO3_VERSION_RANGE###' => $languagePack->getTypo3VersionRange(),
 			'###VERSION###' => $languagePack->getVersion(),
 			'###LANG_NAME###' => $languagePack->getLanguage(),
 			'###AUTHOR###' => $languagePack->getAuthor(),

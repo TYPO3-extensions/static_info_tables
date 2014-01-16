@@ -4,6 +4,7 @@
 	* Follow-up to #55081: Fatal error in Static Info Tables Manager module in TYPO3 6.2
 	* Clean-up in class SJBR\StaticInfoTables\Hook\Backend\Form\SuggestReceiver
 	* Clean-up in class SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper
+	* Add TYPO3 version range dependency to generated language pack extension
 
 2013-12-03  Stanislas Rolland  <typo3@sjbr.ca>
 
