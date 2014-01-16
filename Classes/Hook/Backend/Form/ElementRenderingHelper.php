@@ -6,7 +6,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ElementRenderingHelper {
 	/**
-	 * Translate selcted items before rendering
+	 * Translate selected items before rendering
 	 */
 	public function getSingleField_beforeRender($table, $field, $row, &$PA) {
 		if ($PA['fieldConf']['config']['form_type'] == 'select' && $PA['fieldConf']['config']['maxitems'] > 1) {
@@ -52,16 +52,17 @@ class ElementRenderingHelper {
 	public function addIsoCodeToLabel (&$PA, &$fObj) {
 		$PA['title'] = $PA['row'][$GLOBALS['TCA'][$PA['table']]['ctrl']['label']];
 		if (TYPO3_MODE == 'BE') {
+			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 			switch ($PA['table']) {
 				case 'static_territories':
 					$isoCode = $PA['row']['tr_iso_nr'];
 					if (!$isoCode) {
-						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-							'uid,tr_iso_nr',
-							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
-						);
-						$isoCode = $rows[0]['tr_iso_nr'];
+						/** @var $territoryRepository SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository */
+						$territoryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\TerritoryRepository');
+						/** @var $territory SJBR\StaticInfoTables\Domain\Model\Territory */
+						$territory = $territoryRepository->findByUid($PA['row']['uid']);
+						$isoCode = $territory->getUnCodeNumber();
 					}
 					if ($isoCode) {
 						$PA['title'] = $PA['title'] . ' (' . $isoCode . ')';
@@ -70,12 +71,11 @@ class ElementRenderingHelper {
 				case 'static_countries':
 					$isoCode = $PA['row']['cn_iso_2'];
 					if (!$isoCode) {
-						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-							'uid,cn_iso_2',
-							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
-						);
-						$isoCode = $rows[0]['cn_iso_2'];
+						/** @var $countryRepository SJBR\StaticInfoTables\Domain\Repository\CountryRepository */
+						$countryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryRepository');
+						/** @var $country SJBR\StaticInfoTables\Domain\Model\Country */
+						$country = $countryRepository->findByUid($PA['row']['uid']);
+						$isoCode = $country->getIsoCodeA2();
 					}
 					if ($isoCode) {
 						$PA['title'] = $PA['title'] . ' (' . $isoCode . ')';
@@ -88,16 +88,15 @@ class ElementRenderingHelper {
 					}
 					$isoCode = implode('_', $isoCodes);
 					if (!$isoCode || !$PA['row']['lg_country_iso_2']) {
-						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-							'uid,lg_iso_2,lg_country_iso_2',
-							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
-						);
-						$isoCodes = array($rows[0]['lg_iso_2']);
-						if ($rows[0]['lg_country_iso_2']) {
-							$isoCodes[] = $rows[0]['lg_country_iso_2'];
+						/** @var $languageRepository SJBR\StaticInfoTables\Domain\Repository\LanguageRepository */
+						$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+						/** @var $language SJBR\StaticInfoTables\Domain\Model\Language */
+						$language = $languageRepository->findByUid($PA['row']['uid']);
+						$isoCodes = array($language->getIsoCodeA2());
+						if ($language->getCountryIsoCodeA2()) {
+							$isoCodes[] = $language->getCountryIsoCodeA2();
 						}
-						$isoCode = implode('_', $isoCodes);	
+						$isoCode = implode('_', $isoCodes);
 					}
 					if ($isoCode) {
 						$PA['title'] = $PA['title'] . ' (' . $isoCode . ')';
@@ -106,12 +105,11 @@ class ElementRenderingHelper {
 				case 'static_currencies':
 					$isoCode = $PA['row']['cu_iso_3'];
 					if (!$isoCode) {
-						$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-							'uid,cu_iso_3',
-							$PA['table'],
-							'uid = ' . intval($PA['row']['uid']) . TcaUtility::getEnableFields($PA['table'])
-						);
-						$isoCode = $rows[0]['cu_iso_3'];
+						/** @var $currencyRepository SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository */
+						$currencyRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CurrencyRepository');
+						/** @var $currency SJBR\StaticInfoTables\Domain\Model\Currency */
+						$currency = $currencyRepository->findByUid($PA['row']['uid']);
+						$isoCode = $currency->getIsoCodeA3();
 					}
 					if ($isoCode) {
 						$PA['title'] = $PA['title'] . ' (' . $isoCode . ')';
@@ -185,7 +183,7 @@ class ElementRenderingHelper {
 				}
 			}
 			$currentLocale = setlocale(LC_COLLATE, '0');
-			$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+			$locale = LocalizationUtility::setCollatingLocale();
 			if ($locale !== FALSE) {
 				uasort($translatedItems, array($this, 'strcollOnLabels'));
 			}
