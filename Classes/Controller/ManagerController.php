@@ -6,7 +6,7 @@ use \SJBR\StaticInfoTables\Domain\Model\Language;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2014 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,7 +33,12 @@ use \SJBR\StaticInfoTables\Domain\Model\Language;
  *
  * @author Stanislas Rolland <typo3@sjbr.ca>
  */
-class ManagerController extends AbstractController {
+class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+	/**
+	 * @var string Name of the extension this controller belongs to
+	 */
+	protected $extensionName = 'StaticInfoTables';
 
 	/**
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
