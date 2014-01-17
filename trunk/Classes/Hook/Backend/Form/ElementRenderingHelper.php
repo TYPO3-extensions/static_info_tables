@@ -189,7 +189,8 @@ class ElementRenderingHelper {
 			}
 			setlocale(LC_COLLATE, $currentLocale);
 		}
-		return $translatedItems;
+		$items = $translatedItems;
+		return $items;
 	}
 
 	/**

@@ -274,7 +274,10 @@ class LocalizationUtility {
 	public static function setCollatingLocale() {
 		if (self::$collatingLocale === '') {
 			$languageCode = self::getCurrentLanguage();
-			$languageRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			/** @var $languageRepository SJBR\StaticInfoTables\Domain\Repository\LanguageRepository */
+			$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
 			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
 			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
 			self::$collatingLocale = $language->getCollatingLocale();
