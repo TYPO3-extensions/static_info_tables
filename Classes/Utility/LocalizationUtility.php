@@ -280,7 +280,12 @@ class LocalizationUtility {
 			$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
 			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
 			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
-			self::$collatingLocale = $language->getCollatingLocale();
+			if (is_object($language)) {
+				self::$collatingLocale = $language->getCollatingLocale();
+			} else {
+				// This should not happen: current language was not found in the Language repository
+				throw new \TYPO3\CMS\Extbase\Exception('Current language "' . $languageCode . '" could not be found in Language repository.', 1389981393);
+			}
 		}
 		return setlocale(LC_COLLATE,
 			array(
