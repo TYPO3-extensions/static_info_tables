@@ -5,6 +5,7 @@
 	* Clean-up in class SJBR\StaticInfoTables\Hook\Backend\Form\SuggestReceiver
 	* Clean-up in class SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper
 	* Add TYPO3 version range dependency to generated language pack extension
+	* Follow-up to #50804: Entities not sorted according to locale collation
 
 2013-12-03  Stanislas Rolland  <typo3@sjbr.ca>
 
