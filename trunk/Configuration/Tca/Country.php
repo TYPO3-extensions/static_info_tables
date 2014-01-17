@@ -249,7 +249,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 	),
 	'types' => array(
 		'1' => array(
-			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;5;;,--palette--;;2;;,--palette--;;3;;,--palette--;;4;;,cn_short_en,cn_country_zones'
+			'showitem' => 'cn_short_local,cn_official_name_local,cn_official_name_en,--palette--;;1;;,--palette--;;5;;,--palette--;;2;;,--palette--;;3;;,--palette--;;6;;,--palette--;;4;;,cn_short_en,cn_country_zones'
 		)
 	),
 	'palettes' => array(
@@ -260,14 +260,17 @@ $GLOBALS['TCA']['static_countries'] = array(
 			'showitem' => 'cn_currency_uid,cn_currency_iso_nr,cn_currency_iso_3', 'canNotCollapse' => '1'
 		),
 		'3' => array(
-			'showitem' => 'cn_capital,cn_uno_member,cn_eu_member,cn_phone,cn_tldomain', 'canNotCollapse' => '1'
+			'showitem' => 'cn_capital,cn_uno_member,cn_eu_member', 'canNotCollapse' => '1'
 		),
 		'4' => array(
 			'showitem' => 'cn_address_format,cn_zone_flag', 'canNotCollapse' => '1'
 		),
 		'5' => array(
 			'showitem' => 'cn_parent_territory_uid,cn_parent_tr_iso_nr', 'canNotCollapse' => '1'
-		)
+		),
+		'6' => array(
+			'showitem' => 'cn_phone,cn_tldomain', 'canNotCollapse' => '1'
+		),		
 	)
 );
 unset($extensionResourcesLanguagePath);
