@@ -97,8 +97,17 @@
 			<trans-unit id="updateLanguageLabels" xml:space="preserve">
 				<source>The Static Info Tables were updated with language labels from language pack</source>
 			</trans-unit>
+			<trans-unit id="updateTables" xml:space="preserve">
+				<source>The Static Info Tables were re-created.</source>
+			</trans-unit>
 			<trans-unit id="nothingToDo" xml:space="preserve">
 				<source>No update was necessary as no language pack is installed.</source>
+			</trans-unit>
+			<trans-unit id="enableStaticInfoTablesManager" xml:space="preserve">
+				<source>Enable the Static Info Tables Manager: Enable the Static Info Tables Manager module in the backend.</source>
+			</trans-unit>
+			<trans-unit id="afterInstall" xml:space="preserve">
+				<source>ATTENTION!: After installing or upgrading this extension, you should execute the update script. The update script will re-create the tables and re-apply any installed language pack.</source>
 			</trans-unit>
 			<trans-unit id="update.oldLanguagePacks" xml:space="preserve">
 				<source>If language packs with versions lower than 6.0 are installed, they could not be detected and they need to be re-created. Please read the manual.</source>
