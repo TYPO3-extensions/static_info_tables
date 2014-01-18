@@ -1,6 +1,6 @@
 
-  # cat=enable; type=boolean; label=Static Info Tables Manager: Enable the Static Info Tables Manager module in the backend
+  # cat=enable; type=boolean; label=LLL:EXT:static_info_tables/Resources/Private/Language/locallang.xlf:enableStaticInfoTablesManager
 enableManager = 0
 
-  # cat=enable; type=boolean; label= ATTENTION: After installing or upgrading this extension, you should execute the update script.
+  # cat=enable; type=boolean; label=LLL:EXT:static_info_tables/Resources/Private/Language/locallang.xlf:afterInstall
 dummy = 0
