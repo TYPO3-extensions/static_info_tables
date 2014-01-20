@@ -28,7 +28,7 @@ foreach ($tablesAdditionalFields as $table => $additionalFields) {
 		$additionalColumns = array();
 		$additionalColumns[$destField] = $GLOBALS['TCA'][$table]['columns'][$sourceField];
 		$additionalColumns[$destField]['label'] = 'LLL:EXT:static_info_tables_###LANG_ISO_LOWER###/Resources/Private/Language/locallang_db.xlf:' . $table . '_item.' . $destField;
-		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, $additionalColumns, 1);
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, $additionalColumns);
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table, $destField, '', 'after:' . $sourceField);
 	}
 }

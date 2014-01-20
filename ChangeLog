@@ -1,3 +1,7 @@
+2014-01-20  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #55183: Depreciation message - remove parameter
+
 2014-01-18  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Re-create the tables whenever the extension update script in run
