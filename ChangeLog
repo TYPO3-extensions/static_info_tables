@@ -1,6 +1,7 @@
 2014-02-06  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #55476: Deprecated CSS inclusion
+	* Resolves #55744: Class TYPO3\CMS\Install\Sql\SchemaMigrator was renamed
 	
 2014-01-20  Stanislas Rolland  <typo3@sjbr.ca>
 

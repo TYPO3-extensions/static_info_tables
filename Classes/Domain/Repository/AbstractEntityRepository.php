@@ -251,8 +251,12 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		// Get the information of the table and its fields
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
-
-		$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Sql\\SchemaMigrator');
+		// Class TYPO3\CMS\Install\Sql\SchemaMigrator was renamed in TYPO3 6.2
+		if (class_exists('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService')) {
+			$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService');
+		} else {
+			$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Sql\\SchemaMigrator');
+		}
 		$dbFieldDefinitions = $installToolSqlParser->getFieldDefinitions_database();
 		$dbFields = array();
 		$dbFields[$tableName] = $dbFieldDefinitions[$tableName];
