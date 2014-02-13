@@ -1,6 +1,7 @@
 2014-02-13  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #55952: Wrong phone code for Liechtenstein in static_countries table
+	* Update version to 6.0.8
 
 2014-02-06  Stanislas Rolland  <typo3@sjbr.ca>
 
