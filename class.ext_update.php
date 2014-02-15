@@ -37,6 +37,11 @@ class ext_update {
 	 * @var TYPO3\CMS\Extbase\Object\ObjectManager Extbase Object Manager
 	 */
 	protected $objectManager;
+	
+	/**
+	 * @var TYPO3\CMS\ExtensionManager\Utility\InstallUtility Extbase Install Tool
+	 */
+	protected $installTool;
 
 	/**
 	 * Main function, returning the HTML content
@@ -47,6 +52,7 @@ class ext_update {
 		$content = '';
 
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->installTool = $this->objectManager->get('TYPO3\\CMS\\ExtensionManager\\Utility\\InstallUtility');
 		$databaseUpdateUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
 		
 		// Clear the class cache
@@ -63,6 +69,10 @@ class ext_update {
 		foreach ($loadedExtensions as $extensionKey) {
 			$extensionInfoFile = ExtensionManagementUtility::extPath($extensionKey) . 'Configuration/DomainModelExtension/StaticInfoTables.txt';
 			if (file_exists($extensionInfoFile)) {
+				// We need to reprocess the database structure update sql statements (ext_tables)
+				$this->processDatabaseUpdates($extensionKey);
+				// Now we process the static data updates (ext_tables_static+adt)
+				// Note: The Install Tool Utility does not handle sql update statements
 				$databaseUpdateUtility->doUpdate($extensionKey);
 				$content .= '<p>' . nl2br(LocalizationUtility::translate('updateLanguageLabels', $this->extensionName)) . ' ' . $extensionKey . '</p>';
 			}
@@ -77,6 +87,24 @@ class ext_update {
 	}
 
 	/**
+	 * Processes the tables SQL File (ext_tables)
+	 *
+	 * @param string $extensionKey
+	 * @return void
+	 */
+	protected function processDatabaseUpdates($extensionKey) {
+		$extensionSitePath = ExtensionManagementUtility::extPath($extensionKey);
+		$extTablesSqlFile = $extensionSitePath . 'ext_tables.sql';
+		$extTablesSqlContent = '';
+		if (file_exists($extTablesSqlFile)) {
+			$extTablesSqlContent .= GeneralUtility::getUrl($extTablesSqlFile);
+		}
+		if ($extTablesSqlContent !== '') {
+			$this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
+		}
+	}
+
+	/**
 	 * Imports a static tables SQL File (ext_tables_static+adt)
 	 *
 	 * @param string $extensionSitePath
@@ -84,10 +112,12 @@ class ext_update {
 	 */
 	protected function importStaticSqlFile($extensionSitePath) {
 		$extTablesStaticSqlFile = $extensionSitePath . 'ext_tables_static+adt.sql';
+		$extTablesStaticSqlContent = '';
 		if (file_exists($extTablesStaticSqlFile)) {
-			$extTablesStaticSqlContent = GeneralUtility::getUrl($extTablesStaticSqlFile);
-			$installTool = $this->objectManager->get('TYPO3\\CMS\\ExtensionManager\\Utility\\InstallUtility');
-			$installTool->importStaticSql($extTablesStaticSqlContent);
+			$extTablesStaticSqlContent .= GeneralUtility::getUrl($extTablesStaticSqlFile);
+		}
+		if ($extTablesStaticSqlContent !== '') {
+			$this->installTool->importStaticSql($extTablesStaticSqlContent);
 		}
 	}
 
