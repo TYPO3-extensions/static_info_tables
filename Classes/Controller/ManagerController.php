@@ -129,7 +129,7 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @api
 	 */
 	public function addFlashMessage($messageBody, $messageTitle = '', $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK, $storeInSession = TRUE) {
-		if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version(VersionNumberUtility::getCurrentTypo3Version())) >= 6002000) {
+		if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) >= 6002000) {
 			parent::addFlashMessage($messageBody, $messageTitle, $severity, $storeInSession);
 		} else {
 			$this->flashMessageContainer->add($messageTitle, $messageBody, $severity);
