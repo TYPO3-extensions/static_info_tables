@@ -33,10 +33,23 @@ use \SJBR\StaticInfoTables\Utility\LocalizationUtility;
 class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * Extbase configuration
+	 *
+	 * @var array
+	 */
+	protected $extbaseConfiguration;
+
+	/**
+	 * Name of the table from persistence mapping of this model
+	 *
+	 * @var array
+	 */
+	protected $tableName;
+
+	/**
 	 * Contains the persistence columns mapping of this model
 	 *
 	 * @var array
-	 * @api
 	 */
 	protected $columnsMapping;
 
@@ -46,9 +59,7 @@ class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function initializeObject() {
 		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-		$settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$this->tableName = $settings['persistence']['classes'][get_class($this)]['mapping']['tableName'];
-		$this->columnsMapping = $settings['persistence']['classes'][get_class($this)]['mapping']['columns'];
+		$this->extbaseConfiguration = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 	}
 
 	/**

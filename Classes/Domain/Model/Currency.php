@@ -113,6 +113,15 @@ class Currency extends AbstractEntity {
 	protected $thousandsPoint = '';
 
 	/**
+	 * On initialization, get the columns mapping configuration
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Currency']['mapping']['tableName'];
+		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Currency']['mapping']['columns'];
+	}
+
+	/**
 	 * Sets the number of decimal digits.
 	 *
 	 * @param integer $decimalDigits

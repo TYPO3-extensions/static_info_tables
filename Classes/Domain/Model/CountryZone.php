@@ -78,6 +78,15 @@ class CountryZone extends AbstractEntity {
 	protected $nameEn = '';
 
 	/**
+	 * On initialization, get the columns mapping configuration
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone']['mapping']['tableName'];
+		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone']['mapping']['columns'];
+	}
+
+	/**
 	 * Sets the country ISO alpha-2 code.
 	 *
 	 * @param string $countryIsoCodeA2

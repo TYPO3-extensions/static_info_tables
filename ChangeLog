@@ -1,3 +1,7 @@
+2014-02-27  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #52431: Localization of nameLocalized not working in preview of attribute
+
 2014-02-21  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Update version to 6.0.9

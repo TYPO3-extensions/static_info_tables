@@ -86,6 +86,15 @@ class Language extends AbstractEntity {
 	protected $typo3Code = '';
 
 	/**
+	 * On initialization, get the columns mapping configuration
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Language']['mapping']['tableName'];
+		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Language']['mapping']['columns'];
+	}
+
+	/**
 	 * Sets the collating locale.
 	 *
 	 * @param string $collatingLocale

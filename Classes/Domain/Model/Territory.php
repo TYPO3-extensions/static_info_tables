@@ -58,6 +58,15 @@ class Territory extends AbstractEntity {
 	protected $parentTerritoryUnCodeNumber = 0;
 
 	/**
+	 * On initialization, get the columns mapping configuration
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Territory']['mapping']['tableName'];
+		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Territory']['mapping']['columns'];
+	}
+
+	/**
 	 * Gets the deletion status of the entity
 	 *
 	 * @return boolean

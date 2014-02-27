@@ -140,6 +140,15 @@ class Country extends AbstractEntity {
 	protected $zoneFlag = FALSE;
 
 	/**
+	 * On initialization, get the columns mapping configuration
+	 */
+	public function initializeObject() {
+		parent::initializeObject();
+		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Country']['mapping']['tableName'];
+		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Country']['mapping']['columns'];
+	}
+
+	/**
 	 * Sets the address format.
 	 *
 	 * @param string $addressFormat
