@@ -176,7 +176,7 @@ class LocalizationUtility {
 	 * @param integer index in the table's isocode_field configuration array
 	 * @return string field name
 	 */
-	protected static function getIsoCodeField ($table, $isoCode, $index = 0) {
+	public static function getIsoCodeField ($table, $isoCode, $index = 0) {
 		$isoCodeField = '';
 		$isoCodeFieldTemplate = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['isocode_field'][$index];
 		if ($isoCode && $table && $isoCodeFieldTemplate) {

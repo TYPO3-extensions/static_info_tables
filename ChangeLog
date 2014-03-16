@@ -1,3 +1,7 @@
+2014-03-16  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #56954: getIsoCodeField() is protected but needed from outside
+
 2014-02-27  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #52431: Localization of nameLocalized not working in preview of attribute
