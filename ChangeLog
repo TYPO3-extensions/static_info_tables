@@ -1,3 +1,7 @@
+2014-03-17  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #56389: Fatal error: Call to a member function getCollatingLocale() on a non-object in LocalizationUtility.php
+
 2014-03-16  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #56954: getIsoCodeField() is protected but needed from outside

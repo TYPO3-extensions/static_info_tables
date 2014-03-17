@@ -254,7 +254,7 @@ class LocalizationUtility {
 				}
 			}
 		} else {
-			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'EN';
+			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'default';
 			// Get standard locale dependencies for the backend
 			/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
 			$locales = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
@@ -263,6 +263,9 @@ class LocalizationUtility {
 					self::$alternativeLanguageKeys[] = $language;
 				}
 			}
+		}
+		if (!self::$languageKey || self::$languageKey === 'default') {
+			self::$languageKey = 'EN';
 		}
 	}
 	
@@ -281,8 +284,8 @@ class LocalizationUtility {
 			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
 			/** @var $language SJBR\StaticInfoTables\Domain\Model\Language */
 			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
-			// If $language is_a NULL, current language was not found in the Language repository. Most probably, the repository is empty.
-			self::$collatingLocale = is_object($language) ? $language->getCollatingLocale() : 'en_GB';
+			// If $language is NULL, current language was not found in the Language repository. Most probably, the repository is empty.
+			self::$collatingLocale = ($language instanceof \SJBR\StaticInfoTables\Domain\Model\Language) ? $language->getCollatingLocale() : 'en_GB';
 		}
 		return setlocale(LC_COLLATE,
 			array(
