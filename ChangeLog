@@ -1,3 +1,7 @@
+2014-03-26  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Update version to 6.0.10
+
 2014-03-17  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #56389: Fatal error: Call to a member function getCollatingLocale() on a non-object in LocalizationUtility.php

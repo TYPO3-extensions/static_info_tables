@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "static_info_tables".
  *
- * Auto generated 21-02-2014 20:51
+ * Auto generated 26-03-2014 19:24
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array (
 	'description' => 'Data and API for countries, languages and currencies.',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '6.0.9',
+	'version' => '6.0.10',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
