@@ -22,6 +22,7 @@ config.tx_extbase {
 						cn_tldomain.mapOnProperty = topLevelDomain
 						cn_uno_member.mapOnProperty = unMember
 						cn_zone_flag.mapOnProperty = zoneFlag
+						cn_country_zones.mapOnProperty = countryZones
 						deleted = deleted
 					}
 				}

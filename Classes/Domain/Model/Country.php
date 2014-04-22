@@ -42,6 +42,14 @@ class Country extends AbstractEntity {
 	protected $capitalCity = '';
 
 	/**
+	 * Country zones of this country
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\SJBR\StaticInfoTables\Domain\Model\CountryZone>
+	 * @lazy
+	 */
+	protected $countryZones;
+
+	/**
 	 * Currency code as number (i.e. 978)
 	 * ISO 4217 Nr Currency code
 	 * @var integer
@@ -146,6 +154,7 @@ class Country extends AbstractEntity {
 		parent::initializeObject();
 		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Country']['mapping']['tableName'];
 		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Country']['mapping']['columns'];
+		$this->countryZones = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage');
 	}
 
 	/**
@@ -527,6 +536,26 @@ class Country extends AbstractEntity {
 	 */
 	public function getZoneFlag() {
 		return $this->zoneFlag;
+	}
+
+	/**
+	 * Sets the country zones
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\SJBR\StaticInfoTables\Domain\Model\CountryZone> $countryZones
+	 *
+	 * @return void
+	 */
+	public function setCountryZones($countryZones) {
+		$this->countryZones = $countryZones;
+	}
+
+	/**
+	 * Gets the country zones
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\SJBR\StaticInfoTables\Domain\Model\CountryZone> $countryZones
+	 */
+	public function getCountryZones() {
+		return $this->countryZones;
 	}
 }
 ?>
