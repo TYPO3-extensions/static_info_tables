@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = array (
 	'modify_tables' => '',
 	'clearcacheonload' => 0,
 	'lockType' => '',
-	'author' => 'Stanislas Rolland/Rene Fritz',
+	'author' => 'Stanislas Rolland/René Fritz',
 	'author_email' => 'typo3@sjbr.ca',
 	'author_company' => 'SJBR',
 	'CGLcompliance' => NULL,
@@ -41,6 +41,7 @@ $EM_CONF[$_EXTKEY] = array (
 		array (
 			'sr_static_info' => '0.0.0-99.99.99',
 			'cc_infotablesmgm' => '0.0.0-99.99.99',
+			'uncache' => '0.0.0-99.99.99',
 		),
 		'suggests' => 
 		array (
