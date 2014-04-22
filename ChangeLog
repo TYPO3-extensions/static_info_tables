@@ -5,6 +5,7 @@
 	* Resolves #56327: Add select viewHelper with values from tables (Thanks to Carsten Biebricher)
 	* Resolves #58100: Incorrect annotation for tableName on AbstractEntity
 	* Resolves #58107: Add countryZones to country domain model
+	* Use select viewHelper in test form
 
 2014-03-26  Stanislas Rolland  <typo3@sjbr.ca>
 

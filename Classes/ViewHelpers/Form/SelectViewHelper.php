@@ -201,6 +201,9 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 		/** @var array $items */
 		if ($this->hasArgument('staticInfoTableSubselect')) {
 			$items = $this->emitGetItemsWithSubselect($repository);
+		} else if ($repository === 'languageRepository') {
+			$items = $this->{$repository}->findAllNonConstructedNonSacred()
+				->toArray();
 		} else {
 			$items = $this->{$repository}->findAll()
 				->toArray();
@@ -249,10 +252,12 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			));
 
 			$this->arguments = $list['arguments'];
-			$items = $list['items'];
+			if ($list['items']) {
+				$items = $list['items']->toArray();
+			}
 		}
 
-		return $items->toArray();
+		return $items;
 	}
 
 	/**
