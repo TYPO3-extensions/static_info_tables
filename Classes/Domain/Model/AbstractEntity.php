@@ -42,7 +42,7 @@ class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Name of the table from persistence mapping of this model
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $tableName;
 

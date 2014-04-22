@@ -1,3 +1,7 @@
+2014-04-22  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #58100: Incorrect annotation for tableName on AbstractEntity
+
 2014-03-26  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Update version to 6.0.10
