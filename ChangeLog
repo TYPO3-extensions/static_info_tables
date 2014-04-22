@@ -2,6 +2,7 @@
 
 	* Resolves #58100: Incorrect annotation for tableName on AbstractEntity
 	* Resolves #58101: Make extension incompatible with extension "uncache"
+	* Resolves #56327: Add select viewHelper with values from tables (Thanks to Carsten Biebricher)
 
 2014-03-26  Stanislas Rolland  <typo3@sjbr.ca>
 
