@@ -129,7 +129,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		$queryResult = array();
 
 		if ($orderDirection !== 'asc' && $orderDirection !== 'desc') {
-			throw new InvalidArgumentException('Order direction must be "asc" or "desc".', 1316607580);
+			throw new \InvalidArgumentException('Order direction must be "asc" or "desc".', 1316607580);
 		}
 
 		if ($propertyName == 'nameLocalized') {
@@ -139,7 +139,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 
 			$object = $this->objectManager->create($this->objectType);
 			if (!array_key_exists($propertyName, $object->_getProperties())) {
-				throw new InvalidArgumentException('The model "' . $this->objectType . '" has no property "' . $propertyName . '" to order by.', 1316607579);
+				throw new \InvalidArgumentException('The model "' . $this->objectType . '" has no property "' . $propertyName . '" to order by.', 1316607579);
 			}
 
 			if ($orderDirection === 'asc') {
