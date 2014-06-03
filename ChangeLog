@@ -1,6 +1,8 @@
 2014-06-03  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #59300: Missing namespace for InvalidArgumentException
+	* Resolves #59301: Missing "searchFields" configuration in ext_tables.php
+	* Add localized fields as searchFields next time language pack is (re-)generated
 
 2014-04-29  Stanislas Rolland  <typo3@sjbr.ca>
 

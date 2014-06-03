@@ -30,6 +30,8 @@ foreach ($tablesAdditionalFields as $table => $additionalFields) {
 		$additionalColumns[$destField]['label'] = 'LLL:EXT:static_info_tables_###LANG_ISO_LOWER###/Resources/Private/Language/locallang_db.xlf:' . $table . '_item.' . $destField;
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, $additionalColumns);
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table, $destField, '', 'after:' . $sourceField);
+		// Add as search field
+		$GLOBALS['TCA'][$table]['ctrl']['searchFields'] .= ',' . $destField;
 	}
 }
 unset($additionalColumns);

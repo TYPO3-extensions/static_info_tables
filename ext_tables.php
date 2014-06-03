@@ -27,6 +27,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 		'title' => $extensionResourcesLanguagePath . 'static_countries.title',
 		'dynamicConfigFile' => $extensionConfigurationTcaPath . 'Country.php',
 		'iconfile' => $extensionResourcesIconsPath . 'icon_static_countries.gif',
+		'searchFields' => 'cn_short_en,cn_official_name_local,cn_official_name_en'
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'cn_iso_2,cn_iso_3,cn_iso_nr,cn_official_name_local,cn_official_name_en,cn_capital,cn_tldomain,cn_currency_iso_3,cn_currency_iso_nr,cn_phone,cn_uno_member,cn_eu_member,cn_address_format,cn_short_en'
@@ -47,6 +48,7 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 		'title' => $extensionResourcesLanguagePath . 'static_country_zones.title',
 		'dynamicConfigFile' => $extensionConfigurationTcaPath . 'CountryZone.php',
 		'iconfile' => $extensionResourcesIconsPath . 'icon_static_countries.gif',
+		'searchFields' => 'zn_name_en,zn_name_local'
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'zn_country_iso_nr,zn_country_iso_3,zn_code,zn_name_local,zn_name_en'
@@ -69,6 +71,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 		'title' => $extensionResourcesLanguagePath . 'static_currencies.title',
 		'dynamicConfigFile' => $extensionConfigurationTcaPath . 'Currency.php',
 		'iconfile' => $extensionResourcesIconsPath . 'icon_static_currencies.gif',
+		'searchFields' => 'cu_name_en'
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'cu_iso_3,cu_iso_nr,cu_name_en,cu_symbol_left,cu_symbol_right,cu_thousands_point,cu_decimal_point,cu_decimal_digits,cu_sub_name_en,cu_sub_divisor,cu_sub_symbol_left,cu_sub_symbol_right'
@@ -91,6 +94,7 @@ $GLOBALS['TCA']['static_languages'] = array(
 		'title' => $extensionResourcesLanguagePath . 'static_languages.title',
 		'dynamicConfigFile' => $extensionConfigurationTcaPath . 'Language.php',
 		'iconfile' => $extensionResourcesIconsPath . 'icon_static_languages.gif',
+		'searchFields' => 'lg_name_en,lg_name_local'
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'lg_name_local,lg_name_en,lg_iso_2,lg_typo3,lg_country_iso_2,lg_collate_locale,lg_sacred,lg_constructed'
@@ -113,6 +117,7 @@ $GLOBALS['TCA']['static_territories'] = array(
 		'title' => $extensionResourcesLanguagePath . 'static_territories.title',
 		'dynamicConfigFile' => $extensionConfigurationTcaPath . 'Territory.php',
 		'iconfile' => $extensionResourcesIconsPath . 'icon_static_territories.gif',
+		'searchFields' => 'tr_name_en'
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'tr_name_en,tr_iso_nr'
