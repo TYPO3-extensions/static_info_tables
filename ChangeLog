@@ -3,6 +3,7 @@
 	* Resolves #59300: Missing namespace for InvalidArgumentException
 	* Resolves #59301: Missing "searchFields" configuration in ext_tables.php
 	* Add localized fields as searchFields next time language pack is (re-)generated
+	* Usage of $GLOBALS['typo3CacheManager'] and $GLOBALS['typo3CacheFactory'] are deprecated since 6.2
 
 2014-04-29  Stanislas Rolland  <typo3@sjbr.ca>
 

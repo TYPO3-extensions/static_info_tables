@@ -1,6 +1,5 @@
 <?php
 namespace SJBR\StaticInfoTables\Cache;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,6 +25,9 @@ use \TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Cached classes autoloader
  *
@@ -81,9 +83,10 @@ class CachedClassLoader {
 			// Lookup the class in the array of static info entities and check its presence in the class cache
 			$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][static::$extensionKey]['entities'];
 			foreach ($entities as $entity) {
-				if ($className == static::$namespace . $entity) {
+				if ($className === static::$namespace . $entity) {
 					$entryIdentifier = 'DomainModel' . $entity;
-					$classCache = $GLOBALS['typo3CacheManager']->getCache(static::$extensionKey);
+					$cacheManager = GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager');
+					$classCache = $cacheManager->getCache(static::$extensionKey);
 					if (!$classCache->has($entryIdentifier)) {
 						// The class cache needs to be rebuilt
 						$classCacheManager = GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
@@ -96,4 +99,3 @@ class CachedClassLoader {
 		}
 	}
 }
-?>

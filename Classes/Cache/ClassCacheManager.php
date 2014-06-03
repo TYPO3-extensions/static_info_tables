@@ -19,6 +19,9 @@ namespace SJBR\StaticInfoTables\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class Cache Manager
  *
@@ -50,14 +53,11 @@ class ClassCacheManager {
 	 * @return void
 	 */
 	protected function initializeCache() {
-		try {
-			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache($this->extensionKey);
-		} catch (\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
-			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create(
-				$this->extensionKey,
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey]['frontend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey]['backend']
-			);
+		$cacheManager = GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager');
+		if ($cacheManager->hasCache($this->extensionKey)) {
+			$this->cacheInstance = $cacheManager->getCache($this->extensionKey);
+		} else {
+			$this->cacheInstance = $cacheManager->createCache($this->extensionKey);
 		}
 	}
 
@@ -74,7 +74,7 @@ class ClassCacheManager {
 			$key = 'Domain/Model/' . $entity;
 
 			// Get the file from static_info_tables itself, this needs to be loaded as first
-			$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extensionKey) . 'Classes/' . $key . '.php';
+			$path = ExtensionManagementUtility::extPath($this->extensionKey) . 'Classes/' . $key . '.php';
 			if (!is_file($path)) {
 				throw new Exception('given file "' . $path . '" does not exist');
 			}
@@ -84,7 +84,7 @@ class ClassCacheManager {
 			if (isset($extensibleExtensions[$key]) && is_array($extensibleExtensions[$key]) && count($extensibleExtensions[$key]) > 0) {
 				$extensionsWithThisClass = array_keys($extensibleExtensions[$key]);
 				foreach ($extensionsWithThisClass as $extension) {
-					$path = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extension) . 'Classes/' . $key . '.php';
+					$path = ExtensionManagementUtility::extPath($extension) . 'Classes/' . $key . '.php';
 					if (is_file($path)) {
 						$code .= $this->parseSingleFile($path);
 					}
@@ -110,15 +110,15 @@ class ClassCacheManager {
 	 * @return array
 	 */
 	protected function getExtensibleExtensions() {
-		$loadedExtensions = array_unique(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getLoadedExtensionListArray());
+		$loadedExtensions = array_unique(ExtensionManagementUtility::getLoadedExtensionListArray());
 
 		// Get the extensions which want to extend static_info_tables
 		$extensibleExtensions = array();
 		foreach ($loadedExtensions as $extensionKey) {
-			$extensionInfoFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . 'Configuration/DomainModelExtension/StaticInfoTables.txt';
+			$extensionInfoFile = ExtensionManagementUtility::extPath($extensionKey) . 'Configuration/DomainModelExtension/StaticInfoTables.txt';
 			if (file_exists($extensionInfoFile)) {
-				$info = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extensionInfoFile);
-				$classes = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $info, TRUE);
+				$info = GeneralUtility::getUrl($extensionInfoFile);
+				$classes = GeneralUtility::trimExplode(LF, $info, TRUE);
 				foreach ($classes as $class) {
 					$extensibleExtensions[$class][$extensionKey] = 1;
 				}
@@ -142,7 +142,7 @@ class ClassCacheManager {
 		if (!is_file($filePath)) {
 			throw new InvalidArgumentException(sprintf('File "%s" could not be found', $filePath));
 		}
-		$code = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($filePath);
+		$code = GeneralUtility::getUrl($filePath);
 		return $this->changeCode($code, $filePath, $removeClassDefinition);
 	}
 
@@ -216,7 +216,7 @@ class ClassCacheManager {
 			empty($parameters)
 			|| (
 				!empty($parameters['cacheCmd'])
-				&& \TYPO3\CMS\Core\Utility\GeneralUtility::inList('all,temp_cached', $parameters['cacheCmd'])
+				&& GeneralUtility::inList('all,temp_cached', $parameters['cacheCmd'])
 				&& isset($GLOBALS['BE_USER'])
 			)
 		);
@@ -226,4 +226,3 @@ class ClassCacheManager {
 		}
 	}
 }
-?>
