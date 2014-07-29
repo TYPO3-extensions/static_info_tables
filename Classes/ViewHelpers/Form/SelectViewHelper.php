@@ -220,8 +220,10 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			'arguments' => $this->arguments,
 			'items'     => $items
 		));
-		$this->arguments = $list['arguments'];
-		$items = $list['items'];
+		if ($list !== NULL) {
+			$this->arguments = $list['arguments'];
+			$items = $list['items'];
+		}
 
 		return $items;
 	}
