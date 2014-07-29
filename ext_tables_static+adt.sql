@@ -1166,7 +1166,7 @@ INSERT INTO static_currencies VALUES ('171', '0', '0', 'AFN', '971', 'Afghan afg
 INSERT INTO static_currencies VALUES ('172', '0', '0', 'RSD', '941', 'Serbian dinar', '', '', '.', ',', '2', 'para', '100', '', '');
 INSERT INTO static_currencies VALUES ('173', '0', '0', 'MGA', '969', 'Malagasy ariary', '', '', '.', ',', '1', 'iraimbilanja', '5', '', '');
 INSERT INTO static_currencies VALUES ('174', '0', '0', 'SRD', '968', 'Suriname dollar', '$', '', '.', ',', '2', 'cent', '100', '', '');
-INSERT INTO static_currencies VALUES ('175', '0', '0', 'TRY', '949', 'Turkish new lira', 'YTL', '', '.', ',', '2', 'new kuruş', '100', '', '');
+INSERT INTO static_currencies VALUES ('175', '0', '0', 'TRY', '949', 'Turkish lira', '₺', '', '.', ',', '2', 'kuruş', '100', '', '');
 INSERT INTO static_currencies VALUES ('176', '0', '0', 'SSP', '728', 'South Sudanese pound', '£', '', '.', ',', '2', 'piastre', '100', '', '');
 INSERT INTO static_currencies VALUES ('177', '0', '0', 'GHS', '936', 'Ghanaian cedi', 'GH₵', '', '.', ',', '2', 'pesewa', '100', '', 'Gp');
 INSERT INTO static_currencies VALUES ('178', '0', '0', 'MZN', '943', 'Mozambican metical', 'MT', '', '.', ',', '2', 'centavo', '100', '', '');
