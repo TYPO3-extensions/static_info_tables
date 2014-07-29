@@ -1,6 +1,7 @@
 2014-07-29  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #60666: Outdated data for Turkish lira
+	* Resolves #59459: SelectViewHelper: DefaultOptionValue and Label with no effect (Thanks to Thomas Löffler)
 
 2014-06-03  Stanislas Rolland  <typo3@sjbr.ca>
 
