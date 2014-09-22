@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -30,6 +30,9 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
+
+use SJBR\StaticInfoTables\Utility\ModelUtility;
+
 class Currency extends AbstractEntity {
 
 	/**
@@ -117,8 +120,8 @@ class Currency extends AbstractEntity {
 	 */
 	public function initializeObject() {
 		parent::initializeObject();
-		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Currency']['mapping']['tableName'];
-		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\Currency']['mapping']['columns'];
+		$this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_TABLENAME);
+		$this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_COLUMNS);
 	}
 
 	/**
@@ -380,4 +383,3 @@ class Currency extends AbstractEntity {
 		return $this->thousandsPoint;
 	}
 }
-?>

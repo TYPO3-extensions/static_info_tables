@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -30,6 +30,9 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
+
+use SJBR\StaticInfoTables\Utility\ModelUtility;
+
 class CountryZone extends AbstractEntity {
 	/**
 	 * Country code as two digit string (i.e. AT)
@@ -82,8 +85,8 @@ class CountryZone extends AbstractEntity {
 	 */
 	public function initializeObject() {
 		parent::initializeObject();
-		$this->tableName = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone']['mapping']['tableName'];
-		$this->columnsMapping = $this->extbaseConfiguration['persistence']['classes']['SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone']['mapping']['columns'];
+		$this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_TABLENAME);
+		$this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_COLUMNS);
 	}
 
 	/**
@@ -228,4 +231,3 @@ class CountryZone extends AbstractEntity {
 		return $this->nameEn;
 	}
 }
-?>
