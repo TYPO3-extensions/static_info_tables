@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -36,7 +36,7 @@ class TerritoryRepository extends AbstractEntityRepository {
 	protected $isoKeys = array('tr_iso_nr');
 
 	/**
-	 * Finds territories by country
+	 * Finds the territory within which a country is located
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
 	 *
@@ -51,7 +51,7 @@ class TerritoryRepository extends AbstractEntityRepository {
 	}
 
 	/**
-	 * Finds territories within a territory
+	 * Finds territories that have a given territory as parent territory
 	 *
 	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
 	 *
@@ -64,5 +64,38 @@ class TerritoryRepository extends AbstractEntityRepository {
 		);
 		return $query->execute();
 	}
+
+	/**
+	 * Finds all territories within a territory recursively
+	 *
+	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+	 * @param array $unCodeNumbers array of UN territory code numbers used for recursive retrieval of sub-territories
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+	 */
+	public function findWithinTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory, &$unCodeNumbers = array()) {
+		if (empty($unCodeNumbers)) {
+			$unCodeNumbers = array($territory->getUnCodeNumber());
+		}
+		$initialCount = count($unCodeNumbers);
+
+		$query = $this->createQuery();
+		$query->matching(
+			$query->in('parentTerritoryUnCodeNumber', $unCodeNumbers)
+		);
+		$territories = $query->execute();
+
+		// Get UN code numbers of new subterritories
+		foreach ($territories as $subterritory) {
+			$unCodeNumbers[] = $subterritory->getUnCodeNumber();
+		}
+		$unCodeNumbers = array_unique($unCodeNumbers);
+
+		// Call recursively until no additional subterritories are found
+		if (count($unCodeNumbers) > $initialCount) {
+			$territories = $this->findWithinTerritory($territory, $unCodeNumbers);
+		}
+
+		return $territories;
+	}
 }
-?>

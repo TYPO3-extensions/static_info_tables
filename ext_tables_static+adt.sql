@@ -1428,10 +1428,10 @@ INSERT INTO static_territories VALUES ('10', '0', '0', '39', '5', '150', 'Southe
 INSERT INTO static_territories VALUES ('11', '0', '0', '151', '5', '150', 'Eastern Europe');
 INSERT INTO static_territories VALUES ('12', '0', '0', '154', '5', '150', 'Northern Europe');
 INSERT INTO static_territories VALUES ('13', '0', '0', '155', '5', '150', 'Western Europe');
-INSERT INTO static_territories VALUES ('16', '0', '0', '5', '3', '19', 'South America');
-INSERT INTO static_territories VALUES ('17', '0', '0', '13', '3', '19', 'Central America');
+INSERT INTO static_territories VALUES ('16', '0', '0', '5', '31', '419', 'South America');
+INSERT INTO static_territories VALUES ('17', '0', '0', '13', '31', '419', 'Central America');
 INSERT INTO static_territories VALUES ('18', '0', '0', '21', '3', '19', 'Northern America');
-INSERT INTO static_territories VALUES ('19', '0', '0', '29', '3', '19', 'Caribbean');
+INSERT INTO static_territories VALUES ('19', '0', '0', '29', '31', '419', 'Caribbean');
 INSERT INTO static_territories VALUES ('20', '0', '0', '11', '1', '2', 'Western Africa');
 INSERT INTO static_territories VALUES ('21', '0', '0', '14', '1', '2', 'Eastern Africa');
 INSERT INTO static_territories VALUES ('22', '0', '0', '15', '1', '2', 'Northern Africa');
@@ -1442,5 +1442,5 @@ INSERT INTO static_territories VALUES ('26', '0', '0', '54', '2', '9', 'Melanesi
 INSERT INTO static_territories VALUES ('27', '0', '0', '57', '2', '9', 'Micronesian Region');
 INSERT INTO static_territories VALUES ('28', '0', '0', '61', '2', '9', 'Polynesia');
 INSERT INTO static_territories VALUES ('30', '0', '0', '34', '4', '142', 'Southern Asia');
-
+INSERT INTO static_territories VALUES ('31', '0', '0', '419', '3', '19', 'Latin America and the Caribbean');
 

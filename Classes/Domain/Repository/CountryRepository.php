@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 *  Copyright notice
 *
 *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -60,8 +60,8 @@ class CountryRepository extends AbstractEntityRepository {
 	 */
 	public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
 		$unCodeNumbers = array($territory->getUnCodeNumber());
-		// Get UN code numbers of subterritories
-		$subterritories = $this->territoryRepository->findByTerritory($territory);
+		// Get UN code numbers of subterritories (recursively)
+		$subterritories = $this->territoryRepository->findWithinTerritory($territory);
 		foreach ($subterritories as $subterritory) {
 			$unCodeNumbers[] = $subterritory->getUnCodeNumber();
 		}
@@ -84,4 +84,3 @@ class CountryRepository extends AbstractEntityRepository {
 		return $this->localizedSort($entities);
 	}
 }
-?>
