@@ -1,6 +1,7 @@
 2014-09-22  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #59586: Add Subterritory "419 Latin America and the Caribbean"
+	* Resolves #61769: Polish zones should be written beginning from lower letter
 
 2014-07-29  Stanislas Rolland  <typo3@sjbr.ca>
 
