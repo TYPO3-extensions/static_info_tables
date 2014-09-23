@@ -1,8 +1,5 @@
 <?php
 namespace SJBR\StaticInfoTables\Hook\Backend\Form;
-use SJBR\StaticInfoTables\Utility\TcaUtility;
-use SJBR\StaticInfoTables\Utility\LocalizationUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 /***************************************************************
 *  Copyright notice
 *
@@ -29,6 +26,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Custom rendering of some backend forms elements
  *
  */
+
+use SJBR\StaticInfoTables\Utility\ModelUtility;
+use SJBR\StaticInfoTables\Utility\TcaUtility;
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class ElementRenderingHelper {
 	/**
 	 * Translate selected items before rendering
@@ -46,7 +49,7 @@ class ElementRenderingHelper {
 		}
 	}
 
-	/*
+	/**
 	 * Add ISO codes to the label of entities
 	 */
 	public function addIsoCodeToLabel (&$PA, &$fObj) {
@@ -121,7 +124,7 @@ class ElementRenderingHelper {
 		}
 	}
 
-	/*
+	/**
 	 * Translate and sort the territories selector using the current locale
 	 */
 	public function translateTerritoriesSelector($PA, $fObj) {
@@ -137,20 +140,31 @@ class ElementRenderingHelper {
 				break;
 		}
 		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_territories');
+		$PA['items'] = $this->replaceSelectorIndexField($PA);
 	}
 
-	/*
+	/**
 	 * Translate and sort the countries selector using the current locale
 	 */
 	public function translateCountriesSelector($PA, $fObj) {
 		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_countries');
+		$PA['items'] = $this->replaceSelectorIndexField($PA);
 	}
 
-	/*
+	/**
+	 * Translate and sort the country zones selector using the current locale
+	 */
+	public function translateCountryZonesSelector($PA, $fObj) {
+		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_country_zones');
+		$PA['items'] = $this->replaceSelectorIndexField($PA);
+	}
+
+	/**
 	 * Translate and sort the currencies selector using the current locale
 	 */
 	public function translateCurrenciesSelector($PA, $fObj) {
 		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_currencies');
+		$PA['items'] = $this->replaceSelectorIndexField($PA);
 	}
 
 	/**
@@ -158,6 +172,7 @@ class ElementRenderingHelper {
 	 */
 	public function translateLanguagesSelector($PA, $fObj) {
 		$PA['items'] = $this->translateSelectorItems($PA['items'], 'static_languages');
+		$PA['items'] = $this->replaceSelectorIndexField($PA);
 	}
 
 	/**
@@ -229,5 +244,91 @@ class ElementRenderingHelper {
 	protected function strcollOnLabels($itemA, $itemB) {
 		return strcoll($itemA[0], $itemB[0]);
 	}
+
+	/**
+	 * Replace the selector's uid index with configured indexField
+	 *
+	 * @param array	 $PA: TCA select field parameters array
+	 * @return array The new $items array
+	 */
+	protected function replaceSelectorIndexField($PA) {
+		$items = $PA['items'];
+		$indexFields = GeneralUtility::trimExplode(',', $PA['config']['itemsProcFunc_config']['indexField']);
+		if (!empty($indexFields)) {
+			$rows = array();
+			// Collect items uid's
+			$uids = array();
+			foreach ($items as $key => $item) {
+				if ($items[$key][1]) {
+					$uids[] = $item[1];
+				}
+			}
+			$uidList = implode(',', $uids);
+			if (!empty($uidList)) {
+				/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+				$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+				switch ($PA['config']['foreign_table']) {
+					case 'static_territories':
+						/** @var $territoryRepository SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository */
+						$territoryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\TerritoryRepository');
+						$objects = $territoryRepository->findAllByUidInList($uidList)->toArray();
+						$columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Territory', ModelUtility::MAPPING_COLUMNS);
+						break;
+					case 'static_countries':
+						/** @var $countryRepository SJBR\StaticInfoTables\Domain\Repository\CountryRepository */
+						$countryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryRepository');
+						$objects = $countryRepository->findAllByUidInList($uidList)->toArray();
+						$columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Country', ModelUtility::MAPPING_COLUMNS);
+						break;
+					case 'static_country_zones':
+						/** @var $countryZoneRepository SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository */
+						$countryZoneRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryZoneRepository');
+						$objects = $countryZoneRepository->findAllByUidInList($uidList)->toArray();
+						$columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_COLUMNS);
+						break;					
+					case 'static_languages':
+						/** @var $languageRepository SJBR\StaticInfoTables\Domain\Repository\LanguageRepository */
+						$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+						$objects = $languageRepository->findAllByUidInList($uidList)->toArray();
+						$columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Language', ModelUtility::MAPPING_COLUMNS);
+						break;
+					case 'static_currencies':
+						/** @var $currencyRepository SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository */
+						$currencyRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CurrencyRepository');
+						$objects = $currencyRepository->findAllByUidInList($uidList)->toArray();
+						$columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_COLUMNS);
+						break;
+					default:
+						break;
+				}
+				if (!empty($objects)) {
+					// Map table column to object property
+					$indexProperties = array();
+					foreach ($indexFields as $indexField) {
+						if ($columnsMapping[$indexField]['mapOnProperty']) {
+							$indexProperties[] = $columnsMapping[$indexField]['mapOnProperty'];
+						} else {
+							$indexProperties[] = GeneralUtility::underscoredToUpperCamelCase($indexField);
+						}
+					}
+					// Index rows by uid
+					$uidIndexedRows = array();
+					foreach ($objects as $object) {
+						$uidIndexedObjects[$object->getUid()] = $object;
+					}
+					// Replace the items index field
+					foreach ($items as $key => $item) {
+						if ($items[$key][1]) {
+							$object = $uidIndexedObjects[$items[$key][1]];
+							$items[$key][1] = $object->_getProperty($indexProperties[0]);
+							if ($indexFields[1] && $object->_getProperty($indexProperties[1])) {
+								$items[$key][1] .=  '_' . $object->_getProperty($indexProperties[1]);
+							}
+						}
+					}						
+				}
+			}
+		}
+		return $items;
+	}
 }
-?>

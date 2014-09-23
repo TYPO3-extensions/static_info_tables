@@ -69,6 +69,23 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	}
 
 	/**
+	 * Find all objects with uid in list
+	 *
+	 * @param string $list: list of uid's
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries
+	 */
+	public function findAllByUidInList($list = '') {
+		if (empty($list)) {
+			return array();
+		} else {
+			$query = $this->createQuery();
+			$list = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $list, TRUE);
+			$query->matching($query->in('uid', $list));
+			return $query->execute();
+		}
+	}
+
+	/**
 	 * Find all ordered by the localized name
 	 *
 	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".

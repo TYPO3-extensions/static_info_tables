@@ -4,6 +4,7 @@
 	* Resolves #61769: Polish zones should be written beginning from lower letter
 	* Rename directory Configuration/Tca to Configuration/TCA
 	* Resolves #60725: Reduce used memory of the Domain Models (Thanks to Tim Lochmüller)
+	* Resolves #59896: TCA Selection of countries with different key
 
 2014-07-29  Stanislas Rolland  <typo3@sjbr.ca>
 
