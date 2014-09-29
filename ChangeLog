@@ -1,3 +1,7 @@
+2014-09-29  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Add getters for abstract entity properties tableName and columnsMapping
+
 2014-09-22  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #59586: Add Subterritory "419 Latin America and the Caribbean"

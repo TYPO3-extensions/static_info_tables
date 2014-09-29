@@ -36,14 +36,14 @@ class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 *
 	 * @var string
 	 */
-	protected $tableName;
+	protected $tableName = '';
 
 	/**
 	 * Contains the persistence columns mapping of this model
 	 *
 	 * @var array
 	 */
-	protected $columnsMapping;
+	protected $columnsMapping = array();
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -92,5 +92,23 @@ class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			}
 		}
 		return $this->nameLocalized;
+	}
+
+	/**
+	 * Gets the table name
+	 *
+	 * @return string
+	 */
+	public function getTableName() {
+		return $this->tableName;
+	}
+
+	/**
+	 * Gets the columns mapping
+	 *
+	 * @return string
+	 */
+	public function getColumnsMapping() {
+		return $this->columnsMapping;
 	}
 }
