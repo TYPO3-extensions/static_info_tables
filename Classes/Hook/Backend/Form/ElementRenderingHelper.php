@@ -253,7 +253,7 @@ class ElementRenderingHelper {
 	 */
 	protected function replaceSelectorIndexField($PA) {
 		$items = $PA['items'];
-		$indexFields = GeneralUtility::trimExplode(',', $PA['config']['itemsProcFunc_config']['indexField']);
+		$indexFields = GeneralUtility::trimExplode(',', $PA['config']['itemsProcFunc_config']['indexField'], TRUE);
 		if (!empty($indexFields)) {
 			$rows = array();
 			// Collect items uid's

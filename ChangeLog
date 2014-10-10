@@ -1,3 +1,7 @@
+2014-10-10  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #62153: Open country or territory for editing in backend leads to fatal error (Thanks to Daniel Minder)
+
 2014-10-08  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Update version to 6.1.1
