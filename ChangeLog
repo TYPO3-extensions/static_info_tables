@@ -1,6 +1,7 @@
 2014-10-16  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Remove file Resources/Private/Language/pl.locallang_db.xlf
+	* Update version to 6.1.2
 
 2014-10-10  Stanislas Rolland  <typo3@sjbr.ca>
 
