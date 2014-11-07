@@ -154,7 +154,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		} else {
 			$query = $this->createQuery();
 
-			$object = $this->objectManager->create($this->objectType);
+			$object = $this->objectManager->get($this->objectType);
 			if (!array_key_exists($propertyName, $object->_getProperties())) {
 				throw new \InvalidArgumentException('The model "' . $this->objectType . '" has no property "' . $propertyName . '" to order by.', 1316607579);
 			}

@@ -1,3 +1,8 @@
+2014-11-07  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Require TYPO3 CMS 6.2.0
+	* Resolves #62770: Replace deprecated calls to ObjectManager ->create() with ->get()
+
 2014-10-16  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Remove file Resources/Private/Language/pl.locallang_db.xlf

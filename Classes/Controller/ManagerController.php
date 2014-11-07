@@ -171,7 +171,7 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 */
 	public function newLanguagePackAction(\SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack = NULL) {
 		if (!is_object($languagePack)) {
-			$languagePack = $this->objectManager->create('SJBR\\StaticInfoTables\\Domain\\Model\\LanguagePack');
+			$languagePack = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\LanguagePack');
 		}
 		$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
 		$languagePack->setAuthor($GLOBALS['BE_USER']->user['realName']);
@@ -297,7 +297,7 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		foreach ($languages as $locale => $language) {
 			// No language pack for English
 			if ($locale != 'default') {
-				$languageObject = $this->objectManager->create('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
+				$languageObject = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
 				$languageObject->setCollatingLocale($locale);
 				$localizedLanguage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('lang_' . $locale, 'Lang');
 				$label = ($localizedLanguage ? $localizedLanguage : $language) . ' (' . $locale . ')';

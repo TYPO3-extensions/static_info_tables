@@ -59,7 +59,7 @@ class LocaleUtility {
 		foreach ($languages as $locale => $language) {
 			// No language pack for English
 			if ($locale != 'default') {
-				$languageObject = $this->objectManager->create('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
+				$languageObject = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
 				$languageObject->setCollatingLocale($locale);
 				$localizedLanguage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('lang_' . $locale, $this->extensionName);
 				$label = ($localizedLanguage ? $localizedLanguage : $language) . ' (' . $locale . ')';
