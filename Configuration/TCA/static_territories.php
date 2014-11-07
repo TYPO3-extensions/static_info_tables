@@ -1,23 +1,34 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-$extensionResourcesLanguagePath = 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:';
-$GLOBALS['TCA']['static_territories'] = array(
-	'ctrl' => $GLOBALS['TCA']['static_territories']['ctrl'],
+// UN Territory reference data 
+return array(
+	'ctrl' => array(
+		'label' => 'tr_name_en',
+		'label_alt' => 'tr_iso_nr',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'adminOnly' => 1,
+		'rootLevel' => 1,
+		'is_static' => 1,
+		'readOnly' => 1,
+		'default_sortby' => 'ORDER BY tr_name_en',
+		'delete' => 'deleted',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories.title',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_territories.gif',
+		'searchFields' => 'tr_name_en'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'tr_iso_nr,tr_parent_iso_nr,tr_name_en'
 	),
 	'columns' => array(
 		'deleted' => array(
 			'readonly' => 1,
-			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:deleted',
 			'config' => array(
 				'type' => 'check'
 			)
 		),
 		'tr_iso_nr' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_territories_item.tr_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -29,7 +40,7 @@ $GLOBALS['TCA']['static_territories'] = array(
 		),
 		'tr_parent_territory_uid' => array(
 			'exclude' => 0,
-			'label' => $extensionResourcesLanguagePath . 'static_territories_item.tr_parent_territory_uid',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_territory_uid',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
@@ -72,5 +83,3 @@ $GLOBALS['TCA']['static_territories'] = array(
 		)
 	)
 );
-unset($extensionResourcesLanguagePath);
-?>

@@ -75,6 +75,9 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		if (!is_dir($languagePackExtensionPath . 'Configuration/DomainModelExtension/')) {
 			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/DomainModelExtension/');
 		}
+		if (!is_dir($languagePackExtensionPath . 'Configuration/TCA/Overrides/')) {
+			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TCA/Overrides/');
+		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
 			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TypoScript/Extbase/');
 		}

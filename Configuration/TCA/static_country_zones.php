@@ -1,17 +1,26 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-$extensionResourcesLanguagePath = 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:';
-$GLOBALS['TCA']['static_country_zones'] = array(
-	'ctrl' => $GLOBALS['TCA']['static_country_zones']['ctrl'],
+// Country subdivision reference data from ISO 3166-2
+return array(
+	'ctrl' => array(
+		'label' => 'zn_name_local',
+		'label_alt' => 'zn_name_local,zn_code',
+		'adminOnly' => 1,
+		'rootLevel' => 1,
+		'is_static' => 1,
+		'readOnly' => 1,
+		'default_sortby' => 'ORDER BY zn_name_local',
+		'delete' => 'deleted',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones.title',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_countries.gif',
+		'searchFields' => 'zn_name_en,zn_name_local'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'zn_country_iso_nr,zn_country_iso_2,zn_country_iso_3,zn_code,zn_name_local,zn_name_en'
 	),
 	'columns' => array(
 		'deleted' => array(
 			'readonly' => 1,
-			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:deleted',
 			'config' => array(
 				'type' => 'check'
 			)
@@ -42,7 +51,7 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 			)
 		),
 		'zn_code' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_country_zones_item.zn_code',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_code',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -66,7 +75,7 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 			)
 		),
 		'zn_name_en' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_country_zones_item.zn_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones_item.zn_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -89,5 +98,3 @@ $GLOBALS['TCA']['static_country_zones'] = array(
 		)
 	)
 );
-unset($extensionResourcesLanguagePath);
-?>

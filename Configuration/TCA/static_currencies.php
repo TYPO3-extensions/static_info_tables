@@ -1,23 +1,34 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-$extensionResourcesLanguagePath = 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:';
-$GLOBALS['TCA']['static_currencies'] = array(
-	'ctrl' => $GLOBALS['TCA']['static_currencies']['ctrl'],
+// Currency reference data from ISO 4217
+return array(
+	'ctrl' => array(
+		'label' => 'cu_name_en',
+		'label_alt' => 'cu_iso_3',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'adminOnly' => 1,
+		'rootLevel' => 1,
+		'is_static' => 1,
+		'readOnly' => 1,
+		'default_sortby' => 'ORDER BY cu_name_en',
+		'delete' => 'deleted',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_currencies.gif',
+		'searchFields' => 'cu_name_en'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'cu_iso_3,cu_iso_nr,cu_name_en,cu_symbol_left,cu_symbol_right,cu_thousands_point,cu_decimal_point,cu_decimal_digits,cu_sub_name_en,cu_sub_divisor,cu_sub_symbol_left,cu_sub_symbol_right'
 	),
 	'columns' => array(
 		'deleted' => array(
 			'readonly' => 1,
-			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:deleted',
 			'config' => array(
 				'type' => 'check'
 			)
 		),
 		'cu_iso_3' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -28,7 +39,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_iso_nr' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -39,7 +50,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_name_en' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -51,7 +62,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_sub_name_en' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_sub_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -63,7 +74,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_symbol_left' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_symbol_left',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_symbol_left',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -75,7 +86,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_symbol_right' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_symbol_right',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_symbol_right',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -87,7 +98,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_thousands_point' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_thousands_point',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_thousands_point',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -98,7 +109,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_decimal_point' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_decimal_point',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_decimal_point',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -109,7 +120,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_decimal_digits' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_decimal_digits',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_decimal_digits',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -120,7 +131,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_sub_divisor' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_sub_divisor',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_divisor',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -131,7 +142,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_sub_symbol_left' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_sub_symbol_left',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_symbol_left',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -143,7 +154,7 @@ $GLOBALS['TCA']['static_currencies'] = array(
 			)
 		),
 		'cu_sub_symbol_right' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_currencies_item.cu_sub_symbol_right',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies_item.cu_sub_symbol_right',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -172,5 +183,3 @@ $GLOBALS['TCA']['static_currencies'] = array(
 		)
 	)
 );
-unset($extensionResourcesLanguagePath);
-?>

@@ -1,23 +1,34 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
-}
-$extensionResourcesLanguagePath = 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:';
-$GLOBALS['TCA']['static_countries'] = array(
-	'ctrl' => $GLOBALS['TCA']['static_countries']['ctrl'],
+// Country reference data from ISO 3166-1
+return array(
+	'ctrl' => array(
+		'label' => 'cn_short_en',
+		'label_alt' => 'cn_iso_2',
+		'label_alt_force' => 1,
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'adminOnly' => 1,
+		'rootLevel' => 1,
+		'is_static' => 1,
+		'readOnly' => 1,
+		'default_sortby' => 'ORDER BY cn_short_en',
+		'delete' => 'deleted',
+		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries.title',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_countries.gif',
+		'searchFields' => 'cn_short_en,cn_official_name_local,cn_official_name_en'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'cn_iso_2,cn_iso_3,cn_iso_nr,cn_official_name_local,cn_official_name_en,cn_capital,cn_tldomain,cn_currency_iso_3,cn_currency_iso_nr,cn_phone,cn_uno_member,cn_eu_member,cn_address_format,cn_short_en'
 	),
 	'columns' => array(
 		'deleted' => array(
 			'readonly' => 1,
-			'label' => $extensionResourcesLanguagePath . 'deleted',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:deleted',
 			'config' => array(
 				'type' => 'check'
 			)
 		),
 		'cn_iso_2' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_iso_2',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_2',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -28,7 +39,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_iso_3' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_iso_3',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_3',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -39,7 +50,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_iso_nr' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_iso_nr',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_iso_nr',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -51,7 +62,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 		),
 		'cn_parent_territory_uid' => array(
 			'exclude' => 0,
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_parent_territory_uid',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_parent_territory_uid',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
@@ -71,7 +82,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_official_name_local' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_official_name_local',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_official_name_local',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -83,7 +94,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_official_name_en' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_official_name_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_official_name_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -95,7 +106,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_capital' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_capital',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_capital',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -107,7 +118,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_tldomain' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_tldomain',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_tldomain',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -119,7 +130,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 		),
 		'cn_currency_uid' => array(
 			'exclude' => 0,
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_currency_uid',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_uid',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
@@ -152,7 +163,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_phone' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_phone',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_phone',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -163,7 +174,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_eu_member' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_eu_member',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_eu_member',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -171,7 +182,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_uno_member' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_uno_member',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_uno_member',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -179,27 +190,27 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_address_format' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_address_format',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
 					array('','0'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_1','1'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_2','2'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_3','3'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_4','4'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_5','5'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_6','6'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_7','7'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_8','8'),
-					array($extensionResourcesLanguagePath . 'static_countries_item.cn_address_format_9','9'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_1','1'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_2','2'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_3','3'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_4','4'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_5','5'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_6','6'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_7','7'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_8','8'),
+					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_9','9'),
 					),
 				'default' => '0'
 			)
 		),
 		'cn_zone_flag' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_zone_flag',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_zone_flag',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'check',
@@ -207,7 +218,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_short_local' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_short_local',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_short_local',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -219,7 +230,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_short_en' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_short_en',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_short_en',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'input',
@@ -231,7 +242,7 @@ $GLOBALS['TCA']['static_countries'] = array(
 			)
 		),
 		'cn_country_zones' => array(
-			'label' => $extensionResourcesLanguagePath . 'static_countries_item.cn_country_zones',
+			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_country_zones',
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'inline',
@@ -273,5 +284,3 @@ $GLOBALS['TCA']['static_countries'] = array(
 		),		
 	)
 );
-unset($extensionResourcesLanguagePath);
-?>
