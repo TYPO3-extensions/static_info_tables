@@ -3,7 +3,7 @@ namespace SJBR\StaticInfoTables\Utility;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2013 StanislasRolland <typo3@sjbr.ca>
+*  (c) 2013-2014 StanislasRolland <typo3@sjbr.ca>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -28,24 +28,6 @@ namespace SJBR\StaticInfoTables\Utility;
 class TcaUtility {
 
 	/**
-	 * Load the configuration of a table and additional configuration by language packs
-	 *
-	 * @param string $tableName: the name of the table
-	 * @return	void
-	 */
-	static public function loadTca ($tableName) {
-		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA($tableName);
-		// Get all extending TCA's
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['extendingTCA'])) {
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['extendingTCA'] as $extensionKey) {
-				if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded($extensionKey)) {
-					include(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey) . 'ext_tables.php');
-				}
-			}
-		}
-	}
-
-	/**
 	 * Get the enable fields clause based on the table configuration
 	 *
 	 * @param string $tableName: the name of the table
@@ -59,4 +41,3 @@ class TcaUtility {
 		}
 	}
 }
-?>
