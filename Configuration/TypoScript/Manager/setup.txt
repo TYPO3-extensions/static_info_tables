@@ -8,6 +8,3 @@ module.tx_staticinfotables {
 		layoutRootPath = EXT:static_info_tables/Resources/Private/Layouts/
 	}
 }
-[compatVersion = 6.2.0]
-module.tx_staticinfotables.view.layoutRootPath = EXT:static_info_tables/Resources/Private/Layouts/v6.2/
-[GLOBAL]
