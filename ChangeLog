@@ -1,6 +1,7 @@
 2015-02-10  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Escape some backslashes in class names
+	* Resolves #61296: Error when installing on 7.1
 
 2014-12-09  Stanislas Rolland  <typo3@sjbr.ca>
 

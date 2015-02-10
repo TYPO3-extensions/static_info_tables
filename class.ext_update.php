@@ -5,7 +5,7 @@ use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2013-2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -39,7 +39,7 @@ class ext_update {
 	protected $objectManager;
 	
 	/**
-	 * @var TYPO3\CMS\ExtensionManager\Utility\InstallUtility Extbase Install Tool
+	 * @var TYPO3\CMS\Extensionmanager\Utility\InstallUtility Extbase Install Tool
 	 */
 	protected $installTool;
 
@@ -52,7 +52,7 @@ class ext_update {
 		$content = '';
 
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->installTool = $this->objectManager->get('TYPO3\\CMS\\ExtensionManager\\Utility\\InstallUtility');
+		$this->installTool = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility');
 		$databaseUpdateUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
 		
 		// Clear the class cache
