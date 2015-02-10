@@ -1,7 +1,7 @@
 2015-02-10  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Escape some backslashes in class names
-	* Resolves #61296: Error when installing on 7.1
+	* Resolves #64945: Error when installing on 7.1
 	* Enable in TYPO3 CMS 7.1
 
 2014-12-09  Stanislas Rolland  <typo3@sjbr.ca>
@@ -113,7 +113,7 @@
 
 	* Resolves #55476: Deprecated CSS inclusion
 	* Resolves #55744: Class TYPO3\CMS\Install\Sql\SchemaMigrator was renamed
-	
+
 2014-01-20  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #55183: Deprecation message - remove parameter
