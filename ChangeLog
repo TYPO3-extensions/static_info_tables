@@ -2,6 +2,7 @@
 
 	* Escape some backslashes in class names
 	* Resolves #61296: Error when installing on 7.1
+	* Enable in TYPO3 CMS 7.1
 
 2014-12-09  Stanislas Rolland  <typo3@sjbr.ca>
 
