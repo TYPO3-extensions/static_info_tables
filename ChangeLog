@@ -1,3 +1,7 @@
+2015-02-10  Oliver Klee <typo3-coding@oliverklee.de>
+
+	* Resolves #64135: Block any write access to the static models
+
 2015-02-10  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Escape some backslashes in class names

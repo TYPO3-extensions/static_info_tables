@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -25,8 +26,14 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+
 /**
  * Abstract Repository for static entities
+ *
+ * @author Armin Rüdiger Vieweg <info@professorweb.de>
+ * @author Stanislas Rolland <typo3(arobas)sjbr.ca>
+ * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
 abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
@@ -41,6 +48,11 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	protected $dataMapper;
 
 	/**
+	 * @var array ISO keys for this static table
+	 */
+	protected $isoKeys = array();
+
+	/**
 	 * Injects the DataMapper to map nodes to objects
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper
@@ -51,10 +63,17 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	}
 
 	/**
-	 * @var array ISO keys for this static table
+	 * Initializes the repository.
+	 *
+	 * @return void
 	 */
-	protected $isoKeys = array();
-	
+	public function initializeObject() {
+		/** @var \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
+		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+		$querySettings->setRespectStoragePage(FALSE);
+		$this->setDefaultQuerySettings($querySettings);
+	}
+
 	/**
 	 * Find all with deleted included
 	 *
@@ -102,7 +121,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities to be sorted
 	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 * @return array entities ordered by localized name
-	 */	
+	 */
 	public function localizedSort(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities, $orderDirection = 'asc') {
 		$result = $entities->toArray();
 		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
@@ -277,7 +296,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		$dbFieldDefinitions = $installToolSqlParser->getFieldDefinitions_database();
 		$dbFields = array();
 		$dbFields[$tableName] = $dbFieldDefinitions[$tableName];
-		
+
 		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
 		$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
 		$ext_tables = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extensionPath . 'ext_tables.sql');
@@ -294,5 +313,62 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		$databaseUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUtility');
 		return $databaseUtility->dumpStaticTables($dbFields);
 	}
+
+	/**
+	 * Adds an object to this repository.
+	 *
+	 * @param object $object The object to add
+	 *
+	 * @return void
+	 *
+	 * @throws \BadMethodCallException(
+	 */
+	public function add($object) {
+		throw new \BadMethodCallException(
+			'This is a read-only repository in which the add method must not be called.', 1420485488
+		);
+	}
+
+	/**
+	 * Removes an object from this repository.
+	 *
+	 * @param object $object The object to remove
+	 *
+	 * @return void
+	 *
+	 * @throws \BadMethodCallException(
+	 */
+	public function remove($object) {
+		throw new \BadMethodCallException(
+			'This is a read-only repository in which the remove method must not be called.', 1420485646
+		);
+	}
+
+	/**
+	 * Replaces an existing object with the same identifier by the given object.
+	 *
+	 * @param object $modifiedObject The modified object
+	 *
+	 * @return void
+	 *
+	 * @throws \BadMethodCallException(
+	 */
+	public function update($modifiedObject) {
+		throw new \BadMethodCallException(
+			'This is a read-only repository in which the update method must not be called.', 1420485660
+		);
+	}
+
+	/**
+	 * Removes all objects of this repository as if remove() was called for all of them.
+	 *
+	 * @return void
+	 *
+	 * @throws \BadMethodCallException(
+	 */
+	public function removeAll() {
+		throw new \BadMethodCallException(
+			'This is a read-only repository in which the removeAll method must not be called.', 1420485668
+		);
+	}
 }
-?>
