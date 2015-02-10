@@ -85,7 +85,7 @@ class CachedClassLoader {
 			foreach ($entities as $entity) {
 				if ($className === static::$namespace . $entity) {
 					$entryIdentifier = 'DomainModel' . $entity;
-					$cacheManager = GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager');
+					$cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
 					$classCache = $cacheManager->getCache(static::$extensionKey);
 					if (!$classCache->has($entryIdentifier)) {
 						// The class cache needs to be rebuilt
