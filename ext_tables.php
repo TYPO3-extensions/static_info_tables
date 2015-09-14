@@ -10,7 +10,7 @@ if (TYPO3_MODE == 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 	 */
 	if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['enableManager']) {
 		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-			$_EXTKEY,
+			'SJBR.' . $_EXTKEY,
 			// Make module a submodule of 'tools'
 			'tools',
 			// Submodule key
