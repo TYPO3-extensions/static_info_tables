@@ -1,3 +1,7 @@
+2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #67998: Increase maxitems for cn_country_zones in TCA
+
 2015-02-10  Oliver Klee <typo3-coding@oliverklee.de>
 
 	* Resolves #64135: Block any write access to the static models
