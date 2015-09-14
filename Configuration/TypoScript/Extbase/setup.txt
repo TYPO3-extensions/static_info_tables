@@ -23,7 +23,7 @@ config.tx_extbase {
 						cn_uno_member.mapOnProperty = unMember
 						cn_zone_flag.mapOnProperty = zoneFlag
 						cn_country_zones.mapOnProperty = countryZones
-						deleted = deleted
+						deleted.mapOnProperty = deleted
 					}
 				}
 			}
@@ -37,7 +37,7 @@ config.tx_extbase {
 						zn_code.mapOnProperty = isoCode
 						zn_name_local.mapOnProperty = localName
 						zn_name_en.mapOnProperty = nameEn
-						deleted = deleted
+						deleted.mapOnProperty = deleted
 					}
 				}
 			}
@@ -57,7 +57,7 @@ config.tx_extbase {
 						cu_symbol_left.mapOnProperty = symbolLeft
 						cu_symbol_right.mapOnProperty = symbolRight
 						cu_thousands_point.mapOnProperty = thousandsPoint
-						deleted = deleted
+						deleted.mapOnProperty = deleted
 					}
 				}
 			}
@@ -73,7 +73,7 @@ config.tx_extbase {
 						lg_name_en.mapOnProperty = nameEn
 						lg_sacred.mapOnProperty = sacredLanguage
 						lg_typo3.mapOnProperty = typo3Code
-						deleted = deleted
+						deleted.mapOnProperty = deleted
 					}
 				}
 			}
@@ -84,7 +84,7 @@ config.tx_extbase {
 						tr_iso_nr.mapOnProperty = unCodeNumber
 						tr_name_en.mapOnProperty = nameEn
 						tr_parent_iso_nr.mapOnProperty = parentTerritoryUnCodeNumber
-						deleted = deleted
+						deleted.mapOnProperty = deleted
 					}
 				}
 			}
