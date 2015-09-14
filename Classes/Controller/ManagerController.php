@@ -1,13 +1,9 @@
 <?php
 namespace SJBR\StaticInfoTables\Controller;
-use \SJBR\StaticInfoTables\Domain\Model\Country;
-use \SJBR\StaticInfoTables\Domain\Model\CountryZone;
-use \SJBR\StaticInfoTables\Domain\Model\Language;
-use \TYPO3\CMS\Core\Utility\VersionNumberUtility;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2014 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2015 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,10 +25,13 @@ use \TYPO3\CMS\Core\Utility\VersionNumberUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use \SJBR\StaticInfoTables\Domain\Model\Country;
+use \SJBR\StaticInfoTables\Domain\Model\CountryZone;
+use \SJBR\StaticInfoTables\Domain\Model\Language;
+
 /**
  * Static Info Tables Manager controller
- *
- * @author Stanislas Rolland <typo3@sjbr.ca>
  */
 class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
@@ -114,26 +113,6 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 */
 	public function injectTerritoryRepository(\SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository) {
 		$this->territoryRepository = $territoryRepository;
-	}
-
-	/**
-	 * Creates a Message object and adds it to the FlashMessageQueue.
-	 *
-	 * @param string $messageBody The message
-	 * @param string $messageTitle Optional message title
-	 * @param integer $severity Optional severity, must be one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
-	 * @param boolean $storeInSession Optional, defines whether the message should be stored in the session (default) or not
-	 * @return void
-	 * @throws \InvalidArgumentException if the message body is no string
-	 * @see \TYPO3\CMS\Core\Messaging\FlashMessage
-	 * @api
-	 */
-	public function addFlashMessage($messageBody, $messageTitle = '', $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK, $storeInSession = TRUE) {
-		if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) >= 6002000) {
-			parent::addFlashMessage($messageBody, $messageTitle, $severity, $storeInSession);
-		} else {
-			$this->flashMessageContainer->add($messageTitle, $messageBody, $severity);
-		}
 	}
 
 	/**
@@ -323,5 +302,3 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	}
 
 }
-class_alias('SJBR\StaticInfoTables\Controller\ManagerController', 'Tx_StaticInfoTables_Controller_ManagerController');
-?>
