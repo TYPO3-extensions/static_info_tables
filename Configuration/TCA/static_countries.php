@@ -250,7 +250,7 @@ return array(
 				'foreign_field' => 'zn_country_uid',
 				'foreign_table_field' => 'zn_country_table',
 				'foreign_default_sortby' => 'zn_name_local',
-				'maxitems' => '100',
+				'maxitems' => '200',
 				'appearance' => array(
 					'expandSingle' => 1,
 					'newRecordLinkAddTitle' => 1
