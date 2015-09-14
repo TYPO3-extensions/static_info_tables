@@ -2,6 +2,7 @@
 
 	* Resolves #67998: Increase maxitems for cn_country_zones in TCA
 	* Resolves #67677: Problems in Typo3 CMS 7.3
+	* Resolves #67161: Incorrect mapping for field 'deleted'
 
 2015-02-10  Oliver Klee <typo3-coding@oliverklee.de>
 
