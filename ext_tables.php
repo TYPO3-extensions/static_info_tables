@@ -1,9 +1,6 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-// Configure extension static template
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Static', 'Static Info Tables');
-
 if (TYPO3_MODE == 'BE' && !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)) {
 	/**
 	 * Registers the Static Info Tables Manager backend module, if enabled
