@@ -54,11 +54,7 @@ class ClassCacheManager {
 	 */
 	protected function initializeCache() {
 		$cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-		if ($cacheManager->hasCache($this->extensionKey)) {
-			$this->cacheInstance = $cacheManager->getCache($this->extensionKey);
-		} else {
-			$this->cacheInstance = $cacheManager->createCache($this->extensionKey);
-		}
+		$this->cacheInstance = $cacheManager->getCache($this->extensionKey);
 	}
 
 	/**
