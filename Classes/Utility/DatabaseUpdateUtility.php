@@ -1,27 +1,31 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2013 StanislasRolland <typo3@sjbr.ca>
-*  All rights reserved
-*
-*  This script is part of the Typo3 project. The Typo3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2013-2015 StanislasRolland <typo3@sjbr.ca>
+ *  All rights reserved
+ *
+ *  This script is part of the Typo3 project. The Typo3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Utility used by the update script of the base extension and of the language packs
  */
@@ -54,9 +58,14 @@ class DatabaseUpdateUtility {
 	 * @return void
 	 */
 	public function doUpdate($extensionKey) {
-		$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
-		$fileContent = explode(LF, \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
-		$sqlParser = $this->objectManager->get('TYPO3\\CMS\\Core\\Database\\SqlParser');
+		$extPath = ExtensionManagementUtility::extPath($extensionKey);
+		$fileContent = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
+		// SQL parser was moved from core to dbal in TYPO3 CMS 7.5
+		if (is_object($GLOBALS['TYPO3_DB']->SQLparser)) {
+			$sqlParser = $GLOBALS['TYPO3_DB']->SQLparser;
+		} else {
+			$sqlParser = $this->objectManager->get(\SJBR\StaticInfoTables\Database\SqlParser::class);
+		}
 		foreach ($fileContent as $line) {
 			$line = trim($line);
 			if ($line && preg_match('#^UPDATE#i', $line)) {
@@ -73,4 +82,3 @@ class DatabaseUpdateUtility {
 		}
 	}
 }
-?>
