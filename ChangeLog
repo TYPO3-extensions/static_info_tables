@@ -10,6 +10,7 @@
 	* Resolves #70241: Remove reference to removed method
 	* Update the manual
 	* Resolves #70240: Follow-up to Remove class tx_staticinfotables_div
+	* Resolves #66011: Fatal error when executing update script
 
 2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
 
