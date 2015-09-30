@@ -5,7 +5,7 @@ return array(
 		'label' => 'cn_short_en',
 		'label_alt' => 'cn_iso_2',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaLabelProcessor->addIsoCodeToLabel',
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY cn_short_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries.title',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_countries.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_countries.gif',
 		'searchFields' => 'cn_short_en,cn_official_name_local,cn_official_name_en'
 	),
 	'interface' => array(
@@ -70,7 +70,8 @@ return array(
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
-				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateTerritoriesSelector',
+				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateTerritoriesSelector',
+				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -138,7 +139,8 @@ return array(
 				),
 				'foreign_table' => 'static_currencies',
 				'foreign_table_where' => 'ORDER BY static_currencies.cu_name_en',
-				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateCurrenciesSelector',
+				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateCurrenciesSelector',
+				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -146,7 +148,7 @@ return array(
 					'suggest' => array(
 						'type' => 'suggest',
 						'default' => array(
-							'receiverClass' => 'SJBR\StaticInfoTables\Hook\Backend\Form\SuggestReceiver'
+							'receiverClass' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\Wizard\\SuggestReceiver'
 						)
 					)
 				)

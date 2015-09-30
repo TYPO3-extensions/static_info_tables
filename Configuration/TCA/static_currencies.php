@@ -5,7 +5,7 @@ return array(
 		'label' => 'cu_name_en',
 		'label_alt' => 'cu_iso_3',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaLabelProcessor->addIsoCodeToLabel',
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY cu_name_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_currencies.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_currencies.gif',
 		'searchFields' => 'cu_name_en'
 	),
 	'interface' => array(
