@@ -133,9 +133,6 @@ class LocalizationUtility {
 	 * @return array field names
 	 */
 	public static function getLabelFields ($tableName, $lang, $local = FALSE) {
-		if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 6001000) {
-			TcaUtility::loadTca($tableName);
-		}
 		$labelFields = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$tableName]['label_fields'])) {
 			$alternativeLanguages = array();
@@ -312,4 +309,3 @@ class LocalizationUtility {
 		}
 	}
 }
-?>
