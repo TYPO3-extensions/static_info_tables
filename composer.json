@@ -1,0 +1,24 @@
+{
+  "name": "sjbr/static_info_tables",
+  "description": "Data and API for countries, languages and currencies.",
+  "version": "6.2.1",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Stanislas Rolland",
+      "role": "Developer"
+    }
+  ],
+  "replace": {
+    "sjbr/static_info_tables": "*"
+  },
+  "require": {
+    "typo3/cms-core": "6.2.0-7.99.99"
+  },
+  "autoload": {
+    "psr-4": {
+      "SJBR\\StaticInfoTables\\": "Classes/"
+    }
+  }
+}
