@@ -5,7 +5,7 @@ return array(
 		'label' => 'tr_name_en',
 		'label_alt' => 'tr_iso_nr',
 		'label_alt_force' => 1,
-		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel',
+		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaLabelProcessor->addIsoCodeToLabel',
 		'adminOnly' => 1,
 		'rootLevel' => 1,
 		'is_static' => 1,
@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY tr_name_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories.title',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/icon_static_territories.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_territories.gif',
 		'searchFields' => 'tr_name_en'
 	),
 	'interface' => array(
@@ -48,7 +48,8 @@ return array(
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
-				'itemsProcFunc' => 'SJBR\StaticInfoTables\Hook\Backend\Form\ElementRenderingHelper->translateTerritoriesSelector',
+				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateTerritoriesSelector',
+				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
