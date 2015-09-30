@@ -4,6 +4,7 @@
 	* Resolves #70225: Add composer.json to extension and language pack template
 	* Resolves #70228: Delete old language files
 	* Resolves #70231: Delete translation files from extension
+	* Resolves #70235: Move static template registration to TCA/Overrides
 
 2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
 
