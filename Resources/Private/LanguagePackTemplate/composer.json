@@ -1,0 +1,20 @@
+{
+  "name": "sjbr/static_info_tables_###LANG_ISO_LOWER###",
+  "description": "###LANG_NAME### (###LANG_ISO_LOWER###) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
+  "version": "###VERSION###",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "###AUTHOR###",
+      "role": "Developer"
+    }
+  ],
+  "replace": {
+    "sjbr/static_info_tables_###LANG_ISO_LOWER###": "*"
+  },
+  "require": {
+    "typo3/cms-core": "###TYPO3_VERSION_RANGE###",
+    "sjbr/static_info_tables": "^###VERSION_BASE###"
+  }
+}

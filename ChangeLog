@@ -1,6 +1,7 @@
 2015-09-30  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #70224: Import SQL parser for Dbal-free parsing with TYPO3 CMS 7.5+
+	* Resolves #70225: Add composer.json to extension and language pack template
 
 2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
 
