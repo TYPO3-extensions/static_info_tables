@@ -6,6 +6,7 @@
 	* Resolves #70231: Delete translation files from extension
 	* Resolves #70235: Move static template registration to TCA/Overrides
 	* Resolves #70239: Adapt to new TCA configuration and backend Form Engine API of TYPO3 CMS 7
+	* Resolves #70240: !!! Remove class tx_staticinfotables_div
 
 2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
 
