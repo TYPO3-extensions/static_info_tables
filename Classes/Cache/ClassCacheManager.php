@@ -3,7 +3,7 @@ namespace SJBR\StaticInfoTables\Cache;
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,14 +19,15 @@ namespace SJBR\StaticInfoTables\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class Cache Manager
  *
  */
-class ClassCacheManager {
+class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Extension key
@@ -34,6 +35,18 @@ class ClassCacheManager {
 	 * @var string
 	 */
 	protected $extensionKey = 'static_info_tables';
+
+	/**
+	 * @var array Cache configurations
+	 */
+	protected $cacheConfiguration = array(
+		'static_info_tables' => array(
+			'frontend' => 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend',
+			'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\FileBackend',
+			'options' => array(),
+			'groups' => array('all')
+		)
+	);
 
 	/**
 	 * @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
@@ -53,7 +66,14 @@ class ClassCacheManager {
 	 * @return void
 	 */
 	protected function initializeCache() {
-		$cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$cacheManager = $objectManager->get('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+		if (!$cacheManager->hasCache($this->extensionKey)) {
+			if (is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey])) {
+					ArrayUtility::mergeRecursiveWithOverrule($this->cacheConfiguration[$this->extensionKey], $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey]);
+			}
+			$cacheManager->setCacheConfigurations($this->cacheConfiguration);
+		}
 		$this->cacheInstance = $cacheManager->getCache($this->extensionKey);
 	}
 
