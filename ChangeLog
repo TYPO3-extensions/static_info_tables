@@ -11,6 +11,7 @@
 	* Update the manual
 	* Resolves #70240: Follow-up to Remove class tx_staticinfotables_div
 	* Resolves #66011: Fatal error when executing update script
+	* Resolves #70224: Follow-up tp Import SQL parser for Dbal-free parsing with TYPO3 CMS 7.5+
 
 2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
 

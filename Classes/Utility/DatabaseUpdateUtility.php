@@ -64,7 +64,7 @@ class DatabaseUpdateUtility {
 		if (is_object($GLOBALS['TYPO3_DB']->SQLparser)) {
 			$sqlParser = $GLOBALS['TYPO3_DB']->SQLparser;
 		} else {
-			$sqlParser = $this->objectManager->get(\SJBR\StaticInfoTables\Database\SqlParser::class);
+			$sqlParser = $this->objectManager->get('SJBR\\StaticInfoTables\\Database\\SqlParser');
 		}
 		foreach ($fileContent as $line) {
 			$line = trim($line);
