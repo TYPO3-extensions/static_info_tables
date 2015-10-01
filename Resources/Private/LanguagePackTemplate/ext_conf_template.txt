@@ -1,3 +1,0 @@
-
-  # cat=basic//10; type=boolean; label= ATTENTION: After installing or upgrading this extension, you should execute the update script.
-dummy = 0

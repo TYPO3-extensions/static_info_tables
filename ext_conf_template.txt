@@ -1,6 +1,3 @@
 
   # cat=enable; type=boolean; label=LLL:EXT:static_info_tables/Resources/Private/Language/locallang.xlf:enableStaticInfoTablesManager
 enableManager = 0
-
-  # cat=enable; type=boolean; label=LLL:EXT:static_info_tables/Resources/Private/Language/locallang.xlf:afterInstall
-dummy = 0

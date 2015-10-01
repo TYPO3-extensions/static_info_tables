@@ -1,3 +1,7 @@
+2015-10-01  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #59834: Always run the extension update script except on first install of base extension
+
 2015-09-30  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #70224: Import SQL parser for Dbal-free parsing with TYPO3 CMS 7.5+
