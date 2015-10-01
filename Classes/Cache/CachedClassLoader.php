@@ -82,14 +82,16 @@ class CachedClassLoader {
 		if (strpos($className, static::$namespace) !== FALSE) {
 			// Lookup the class in the array of static info entities and check its presence in the class cache
 			$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][static::$extensionKey]['entities'];
+			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			$cacheManager = $objectManager->get('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+			// ClassCacheManager instantiation creates the class cache if not already available
+			$classCacheManager = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+			$classCache = $cacheManager->getCache(static::$extensionKey);
 			foreach ($entities as $entity) {
 				if ($className === static::$namespace . $entity) {
 					$entryIdentifier = 'DomainModel' . $entity;
-					$cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-					$classCache = $cacheManager->getCache(static::$extensionKey);
 					if (!$classCache->has($entryIdentifier)) {
 						// The class cache needs to be rebuilt
-						$classCacheManager = GeneralUtility::makeInstance('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
 						$classCacheManager->reBuild();
 					}
 					$classCache->requireOnce($entryIdentifier);
