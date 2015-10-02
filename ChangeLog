@@ -2,6 +2,7 @@
 
 	* Resolves #59834: Always run the extension update script except on first install of base extension
 	* Resolves #59834: Follow-up to Always run the extension update script
+	* Update version to 6.3.0
 
 2015-09-30  Stanislas Rolland  <typo3@sjbr.ca>
 
