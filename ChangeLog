@@ -1,6 +1,7 @@
 2015-10-01  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #59834: Always run the extension update script except on first install of base extension
+	* Resolves #59834: Follow-up to Always run the extension update script
 
 2015-09-30  Stanislas Rolland  <typo3@sjbr.ca>
 
