@@ -1,5 +1,7 @@
 <?php
- /***************************************************************
+namespace SJBR\StaticInfoTables;
+
+/*
  *  Copyright notice
  *
  *  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
@@ -20,7 +22,7 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -29,7 +31,8 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /**
  * Class for updating the db
  */
-class ext_update {
+class ext_update
+{
 	/**
 	 * @var string Name of the extension this controller belongs to
 	 */
@@ -50,7 +53,8 @@ class ext_update {
 	 *
 	 * @return string HTML
 	 */
-	public function main() {
+	public function main()
+	{
 		$content = '';
 
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
@@ -94,7 +98,8 @@ class ext_update {
 	 * @param string $extensionKey
 	 * @return void
 	 */
-	protected function processDatabaseUpdates($extensionKey) {
+	protected function processDatabaseUpdates($extensionKey)
+	{
 		$extensionSitePath = ExtensionManagementUtility::extPath($extensionKey);
 		$extTablesSqlFile = $extensionSitePath . 'ext_tables.sql';
 		$extTablesSqlContent = '';
@@ -112,7 +117,8 @@ class ext_update {
 	 * @param string $extensionSitePath
 	 * @return void
 	 */
-	protected function importStaticSqlFile($extensionSitePath) {
+	protected function importStaticSqlFile($extensionSitePath)
+	{
 		$extTablesStaticSqlFile = $extensionSitePath . 'ext_tables_static+adt.sql';
 		$extTablesStaticSqlContent = '';
 		if (file_exists($extTablesStaticSqlFile)) {
@@ -123,7 +129,8 @@ class ext_update {
 		}
 	}
 
-	public function access() {
-		return TRUE;
+	public function access()
+	{
+		return true;
 	}
 }

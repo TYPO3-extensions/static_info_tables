@@ -1,3 +1,7 @@
+2015-10-09  Stanislas Rolland  <typo3@sjbr.ca>
+
+	* Resolves #70541: Warning: Ambiguous class resolution, because of two ext_update definitions
+
 2015-10-01  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #59834: Always run the extension update script except on first install of base extension
