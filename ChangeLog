@@ -1,6 +1,7 @@
 2015-10-09  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #70541: Warning: Ambiguous class resolution, because of two ext_update definitions
+	* Update version to 6.3.1	
 
 2015-10-01  Stanislas Rolland  <typo3@sjbr.ca>
 
