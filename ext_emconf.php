@@ -1,11 +1,7 @@
 <?php
-/***************************************************************
- * Extension Manager/Repository config file for ext "static_info_tables".
- *
- * Manual updates:
- * Only the data in the array - everything else is removed by next
- * writing. "version" and "dependencies" must not be touched!
- ***************************************************************/
+/**
+ * Extension Manager configuration file for ext "static_info_tables".
+ */
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Static Info Tables',
@@ -13,9 +9,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'category' => 'misc',
 	'version' => '6.3.1',
 	'state' => 'stable',
-	'uploadfolder' => FALSE,
-	'createDirs' => '',
-	'clearcacheonload' => FALSE,
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'clearCacheOnLoad' => 0,
 	'author' => 'Stanislas Rolland/René Fritz',
 	'author_email' => 'typo3@sjbr.ca',
 	'author_company' => 'SJBR',
@@ -29,7 +25,6 @@ $EM_CONF[$_EXTKEY] = array(
 			'cc_infotablesmgm' => '0.0.0-99.99.99',
 			'uncache' => '0.0.0-99.99.99'
 		),
-		'suggests' => array(
-		)
+		'suggests' => array()
 	)
 );
