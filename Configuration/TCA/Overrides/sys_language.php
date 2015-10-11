@@ -8,13 +8,14 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode'] = array(
 	'displayCond' => 'EXT:static_info_tables:LOADED:true',
 	'config' => array(
 		'type' => 'select',
+		'renderType' => 'selectSingle',
+		'noIconsBelowSelect' => 1,
 		'items' => array(
 			array('', 0)
 		),
 		'foreign_table' => 'static_languages',
 		'foreign_table_where' => 'AND static_languages.pid=0 ORDER BY static_languages.lg_name_en',
 		'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateLanguagesSelector',
-		'noIconsBelowSelect' => 1,
 		'size' => 1,
 		'minitems' => 0,
 		'maxitems' => 1,

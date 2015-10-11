@@ -1,5 +1,9 @@
 2015-10-09  Stanislas Rolland  <typo3@sjbr.ca>
 
+	* Resolves #70592: Fix deprecated TCA specification for select fields
+
+2015-10-09  Stanislas Rolland  <typo3@sjbr.ca>
+
 	* Resolves #70541: Warning: Ambiguous class resolution, because of two ext_update definitions
 	* Update version to 6.3.1	
 

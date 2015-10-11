@@ -65,13 +65,14 @@ return array(
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_parent_territory_uid',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'noIconsBelowSelect' => 1,
 				'items' => array(
 					array('', 0),
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
 				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateTerritoriesSelector',
-				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -134,13 +135,14 @@ return array(
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_uid',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'noIconsBelowSelect' => 1,
 				'items' => array(
 					array('', 0),
 				),
 				'foreign_table' => 'static_currencies',
 				'foreign_table_where' => 'ORDER BY static_currencies.cu_name_en',
 				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateCurrenciesSelector',
-				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -196,6 +198,7 @@ return array(
 			'exclude' => '0',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => array(
 					array('','0'),
 					array('LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_address_format_1','1'),

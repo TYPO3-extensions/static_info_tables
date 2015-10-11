@@ -43,13 +43,14 @@ return array(
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories_item.tr_parent_territory_uid',
 			'config' => array(
 				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'noIconsBelowSelect' => 1,
 				'items' => array(
 					array('', 0),
 				),
 				'foreign_table' => 'static_territories',
 				'foreign_table_where' => 'ORDER BY static_territories.tr_name_en',
 				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateTerritoriesSelector',
-				'noIconsBelowSelect' => 1,
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
