@@ -5,7 +5,6 @@ defined('TYPO3_MODE') or die();
 $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode'] = array(
 	'exclude' => 1,
 	'label' => 'LLL:EXT:lang/locallang_tca.xlf:sys_language.isocode',
-	'displayCond' => 'EXT:static_info_tables:LOADED:true',
 	'config' => array(
 		'type' => 'select',
 		'renderType' => 'selectSingle',
