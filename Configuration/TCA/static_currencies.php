@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY cu_name_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_currencies.title',
-		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_currencies.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/static_currencies.svg',
 		'searchFields' => 'cu_name_en'
 	),
 	'interface' => array(

@@ -11,7 +11,7 @@ return array(
 		'default_sortby' => 'ORDER BY zn_name_local',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_country_zones.title',
-		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_countries.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/static_country_zones.svg',
 		'searchFields' => 'zn_name_en,zn_name_local'
 	),
 	'interface' => array(

@@ -1,3 +1,7 @@
+2015-11-02  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #71108: some broken icon paths
+
 2015-10-11  Stanislas Rolland  <typo3@sjbr.ca>
 
 	* Resolves #70592: Fix deprecated TCA specification for select fields

@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY lg_name_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_languages.title',
-		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_languages.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/static_languages.svg',
 		'searchFields' => 'lg_name_en,lg_name_local'
 	),
 	'interface' => array(

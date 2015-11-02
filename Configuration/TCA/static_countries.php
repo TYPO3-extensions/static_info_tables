@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY cn_short_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries.title',
-		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_countries.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/static_countries.svg',
 		'searchFields' => 'cn_short_en,cn_official_name_local,cn_official_name_en'
 	),
 	'interface' => array(

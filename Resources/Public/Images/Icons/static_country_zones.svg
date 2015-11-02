@@ -1,0 +1,11 @@
+<svg
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ version="1.1"
+ wdith="16"
+ height="16">
+ <g>
+    <image x="0" y="0" width="16" height="16"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADjSURBVDhPtY8xCsJAEEV/ArZewMYiWHsMG08hKqkE9QApciC9gnWOkVbwBjp/dnazWSVEwQefTML8txv8lbZtnwwqdPkKKzVNI8Wqk8xQLW6XvMQaOGKDEw7YSeY4Y4uVnhyKvpRmiLqudYm4ZTldXqPysMDDG7hbmEBF9isfJP6jhrBMKgrC6RQxuhewkkv37iTvAt5EdwK9Mp9Led4txM9pXF2GWMBMbYEZJWBiSZ5lYWlQsEcZBLEkE8EYWCYce4KJzI+i0FMI5zR6A6NX5nyV+GsSP6fRtqFFn3hprOAHgBfdA2aUg91FWQAAAABJRU5ErkJggg=="/>
+ </g>
+</svg>

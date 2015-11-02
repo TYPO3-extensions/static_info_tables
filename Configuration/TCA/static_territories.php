@@ -13,7 +13,7 @@ return array(
 		'default_sortby' => 'ORDER BY tr_name_en',
 		'delete' => 'deleted',
 		'title' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_territories.title',
-		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/icon_static_territories.gif',
+		'iconfile' => 'EXT:static_info_tables/Resources/Public/Images/Icons/static_territories.svg',
 		'searchFields' => 'tr_name_en'
 	),
 	'interface' => array(
