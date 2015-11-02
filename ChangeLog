@@ -1,6 +1,8 @@
 2015-11-02  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #71108: some broken icon paths
+	* Resolves #71005: Add static_lang_isocode of RTE acronym table
+	* Update version to 6.3.3
 
 2015-10-11  Stanislas Rolland  <typo3@sjbr.ca>
 
