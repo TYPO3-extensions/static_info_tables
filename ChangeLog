@@ -1,6 +1,8 @@
 2015-11-03  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #71263: Fatal error in tx_rtehtmlarea_acronym with PHP 5.3
+	* Resolves #66194: 500 error in access log
+	* Update version to 6.3.4	
 
 2015-11-02  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
@@ -8,24 +10,24 @@
 	* Resolves #71005: Add static_lang_isocode of RTE acronym table
 	* Update version to 6.3.3
 
-2015-10-11  Stanislas Rolland  <typo3@sjbr.ca>
+2015-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #70592: Fix deprecated TCA specification for select fields
 	* Resolves #70593: Cleanup ext_emconf.php
 	* Update version to 6.3.2
 
-2015-10-09  Stanislas Rolland  <typo3@sjbr.ca>
+2015-10-09  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #70541: Warning: Ambiguous class resolution, because of two ext_update definitions
 	* Update version to 6.3.1	
 
-2015-10-01  Stanislas Rolland  <typo3@sjbr.ca>
+2015-10-01  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #59834: Always run the extension update script except on first install of base extension
 	* Resolves #59834: Follow-up to Always run the extension update script
 	* Update version to 6.3.0
 
-2015-09-30  Stanislas Rolland  <typo3@sjbr.ca>
+2015-09-30  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #70224: Import SQL parser for Dbal-free parsing with TYPO3 CMS 7.5+
 	* Resolves #70225: Add composer.json to extension and language pack template
@@ -41,7 +43,7 @@
 	* Resolves #70224: Follow-up to Import SQL parser for Dbal-free parsing with TYPO3 CMS 7.5+
 	* Resolves #69133: Avoid exception if a class is loaded early
 
-2015-09-14  Stanislas Rolland  <typo3@sjbr.ca>
+2015-09-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #67998: Increase maxitems for cn_country_zones in TCA
 	* Resolves #67677: Problems in Typo3 CMS 7.3
@@ -52,47 +54,47 @@
 
 	* Resolves #64135: Block any write access to the static models
 
-2015-02-10  Stanislas Rolland  <typo3@sjbr.ca>
+2015-02-10  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Escape some backslashes in class names
 	* Resolves #64945: Error when installing on 7.1
 	* Enable in TYPO3 CMS 7.1
 
-2014-12-09  Stanislas Rolland  <typo3@sjbr.ca>
+2014-12-09  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fix for TYPO3 CMS 7.0
 	* Enable in TYPO3 CMS 7.0
 	* Update version to 6.2.1
 
-2014-12-08  Stanislas Rolland  <typo3@sjbr.ca>
+2014-12-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.2.0
 
-2014-11-07  Stanislas Rolland  <typo3@sjbr.ca>
+2014-11-07  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Require TYPO3 CMS 6.2.0
 	* Resolves #62770: Replace deprecated calls to ObjectManager ->create() with ->get()
 	* Resolves #61296: Move TCA configuration from ext_tables.php to Configuration/TCA
 	* Remove method TcaUtility::loadTCA
 
-2014-10-16  Stanislas Rolland  <typo3@sjbr.ca>
+2014-10-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Remove file Resources/Private/Language/pl.locallang_db.xlf
 	* Update version to 6.1.2
 
-2014-10-10  Stanislas Rolland  <typo3@sjbr.ca>
+2014-10-10  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #62153: Open country or territory for editing in backend leads to fatal error (Thanks to Daniel Minder)
 
-2014-10-08  Stanislas Rolland  <typo3@sjbr.ca>
+2014-10-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.1.1
 
-2014-09-29  Stanislas Rolland  <typo3@sjbr.ca>
+2014-09-29  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Add getters for abstract entity properties tableName and columnsMapping
 
-2014-09-22  Stanislas Rolland  <typo3@sjbr.ca>
+2014-09-22  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #59586: Add Subterritory "419 Latin America and the Caribbean"
 	* Resolves #61769: Polish zones should be written beginning from lower letter
@@ -100,28 +102,28 @@
 	* Resolves #60725: Reduce used memory of the Domain Models (Thanks to Tim Lochmüller)
 	* Resolves #59896: TCA Selection of countries with different key
 
-2014-07-29  Stanislas Rolland  <typo3@sjbr.ca>
+2014-07-29  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #60666: Outdated data for Turkish lira
 	* Resolves #59459: SelectViewHelper: DefaultOptionValue and Label with no effect (Thanks to Thomas Löffler)
 	* Resolves #59451: SelectViewHelper returns no items (Thanks to Thomas Löffler)
 
-2014-06-03  Stanislas Rolland  <typo3@sjbr.ca>
+2014-06-03  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #59300: Missing namespace for InvalidArgumentException
 	* Resolves #59301: Missing "searchFields" configuration in ext_tables.php
 	* Add localized fields as searchFields next time language pack is (re-)generated
 	* Usage of $GLOBALS['typo3CacheManager'] and $GLOBALS['typo3CacheFactory'] are deprecated since 6.2
 
-2014-04-29  Stanislas Rolland  <typo3@sjbr.ca>
+2014-04-29  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.1.0
 
-2014-04-23  Stanislas Rolland  <typo3@sjbr.ca>
+2014-04-23  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update the manual
 
-2014-04-22  Stanislas Rolland  <typo3@sjbr.ca>
+2014-04-22  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #58100: Incorrect annotation for tableName on AbstractEntity
 	* Resolves #58101: Make extension incompatible with extension "uncache"
@@ -130,58 +132,58 @@
 	* Resolves #58107: Add countryZones to country domain model
 	* Use select viewHelper in test form
 
-2014-03-26  Stanislas Rolland  <typo3@sjbr.ca>
+2014-03-26  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.0.10
 
-2014-03-17  Stanislas Rolland  <typo3@sjbr.ca>
+2014-03-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #56389: Fatal error: Call to a member function getCollatingLocale() on a non-object in LocalizationUtility.php
 
-2014-03-16  Stanislas Rolland  <typo3@sjbr.ca>
+2014-03-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #56954: getIsoCodeField() is protected but needed from outside
 
-2014-02-27  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-27  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #52431: Localization of nameLocalized not working in preview of attribute
 
-2014-02-21  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-21  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.0.9
 
-2014-02-17  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #56038: Language Pack Generator crashes in TYPO3 6.0
 
-2014-02-15  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #56001: Language packs not re-applied by update script of Static Info Tables
 
-2014-02-13  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-13  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #55952: Wrong phone code for Liechtenstein in static_countries table
 	* Update version to 6.0.8
 
-2014-02-06  Stanislas Rolland  <typo3@sjbr.ca>
+2014-02-06  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #55476: Deprecated CSS inclusion
 	* Resolves #55744: Class TYPO3\CMS\Install\Sql\SchemaMigrator was renamed
 
-2014-01-20  Stanislas Rolland  <typo3@sjbr.ca>
+2014-01-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #55183: Deprecation message - remove parameter
 
-2014-01-18  Stanislas Rolland  <typo3@sjbr.ca>
+2014-01-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Re-create the tables whenever the extension update script in run
 
-2014-01-17  Stanislas Rolland  <typo3@sjbr.ca>
+2014-01-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Follow-up to #54160: List module broken on root page
 	* Follow-up to #54160: Throw exception when current language is not found in Language repository
 
-2014-01-16  Stanislas Rolland  <typo3@sjbr.ca>
+2014-01-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #55081: Fatal error in Static Info Tables Manager module in TYPO3 6.2
 	* Follow-up to #55081: Fatal error in Static Info Tables Manager module in TYPO3 6.2
@@ -191,55 +193,55 @@
 	* Follow-up to #50804: Entities not sorted according to locale collation
 	* Adjust country BE form
 
-2013-12-03  Stanislas Rolland  <typo3@sjbr.ca>
+2013-12-03  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #54160: List module broken on root page
 
-2013-11-27  Stanislas Rolland  <typo3@sjbr.ca>
+2013-11-27  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #54008: CachedClassLoader not loaded in ext_localconf in TYPO3 6.2
 	* Enable in TYPO3 6.2
 	* Update version to 6.0.7
 
-2013-11-26  Stanislas Rolland  <typo3@sjbr.ca>
+2013-11-26  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #52103: PHP Warning in ElementRenderingHelper
 	* Update version to 6.0.6
 	* Resolves #53987: Incorrectly named Brazilian locallang file
 
-2013-11-25  Stanislas Rolland  <typo3@sjbr.ca>
+2013-11-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #52415: Caching issue while using static country repository
 
-2013-11-21  Stanislas Rolland  <typo3@sjbr.ca>
+2013-11-21  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #53840: Could not determine the child object type.
 	* Resolves #51532: cn_currency_iso_3 in some african countries are wrong in table static_countries
 	* Resolves #52572: countryRepository->findByTerritory does not respect territory hierarchy
 
-2013-11-20  Stanislas Rolland  <typo3@sjbr.ca>
+2013-11-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #51754: PHP Warning in ClassCacheManager
 
-2013-08-12  Stanislas Rolland  <typo3@sjbr.ca>
+2013-08-12  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Follow-up to #50804: Entities not sorted according to locale collation
 	* Resolves #50742: Translation handling fails in multi select fields (TCA)
 
-2013-08-07  Stanislas Rolland  <typo3@sjbr.ca>
+2013-08-07  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #50804: Entities not sorted according to locale collation
 
-2013-07-24  Stanislas Rolland  <typo3@sjbr.ca>
+2013-07-24  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.0.5
 
-2013-07-18  Stanislas Rolland  <typo3@sjbr.ca>
+2013-07-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Follow-up to #50050: Use TYPO3 caching framework for extended domain model classes
 	* Resolves #50164: Autoload cached extended domain model classes
 
-2013-07-15  Stanislas Rolland  <typo3@sjbr.ca>
+2013-07-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #50034: Re-introduce tx_staticinfotables_div::getTitleFromIsoCode as deprecated method
 	* Resolves #50036: Clarify message from ext_update script
@@ -247,47 +249,47 @@
 	* Resolves #50050: Use TYPO3 caching framework for extended domain model classes
 	* Resolves #49590: Montenegrin language is missing in the static_info_tables
 
-2013-07-02  Stanislas Rolland  <typo3@sjbr.ca>
+2013-07-02  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #49397: No method name 'selectItemsTCA' in class tx_staticinfotables_div
 	* Follow-up to #49397: Correction to the manual
 	* Cleanup unescaped backslashes
 	* Correction to the manual
 
-2013-06-26  Stanislas Rolland  <typo3@sjbr.ca>
+2013-06-26  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #49462: Class tx_staticinfotables_pi1 not always available
 	* Resolves #49463: Make extension version available to other extensions
 
-2013-06-17  Stanislas Rolland  <typo3@sjbr.ca>
+2013-06-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.0.4
 
-2013-06-14  Stanislas Rolland  <typo3@sjbr.ca>
+2013-06-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #49124: Automated PHP Syntax check on LanguagePackTemplates fails
 	* Resolves #49142: Add a method to Language Repository
 
-2013-06-06  Stanislas Rolland  <typo3@sjbr.ca>
+2013-06-06  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Follow-up to #48814: Records labels missing in list view using PHP 5.4 (Thanks to Visay Keo)
 
-2013-06-04  Stanislas Rolland  <typo3@sjbr.ca>
+2013-06-04  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #48814: Records labels missing in list view using PHP 5.4 (Thanks to Visay Keo)
 
-2013-05-31  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-31  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #48659: Superfluous closing ">" in pi1/class.tx_staticinfotables_pi1.php
 	* Update version to 6.0.3
 
-2013-05-25  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #48524: Missing file Classes/Domain/Model/LanguageExtensible.php
 	* Resolves #48528: Error in update script on TYPO3 6.1.1
 	* Update version to 6.0.1
 
-2013-05-23  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-23  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fix extended domain model classes loading after class loader cache is cleared
 	* Improve class cache handling
@@ -296,12 +298,12 @@
 	* GeneralUtility::loadTCA is deprecated in TYPO3 6.1
 	* Follow-up to GeneralUtility::loadTCA is deprecated in TYPO3 6.1
 
-2013-05-22  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-22  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #48473: Add action to test localization after installation of language pack
 	* Fix language pack update
 
-2013-05-21  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-21  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Log usage of deprecated functions
 	* Set TYPO3 version constraint to 6.0.6-6.1.99
@@ -309,30 +311,30 @@
 	* Fix domain model inconsistencies
 	* Refactor findAllOrderedByLocalizedName
 
-2013-05-20  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fix for backward compatibility of class tx_staticinfotables_div
 	* Update some copyright notices
 	* Follow-up fix for backward compatibility of class tx_staticinfotables_div
 
-2013-05-16  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Re-introduce class tx_staticinfotables_div for backward compatibility
 
-2013-05-15  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Follow-up to #12683: Make TS template constants selectable
 	* Follow-up to #45862: Enable domain model extension: rebuild class cache when updating extensions
 	* Remove unnecessary entries from ext_autoload.php
 	* Fix layout of code generated by class cache builder
 
-2013-05-14  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #12683: Make TS template constants selectable
 	* Resolves #48197: Incorrect extension of the language domain model by language packs
 	* Resolves #48198: Add methods to retrieve entities ordered by localized names
 
-2013-05-13  Stanislas Rolland  <typo3@sjbr.ca>
+2013-05-13  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #48156: Add backend module to generate language packs
 	* Resolves #48161: Localization should honour alternative languages
@@ -342,47 +344,47 @@
 	* Update version to 6.0.0
 	* Simplify EM configuration template
 
-2013-03-05  Stanislas Rolland  <typo3@sjbr.ca>
+2013-03-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #46051: Make the extension version and constraints available when creating language packs
 
-2013-03-03  Stanislas Rolland  <typo3@sjbr.ca>
+2013-03-03  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45986: Add domain repositories classes
 
-2013-02-27  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-27  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45901: Add extbase persistence configuration and field mapping
 	* Follow-up to #45901: Add extbase persistence configuration and field mapping
 
-2013-02-26  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-26  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45862: Enable domain model extension
 	* Resolves #45874: Move domain model extension configuration to Configuration directory
 	* Follow-up to #45848: Add domain model
 
-2013-02-25  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45823: Remove hotlist feature
 	* Resolves #45847: Move TCA arrays to Configuration directory
 	* Resolves #45848: Add domain model
 
-2013-02-24  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-24  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45809: Refactor code and introduce namespacing
 
-2013-02-22  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-22  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #45738: Connect static_country_zones to static_countries
 	* Apply TCA userFuncs to Static Info Tables Manager tables
 
-2013-02-21  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-21  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #10037: Connect static_territories with static_countries
 	* Resolves #45733: Move icons to Resources directory
 	* Resolves #45734: Connect static_countries to static_currencies
 
-2013-02-20  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fixed issue #39552: Default TS constants contain superfluous dot
 	* Added feature #45626: Update countries to level of ISO 3166-1:2006 - Newsletter VI-12 (2012-02-15)
@@ -403,15 +405,15 @@
 	* Resolves #45692: Move static template to Configuration directory
 	* Resolves #45689: Convert locallang files to XLIFF
 
-2013-02-19  Stanislas Rolland  <typo3@sjbr.ca>
+2013-02-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 2.3.1
 
-2012-05-29  Stanislas Rolland  <typo3@sjbr.ca>
+2012-05-29  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fixed security issue [Ticket#2011101510000057] XSS in static_info_tables 2.3.0
 
-2011-12-16  Stanislas Rolland  <typo3@sjbr.ca>
+2011-12-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fixed issue #32614: Errors in names of two provinces of Italy
 	* Fixed issue #32094: Usage of deprecated testInt method (Thanks to Stefan Galinski)
@@ -427,7 +429,7 @@
 	* Fixed issue #28483: tx_staticinfotables_div::getCurrentLanguage issues repetitive SQL queries (Thanks to Raphaël Riel)
 	* Updated version to 2.3.0
 
-2011-01-25  Stanislas Rolland  <typo3@sjbr.ca>
+2011-01-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Added feature #9423: Add country zones for the regions and departments of France
 	* Fixed issue #12530: Erroneous country zone codes for Austria
@@ -440,7 +442,7 @@
 	* Fixed issue #12555: Removed db_layout configuration not supported on page 0
 	* Updated version to 2.2
 
-2011-01-24  Stanislas Rolland  <typo3@sjbr.ca>
+2011-01-24  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Fixed issue #12506: Add missing languages and/or missing TYPO3 language codes (Albanian, Canadian French, Filipino, Georgian, Khmer, Serbian)
 	* Fixed issue #12508: Update countries to level of ISO 3166-1:2006 - Newsletter VI-8 (2010-12-15)
