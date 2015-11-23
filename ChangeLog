@@ -1,3 +1,7 @@
+2015-11-23  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #71310: composer.json contains invalid version range for core
+
 2015-11-03  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #71263: Fatal error in tx_rtehtmlarea_acronym with PHP 5.3
