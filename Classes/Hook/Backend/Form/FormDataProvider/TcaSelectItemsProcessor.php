@@ -211,7 +211,7 @@ class TcaSelectItemsProcessor {
 						if ($columnsMapping[$indexField]['mapOnProperty']) {
 							$indexProperties[] = $columnsMapping[$indexField]['mapOnProperty'];
 						} else {
-							$indexProperties[] = GeneralUtility::underscoredToUpperCamelCase($indexField);
+							$indexProperties[] = GeneralUtility::underscoredToLowerCamelCase($indexField);
 						}
 					}
 					// Index rows by uid
