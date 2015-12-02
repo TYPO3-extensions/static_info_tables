@@ -2,6 +2,7 @@
 
 	* Resolves #72009: composer.json wrong replace
 	* Resolves #71910: Field name conversion uses upperCamelCase instead of lowerCamelCase
+	* Update version to 6.3.6
 
 2015-11-23  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
