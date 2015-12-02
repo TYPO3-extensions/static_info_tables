@@ -11,7 +11,7 @@
     }
   ],
   "replace": {
-    "sjbr/static_info_tables": "*"
+    "static_info_tables": "*"
   },
   "require": {
     "typo3/cms-core": "6.2.0 - 7.6.99"
