@@ -3,6 +3,7 @@
 	* Resolves #72260: SelectViewHelper should honour TypoScript settings
 	* Update the manual
 	* Resolves #72828: Avoid exceptions in backend list, if there are elements with wrong uids (Thanks to Tim Lochmüller)
+	* Update version to 6.3.7
 
 2016-02-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
