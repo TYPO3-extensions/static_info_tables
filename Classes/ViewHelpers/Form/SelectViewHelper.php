@@ -1,39 +1,36 @@
 <?php
 namespace SJBR\StaticInfoTables\ViewHelpers\Form;
-/***************************************************************
-*  Copyright notice
-*
-*  (c) 2014 Carsten Biebricher <carsten.biebricher@hdnet.de>
-*  All rights reserved
-*
-*  This script is part of the Typo3 project. The Typo3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
-/**
- * StaticInfoTables SelectViewHelper
+
+/*
+ *  Copyright notice
  *
- * @category   Extension
- * @package    SJBR
- * @subpackage ViewHelpers\Form
- * @author     Carsten Biebricher <carsten.biebricher@hdnet.de>
+ *  (c) 2014 Carsten Biebricher <carsten.biebricher@hdnet.de>
+ *  (c) 2016 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  All rights reserved
+ *
+ *  This script is part of the Typo3 project. The Typo3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
  */
 
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
+ * StaticInfoTables SelectViewHelper
+ *
  * Display the Values of the selected StaticInfoTable.
  *
  * Default usage:
@@ -70,7 +67,21 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  * getItemsWithSubselect
  *
  */
-class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
+class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
+{
+	/**
+	 * Extension name
+	 *
+	 * @var string
+	 */
+	protected $extensionName = 'StaticInfoTables';
+
+	/**
+	 * Settings
+	 *
+	 * @var array
+	 */
+	protected $settings;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
@@ -119,11 +130,20 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	protected $countryZoneRepository;
 
 	/**
+	 * Configuration manager
+	 *
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
+	 */
+	protected $configurationManager;
+
+	/**
 	 * Initialize arguments.
 	 *
 	 * @return void
 	 */
-	public function initializeArguments() {
+	public function initializeArguments()
+	{
 		parent::initializeArguments();
 		$this->registerArgument('staticInfoTable', 'string', 'set the tablename of the StaticInfoTable to build the Select-Tag.');
 		$this->registerArgument('staticInfoTableSubselect', 'array', '{fieldname: fieldvalue}');
@@ -138,46 +158,39 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	 * @return string
 	 * @api
 	 */
-	public function getOptions() {
+	public function getOptions()
+	{
+		$this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, $this->extensionName);
 		if (!$this->hasArgument('staticInfoTable') || $this->arguments['staticInfoTable'] == '') {
 			throw new \Exception('Please configure the "staticInfoTable"-Argument for this ViewHelper.', 1378136534);
 		}
-
 		/** @var \SJBR\StaticInfoTables\Domain\Repository\AbstractEntityRepository $repository */
 		$repository = $this->arguments['staticInfoTable'] . 'Repository';
-
 		if (!in_array($repository, get_object_vars($this))) {
 			throw new \Exception('Please configure the right table in the "staticInfoTable"-Argument for this ViewHelper.', 1378136533);
 		}
-
 		/** @var array $items */
 		$items = $this->emitGetItems($repository);
-
 		/** @var string $valueFunction */
 		$valueFunction = $this->getMethodnameFromArgumentsAndUnset('optionValueField', 'uid');
-
 		/** @var string $labelFunction */
 		$labelFunction = $this->getMethodnameFromArgumentsAndUnset('optionLabelField', 'nameLocalized');
-
-		if (!$this->hasArgument('sortByOptionLabel') || $this->arguments['sortByOptionLabel'] == '') {
-			$this->arguments['sortByOptionLabel'] = TRUE;
+		if (!$this->settings['countriesAllowed'] && (!$this->hasArgument('sortByOptionLabel') || $this->arguments['sortByOptionLabel'] == '')) {
+			$this->arguments['sortByOptionLabel'] = true;
 		}
-
 		/** @var bool $test Test only the first item if they have the needed functions */
-		$test = TRUE;
+		$test = true;
 		$options = array();
 		/** @var \SJBR\StaticInfoTables\Domain\Model\AbstractEntity $item */
 		foreach ($items as $item) {
 			if ($test && !method_exists($item, $valueFunction)) {
 				throw new \Exception('Wrong optionValueField.', 1378136535);
 			}
-
 			if ($test && !method_exists($item, $labelFunction)) {
 				throw new \Exception('Wrong optionLabelField.', 1378136536);
 
 			}
-			$test = FALSE;
-
+			$test = false;
 			$value = $item->{$valueFunction}();
 			$label = $item->{$labelFunction}();
 			if ($value != '' && $label != '') {
@@ -185,7 +198,6 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			}
 		}
 		$this->arguments['options'] = $options;
-
 		$sortedOptions = parent::getOptions();
 		// Put default option after sorting to get it to the top of the items
 		if ($this->hasArgument('defaultOptionLabel')) {
@@ -201,13 +213,20 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	 * Signal: getItems
 	 *
 	 * @param string $repository
-	 *
 	 * @return array
 	 */
-	protected function emitGetItems($repository) {
+	protected function emitGetItems($repository)
+	{
 		/** @var array $items */
 		if ($this->hasArgument('staticInfoTableSubselect')) {
 			$items = $this->emitGetItemsWithSubselect($repository);
+		} else if ($repository === 'countryRepository') {
+			if ($this->settings['countriesAllowed']) {
+				$items = $this->{$repository}->findAllowedByIsoCodeA3($this->settings['countriesAllowed']);
+			} else {
+				$items = $this->{$repository}->findAll()
+					->toArray();
+			}
 		} else if ($repository === 'languageRepository') {
 			$items = $this->{$repository}->findAllNonConstructedNonSacred()
 				->toArray();
@@ -215,16 +234,14 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			$items = $this->{$repository}->findAll()
 				->toArray();
 		}
-
 		$list = $this->signalSlotDispatcher->dispatch(__CLASS__, 'getItems', array(
 			'arguments' => $this->arguments,
 			'items'     => $items
 		));
-		if ($list !== NULL) {
+		if ($list !== null) {
 			$this->arguments = $list['arguments'];
 			$items = $list['items'];
 		}
-
 		return $items;
 	}
 
@@ -233,10 +250,10 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	 * Signal: getItemsWithSubselect
 	 *
 	 * @param string $repository
-	 *
 	 * @return array
 	 */
-	protected function emitGetItemsWithSubselect($repository) {
+	protected function emitGetItemsWithSubselect($repository)
+	{
 		/** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array $items */
 		$items = array();
 		$subselects = $this->arguments['staticInfoTableSubselect'];
@@ -245,13 +262,11 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			if (strtolower($fieldname) === 'country' && MathUtility::canBeInterpretedAsInteger($fieldvalue)) {
 				$findby = 'findBy' . ucfirst($fieldname);
 				$fieldvalue = $this->countryRepository->findByUid((int)$fieldvalue);
-
 				$items = call_user_func_array(array(
 					$this->{$repository},
 					$findby
 				), array($fieldvalue));
 			}
-
 			/** @var array $list */
 			$list = $this->signalSlotDispatcher->dispatch(__CLASS__, 'getItemsWithSubselect', array(
 				'arguments'  => $this->arguments,
@@ -259,13 +274,11 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 				'fieldname'  => $fieldname,
 				'fieldvalue' => $fieldvalue
 			));
-
 			$this->arguments = $list['arguments'];
 			if ($list['items']) {
 				$items = $list['items']->toArray();
 			}
 		}
-
 		return $items;
 	}
 
@@ -275,17 +288,15 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	 *
 	 * @param string $field   fieldname like 'optionLabelField'
 	 * @param string $default default value like 'nameLocalized'
-	 *
 	 * @return string
 	 */
-	protected function getMethodnameFromArgumentsAndUnset($field, $default) {
+	protected function getMethodnameFromArgumentsAndUnset($field, $default)
+	{
 		if (!$this->hasArgument($field) || $this->arguments[$field] == '') {
 			$this->arguments[$field] = $default;
 		}
-
 		$methodName = 'get' . ucfirst($this->arguments[$field]);
 		unset($this->arguments[$field]);
-
 		return $methodName;
 	}
 }
