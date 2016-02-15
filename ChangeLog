@@ -1,3 +1,7 @@
+2016-02-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #72260: SelectViewHelper should honour TypoScript settings
+
 2016-02-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #72257: Repository Tags should be in a form recongized by composer
