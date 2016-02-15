@@ -1,6 +1,7 @@
 2016-02-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #72260: SelectViewHelper should honour TypoScript settings
+	* Update the manual
 
 2016-02-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
