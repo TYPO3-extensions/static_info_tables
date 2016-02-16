@@ -1,5 +1,5 @@
 {
-  "name": "sjbr/static_info_tables_###LANG_ISO_LOWER###",
+  "name": "sjbr/static-info-tables-###LANG_ISO_LOWER###",
   "description": "###LANG_NAME### (###LANG_ISO_LOWER###) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
   "version": "###VERSION###",
   "type": "typo3-cms-extension",
@@ -11,10 +11,12 @@
     }
   ],
   "replace": {
-    "sjbr/static_info_tables_###LANG_ISO_LOWER###": "*"
+    "static_info_tables_###LANG_ISO_LOWER###": "*",
+    "sjbr/static_info_tables_###LANG_ISO_LOWER###": "*",
+    "typo3-ter/static-info-tables-###LANG_ISO_LOWER###": "self.version"
   },
   "require": {
     "typo3/cms-core": "###TYPO3_VERSION_RANGE###",
-    "sjbr/static_info_tables": "^###VERSION_BASE###"
+    "sjbr/static-info-tables": "^###VERSION_BASE###"
   }
 }
