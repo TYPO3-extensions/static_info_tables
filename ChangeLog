@@ -2,6 +2,7 @@
 
 	* Resolves #73462: Update of static_info_tables breaks TYPO3 6.2 installation
 	* Resolves #72828: Follow-up to Avoid exceptions in backend list
+	* Update version to 6.3.8
 
 2016-02-15  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
