@@ -1,5 +1,5 @@
 {
-  "name": "sjbr/static-info-tables",
+  "name": "sjbr/static_info_tables",
   "description": "Data and API for countries, languages and currencies.",
   "version": "6.3.6",
   "type": "typo3-cms-extension",
@@ -10,6 +10,10 @@
       "role": "Developer"
     }
   ],
+  "homepage": "https://forge.typo3.org/projects/extension-static_info_tables",
+  "support": {
+	"issues": "https://forge.typo3.org/projects/extension-static_info_tables/issues"
+  },
   "replace": {
     "static_info_tables": "self.version",
 	"typo3-ter/static-info-tables": "self.version"
