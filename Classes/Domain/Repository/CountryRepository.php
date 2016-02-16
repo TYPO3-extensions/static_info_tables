@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /*
  *  Copyright notice
  *
- *  (c) 2011-2012 Armin Rädiger Vieweg <info@professorweb.de>
+ *  (c) 2011-2012 Armin RÃ¤diger Vieweg <info@professorweb.de>
  *  (c) 2013-2016 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *
  *  All rights reserved

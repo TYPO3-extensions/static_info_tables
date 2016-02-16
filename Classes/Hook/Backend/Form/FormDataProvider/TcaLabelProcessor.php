@@ -23,6 +23,10 @@ namespace SJBR\StaticInfoTables\Hook\Backend\Form\FormDataProvider;
  *  This copyright notice MUST APPEAR in all copies of the script!
  */
 
+use SJBR\StaticInfoTables\Domain\Model\Country;
+use SJBR\StaticInfoTables\Domain\Model\Currency;
+use SJBR\StaticInfoTables\Domain\Model\Language;
+use SJBR\StaticInfoTables\Domain\Model\Territory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -42,7 +46,7 @@ class TcaLabelProcessor
 		$PA['title'] = $PA['row'][$GLOBALS['TCA'][$PA['table']]['ctrl']['label']];
 		if (TYPO3_MODE == 'BE') {
 			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 			switch ($PA['table']) {
 				case 'static_territories':
 					$isoCode = $PA['row']['tr_iso_nr'];
@@ -51,7 +55,7 @@ class TcaLabelProcessor
 						$territoryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\TerritoryRepository');
 						/** @var $territory SJBR\StaticInfoTables\Domain\Model\Territory */
 						$territory = $territoryRepository->findByUid($PA['row']['uid']);
-						if (is_object($territory)) {
+						if ($territory instanceof Territory) {
 							$isoCode = $territory->getUnCodeNumber();
 						}
 					}
@@ -66,7 +70,7 @@ class TcaLabelProcessor
 						$countryRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CountryRepository');
 						/** @var $country SJBR\StaticInfoTables\Domain\Model\Country */
 						$country = $countryRepository->findByUid($PA['row']['uid']);
-						if (is_object($country)) {
+						if ($country instanceof Country) {
 							$isoCode = $country->getIsoCodeA2();
 						}
 					}
@@ -85,7 +89,7 @@ class TcaLabelProcessor
 						$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
 						/** @var $language SJBR\StaticInfoTables\Domain\Model\Language */
 						$language = $languageRepository->findByUid($PA['row']['uid']);
-						if (is_object($language)) {
+						if ($language instanceof Language) {
 							$isoCodes = array($language->getIsoCodeA2());
 							if ($language->getCountryIsoCodeA2()) {
 								$isoCodes[] = $language->getCountryIsoCodeA2();
@@ -104,7 +108,7 @@ class TcaLabelProcessor
 						$currencyRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\CurrencyRepository');
 						/** @var $currency SJBR\StaticInfoTables\Domain\Model\Currency */
 						$currency = $currencyRepository->findByUid($PA['row']['uid']);
-						if (is_object($currency)) {
+						if ($currency instanceof Currency) {
 							$isoCode = $currency->getIsoCodeA3();
 						}
 					}
