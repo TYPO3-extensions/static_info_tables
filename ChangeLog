@@ -1,3 +1,7 @@
+2016-02-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Update version to 6.3.9
+
 2016-02-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #73462: Update of static_info_tables breaks TYPO3 6.2 installation
@@ -9,7 +13,7 @@
 
 	* Resolves #72260: SelectViewHelper should honour TypoScript settings
 	* Update the manual
-	* Resolves #72828: Avoid exceptions in backend list, if there are elements with wrong uids (Thanks to Tim Lochmüller)
+	* Resolves #72828: Avoid exceptions in backend list, if there are elements with wrong uids (Thanks to Tim Lochmï¿½ller)
 
 2016-02-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
