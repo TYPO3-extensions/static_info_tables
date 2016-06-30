@@ -20,7 +20,6 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
 				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
-				'noIconsBelowSelect' => 1,
 				'wizards' => array(
 					'suggest' => array(
 						'type' => 'suggest',

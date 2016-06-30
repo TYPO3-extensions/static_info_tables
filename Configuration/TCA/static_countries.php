@@ -66,7 +66,6 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'noIconsBelowSelect' => 1,
 				'items' => array(
 					array('', 0),
 				),
@@ -136,7 +135,6 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'noIconsBelowSelect' => 1,
 				'items' => array(
 					array('', 0),
 				),

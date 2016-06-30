@@ -5,6 +5,8 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
 	$GLOBALS['TCA']['static_countries']['ctrl']['label_userFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->addIsoCodeToLabel';
 	$GLOBALS['TCA']['static_countries']['ctrl']['iconfile'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('static_info_tables') . 'Resources/Public/Images/Icons/static_countries.svg';
 	$GLOBALS['TCA']['static_countries']['columns']['cn_parent_territory_uid']['config']['itemsProcFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateTerritoriesSelector';
+	$GLOBALS['TCA']['static_countries']['columns']['cn_parent_territory_uid']['config']['noIconsBelowSelect'] = 1;
 	$GLOBALS['TCA']['static_countries']['columns']['cn_currency_uid']['config']['itemsProcFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateCurrenciesSelector';
 	$GLOBALS['TCA']['static_countries']['columns']['cn_currency_uid']['config']['wizards']['suggest']['default'] = array('receiverClass' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\SuggestReceiver');
+	$GLOBALS['TCA']['static_countries']['columns']['cn_currency_uid']['config']['noIconsBelowSelect'] = 1;
 }

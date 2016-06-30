@@ -8,7 +8,6 @@ $GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode'] = array(
 	'config' => array(
 		'type' => 'select',
 		'renderType' => 'selectSingle',
-		'noIconsBelowSelect' => 1,
 		'items' => array(
 			array('', 0)
 		),
@@ -35,4 +34,5 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
 } else {
 	$GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config']['itemsProcFunc'] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper->translateLanguagesSelector';
 	$GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config']['wizards']['suggest']['default'] = array('receiverClass' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\SuggestReceiver');
+	$GLOBALS['TCA']['sys_language']['columns']['static_lang_isocode']['config']['noIconsBelowSelect'] = 1;
 }
