@@ -1,3 +1,7 @@
+2016-07-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Update version to 6.3.10
+
 2016-06-29  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #76640: Fix removed TCA icon options
