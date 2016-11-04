@@ -77,7 +77,7 @@ class DatabaseUpdateUtility {
 				foreach ($parsedResult['FIELDS'] as $fN => $fV) {
 					$fields[$fN] = $fV[0];
 				}
-				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields, TRUE);
+				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields);
 			}
 		}
 	}
