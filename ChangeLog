@@ -1,3 +1,7 @@
+2017-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #79174: Let the SelectViewHelper accept correct values
+
 2016-07-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Update version to 6.3.10
