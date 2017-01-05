@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\ViewHelpers\Form;
  *  Copyright notice
  *
  *  (c) 2014 Carsten Biebricher <carsten.biebricher@hdnet.de>
- *  (c) 2016 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2016-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -166,7 +166,7 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 		}
 		/** @var \SJBR\StaticInfoTables\Domain\Repository\AbstractEntityRepository $repository */
 		$repository = $this->arguments['staticInfoTable'] . 'Repository';
-		if (!in_array($repository, get_object_vars($this))) {
+		if (!array_key_exists($repository, get_object_vars($this))) {
 			throw new \Exception('Please configure the right table in the "staticInfoTable"-Argument for this ViewHelper.', 1378136533);
 		}
 		/** @var array $items */
