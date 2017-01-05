@@ -1,6 +1,7 @@
 2017-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79174: Let the SelectViewHelper accept correct values
+	* Resolves #79172: Database updates not working for translations with TYPO3 8.0
 
 2016-07-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 

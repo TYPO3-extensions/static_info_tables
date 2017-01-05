@@ -1,9 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 StanislasRolland <typo3@sjbr.ca>
+ *  (c) 2013-2017 StanislasRolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -29,8 +30,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Utility used by the update script of the base extension and of the language packs
  */
-class DatabaseUpdateUtility {
-
+class DatabaseUpdateUtility
+{
 	/**
 	 * @var string Name of the extension this class belongs to
 	 */
@@ -47,7 +48,8 @@ class DatabaseUpdateUtility {
 	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 * @return void
 	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+	{
 		$this->objectManager = $objectManager;
 	}
 
@@ -57,7 +59,8 @@ class DatabaseUpdateUtility {
 	 * @param string $extensionKey: extension key of the language pack
 	 * @return void
 	 */
-	public function doUpdate($extensionKey) {
+	public function doUpdate($extensionKey)
+	{
 		$extPath = ExtensionManagementUtility::extPath($extensionKey);
 		$fileContent = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
 		// SQL parser was moved from core to dbal in TYPO3 CMS 7.5
@@ -77,7 +80,7 @@ class DatabaseUpdateUtility {
 				foreach ($parsedResult['FIELDS'] as $fN => $fV) {
 					$fields[$fN] = $fV[0];
 				}
-				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields, TRUE);
+				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields);
 			}
 		}
 	}
