@@ -4,14 +4,10 @@ defined('TYPO3_MODE') or die();
 if (!defined ('STATIC_INFO_TABLES_EXTkey')) {
 	define('STATIC_INFO_TABLES_EXTkey', $_EXTKEY);
 }
-
 if (!defined ('PATH_BE_staticinfotables')) {
 	define('PATH_BE_staticinfotables', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY));
 }
 
-if (!defined ('PATH_BE_staticinfotables_rel')) {
-	define('PATH_BE_staticinfotables_rel', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY));
-}
 // Unserializing the configuration so we can use it here
 $_EXTCONF = unserialize($_EXTCONF);
 
