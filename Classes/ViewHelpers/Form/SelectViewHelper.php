@@ -165,7 +165,7 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 			throw new \Exception('Please configure the "staticInfoTable"-Argument for this ViewHelper.', 1378136534);
 		}
 		/** @var \SJBR\StaticInfoTables\Domain\Repository\AbstractEntityRepository $repository */
-		$repository = $this->arguments['staticInfoTable'] . 'Repository';
+		$repository = lcfirst($this->arguments['staticInfoTable']) . 'Repository';
 		if (!array_key_exists($repository, get_object_vars($this))) {
 			throw new \Exception('Please configure the right table in the "staticInfoTable"-Argument for this ViewHelper.', 1378136533);
 		}
