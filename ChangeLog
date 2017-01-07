@@ -2,6 +2,7 @@
 
 	* Resolves #79192: Remove constant PATH_BE_staticinfotables_rel
 	* Require TYPO3 CMS 7.6.0
+	* Follow-up to #79174: Let the SelectViewHelper accept correct values
 
 2017-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
