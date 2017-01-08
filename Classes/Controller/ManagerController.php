@@ -1,9 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Controller;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2015 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2017 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,15 +27,24 @@ namespace SJBR\StaticInfoTables\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \SJBR\StaticInfoTables\Domain\Model\Country;
-use \SJBR\StaticInfoTables\Domain\Model\CountryZone;
-use \SJBR\StaticInfoTables\Domain\Model\Language;
+use SJBR\StaticInfoTables\Domain\Model\Country;
+use SJBR\StaticInfoTables\Domain\Model\CountryZone;
+use SJBR\StaticInfoTables\Domain\Model\Language;
+use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
+use SJBR\StaticInfoTables\Domain\Repository\LanguagePackRepository;
+use SJBR\StaticInfoTables\Utility\LocaleUtility;
+use TYPO3\CMS\Core\Localization\Locales;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Static Info Tables Manager controller
  */
-class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
+class ManagerController extends ActionController
+{
 	/**
 	 * @var string Name of the extension this controller belongs to
 	 */
@@ -51,7 +61,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param \SJBR\StaticInfoTables\Domain\Repository\CountryRepository $countryRepository
  	 * @return void
 	 */
-	public function injectCountryRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository $countryRepository) {
+	public function injectCountryRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository $countryRepository)
+	{
 		$this->countryRepository = $countryRepository;
 	}
 
@@ -66,7 +77,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param \SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository $countryZoneRepository
  	 * @return void
 	 */
-	public function injectCountryZoneRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository $countryZoneRepository) {
+	public function injectCountryZoneRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository $countryZoneRepository)
+	{
 		$this->countryZoneRepository = $countryZoneRepository;
 	}
 
@@ -81,7 +93,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param \SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository $currencyRepository
  	 * @return void
 	 */
-	public function injectCurrencyRepository(\SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository $currencyRepository) {
+	public function injectCurrencyRepository(\SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository $currencyRepository)
+	{
 		$this->currencyRepository = $currencyRepository;
 	}
 
@@ -96,7 +109,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param \SJBR\StaticInfoTables\Domain\Repository\LanguageRepository $languageRepository
  	 * @return void
 	 */
-	public function injectLanguageRepository(\SJBR\StaticInfoTables\Domain\Repository\LanguageRepository $languageRepository) {
+	public function injectLanguageRepository(\SJBR\StaticInfoTables\Domain\Repository\LanguageRepository $languageRepository)
+	{
 		$this->languageRepository = $languageRepository;
 	}
 
@@ -111,7 +125,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository
  	 * @return void
 	 */
-	public function injectTerritoryRepository(\SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository) {
+	public function injectTerritoryRepository(\SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository)
+	{
 		$this->territoryRepository = $territoryRepository;
 	}
 
@@ -120,7 +135,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 *
 	 * @return string An HTML display of data overview
 	 */
-	public function informationAction() {
+	public function informationAction()
+	{
 		$this->view->assign('actions',
 			array(
 				array(
@@ -145,17 +161,18 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	/**
 	 * Display the language pack creation form
 	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack
+	 * @param LanguagePack $languagePack
 	 * @return string An HTML form for creating a language pack
 	 */
-	public function newLanguagePackAction(\SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack = NULL) {
+	public function newLanguagePackAction(LanguagePack $languagePack = null)
+	{
 		if (!is_object($languagePack)) {
-			$languagePack = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\LanguagePack');
+			$languagePack = $this->objectManager->get(LanguagePack::class);
 		}
-		$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
+		$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
 		$languagePack->setAuthor($GLOBALS['BE_USER']->user['realName']);
 		$languagePack->setAuthorEmail($GLOBALS['BE_USER']->user['email']);
-		$localeUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\LocaleUtility');
+		$localeUtility = $this->objectManager->get(LocaleUtility::class);
 		$this->view->assign('locales', $localeUtility->getLocales());
 		$this->view->assign('languagePack', $languagePack);
 	}
@@ -163,20 +180,21 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	/**
 	 * Creation/update a language pack for the Static Info Tables
 	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack
+	 * @param LanguagePack $languagePack
 	 * @return string An HTML display of data overview
 	 */
-	public function createLanguagePackAction(\SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack) {
+	public function createLanguagePackAction(LanguagePack $languagePack)
+	{
 		// Add the localization columns
 		$locale = $languagePack->getLocale();
 		// Get the English name of the locale
-		$localeUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\LocaleUtility');
+		$localeUtility = $this->objectManager->get(LocaleUtility::class);
 		$language = $localeUtility->getLanguageFromLocale($locale);
 		$languagePack->setLanguage($language);
-		$languagePack->setTypo3VersionRange($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['constraints']['depends']['typo3']);
+		$languagePack->setTypo3VersionRange($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['constraints']['depends']['typo3']);
 		// If version is not set, use the version of the base extension
 		if (!$languagePack->getVersion()) {
-			$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][\TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
+			$languagePack->setVersion($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName)]['version']);
 		}
 		$this->countryRepository->addLocalizationColumns($locale);
 		$this->countryZoneRepository->addLocalizationColumns($locale);
@@ -184,11 +202,11 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$this->languageRepository->addLocalizationColumns($locale);
 		$this->territoryRepository->addLocalizationColumns($locale);
 		// Store the Language Pack
-		$languagePackRepository = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguagePackRepository');
+		$languagePackRepository = $this->objectManager->get(LanguagePackRepository::class);
 		$messages = $languagePackRepository->writeLanguagePack($languagePack);
 		if (count($messages)) {
 			foreach ($messages as $message) {
-				$this->addFlashMessage($message, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+				$this->addFlashMessage($message, '', AbstractMessage::OK);
 			}
 		}
 		$this->forward('information');
@@ -202,7 +220,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param Language $language
 	 * @return string An HTML form
 	 */
-	public function testFormAction(Country $country = NULL, CountryZone $countryZone = NULL, Language $language = NULL) {
+	public function testFormAction(Country $country = null, CountryZone $countryZone = null, Language $language = null)
+	{
 		if (is_object($country) && (is_object($countryZone) || !$country->getCountryZones()->count())) {
 			$this->forward('testFormResult', 'Manager', $this->extensionName, array('country' => $country, 'countryZone' => $countryZone, 'language' => $language));	
 		}
@@ -225,7 +244,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param Language $language
 	 * @return string HTML code presenting the localized data
 	 */
-	public function testFormResultAction(Country $country = NULL, CountryZone $countryZone = NULL, Language $language = NULL) {
+	public function testFormResultAction(Country $country = null, CountryZone $countryZone = null, Language $language = null)
+	{
 		$this->view->assign('country', $country);
 		$currencies = $this->currencyRepository->findByCountry($country);
 		if ($currencies->count()) {
@@ -246,7 +266,8 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 *
 	 * @return string An HTML display of data overview
 	 */
-	public function sqlDumpNonLocalizedDataAction() {
+	public function sqlDumpNonLocalizedDataAction()
+	{
 		// Create a SQL dump of non-localized data
 		$dumpContent = array();
 		$dumpContent[] = $this->countryRepository->sqlDumpNonLocalizedData();
@@ -255,12 +276,12 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 		$dumpContent[] = $this->languageRepository->sqlDumpNonLocalizedData();
 		$dumpContent[] = $this->territoryRepository->sqlDumpNonLocalizedData();
 		// Write the SQL dump file
-		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-		$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
+		$extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
+		$extensionPath = ExtensionManagementUtility::extPath($extensionKey);
 		$filename = 'export-ext_tables_static+adt.sql';
-		\TYPO3\CMS\Core\Utility\GeneralUtility::writeFile($extensionPath . $filename, implode(LF, $dumpContent));
-		$message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('sqlDumpCreated', $this->extensionName) . ' ' . $extensionPath . $filename;
-		$this->addFlashMessage($message, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+		GeneralUtility::writeFile($extensionPath . $filename, implode(LF, $dumpContent));
+		$message = LocalizationUtility::translate('sqlDumpCreated', $this->extensionName) . ' ' . $extensionPath . $filename;
+		$this->addFlashMessage($message, '', AbstractMessage::OK);
 		$this->forward('information');
 	}
 
@@ -269,16 +290,17 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 *
 	 * @return array An array of language objects
 	 */
-	protected function getLocales() {
+	protected function getLocales()
+	{
 		$localeArray = array();
-		$locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
+		$locales = $this->objectManager->get(Locales::class);
 		$languages = $locales->getLanguages();
 		foreach ($languages as $locale => $language) {
 			// No language pack for English
 			if ($locale != 'default') {
-				$languageObject = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
+				$languageObject = $this->objectManager->get(Language::class);
 				$languageObject->setCollatingLocale($locale);
-				$localizedLanguage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('lang_' . $locale, 'Lang');
+				$localizedLanguage = LocalizationUtility::translate('lang_' . $locale, 'Lang');
 				$label = ($localizedLanguage ? $localizedLanguage : $language) . ' (' . $locale . ')';
 				$languageObject->setNameEn($label);
 				$localeArray[$label] = $languageObject;
@@ -294,11 +316,11 @@ class ManagerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 	 * @param string $locale
 	 * @return string Language name
 	 */
-	protected function getLanguageFromLocale($locale) {
-		$locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
+	protected function getLanguageFromLocale($locale)
+	{
+		$locales = $this->objectManager->get(Locales::class);
 		$languages = $locales->getLanguages();
 		$language = $languages[$locale];
 		return $language . ' (' . $locale . ')';
 	}
-
 }
