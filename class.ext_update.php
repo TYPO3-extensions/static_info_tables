@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables;
 /*
  *  Copyright notice
  *
- *  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -24,9 +24,13 @@ namespace SJBR\StaticInfoTables;
  *  This copyright notice MUST APPEAR in all copies of the script!
  */
 
+use SJBR\StaticInfoTables\Cache\ClassCacheManager;
+use SJBR\StaticInfoTables\Utility\DatabaseUpdateUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 
 /**
  * Class for updating the db
@@ -57,14 +61,19 @@ class ext_update
 	{
 		$content = '';
 
-		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$this->installTool = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility');
-		$databaseUpdateUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUpdateUtility');
-		
+		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+		$this->installTool = $this->objectManager->get(InstallUtility::class);
+		if (class_exists(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class)) {
+			// TYPO3 CMS 7 LTS
+			$installToolSqlParser = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class);
+			$this->installTool->injectInstallToolSqlParser($installToolSqlParser);
+		}
+		$databaseUpdateUtility = GeneralUtility::makeInstance(DatabaseUpdateUtility::class);
+
 		// Clear the class cache
-		$classCacheManager = $this->objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+		$classCacheManager = GeneralUtility::makeInstance(ClassCacheManager::class);
 		$classCacheManager->reBuild();
-		
+
 		// Process the database updates of this base extension (we want to re-process these updates every time the update script is invoked)
 		$extensionSitePath = ExtensionManagementUtility::extPath(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
 		$content .= '<p>' . nl2br(LocalizationUtility::translate('updateTables', $this->extensionName)) . '</p>';
@@ -125,6 +134,21 @@ class ext_update
 			$extTablesStaticSqlContent .= GeneralUtility::getUrl($extTablesStaticSqlFile);
 		}
 		if ($extTablesStaticSqlContent !== '') {
+			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPoolConnectionPool')) {
+				// TYPO3 CMS 8+ LTS
+				$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPoolConnectionPool::class);
+				// Drop all tables
+				foreach (array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']) as $tableName) {
+					$connection = $connectionPool->getConnectionForTable($tableName);
+					try {
+						$connection->executeUpdate($connection->getDatabasePlatform()->getDropTableSQL($connection->quoteIdentifier($tableName)));
+					} catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+						// Ignore table not found exception
+					}
+				}
+				// Re-create all tables
+				$this->processDatabaseUpdates(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
+			}
 			$this->installTool->importStaticSql($extTablesStaticSqlContent);
 		}
 	}
