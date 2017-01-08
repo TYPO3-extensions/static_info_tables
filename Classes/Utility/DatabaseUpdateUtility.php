@@ -24,6 +24,7 @@ namespace SJBR\StaticInfoTables\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use SJBR\StaticInfoTables\Database\SqlParser;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -38,22 +39,6 @@ class DatabaseUpdateUtility
 	protected $extensionName = 'StaticInfoTables';
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 */
-	protected $objectManager;
-
-	/**
-	 * Injects the object manager
-	 *
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 * @return void
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
-	{
-		$this->objectManager = $objectManager;
-	}
-
-	/**
 	 * Do the language pack update
 	 *
 	 * @param string $extensionKey: extension key of the language pack
@@ -63,12 +48,7 @@ class DatabaseUpdateUtility
 	{
 		$extPath = ExtensionManagementUtility::extPath($extensionKey);
 		$fileContent = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
-		// SQL parser was moved from core to dbal in TYPO3 CMS 7.5
-		if (is_object($GLOBALS['TYPO3_DB']->SQLparser)) {
-			$sqlParser = $GLOBALS['TYPO3_DB']->SQLparser;
-		} else {
-			$sqlParser = $this->objectManager->get('SJBR\\StaticInfoTables\\Database\\SqlParser');
-		}
+		$sqlParser = GeneralUtility::makeInstance(SqlParser::class);
 		foreach ($fileContent as $line) {
 			$line = trim($line);
 			if ($line && preg_match('#^UPDATE#i', $line)) {
@@ -80,7 +60,33 @@ class DatabaseUpdateUtility
 				foreach ($parsedResult['FIELDS'] as $fN => $fV) {
 					$fields[$fN] = $fV[0];
 				}
-				$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields);
+				if (count($fields)) {
+					if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+						$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+						$queryBuilder->getRestrictions()->removeAll();
+						$queryBuilder->update($parsedResult['TABLE']);
+						// We expect only a few of conditions combined by AND
+						$whereExpressions = [];
+						foreach ($parsedResult['WHERE'] as $k => $v) {
+							$whereExpressions[] = $queryBuilder->expr()->eq($v['field'], $queryBuilder->createNamedParameter($v['value'][0]));
+						}
+						if (count($whereExpressions)) {
+							$queryBuilder->where($whereExpressions[0]);
+							array_shift($whereExpressions);
+							foreach ($whereExpressions as $whereExpression) {
+								$queryBuilder->andWhere($whereExpression);
+							}
+						}
+						foreach ($fields as $fN => $fV) {
+						   $queryBuilder->set($fN, $fV);
+						}
+						$queryBuilder->execute();
+				   	} else {
+				   		// WHERE clause
+				   		$whereClause = $sqlParser->compileWhereClause($parsedResult['WHERE']);
+				   		$res = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($parsedResult['TABLE'], $whereClause, $fields);
+				   	}
+				}
 			}
 		}
 	}
