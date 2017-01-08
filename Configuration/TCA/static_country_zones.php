@@ -4,7 +4,7 @@ return array(
 	'ctrl' => array(
 		'label' => 'zn_name_local',
 		'label_alt' => 'zn_name_local,zn_code',
-		'adminOnly' => 1,
+		'adminOnly' => true,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'readOnly' => 1,

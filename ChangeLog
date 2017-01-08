@@ -1,3 +1,7 @@
+2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #79207: Cleanup extension configuration
+
 2017-01-07  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Cleanup ManagerController.php

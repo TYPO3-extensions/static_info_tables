@@ -1,114 +1,98 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-if (!defined ('STATIC_INFO_TABLES_EXTkey')) {
-	define('STATIC_INFO_TABLES_EXTkey', $_EXTKEY);
-}
-if (!defined ('PATH_BE_staticinfotables')) {
-	define('PATH_BE_staticinfotables', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY));
-}
-
-// Unserializing the configuration so we can use it here
-$_EXTCONF = unserialize($_EXTCONF);
+// Get the extensions's configuration
+$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['static_info_tables']);
 
 // Including Extbase configuration
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TypoScript/Extbase/setup.txt">');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:static_info_tables/Configuration/TypoScript/Extbase/setup.txt">');
 
 // Register cache static_info_tables
-if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY])) {
-	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY] = array();
-	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['groups'] = array('all');
+if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables'] = [];
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables']['groups'] = ['all'];
 }
-if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'])) {
-	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['frontend'] = 'TYPO3\\CMS\\Core\\Cache\\Frontend\\PhpFrontend';
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables']['frontend'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables']['frontend'] = \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class;
 }
-if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['backend'])) {
-	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$_EXTKEY]['backend'] = 'TYPO3\\CMS\\Core\\Cache\\Backend\\FileBackend';
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables']['backend'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables']['backend'] = \TYPO3\CMS\Core\Cache\Backend\FileBackend::class;
 }
 
 // Configure clear cache post processing for extended domain model
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][$_EXTKEY] = 'SJBR\\StaticInfoTables\\Cache\\ClassCacheManager->reBuild';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc']['static_info_tables'] = \SJBR\StaticInfoTables\Cache\ClassCacheManager::class . '->reBuild';
 
 // Names of static entities
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['entities'] = array(
-	'Country',
-	'CountryZone',
-	'Currency',
-	'Language',
-	'Territory'
-);
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['entities'] = ['Country', 'CountryZone', 'Currency', 'Language', 'Territory'];
 
 // Register cached domain model classes autoloader
-require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Cache/CachedClassLoader.php');
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'Classes/Cache/CachedClassLoader.php');
 \SJBR\StaticInfoTables\Cache\CachedClassLoader::registerAutoloader();
 
 // Possible label fields for different languages. Default as last.
-$labelTable = array(
-	'static_territories' => array(
-		'label_fields' => array(
+$labelTable = [
+	'static_territories' => [
+		'label_fields' => [
 			'tr_name_##', 'tr_name_en',
-		),
-		'isocode_field' => array(
+		],
+		'isocode_field' => [
 			'tr_iso_##',
-		),
-	),
-	'static_countries' => array(
-		'label_fields' => array(
+		]
+	],
+	'static_countries' => [
+		'label_fields' => [
 			'cn_short_##', 'cn_short_en',
-		),
-		'isocode_field' => array(
+		],
+		'isocode_field' => [
 			'cn_iso_##',
-		),
-	),
-	'static_country_zones' => array(
-		'label_fields' => array(
+		]
+	],
+	'static_country_zones' => [
+		'label_fields' => [
 			'zn_name_##', 'zn_name_local',
-		),
-		'isocode_field' => array(
+		],
+		'isocode_field' => [
 			'zn_code', 'zn_country_iso_##',
-		),
-	),
-	'static_languages' => array(
-		'label_fields' => array(
+		]
+	],
+	'static_languages' => [
+		'label_fields' => [
 			'lg_name_##', 'lg_name_en',
-		),
-		'isocode_field' => array(
+		],
+		'isocode_field' => [
 			'lg_iso_##', 'lg_country_iso_##',
-		),
-	),
-	'static_currencies' => array(
-		'label_fields' => array(
+		]
+	],
+	'static_currencies' => [
+		'label_fields' => [
 			'cu_name_##', 'cu_name_en',
-		),
-		'isocode_field' => array(
+		],
+		'isocode_field' => [
 			'cu_iso_##',
-		),
-	),
-);
+		]
+	]
+];
 
-if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['tables']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['tables'])) {
-	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['tables'] = array_merge($labelTable, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['tables']);
+if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'])) {
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'] = array_merge($labelTable, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']);
 } else {
-	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['tables'] = $labelTable;
-}
-unset($labelTable);
-
-// Registering backend form select field pre-rendering hook in order to localize selected items
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 7000000) {
-	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tceforms.php']['getSingleFieldClass'][] = 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\ElementRenderingHelper';
+	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'] = $labelTable;
 }
 
 // Add data handling hook to manage ISO codes redundancies on records
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'SJBR\\StaticInfoTables\\Hook\\Core\\DataHandling\\ProcessDataMap';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \SJBR\StaticInfoTables\Hook\Core\DataHandling\ProcessDataMap::class;
 
 // Register slot for AfterExtensionInstall signal
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-$dispatcher->connect('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility', 'afterExtensionInstall', 'SJBR\\StaticInfoTables\\Slot\\Extensionmanager\\AfterExtensionInstall', 'executeUpdateScript');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+$dispatcher->connect(\TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class, 'afterExtensionInstall', \SJBR\StaticInfoTables\Slot\Extensionmanager\AfterExtensionInstall::class, 'executeUpdateScript');
 
 // Enabling the Static Info Tables Manager module
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['enableManager'] = isset($_EXTCONF['enableManager']) ? $_EXTCONF['enableManager'] : '0';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['enableManager'] = isset($extConf['enableManager']) ? $extConf['enableManager'] : '0';
 
 // Make the extension version and constraints available when creating language packs and to other extensions
-require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'ext_emconf.php');
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['version'] = $EM_CONF[$_EXTKEY]['version'];
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['constraints'] = $EM_CONF[$_EXTKEY]['constraints'];
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('static_info_tables') . 'ext_emconf.php');
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['version'] = $EM_CONF['static_info_tables']['version'];
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['constraints'] = $EM_CONF['static_info_tables']['constraints'];
+
+unset($labelTable);
+unset($extConf);

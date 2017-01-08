@@ -6,7 +6,7 @@ return array(
 		'label_alt' => 'cu_iso_3',
 		'label_alt_force' => 1,
 		'label_userFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaLabelProcessor->addIsoCodeToLabel',
-		'adminOnly' => 1,
+		'adminOnly' => true,
 		'rootLevel' => 1,
 		'is_static' => 1,
 		'readOnly' => 1,

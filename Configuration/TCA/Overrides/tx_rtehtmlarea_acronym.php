@@ -1,9 +1,7 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()) > 7005000
-	&& \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rtehtmlarea')
-) {
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('rtehtmlarea')) {
 	$additionalColumns = array(
 		'static_lang_isocode' => array(
 			'exclude' => 0,
