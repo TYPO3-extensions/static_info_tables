@@ -25,6 +25,11 @@ namespace SJBR\StaticInfoTables\ViewHelpers\Form;
  *  This copyright notice MUST APPEAR in all copies of the script!
  */
 
+use SJBR\StaticInfoTables\Domain\Repository\CountryRepository;
+use SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository;
+use SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository;
+use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
+use SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -93,49 +98,91 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 	 * Country repository
 	 *
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
-	 * @inject
 	 */
 	protected $countryRepository;
+
+ 	/**
+	 * Dependency injection of the Country Repository
+ 	 *
+	 * @param CountryRepository $countryRepository
+ 	 * @return void
+	 */
+	public function injectCountryRepository(CountryRepository $countryRepository)
+	{
+		$this->countryRepository = $countryRepository;
+	}
 
 	/**
 	 * Language repository
 	 *
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\LanguageRepository
-	 * @inject
 	 */
 	protected $languageRepository;
+
+ 	/**
+	 * Dependency injection of the Language Repository
+ 	 *
+	 * @param LanguageRepository $languageRepository
+ 	 * @return void
+	 */
+	public function injectLanguageRepository(LanguageRepository $languageRepository)
+	{
+		$this->languageRepository = $languageRepository;
+	}
 
 	/**
 	 * Territory repository
 	 *
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository
-	 * @inject
 	 */
 	protected $territoryRepository;
+
+ 	/**
+	 * Dependency injection of the Territory Repository
+ 	 *
+	 * @param TerritoryRepository $territoryRepository
+ 	 * @return void
+	 */
+	public function injectTerritoryRepository(TerritoryRepository $territoryRepository)
+	{
+		$this->territoryRepository = $territoryRepository;
+	}
 
 	/**
 	 * Currency repository
 	 *
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository
-	 * @inject
 	 */
 	protected $currencyRepository;
+
+ 	/**
+	 * Dependency injection of the Currency Repository
+ 	 *
+	 * @param CurrencyRepository $currencyRepository
+ 	 * @return void
+	 */
+	public function injectCurrencyRepository(CurrencyRepository $currencyRepository)
+	{
+		$this->currencyRepository = $currencyRepository;
+	}
 
 	/**
 	 * Country Zone repository
 	 *
 	 * @var \SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository
-	 * @inject
 	 */
 	protected $countryZoneRepository;
 
-	/**
-	 * Configuration manager
-	 *
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
+ 	/**
+	 * Dependency injection of the CountryZone Repository
+ 	 *
+	 * @param CountryZoneRepository $countryZoneRepository
+ 	 * @return void
 	 */
-	protected $configurationManager;
+	public function injectCountryZoneRepository(CountryZoneRepository $countryZoneRepository)
+	{
+		$this->countryZoneRepository = $countryZoneRepository;
+	}
 
 	/**
 	 * Initialize arguments.
