@@ -1,6 +1,7 @@
 2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79207: Cleanup extension configuration
+	* Resolves #79209: Migrate update script to Doctrine
 
 2017-01-07  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
