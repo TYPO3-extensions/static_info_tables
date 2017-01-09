@@ -8,26 +8,26 @@
 #
 DROP TABLE IF EXISTS static_countries;
 CREATE TABLE static_countries (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  cn_iso_2 char(2) NOT NULL default '',
-  cn_iso_3 char(3) NOT NULL default '',
-  cn_iso_nr int(11) unsigned NOT NULL default '0',
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  deleted smallint(6) NOT NULL default '0',
+  cn_iso_2 varchar(2) NOT NULL default '',
+  cn_iso_3 varchar(3) NOT NULL default '',
+  cn_iso_nr int(11) NOT NULL default '0',
   cn_parent_territory_uid int(11) NOT NULL default '0',
-  cn_parent_tr_iso_nr int(11) unsigned NOT NULL default '0',
+  cn_parent_tr_iso_nr int(11) NOT NULL default '0',
   cn_official_name_local varchar(128) NOT NULL default '',
   cn_official_name_en varchar(128) NOT NULL default '',
   cn_capital varchar(45) NOT NULL default '',
-  cn_tldomain char(2) NOT NULL default '',
+  cn_tldomain varchar(2) NOT NULL default '',
   cn_currency_uid int(11) NOT NULL default '0',
-  cn_currency_iso_3 char(3) NOT NULL default '',
-  cn_currency_iso_nr int(10) unsigned NOT NULL default '0',
-  cn_phone int(10) unsigned NOT NULL default '0',
-  cn_eu_member tinyint(3) unsigned NOT NULL default '0',
-  cn_uno_member tinyint(3) unsigned NOT NULL default '0',
-  cn_address_format tinyint(3) unsigned NOT NULL default '0',
-  cn_zone_flag tinyint(4) NOT NULL default '0',
+  cn_currency_iso_3 varchar(3) NOT NULL default '',
+  cn_currency_iso_nr int(11) NOT NULL default '0',
+  cn_phone int(11) NOT NULL default '0',
+  cn_eu_member smallint(6) NOT NULL default '0',
+  cn_uno_member smallint(6) NOT NULL default '0',
+  cn_address_format smallint(6) NOT NULL default '0',
+  cn_zone_flag smallint(6) NOT NULL default '0',
   cn_short_local varchar(70) NOT NULL default '',
   cn_short_en varchar(50) NOT NULL default '',
   cn_country_zones int(11) NOT NULL default '0',
@@ -108,7 +108,7 @@ INSERT INTO static_countries VALUES ('70', '0', '0', 'FM', 'FSM', '583', '27', '
 INSERT INTO static_countries VALUES ('71', '0', '0', 'FO', 'FRO', '234', '12', '154', 'Føroyar / Færøerne', 'Faroe Islands', 'Thorshavn', 'fo', '42', 'DKK', '208', '298', '0', '0', '1', '0', 'Føroyar / Færøerne', 'Faroes', '0');
 INSERT INTO static_countries VALUES ('72', '0', '0', 'FR', 'FRA', '250', '13', '155', 'République française', 'French Republic', 'Paris', 'fr', '49', 'EUR', '978', '33', '1', '1', '1', '0', 'France', 'France', '131');
 INSERT INTO static_countries VALUES ('73', '0', '0', 'GA', 'GAB', '266', '23', '17', 'République Gabonaise', 'Gabonese Republic', 'Libreville', 'ga', '162', 'XAF', '950', '241', '0', '1', '1', '0', 'Gabon', 'Gabon', '0');
-INSERT INTO static_countries VALUES ('74', '0', '0', 'GB', 'GBR', '826', '12', '154', 'United Kingdom of Great Britain and Northern', 'United Kingdom of Great Britain and Northern', 'London', 'uk', '52', 'GBP', '826', '44', '1', '1', '5', '0', 'United Kingdom', 'United Kingdom', '105');
+INSERT INTO static_countries VALUES ('74', '0', '0', 'GB', 'GBR', '826', '12', '154', 'United Kingdom of Great Britain and Northern Ireland', 'United Kingdom of Great Britain and Northern Ireland', 'London', 'uk', '52', 'GBP', '826', '44', '1', '1', '5', '0', 'United Kingdom', 'United Kingdom', '105');
 INSERT INTO static_countries VALUES ('75', '0', '0', 'GD', 'GRD', '308', '19', '29', 'Grenada', 'Grenada', 'St George\'s', 'gd', '163', 'XCD', '951', '1473', '0', '1', '1', '0', 'Grenada', 'Grenada', '0');
 INSERT INTO static_countries VALUES ('76', '0', '0', 'GE', 'GEO', '268', '9', '145', 'საქართველო', 'Georgia', 'Tbilisi', 'ge', '53', 'GEL', '981', '995', '0', '1', '1', '0', 'საქართველო', 'Georgia', '0');
 INSERT INTO static_countries VALUES ('77', '0', '0', 'GF', 'GUF', '254', '16', '5', 'Guyane française', 'French Guiana', 'Cayenne', 'gf', '49', 'EUR', '978', '594', '0', '0', '1', '0', 'Guyane française', 'French Guiana', '0');
@@ -299,12 +299,12 @@ INSERT INTO static_countries VALUES ('252', '0', '0', 'SS', 'SSD', '728', '22', 
 #
 DROP TABLE IF EXISTS static_country_zones;
 CREATE TABLE static_country_zones (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  zn_country_iso_2 char(2) NOT NULL default '',
-  zn_country_iso_3 char(3) NOT NULL default '',
-  zn_country_iso_nr int(11) unsigned NOT NULL default '0',
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  deleted smallint(6) NOT NULL default '0',
+  zn_country_iso_2 varchar(2) NOT NULL default '',
+  zn_country_iso_3 varchar(3) NOT NULL default '',
+  zn_country_iso_nr int(11) NOT NULL default '0',
   zn_code varchar(45) NOT NULL default '',
   zn_name_local varchar(128) NOT NULL default '',
   zn_name_en varchar(50) NOT NULL default '',
@@ -984,17 +984,17 @@ INSERT INTO static_country_zones VALUES ('709', '0', '0', 'HR', 'HRV', '191', '0
 #
 DROP TABLE IF EXISTS static_currencies;
 CREATE TABLE static_currencies (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  cu_iso_3 char(3) NOT NULL default '',
-  cu_iso_nr int(11) unsigned NOT NULL default '0',
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  deleted smallint(6) NOT NULL default '0',
+  cu_iso_3 varchar(3) NOT NULL default '',
+  cu_iso_nr int(11) NOT NULL default '0',
   cu_name_en varchar(50) NOT NULL default '',
   cu_symbol_left varchar(12) NOT NULL default '',
   cu_symbol_right varchar(12) NOT NULL default '',
-  cu_thousands_point char(1) NOT NULL default '',
-  cu_decimal_point char(1) NOT NULL default '',
-  cu_decimal_digits tinyint(3) unsigned NOT NULL default '0',
+  cu_thousands_point varchar(1) NOT NULL default '',
+  cu_decimal_point varchar(1) NOT NULL default '',
+  cu_decimal_digits smallint(6) NOT NULL default '0',
   cu_sub_name_en varchar(20) NOT NULL default '',
   cu_sub_divisor int(11) NOT NULL default '1',
   cu_sub_symbol_left varchar(12) NOT NULL default '',
@@ -1185,17 +1185,17 @@ INSERT INTO static_currencies VALUES ('180', '0', '0', 'TMT', '934', 'Turkmenist
 #
 DROP TABLE IF EXISTS static_languages;
 CREATE TABLE static_languages (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  lg_iso_2 char(2) NOT NULL default '',
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  deleted smallint(6) NOT NULL default '0',
+  lg_iso_2 varchar(2) NOT NULL default '',
   lg_name_local varchar(99) NOT NULL default '',
   lg_name_en varchar(50) NOT NULL default '',
-  lg_typo3 char(2) NOT NULL default '',
-  lg_country_iso_2 char(2) NOT NULL default '',
+  lg_typo3 varchar(2) NOT NULL default '',
+  lg_country_iso_2 varchar(2) NOT NULL default '',
   lg_collate_locale varchar(5) NOT NULL default '',
-  lg_sacred tinyint(3) unsigned NOT NULL default '0',
-  lg_constructed tinyint(3) unsigned NOT NULL default '0',
+  lg_sacred smallint(6) NOT NULL default '0',
+  lg_constructed smallint(6) NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
 );
@@ -1404,12 +1404,12 @@ INSERT INTO static_languages VALUES ('193', '0', '0', 'SR', 'Crnogorski jezik', 
 #
 DROP TABLE IF EXISTS static_territories;
 CREATE TABLE static_territories (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  tr_iso_nr int(11) unsigned NOT NULL default '0',
+  uid int(11) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  deleted smallint(6) NOT NULL default '0',
+  tr_iso_nr int(11) NOT NULL default '0',
   tr_parent_territory_uid int(11) NOT NULL default '0',
-  tr_parent_iso_nr int(11) unsigned NOT NULL default '0',
+  tr_parent_iso_nr int(11) NOT NULL default '0',
   tr_name_en varchar(50) NOT NULL default '',
   PRIMARY KEY (uid)
 );
@@ -1443,4 +1443,5 @@ INSERT INTO static_territories VALUES ('27', '0', '0', '57', '2', '9', 'Micrones
 INSERT INTO static_territories VALUES ('28', '0', '0', '61', '2', '9', 'Polynesia');
 INSERT INTO static_territories VALUES ('30', '0', '0', '34', '4', '142', 'Southern Asia');
 INSERT INTO static_territories VALUES ('31', '0', '0', '419', '3', '19', 'Latin America and the Caribbean');
+
 
