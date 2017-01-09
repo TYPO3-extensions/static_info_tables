@@ -2,6 +2,7 @@
 
 	* Resolves #79223: Standardize SQL table definitions
 	* Resolves #79035: Update currency of Baltic states
+	* Resolves #77245: Add languages "Swiss" and "Austrian"
 
 2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
