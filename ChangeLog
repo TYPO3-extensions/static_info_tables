@@ -1,6 +1,7 @@
 2017-01-09  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79223: Standardize SQL table definitions
+	* Resolves #79035: Update currency of Baltic states
 
 2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
