@@ -1230,7 +1230,7 @@ INSERT INTO static_languages VALUES ('26', '0', '0', 'HR', 'Hrvatski', 'Croatian
 INSERT INTO static_languages VALUES ('27', '0', '0', 'CS', 'Čeština', 'Czech', 'cz', '', 'cs_CZ', '0', '0');
 INSERT INTO static_languages VALUES ('28', '0', '0', 'DA', 'Dansk', 'Danish', 'dk', '', 'da_DK', '0', '0');
 INSERT INTO static_languages VALUES ('29', '0', '0', 'NL', 'Nederlands', 'Dutch', 'nl', '', 'nl_NL', '0', '0');
-INSERT INTO static_languages VALUES ('30', '0', '0', 'EN', 'English', 'English', '', '', 'en_GB', '0', '0');
+INSERT INTO static_languages VALUES ('30', '0', '0', 'EN', 'English', 'English', '', '', 'en', '0', '0');
 INSERT INTO static_languages VALUES ('31', '0', '0', 'EO', 'Esperanto', 'Esperanto', 'eo', '', '', '0', '1');
 INSERT INTO static_languages VALUES ('32', '0', '0', 'ET', 'Eesti', 'Estonian', 'et', '', 'et_EE', '0', '0');
 INSERT INTO static_languages VALUES ('33', '0', '0', 'FO', 'Føroyskt', 'Faeroese', 'fo', '', 'fo_FO', '0', '0');
@@ -1391,6 +1391,10 @@ INSERT INTO static_languages VALUES ('190', '0', '0', 'ZH', '汉语', 'Chinese (
 INSERT INTO static_languages VALUES ('191', '0', '0', 'FR', 'Français canadien', 'Canadian French', 'qc', 'CA', 'fr_CA', '0', '0');
 INSERT INTO static_languages VALUES ('192', '0', '0', 'TL', 'Filipino', 'Filipino', '', 'PH', 'fil', '0', '0');
 INSERT INTO static_languages VALUES ('193', '0', '0', 'SR', 'Crnogorski jezik', 'Montenegrin', '', 'ME', 'sr_ME', '0', '0');
+INSERT INTO static_languages VALUES ('194', '0', '0', 'DE', 'Deutsch (Schweiz)', 'German (Switzerland)', 'de', 'CH', 'de_CH', '0', '0');
+INSERT INTO static_languages VALUES ('195', '0', '0', 'DE', 'Deutsch (Österreich)', 'German (Austria)', 'de', 'AT', 'de_AT', '0', '0');
+INSERT INTO static_languages VALUES ('196', '0', '0', 'EN', 'English (USA)', 'English (USA)', '', 'US', 'en_US', '0', '0');
+INSERT INTO static_languages VALUES ('197', '0', '0', 'EN', 'English (United Kingdom)', 'English (United Kingdom)', '', 'GB', 'en_GB', '0', '0');
 
 
 
