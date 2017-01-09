@@ -31,6 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 
 /**
  * Class for updating the db
@@ -63,11 +64,8 @@ class ext_update
 
 		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 		$this->installTool = $this->objectManager->get(InstallUtility::class);
-		if (class_exists(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class)) {
-			// TYPO3 CMS 7 LTS
-			$installToolSqlParser = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class);
-			$this->installTool->injectInstallToolSqlParser($installToolSqlParser);
-		}
+		$installToolSqlParser = GeneralUtility::makeInstance(\SqlSchemaMigrationService::class);
+		$this->installTool->injectInstallToolSqlParser($installToolSqlParser);
 		$databaseUpdateUtility = GeneralUtility::makeInstance(DatabaseUpdateUtility::class);
 
 		// Clear the class cache
@@ -134,9 +132,9 @@ class ext_update
 			$extTablesStaticSqlContent .= GeneralUtility::getUrl($extTablesStaticSqlFile);
 		}
 		if ($extTablesStaticSqlContent !== '') {
-			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPoolConnectionPool')) {
+			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 				// TYPO3 CMS 8+ LTS
-				$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPoolConnectionPool::class);
+				$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
 				// Drop all tables
 				foreach (array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']) as $tableName) {
 					$connection = $connectionPool->getConnectionForTable($tableName);

@@ -2,6 +2,7 @@
 
 	* Resolves #79207: Cleanup extension configuration
 	* Resolves #79209: Migrate update script to Doctrine
+	* Resolves #79210: Migrate AbstractEntityRepository to Doctrine
 
 2017-01-07  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 

@@ -2,31 +2,45 @@
 namespace SJBR\StaticInfoTables\Domain\Repository;
 
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
-*  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
-*
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
+ *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 
+use Doctrine\DBAL\Types;
+use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Schema\Column;
+use Doctrine\DBAL\Schema\TableDiff;
+use SJBR\StaticInfoTables\Utility\DatabaseUtility;
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 
 /**
  * Abstract Repository for static entities
@@ -35,8 +49,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
  * @author Stanislas Rolland <typo3(arobas)sjbr.ca>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
+abstract class AbstractEntityRepository extends Repository
+{
 	/**
 	 * @var string Name of the extension this class belongs to
 	 */
@@ -55,10 +69,11 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	/**
 	 * Injects the DataMapper to map nodes to objects
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper
+	 * @param DataMapper $dataMapper
 	 * @return void
 	 */
-	public function injectDataMapper(\TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper $dataMapper) {
+	public function injectDataMapper(DataMapper $dataMapper)
+	{
 		$this->dataMapper = $dataMapper;
 	}
 
@@ -67,10 +82,10 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return void
 	 */
-	public function initializeObject() {
-		/** @var \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$querySettings->setRespectStoragePage(FALSE);
+	public function initializeObject()
+	{
+		$querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+		$querySettings->setRespectStoragePage(false);
 		$this->setDefaultQuerySettings($querySettings);
 	}
 
@@ -79,10 +94,11 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries
 	 */
-	public function findAllDeletedIncluded() {
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
+	public function findAllDeletedIncluded()
+	{
+		$querySettings = $this->objectManager->get(QuerySettingsInterface::class);
 		$querySettings->setStoragePageIds(array(0));
-		$querySettings->setIncludeDeleted(TRUE);
+		$querySettings->setIncludeDeleted(true);
 		$this->setDefaultQuerySettings($querySettings);
 		return parent::findAll();
 	}
@@ -93,12 +109,13 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 * @param string $list: list of uid's
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries
 	 */
-	public function findAllByUidInList($list = '') {
+	public function findAllByUidInList($list = '')
+	{
 		if (empty($list)) {
 			return array();
 		} else {
 			$query = $this->createQuery();
-			$list = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $list, TRUE);
+			$list = GeneralUtility::trimExplode(',', $list, true);
 			$query->matching($query->in('uid', $list));
 			return $query->execute();
 		}
@@ -110,7 +127,8 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by localized name
 	 */
-	protected function findAllOrderedByLocalizedName($orderDirection = 'asc') {
+	protected function findAllOrderedByLocalizedName($orderDirection = 'asc')
+	{
 		$entities = parent::findAll();
 		return $this->localizedSort($entities, $orderDirection);
 	}
@@ -118,13 +136,14 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	/**
 	 * Sort entities by the localized name
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities to be sorted
+	 * @param QueryResultInterface $entities to be sorted
 	 * @param string $orderDirection may be "asc" or "desc". Default is "asc".
 	 * @return array entities ordered by localized name
 	 */
-	public function localizedSort(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $entities, $orderDirection = 'asc') {
+	public function localizedSort(QueryResultInterface $entities, $orderDirection = 'asc')
+	{
 		$result = $entities->toArray();
-		$locale = \SJBR\StaticInfoTables\Utility\LocalizationUtility::setCollatingLocale();
+		$locale = LocalizationUtility::setCollatingLocale();
 		if ($locale !== FALSE) {
 			if ($orderDirection === 'asc') {
 				uasort($result, array($this, 'strcollOnLocalizedName'));
@@ -140,7 +159,8 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return integer see strcoll
 	 */
-	protected function strcollOnLocalizedName($entityA, $entityB) {
+	protected function strcollOnLocalizedName($entityA, $entityB)
+	{
 		return strcoll($entityA->getNameLocalized(), $entityB->getNameLocalized());
 	}
 
@@ -149,7 +169,8 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return integer see strcoll
 	 */
-	protected function strcollOnLocalizedNameDesc($entityA, $entityB) {
+	protected function strcollOnLocalizedNameDesc($entityA, $entityB)
+	{
 		return strcoll($entityB->getNameLocalized(), $entityA->getNameLocalized());
 	}
 
@@ -161,7 +182,8 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $propertyName
 	 */
-	public function findAllOrderedBy($propertyName, $orderDirection = 'asc') {
+	public function findAllOrderedBy($propertyName, $orderDirection = 'asc')
+	{
 		$queryResult = array();
 
 		if ($orderDirection !== 'asc' && $orderDirection !== 'desc') {
@@ -179,9 +201,9 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 			}
 
 			if ($orderDirection === 'asc') {
-				$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+				$orderDirection = QueryInterface::ORDER_ASCENDING;
 			} else {
-				$orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+				$orderDirection = QueryInterface::ORDER_DESCENDING;
 			}
 			$query->setOrderings(array($propertyName => $orderDirection));
 
@@ -200,6 +222,11 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
 		$fieldsInfo = $this->getFieldsInfo();
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+			// TYPO3 CMS 8+ LTS
+			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+		}
+
 		foreach ($fieldsInfo as $field => $fieldInfo) {
 			if ($field != 'cn_official_name_en') {
 				$matches = array();
@@ -213,8 +240,20 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 						if (preg_match('#\(([0-9]+)\)#', $fieldInfo['Type'], $matches)) {
 							$localizationFieldLength = intval($matches[1]);
 							// Add the localization field
-							$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $localizationField . ' varchar(' . $localizationFieldLength . ') DEFAULT \'\' NOT NULL;';
-							$res = $GLOBALS['TYPO3_DB']->admin_query($query);
+							if (is_object($connectionPool)) {
+								// TYPO3 CMS 8+ LTS
+								$connection = $connectionPool->getConnectionForTable($tableName);
+								$column = new Column($localizationField, Type::getType(Type::STRING));
+								$column->setLength($localizationFieldLength)
+									->setNotnull(true)
+									->setDefault('');
+								$tableDiff = new TableDiff($tableName, [$column]);
+								$query = $connection->getDatabasePlatform()->getAlterTableSQL($tableDiff);
+								$connection->executeUpdate($query[0]);
+							} else {
+								$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $localizationField . ' varchar(' . $localizationFieldLength . ') DEFAULT \'\' NOT NULL;';
+								$res = $GLOBALS['TYPO3_DB']->admin_query($query);
+							}
 						}
 					}
 				}
@@ -228,11 +267,23 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return array table fields information array
 	 */
-	protected function getFieldsInfo() {
+	protected function getFieldsInfo()
+	{
 		$fieldsInfo = array();
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
-		$fieldsInfo = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+			// TYPO3 CMS 8+ LTS
+			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+			$connection = $connectionPool->getConnectionForTable($tableName);
+			$query = $connection->getDatabasePlatform()->getListTableColumnsSQL($tableName, $connection->getDatabase());
+			$columnsInfo = $connection->executeQuery($query);
+			foreach ($columnsInfo as $fieldRow) {
+				$fieldsInfo[$fieldRow['Field']] = $fieldRow;
+			}
+		} else {
+			$fieldsInfo = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+		}
 		return $fieldsInfo;
 	}
 
@@ -241,11 +292,17 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return array Update queries
 	 */
-	public function getUpdateQueries($locale) {
+	public function getUpdateQueries($locale)
+	{
 		// Get the information of the table and its fields
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
 		$tableFields = array_keys($this->getFieldsInfo());
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+			// TYPO3 CMS 8+ LTS
+			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+			$connection = $connectionPool->getConnectionForTable($tableName);
+		}
 
 		$updateQueries = array();
 
@@ -260,17 +317,40 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 		if (count($exportFields)) {
 			$updateQueries[] = '## ' . $tableName;
 			$exportFields = array_merge($exportFields, $this->isoKeys);
-			$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(implode(',', $exportFields), $tableName, '');
+			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+				// TYPO3 CMS 8+ LTS
+				$queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
+				$queryBuilder->getRestrictions()->removeAll();
+				$queryBuilder->select($exportFields[0]);
+				array_shift($exportFields);
+				foreach ($exportFields as $exportField) {
+					$queryBuilder->addSelect($exportField);
+				}
+				$rows = $queryBuilder
+					->from($tableName)
+					->execute()
+					->fetchAll();
+			} else {
+				$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(implode(',', $exportFields), $tableName, '');
+			}
 			foreach ($rows as $row) {
 				$set = array();
 				foreach ($row as $field => $value) {
 					if (!in_array($field, $this->isoKeys)) {
-						$set[] = $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value, $tableName);
+						if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+							$set[] = $field . '=' . $connection->quote($value);
+						} else {
+							$set[] = $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value, $tableName);
+						}
 					}
 				}
 				$whereClause = '';
 				foreach ($this->isoKeys as $field) {
-					$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($row[$field], $tableName);
+					if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
+						$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $connection->quote($row[$field]);
+					} else {
+						$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($row[$field], $tableName);
+					}
 				}
 				$updateQueries[] = 'UPDATE ' . $tableName . ' SET ' . implode(',', $set) . $whereClause . ';';
 			}
@@ -283,23 +363,20 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 	 *
 	 * @return	void
 	 */
-	public function sqlDumpNonLocalizedData() {
+	public function sqlDumpNonLocalizedData()
+	{
 		// Get the information of the table and its fields
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
-		// Class TYPO3\CMS\Install\Sql\SchemaMigrator was renamed in TYPO3 6.2
-		if (class_exists('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService')) {
-			$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Service\\SqlSchemaMigrationService');
-		} else {
-			$installToolSqlParser = $this->objectManager->get('TYPO3\\CMS\\Install\\Sql\\SchemaMigrator');
-		}
+
+		$installToolSqlParser = $this->objectManager->get(SqlSchemaMigrationService::class);
 		$dbFieldDefinitions = $installToolSqlParser->getFieldDefinitions_database();
 		$dbFields = array();
 		$dbFields[$tableName] = $dbFieldDefinitions[$tableName];
 
-		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-		$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
-		$ext_tables = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($extensionPath . 'ext_tables.sql');
+		$extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
+		$extensionPath = ExtensionManagementUtility::extPath($extensionKey);
+		$ext_tables = GeneralUtility::getUrl($extensionPath . 'ext_tables.sql');
 
 		$tableFields = array_keys($dbFields[$tableName]['fields']);
 		foreach ($tableFields as $field) {
@@ -310,7 +387,7 @@ abstract class AbstractEntityRepository extends \TYPO3\CMS\Extbase\Persistence\R
 			}
 		}
 
-		$databaseUtility = $this->objectManager->get('SJBR\\StaticInfoTables\\Utility\\DatabaseUtility');
+		$databaseUtility = GeneralUtility::makeInstance(DatabaseUtility::class);
 		return $databaseUtility->dumpStaticTables($dbFields);
 	}
 
