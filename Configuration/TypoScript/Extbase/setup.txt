@@ -88,6 +88,15 @@ config.tx_extbase {
 					}
 				}
 			}
+			SJBR\StaticInfoTables\Domain\Model\SystemLanguage {
+				mapping {
+					tableName = sys_language
+					columns {
+						title.mapOnProperty = title
+						static_lang_isocode.mapOnProperty = isoLanguage
+					}
+				}
+			}
 		}
 	}
 }
