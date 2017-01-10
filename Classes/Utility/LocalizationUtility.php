@@ -25,7 +25,12 @@ namespace SJBR\StaticInfoTables\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use SJBR\StaticInfoTables\Domain\Model\Language;
+use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * Localization helper which should be used to fetch localized labels for static info entities.
@@ -82,6 +87,75 @@ class LocalizationUtility
 	 */
 	public static function getLabelFieldValue($identifiers, $tableName, $language, $local = false)
 	{
+		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+			$value = '';
+			$labelFields = self::getLabelFields($tableName, $language, $local);
+			if (count($labelFields)) {
+				$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($tableName);
+				$queryBuilder->from($tableName)->select('uid');
+				foreach ($labelFields as $labelField) {
+					$queryBuilder->addSelect($labelField);
+				}
+				$whereCount = 0;
+				if ($identifiers['uid']) {
+					$queryBuilder->where(
+						$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$identifiers['uid']), \PDO::PARAM_INT)
+					);
+					$whereCount++;
+				} else if (!empty($identifiers['iso'])) {
+					$isoCode = is_array($identifiers['iso']) ? $identifiers['iso'] : [$identifiers['iso']];
+					foreach ($isoCode as $index => $code) {
+						if ($code) {
+							$field = self::getIsoCodeField($tableName, $code, $index);
+							if ($field) {
+								if ($whereCount) {
+									$queryBuilder->andWhere(
+										$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
+									);
+									$whereCount++;
+								} else {
+									$queryBuilder->where(
+										$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
+									);
+									$whereCount++;
+								}
+							}
+						}
+					}
+				}
+				// Get the entity
+				if ($whereCount) {
+					$row = $queryBuilder->execute()->fetch();
+					if ($row) {
+						foreach ($labelFields as $labelField) {
+							if ($row[$labelField]) {
+								$value = $row[$labelField];
+								break;
+							}
+						}
+					}
+				}
+			} else {
+				// TYPO3 CMS 7 LTS
+				$value = $this->getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local);
+			}
+		}
+		return $value;
+	}
+
+	/**
+	 * TYPO3 CMS 7 LTS
+	 *
+	 * Get the localized value for the label field
+	 *
+	 * @param array $identifiers An array with key 1- 'uid' containing a uid and/or 2- 'iso' containing one or two iso codes (i.e. country zone code and country code, or language code and country code)
+	 * @param string $tableName The name of the table
+	 * @param string language ISO code
+	 * @param boolean local name only - if set local labels are returned
+	 * @return string the value for the label field
+	 */
+	protected static function getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local = false)
+	{
 		$value = '';
 		$labelFields = self::getLabelFields($tableName, $language, $local);
 		if (count($labelFields)) {
@@ -134,7 +208,8 @@ class LocalizationUtility
 	 * @param boolean If set, we are looking for the "local" title field
 	 * @return array field names
 	 */
-	public static function getLabelFields ($tableName, $lang, $local = FALSE) {
+	public static function getLabelFields($tableName, $lang, $local = false)
+	{
 		$labelFields = array();
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$tableName]['label_fields'])) {
 			$alternativeLanguages = array();
@@ -152,7 +227,7 @@ class LocalizationUtility
 					$labelFields[] = $labelField;
 				}
 				// Add fields for alternative languages
-				if (strpos($field, '##') !== FALSE && count($alternativeLanguages)) {
+				if (strpos($field, '##') !== false && count($alternativeLanguages)) {
 					foreach ($alternativeLanguages as $language) {
 						$labelField = str_replace ('##', strtolower($language), $field);
 						// Make sure the resulting field name exists in the table
@@ -175,7 +250,8 @@ class LocalizationUtility
 	 * @param integer index in the table's isocode_field configuration array
 	 * @return string field name
 	 */
-	public static function getIsoCodeField ($table, $isoCode, $index = 0) {
+	public static function getIsoCodeField($table, $isoCode, $index = 0)
+	{
 		$isoCodeField = '';
 		$isoCodeFieldTemplate = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['isocode_field'][$index];
 		if ($isoCode && $table && $isoCodeFieldTemplate) {
@@ -190,12 +266,13 @@ class LocalizationUtility
 	/**
 	 * Returns the type of an iso code: nr, 2, 3
 	 *
-	 * @param	string		iso code
-	 * @return	string		iso code type
+	 * @param string iso code
+	 * @return string iso code type
 	 */
-	protected static function isoCodeType ($isoCode) {
+	protected static function isoCodeType($isoCode)
+	{
 		$type = '';
-		$isoCodeAsInteger = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($isoCode);
+		$isoCodeAsInteger = MathUtility::canBeInterpretedAsInteger($isoCode);
 		if ($isoCodeAsInteger) {
 			$type = 'nr';
 		} else if (strlen($isoCode) == 2) {
@@ -212,7 +289,8 @@ class LocalizationUtility
 	 * @param string $key The TYPO3 language key
 	 * @return string the ISO language key
 	 */
-	public static function getIsoLanguageKey($key) {
+	public static function getIsoLanguageKey($key)
+	{
 		return ($key === 'default' ? 'EN' : $key);
 	}
 
@@ -221,7 +299,8 @@ class LocalizationUtility
 	 *
 	 * @return string the TYP3 language key
 	 */
-	public static function getCurrentLanguage() {
+	public static function getCurrentLanguage()
+	{
 		if (self::$languageKey === 'default') {
 			self::setLanguageKeys();
 		}
@@ -234,7 +313,8 @@ class LocalizationUtility
 	 *
 	 * @return void
 	 */
-	protected static function setLanguageKeys() {
+	protected static function setLanguageKeys()
+	{
 		self::$languageKey = 'default';
 		self::$alternativeLanguageKeys = array();
 		if (TYPO3_MODE === 'FE') {
@@ -243,8 +323,7 @@ class LocalizationUtility
 				if (isset($GLOBALS['TSFE']->config['config']['language_alt'])) {
 					self::$alternativeLanguageKeys[] = $GLOBALS['TSFE']->config['config']['language_alt'];
 				} else {
-					/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
-					$locales = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
+					$locales = GeneralUtility::makeInstance(Locales::class);
 					if (in_array(self::$languageKey, $locales->getLocales())) {
 						foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
 							self::$alternativeLanguageKeys[] = $language;
@@ -255,8 +334,7 @@ class LocalizationUtility
 		} else {
 			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'default';
 			// Get standard locale dependencies for the backend
-			/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
-			$locales = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
+			$locales = GeneralUtility::makeInstance(Locales::class);
 			if (in_array(self::$languageKey, $locales->getLocales())) {
 				foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
 					self::$alternativeLanguageKeys[] = $language;
@@ -271,20 +349,18 @@ class LocalizationUtility
 	/**
 	 * Set the collating locale
 	 *
-	 * @return mixed the set locale or FALSE
+	 * @return mixed the set locale or false
 	 */
-	public static function setCollatingLocale() {
+	public static function setCollatingLocale()
+	{
 		if (self::$collatingLocale === '') {
 			$languageCode = self::getCurrentLanguage();
-			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-			/** @var $languageRepository SJBR\StaticInfoTables\Domain\Repository\LanguageRepository */
-			$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
+			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+			$languageRepository = $objectManager->get(LanguageRepository::class);
 			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
-			/** @var $language SJBR\StaticInfoTables\Domain\Model\Language */
 			$language = $languageRepository->findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 ? $countryIsoCodeA2 : '');
 			// If $language is NULL, current language was not found in the Language repository. Most probably, the repository is empty.
-			self::$collatingLocale = ($language instanceof \SJBR\StaticInfoTables\Domain\Model\Language) ? $language->getCollatingLocale() : 'en_GB';
+			self::$collatingLocale = ($language instanceof Language) ? $language->getCollatingLocale() : 'en_GB';
 		}
 		return setlocale(LC_COLLATE,
 			array(
