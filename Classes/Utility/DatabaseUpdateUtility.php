@@ -62,7 +62,7 @@ class DatabaseUpdateUtility
 				}
 				if (count($fields)) {
 					if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
-						$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+						$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($parsedResult['TABLE']);
 						$queryBuilder->getRestrictions()->removeAll();
 						$queryBuilder->update($parsedResult['TABLE']);
 						// We expect only a few of conditions combined by AND
