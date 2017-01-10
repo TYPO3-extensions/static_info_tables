@@ -1,3 +1,7 @@
+2017-01-10  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #79255: Migrate Localization Utility to Doctrine
+
 2017-01-09  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79223: Standardize SQL table definitions
