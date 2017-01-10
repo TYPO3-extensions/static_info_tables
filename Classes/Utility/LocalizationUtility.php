@@ -1,10 +1,11 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
+
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2009 Sebastian Kurfürst <sebastian@typo3.org>
- *  (c) 2013 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2017 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,12 +24,15 @@ namespace SJBR\StaticInfoTables\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Localization helper which should be used to fetch localized labels for static info entities.
  *
  */
-class LocalizationUtility {
-
+class LocalizationUtility
+{
 	/**
 	 * Key of the language to use
 	 *
@@ -58,15 +62,12 @@ class LocalizationUtility {
 	 * @param boolean local name only - if set local labels are returned
 	 * @return string The value from the label field of the table
 	 */
-	public static function translate ($identifiers, $tableName, $local = FALSE) {
-
+	public static function translate($identifiers, $tableName, $local = false)
+	{
 		$value = '';
 		self::setLanguageKeys();
 		$isoLanguage = self::getIsoLanguageKey(self::$languageKey);
 		$value = self::getLabelFieldValue($identifiers, $tableName, $isoLanguage, $local);
-		if ($value) {
-			$value = self::convertCharset($value, 'utf-8');
-		}
 		return $value;
 	}
 
@@ -79,7 +80,8 @@ class LocalizationUtility {
 	 * @param boolean local name only - if set local labels are returned
 	 * @return string the value for the label field
 	 */
-	public static function getLabelFieldValue ($identifiers, $tableName, $language, $local = FALSE) {
+	public static function getLabelFieldValue($identifiers, $tableName, $language, $local = false)
+	{
 		$value = '';
 		$labelFields = self::getLabelFields($tableName, $language, $local);
 		if (count($labelFields)) {
@@ -242,7 +244,7 @@ class LocalizationUtility {
 					self::$alternativeLanguageKeys[] = $GLOBALS['TSFE']->config['config']['language_alt'];
 				} else {
 					/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
-					$locales = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
+					$locales = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
 					if (in_array(self::$languageKey, $locales->getLocales())) {
 						foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
 							self::$alternativeLanguageKeys[] = $language;
@@ -254,7 +256,7 @@ class LocalizationUtility {
 			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'default';
 			// Get standard locale dependencies for the backend
 			/** @var $locales \TYPO3\CMS\Core\Localization\Locales */
-			$locales = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
+			$locales = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Localization\\Locales');
 			if (in_array(self::$languageKey, $locales->getLocales())) {
 				foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
 					self::$alternativeLanguageKeys[] = $language;
@@ -275,7 +277,7 @@ class LocalizationUtility {
 		if (self::$collatingLocale === '') {
 			$languageCode = self::getCurrentLanguage();
 			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
-			$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 			/** @var $languageRepository SJBR\StaticInfoTables\Domain\Repository\LanguageRepository */
 			$languageRepository = $objectManager->get('SJBR\\StaticInfoTables\\Domain\\Repository\\LanguageRepository');
 			list($languageIsoCodeA2, $countryIsoCodeA2) = explode('_', $languageCode, 2);
@@ -291,21 +293,5 @@ class LocalizationUtility {
 				self::$collatingLocale . '.utf8'
 			)
 		);
-	}
-
-	/**
-	 * Converts a string from the specified character set to the current.
-	 * The current charset is defined by the TYPO3 mode.
-	 *
-	 * @param string $value string to be converted
-	 * @param string $charset The source charset
-	 * @return string converted string
-	 */
-	public static function convertCharset($value, $charset) {
-		if (TYPO3_MODE === 'FE') {
-			return $GLOBALS['TSFE']->csConv($value, $charset);
-		} else {
-			return $value;
-		}
 	}
 }

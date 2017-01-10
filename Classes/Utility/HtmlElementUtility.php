@@ -1,32 +1,33 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
+
 /***************************************************************
-*  Copyright notice
-*
-*  (c) 2013 StanislasRolland <typo3@sjbr.ca>
-*  All rights reserved
-*
-*  This script is part of the Typo3 project. The Typo3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ *  Copyright notice
+ *
+ *  (c) 2013-2017 StanislasRolland <typo3@sjbr.ca>
+ *  All rights reserved
+ *
+ *  This script is part of the Typo3 project. The Typo3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 /**
  * HTML form element utility functions
  */
-class HtmlElementUtility {
-
+class HtmlElementUtility
+{
 	/**
 	 * Buils a HTML drop-down selector of countries, country subdivisions, currencies or languages
 	 *
@@ -45,12 +46,11 @@ class HtmlElementUtility {
 		$selector = '';
 		if (is_array($items) && count($items) > 0) {
 
-			$renderCharset = TYPO3_MODE === 'FE' ? $GLOBALS['TSFE']->renderCharset : 'utf-8';
-			$idAttribute = (trim($id)) ? 'id="' . htmlspecialchars(trim($id), ENT_COMPAT, $renderCharset) . '" ' : '';
-			$nameAttribute = (trim($name)) ? 'name="' . htmlspecialchars(trim($name), ENT_COMPAT, $renderCharset) . '" ' : '';
-			$titleAttribute = (trim($title)) ? 'title="' . htmlspecialchars(trim($title), ENT_COMPAT, $renderCharset) . '" ' : '';
-			$classAttribute = (trim($class)) ? 'class="' . htmlspecialchars(trim($class), ENT_COMPAT, $renderCharset) . '" ' : '';
-	
+			$idAttribute = (trim($id)) ? 'id="' . htmlspecialchars(trim($id)) . '" ' : '';
+			$nameAttribute = (trim($name)) ? 'name="' . htmlspecialchars(trim($name)) . '" ' : '';
+			$titleAttribute = (trim($title)) ? 'title="' . htmlspecialchars(trim($title)) . '" ' : '';
+			$classAttribute = (trim($class)) ? 'class="' . htmlspecialchars(trim($class)) . '" ' : '';
+
 			if ($onChange) {
 				$onChangeAttribute = $onChange;
 				$onChangeAttribute = str_replace('"', '\'', $onChangeAttribute);
@@ -59,7 +59,7 @@ class HtmlElementUtility {
 			} else {
 				$onChangeAttribute = '';
 			}
-	
+
 			if ($size > 1) {
 				$multiple = 'multiple="multiple" ';
 				$name .= '[]';
@@ -82,7 +82,8 @@ class HtmlElementUtility {
 	 * @param array $outSelected: resulting array of keys of selected items
 	 * @return string A string of HTML <option> tags
 	 */
-	public static function optionsConstructor ($items, $selected = array(), &$outSelected = array()) {
+	public static function optionsConstructor($items, $selected = array(), &$outSelected = array())
+	{
 		$options = '';
 		foreach ($items as $item) {
 			$options  .= '<option value="' . $item['value'] . '"';
@@ -90,7 +91,7 @@ class HtmlElementUtility {
 				$options  .= ' selected="selected"';
 				$outSelected[] = $item['value'];
 			}
-			$options  .= '>' . LocalizationUtility::convertCharset($item['name'], 'utf-8') . '</option>' . LF;
+			$options  .= '>' . $item['name'] . '</option>' . LF;
 		}
 		if (!isset($outSelected) || count($outSelected) == 0)	{
 			reset($items);
@@ -102,13 +103,13 @@ class HtmlElementUtility {
 	/**
 	 * Quotes a string for usage as JS parameter.
 	 *
-	 * @param	string		The string to encode.
-	 * @return	string		The encoded value already quoted
+	 * @param string The string to encode.
+	 * @return string The encoded value already quoted
 	 */
-	protected static function quoteJsValue ($value) {
+	protected static function quoteJsValue($value)
+	{
 		$value = addcslashes($value, '"' . LF . CR);
-		$value = htmlspecialchars($value, ENT_COMPAT, TYPO3_MODE === 'FE' ? $GLOBALS['TSFE']->renderCharset : 'utf-8');
+		$value = htmlspecialchars($value);
 		return '"' . $value . '"';
 	}
 }
-?>

@@ -8,6 +8,7 @@
 	* Resolves #79229: Migrate suggest receiver to Doctrine
 	* Follow-up to Resolves #79209: Migrate update script to Doctrine
 	* Resolves #79230: Migrate ProcessDataMap hook to Doctrine
+	* Resolves #79231: Drop character set conversions
 
 2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
