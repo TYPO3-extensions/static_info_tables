@@ -40,15 +40,71 @@ use SJBR\StaticInfoTables\Utility\LocalizationUtility;
  * @author Benjamin Mack <benni@typo3.org>
  * @author Stanislas Rolland <typo3(arobas)sjbr.ca>
  */
-class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaultReceiver {
+class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaultReceiver
+{
+    /**
+     * Prepare the statement for selecting the records which will be returned to the selector. May also return some
+     * other records (e.g. from a mm-table) which will be used later on to select the real records
+     *
+     * @return void
+     */
+    protected function prepareSelectStatement()
+    {
+    	if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+    		$expressionBuilder = $this->queryBuilder->expr();
+			$searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
+			$searchString = $this->params['value'];
+			$searchUid = (int)$searchString;
+			if ($searchString !== '') {
+				$likeCondition = ($searchWholePhrase ? '%' : '') . $searchString . '%';
+				// Get the label field for the current language, if any is available
+				$lang = LocalizationUtility::getCurrentLanguage();
+				$lang = LocalizationUtility::getIsoLanguageKey($lang);
+				$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+				$selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
+				$selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, true);
+				$selectFields = array_unique($selectFields);
+
+				$selectParts = $expressionBuilder->orX();
+				foreach ($selectFields as $field) {
+					$selectParts->add($expressionBuilder->like($field, $this->queryBuilder->createPositionalParameter($likeCondition)));
+				}
+
+				$searchClause = $expressionBuilder->orX($selectParts);
+				if ($searchUid > 0 && $searchUid == $searchString) {
+					$searchClause->add($expressionBuilder->eq('uid', $searchUid));
+				}
+
+				$this->queryBuilder->andWhere($expressionBuilder->orX($searchClause));
+			}
+			if (!empty($this->allowedPages)) {
+				$pidList = array_map('intval', $this->allowedPages);
+				if (!empty($pidList)) {
+					$this->queryBuilder->andWhere(
+						$expressionBuilder->in('pid', $pidList)
+					);
+				}
+			}
+			// add an additional search condition comment
+			if (isset($this->config['searchCondition']) && $this->config['searchCondition'] !== '') {
+				$this->queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($this->config['searchCondition']));
+			}
+		} else {
+			// TYPO3 CMS 7 LTS
+			$this->prepareCompatibleSelectStatement();
+		}
+    }
 
 	/**
+	 * For TYPO3 CMS 7 LTS
+	 *
 	 * Prepare the statement for selecting the records which will be returned to the selector. May also return some
 	 * other records (e.g. from a mm-table) which will be used later on to select the real records
 	 *
 	 * @return void
 	 */
-	protected function prepareSelectStatement() {
+	protected function prepareCompatibleSelectStatement()
+	{
 		$searchWholePhrase = $this->config['searchWholePhrase'];
 		$searchString = $this->params['value'];
 		$searchUid = intval($searchString);
@@ -94,7 +150,36 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
 	 *
 	 * @return void
 	 */
-	protected function prepareOrderByStatement() {
+	protected function prepareOrderByStatement()
+	{
+		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+			// Get the label field for the current language, if any is available
+			$lang = LocalizationUtility::getCurrentLanguage();
+			$lang = LocalizationUtility::getIsoLanguageKey($lang);
+			$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+			if (!empty($labelFields)) {
+				foreach ($labelFields as $labelField) {
+					$this->queryBuilder->addOrderBy($labelField);
+				}
+			} else 	if ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
+				$this->queryBuilder->addOrderBy($GLOBALS['TCA'][$this->table]['ctrl']['label']);
+			}
+		} else {
+			// TYPO3 CMS 7 LTS
+			$this->prepareCompatibleOrderByStatement();
+		}
+	}
+
+	/**
+	 * For TYPO3 CMS 7 LTS
+	 *
+	 * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
+	 * SQL standard for reference.
+	 *
+	 * @return void
+	 */
+	protected function prepareCompatibleOrderByStatement()
+	{
 		if ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
 			$this->orderByStatement = $GLOBALS['TCA'][$this->table]['ctrl']['label'];
 		}

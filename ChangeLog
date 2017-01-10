@@ -5,6 +5,7 @@
 	* Resolves #77245: Add languages "Swiss" and "Austrian"
 	* Resolves #77246: Missing extbase declaration for field "static_lang_isocode" in sys_language
 	* Follow-up to Resolves #79209: Migrate update script to Doctrine
+	* Resolves #79229: Migrate suggest receiver to Doctrine
 
 2017-01-08  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
