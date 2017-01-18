@@ -56,7 +56,7 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
 			$searchString = $this->params['value'];
 			$searchUid = (int)$searchString;
 			if ($searchString !== '') {
-				$likeCondition = ($searchWholePhrase ? '%' : '') . $searchString . '%';
+				$likeCondition = ($searchWholePhrase ? '%' : '') . $this->queryBuilder->escapeLikeWildcards($searchString) . '%';
 				// Get the label field for the current language, if any is available
 				$lang = LocalizationUtility::getCurrentLanguage();
 				$lang = LocalizationUtility::getIsoLanguageKey($lang);
