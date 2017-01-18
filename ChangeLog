@@ -2,6 +2,7 @@
 
 	* Resolves #79359: Migrate PiBaseApi to Doctrine
 	* Follow-up to Resolves #79229: Migrate suggest receiver to Doctrine
+	* Follow-up to Resolves #79207: Cleanup extension configuration
 
 2017-01-10  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
