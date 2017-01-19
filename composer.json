@@ -1,7 +1,7 @@
 {
   "name": "sjbr/static-info-tables",
   "description": "Data and API for countries, languages and currencies.",
-  "version": "6.4.0",
+  "version": "6.4.1",
   "type": "typo3-cms-extension",
   "license": "GPL-2.0+",
   "authors": [
