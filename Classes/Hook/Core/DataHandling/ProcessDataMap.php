@@ -106,7 +106,7 @@ class ProcessDataMap
 				$country = $countryRepository->findOneByUid((int)$id);
 				// Get the country zones
 				$countryZones = $country->getCountryZones()->toArray();
-				if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+				if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 					if (count($countryZones)) {
 						$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('static_country_zones');
 						foreach ($countryZones as $countryZone) {

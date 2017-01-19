@@ -87,7 +87,7 @@ class LocalizationUtility
 	 */
 	public static function getLabelFieldValue($identifiers, $tableName, $language, $local = false)
 	{
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			$value = '';
 			$labelFields = self::getLabelFields($tableName, $language, $local);
 			if (count($labelFields)) {
@@ -135,10 +135,10 @@ class LocalizationUtility
 						}
 					}
 				}
-			} else {
-				// TYPO3 CMS 7 LTS
-				$value = $this->getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local);
 			}
+		} else {
+			// TYPO3 CMS 7 LTS
+			$value = self::getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local);
 		}
 		return $value;
 	}
