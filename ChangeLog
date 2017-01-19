@@ -1,6 +1,7 @@
 2017-01-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79384: Issues in TYPO3 CMS 7 after migration to Doctrine
+	* Resolves #79385: Update extension icon to svg
 
 2017-01-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
