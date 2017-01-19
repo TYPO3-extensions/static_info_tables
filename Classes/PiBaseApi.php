@@ -308,7 +308,7 @@ class PiBaseApi extends AbstractPlugin
 		}
 		array_unique($prefixedTitleFields);
 
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 				->getQueryBuilderForTable($table );
 			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
@@ -405,7 +405,7 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 				->getQueryBuilderForTable($table );
 			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
@@ -483,7 +483,7 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 				->getQueryBuilderForTable($table );
 			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
@@ -549,7 +549,7 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
 				->getQueryBuilderForTable($table );
 			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));

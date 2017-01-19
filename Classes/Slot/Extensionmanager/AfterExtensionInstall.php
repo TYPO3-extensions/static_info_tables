@@ -67,7 +67,7 @@ class AfterExtensionInstall {
 		if (strpos($extensionKey, 'static_info_tables') === 0) {
 			$extensionKeyParts = explode('_', $extensionKey);
 			if (count($extensionKeyParts) === 3) {
-				$extTablesStaticSqlRelFile = substr(ExtensionManagementUtility::extRelPath($extensionKey), 3) . 'ext_tables_static+adt.sql';
+				$extTablesStaticSqlRelFile = ExtensionManagementUtility::siteRelPath($extensionKey) . 'ext_tables_static+adt.sql';
 			}
 			if (
 				// Base extension with data already imported once

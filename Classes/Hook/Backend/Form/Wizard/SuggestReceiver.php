@@ -50,7 +50,7 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
      */
     protected function prepareSelectStatement()
     {
-    	if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+    	if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
     		$expressionBuilder = $this->queryBuilder->expr();
 			$searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
 			$searchString = $this->params['value'];
@@ -152,7 +152,7 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
 	 */
 	protected function prepareOrderByStatement()
 	{
-		if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 			// Get the label field for the current language, if any is available
 			$lang = LocalizationUtility::getCurrentLanguage();
 			$lang = LocalizationUtility::getIsoLanguageKey($lang);

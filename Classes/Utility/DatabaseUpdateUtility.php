@@ -61,7 +61,7 @@ class DatabaseUpdateUtility
 					$fields[$fN] = $fV[0];
 				}
 				if (count($fields)) {
-					if (class_exists(\TYPO3\CMS\Core\Database\ConnectionPool::class)) {
+					if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
 						$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($parsedResult['TABLE']);
 						$queryBuilder->getRestrictions()->removeAll();
 						$queryBuilder->update($parsedResult['TABLE']);
