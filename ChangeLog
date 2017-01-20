@@ -1,3 +1,7 @@
+2017-01-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #79396: class.tx_staticinfotables_encoding.php, failed to open stream: No such file or directory
+
 2017-01-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79384: Issues in TYPO3 CMS 7 after migration to Doctrine
