@@ -1,3 +1,7 @@
+2017-01-24  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Update version to 6.4.2
+
 2017-01-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79396: class.tx_staticinfotables_encoding.php, failed to open stream: No such file or directory
