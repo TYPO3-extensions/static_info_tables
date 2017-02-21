@@ -677,7 +677,7 @@ class PiBaseApi extends AbstractPlugin
 			// Get address format
 			$country = $this->countryRepository->findOneByIsoCodeA3($countryCode);
 			if (is_object($country)) {
-				$addressFormat = $country->getAddessFormat();
+				$addressFormat = $country->getAddressFormat();
 				// Get country subdivision name
 				$countrySubdivisionName = $this->getStaticInfoName('SUBDIVISIONS', $subdivisionCode, $countryCode);
 				// Format the address
