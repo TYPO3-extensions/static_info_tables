@@ -4,9 +4,6 @@ defined('TYPO3_MODE') or die();
 // Get the extensions's configuration
 $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['static_info_tables']);
 
-// Including Extbase configuration
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:static_info_tables/Configuration/TypoScript/Extbase/setup.txt">');
-
 // Register cache static_info_tables
 if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables'])) {
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['static_info_tables'] = [];
