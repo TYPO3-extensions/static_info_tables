@@ -1,6 +1,7 @@
 2017-02-21  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #79648: Call to undefined method SJBR\StaticInfoTables\Domain\Model\Country::getAddessFormat()
+	* Resolves #79944: Croatia is not marked as EU country
 
 2017-01-24  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
