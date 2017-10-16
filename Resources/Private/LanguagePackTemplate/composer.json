@@ -11,8 +11,8 @@
     }
   ],
   "replace": {
-    "static_info_tables_###LANG_ISO_LOWER###": "*",
-    "sjbr/static_info_tables_###LANG_ISO_LOWER###": "*",
+    "static_info_tables_###LANG_ISO_LOWER###": "self.version",
+    "sjbr/static-info-tables-###LANG_ISO_LOWER###": "self.version",
     "typo3-ter/static-info-tables-###LANG_ISO_LOWER###": "self.version"
   },
   "require": {
