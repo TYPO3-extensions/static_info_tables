@@ -89,8 +89,8 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['enableManager'] = 
 // Make the extension version and constraints available when creating language packs and to other extensions
 $emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
 $emConf = $emConfUtility->includeEmConf(['key' => 'static_info_tables', 'siteRelPath' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('static_info_tables')]);
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['version'] = $emConf['static_info_tables']['version'];
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['constraints'] = $emConf['static_info_tables']['constraints'];
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['version'] = $emConf['version'];
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['constraints'] = $emConf['constraints'];
 
 unset($labelTable);
 unset($extConf);
