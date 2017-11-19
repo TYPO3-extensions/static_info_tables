@@ -2,6 +2,7 @@
 
 	* Resolves #83033: Adapt suggest options to 8 LTS
 	* Resolves #82808: Critical Invalid Cache Bug - Thanks to Tim Lochmüller
+	* Update version to 6.5.0
 
 2017-10-16  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
