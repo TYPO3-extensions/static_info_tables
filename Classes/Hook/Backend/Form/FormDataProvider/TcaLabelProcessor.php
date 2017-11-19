@@ -27,6 +27,7 @@ use SJBR\StaticInfoTables\Domain\Model\Country;
 use SJBR\StaticInfoTables\Domain\Model\Currency;
 use SJBR\StaticInfoTables\Domain\Model\Language;
 use SJBR\StaticInfoTables\Domain\Model\Territory;
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -43,7 +44,11 @@ class TcaLabelProcessor
 	 */
 	public function addIsoCodeToLabel(&$PA)
 	{
-		$PA['title'] = $PA['row'][$GLOBALS['TCA'][$PA['table']]['ctrl']['label']];
+		if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()) < 8000000) {
+			$PA['title'] = $PA['row'][$GLOBALS['TCA'][$PA['table']]['ctrl']['label']];
+		} else {
+			$PA['title'] = LocalizationUtility::translate(['uid' => $PA['row']['uid']], $PA['table']);
+		}
 		if (TYPO3_MODE == 'BE') {
 			/** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
 			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');

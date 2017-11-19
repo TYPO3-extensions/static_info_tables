@@ -78,11 +78,17 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		if (!is_dir($languagePackExtensionPath . 'Configuration/TCA/Overrides/')) {
 			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TCA/Overrides/');
 		}
+		if (!is_dir($languagePackExtensionPath . 'Configuration/PageTSconfig/')) {
+			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/PageTSconfig/');
+		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
 			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TypoScript/Extbase/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Resources/Private/Language/')) {
 			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Resources/Private/Language/');
+		}
+		if (!is_dir($languagePackExtensionPath . 'Resources/Public/Icons/')) {
+			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Resources/Public/Icons/');
 		}
 
 		// Get the source files of the language pack template
