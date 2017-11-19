@@ -1,9 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Cache;
+
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,16 +20,19 @@ namespace SJBR\StaticInfoTables\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class Cache Manager
  *
  */
-class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
-
+class ClassCacheManager implements SingletonInterface
+{
 	/**
 	 * Extension key
 	 *
@@ -49,32 +53,44 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	);
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+	 */
+	protected $objectManager;
+
+	/**
+	 * @var \TYPO3\CMS\Core\Cache\CacheManager
+	 */
+	protected $cacheManager;
+
+	/**
 	 * @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
 	 */
 	protected $cacheInstance;
- 
+
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct()
+	{
+		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 		$this->initializeCache();
 	}
- 
+
 	/**
 	 * Initialize cache instance to be ready to use
 	 *
 	 * @return void
 	 */
-	protected function initializeCache() {
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$cacheManager = $objectManager->get('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-		if (!$cacheManager->hasCache($this->extensionKey)) {
+	protected function initializeCache()
+	{
+		$this->cacheManager = $this->objectManager->get(CacheManager::class);
+		if (!$this->cacheManager->hasCache($this->extensionKey)) {
 			if (is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey])) {
 					ArrayUtility::mergeRecursiveWithOverrule($this->cacheConfiguration[$this->extensionKey], $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$this->extensionKey]);
 			}
-			$cacheManager->setCacheConfigurations($this->cacheConfiguration);
+			$this->cacheManager->setCacheConfigurations($this->cacheConfiguration);
 		}
-		$this->cacheInstance = $cacheManager->getCache($this->extensionKey);
+		$this->cacheInstance = $this->cacheManager->getCache($this->extensionKey);
 	}
 
 	/**
@@ -83,7 +99,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return void
 	 * @throws Exception
 	 */
-	public function build() {
+	public function build()
+	{
 		$extensibleExtensions = $this->getExtensibleExtensions();
 		$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extensionKey]['entities'];
 		foreach ($entities as $entity) {
@@ -94,7 +111,7 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 			if (!is_file($path)) {
 				throw new Exception('given file "' . $path . '" does not exist');
 			}
-			$code = $this->parseSingleFile($path, FALSE);
+			$code = $this->parseSingleFile($path, false);
 
 			// Get the files from all other extensions that are extending this domain model class
 			if (isset($extensibleExtensions[$key]) && is_array($extensibleExtensions[$key]) && count($extensibleExtensions[$key]) > 0) {
@@ -125,7 +142,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 *
 	 * @return array
 	 */
-	protected function getExtensibleExtensions() {
+	protected function getExtensibleExtensions()
+	{
 		$loadedExtensions = array_unique(ExtensionManagementUtility::getLoadedExtensionListArray());
 
 		// Get the extensions which want to extend static_info_tables
@@ -134,7 +152,7 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 			$extensionInfoFile = ExtensionManagementUtility::extPath($extensionKey) . 'Configuration/DomainModelExtension/StaticInfoTables.txt';
 			if (file_exists($extensionInfoFile)) {
 				$info = GeneralUtility::getUrl($extensionInfoFile);
-				$classes = GeneralUtility::trimExplode(LF, $info, TRUE);
+				$classes = GeneralUtility::trimExplode(LF, $info, true);
 				foreach ($classes as $class) {
 					$extensibleExtensions[$class][$extensionKey] = 1;
 				}
@@ -154,7 +172,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @throws Exception
 	 * @throws InvalidArgumentException
 	 */
-	public function parseSingleFile($filePath, $removeClassDefinition = TRUE) {
+	public function parseSingleFile($filePath, $removeClassDefinition = true)
+	{
 		if (!is_file($filePath)) {
 			throw new InvalidArgumentException(sprintf('File "%s" could not be found', $filePath));
 		}
@@ -170,7 +189,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return string
 	 * @throws Exception
 	 */
-	protected function changeCode($code, $filePath, $removeClassDefinition = TRUE, $renderPartialInfo = TRUE) {
+	protected function changeCode($code, $filePath, $removeClassDefinition = true, $renderPartialInfo = true)
+	{
 		if (empty($code)) {
 			throw new InvalidArgumentException(sprintf('File "%s" could not be fetched or is empty', $filePath));
 		}
@@ -201,12 +221,14 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 		return $code . LF . LF;
 	}
 
-	protected function getPartialInfo($filePath) {
+	protected function getPartialInfo($filePath)
+	{
 		return '/*' . str_repeat('*', 70) . LF .
 			' * this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF . TAB;
 	}
 
-	protected function closeClassDefinition($code) {
+	protected function closeClassDefinition($code)
+	{
 		return $code . LF . '}';
 	}
 
@@ -215,7 +237,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 *
 	 * @return void
 	 */
-	public function clear() {
+	public function clear()
+	{
 		$this->cacheInstance->flush();
 		if (isset($GLOBALS['BE_USER'])) {
 			$GLOBALS['BE_USER']->writelog(3, 1, 0, 0, '[StaticInfoTables]: User %s has cleared the class cache', array($GLOBALS['BE_USER']->user['username']));
@@ -227,7 +250,8 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 	 *
 	 * @return void
 	 */
-	public function reBuild(array $parameters = array()) {
+	public function reBuild(array $parameters = array())
+	{
 		$isValidCall = (
 			empty($parameters)
 			|| (
@@ -239,6 +263,15 @@ class ClassCacheManager implements \TYPO3\CMS\Core\SingletonInterface {
 		if ($isValidCall) {
 			$this->clear();
 			$this->build();
+			$this->clearReflectionCache();
 		}
+	}
+
+	/**
+	 * Drop the reflection cache
+	 */
+	protected function clearReflectionCache()
+	{
+		$this->cacheManager->getCache('extbase_reflection')->flush();
 	}
 }
