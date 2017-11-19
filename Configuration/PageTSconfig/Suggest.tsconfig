@@ -1,0 +1,4 @@
+# ***************************************************************************************
+# Translate currency labels in suggestion on static_countries table
+# ***************************************************************************************
+TCEFORM.static_countries.cn_currency_uid.suggest.default.renderFunc = SJBR\StaticInfoTables\Hook\Backend\Form\FormDataProvider\SuggestLabelProcessor->translateLabel

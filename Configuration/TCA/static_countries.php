@@ -129,31 +129,33 @@ return array(
 				'default' => ''
 			)
 		),
-		'cn_currency_uid' => array(
+		'cn_currency_uid' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:static_info_tables/Resources/Private/Language/locallang_db.xlf:static_countries_item.cn_currency_uid',
-			'config' => array(
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'static_currencies',
 				'foreign_table' => 'static_currencies',
 				'foreign_table_where' => 'ORDER BY static_currencies.cu_name_en',
-				'itemsProcFunc' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\FormDataProvider\\TcaSelectItemsProcessor->translateCurrenciesSelector',
+				'suggestOptions' => [
+					'default' => [
+						'pidList' => '0'
+					]
+				],
+				'fieldWizard' => [
+					'recordsOverview' => [
+						'disabled' => true
+					],
+					'tableList' => [
+						'disabled' => true
+					]
+				],
 				'size' => 1,
 				'minitems' => 0,
-				'maxitems' => 1,
-				'wizards' => array(
-					'suggest' => array(
-						'type' => 'suggest',
-						'default' => array(
-							'receiverClass' => 'SJBR\\StaticInfoTables\\Hook\\Backend\\Form\\Wizard\\SuggestReceiver'
-						)
-					)
-				)
-			)
-		),
+				'maxitems' => 1
+			]
+		],
 		'cn_currency_iso_nr' => array(
 			'config' => array(
 				'type' => 'passthrough',
