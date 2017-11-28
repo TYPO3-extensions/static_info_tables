@@ -1,7 +1,7 @@
 <?php
 // Use pre-8 LTS suggest options
 if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()) < 8000000) {
-	$GLOBALS['TCA']['sys_countries']['columns']['cn_currency_uid']['config'] = [
+	$GLOBALS['TCA']['static_countries']['columns']['cn_currency_uid']['config'] = [
 		'type' => 'select',
 		'renderType' => 'selectSingle',
 		'items' => array(
