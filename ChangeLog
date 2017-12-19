@@ -1,3 +1,9 @@
+2017-12-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #83060: Wrong table name in Configuration/TCA/Overrides/static_countries.php - Thanks to Simon Schaufelberger
+	* Update manual
+	* Update version to 6.5.1
+
 2017-11-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #83033: Adapt suggest options to 8 LTS
