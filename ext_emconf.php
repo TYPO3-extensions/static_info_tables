@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'SJBR',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-8.7.99'
+			'typo3' => '8.7.0-8.7.99'
 		),
 		'conflicts' => array(
 			'sr_static_info' => '0.0.0-99.99.99',
