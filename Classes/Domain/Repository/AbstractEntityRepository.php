@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
  *  Copyright notice
  *
  *  (c) 2011-2012 Armin Rüdiger Vieweg <info@professorweb.de>
- *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *
  *  All rights reserved
  *
@@ -32,6 +32,7 @@ use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\TableDiff;
 use SJBR\StaticInfoTables\Utility\DatabaseUtility;
 use SJBR\StaticInfoTables\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
@@ -222,11 +223,7 @@ abstract class AbstractEntityRepository extends Repository
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
 		$fieldsInfo = $this->getFieldsInfo();
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			// TYPO3 CMS 8+ LTS
-			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-		}
-
+		$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
 		foreach ($fieldsInfo as $field => $fieldInfo) {
 			if ($field != 'cn_official_name_en') {
 				$matches = array();
@@ -240,20 +237,14 @@ abstract class AbstractEntityRepository extends Repository
 						if (preg_match('#\(([0-9]+)\)#', $fieldInfo['Type'], $matches)) {
 							$localizationFieldLength = intval($matches[1]);
 							// Add the localization field
-							if (is_object($connectionPool)) {
-								// TYPO3 CMS 8+ LTS
-								$connection = $connectionPool->getConnectionForTable($tableName);
-								$column = new Column($localizationField, Type::getType(Type::STRING));
-								$column->setLength($localizationFieldLength)
-									->setNotnull(true)
-									->setDefault('');
-								$tableDiff = new TableDiff($tableName, [$column]);
-								$query = $connection->getDatabasePlatform()->getAlterTableSQL($tableDiff);
-								$connection->executeUpdate($query[0]);
-							} else {
-								$query = 'ALTER TABLE ' . $tableName . ' ADD ' . $localizationField . ' varchar(' . $localizationFieldLength . ') DEFAULT \'\' NOT NULL;';
-								$res = $GLOBALS['TYPO3_DB']->admin_query($query);
-							}
+							$connection = $connectionPool->getConnectionForTable($tableName);
+							$column = new Column($localizationField, Type::getType(Type::STRING));
+							$column->setLength($localizationFieldLength)
+								->setNotnull(true)
+								->setDefault('');
+							$tableDiff = new TableDiff($tableName, [$column]);
+							$query = $connection->getDatabasePlatform()->getAlterTableSQL($tableDiff);
+							$connection->executeUpdate($query[0]);
 						}
 					}
 				}
@@ -272,17 +263,12 @@ abstract class AbstractEntityRepository extends Repository
 		$fieldsInfo = array();
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			// TYPO3 CMS 8+ LTS
-			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-			$connection = $connectionPool->getConnectionForTable($tableName);
-			$query = $connection->getDatabasePlatform()->getListTableColumnsSQL($tableName, $connection->getDatabase());
-			$columnsInfo = $connection->executeQuery($query);
-			foreach ($columnsInfo as $fieldRow) {
-				$fieldsInfo[$fieldRow['Field']] = $fieldRow;
-			}
-		} else {
-			$fieldsInfo = $GLOBALS['TYPO3_DB']->admin_get_fields($tableName);
+		$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+		$connection = $connectionPool->getConnectionForTable($tableName);
+		$query = $connection->getDatabasePlatform()->getListTableColumnsSQL($tableName, $connection->getDatabase());
+		$columnsInfo = $connection->executeQuery($query);
+		foreach ($columnsInfo as $fieldRow) {
+			$fieldsInfo[$fieldRow['Field']] = $fieldRow;
 		}
 		return $fieldsInfo;
 	}
@@ -298,14 +284,9 @@ abstract class AbstractEntityRepository extends Repository
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
 		$tableFields = array_keys($this->getFieldsInfo());
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			// TYPO3 CMS 8+ LTS
-			$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-			$connection = $connectionPool->getConnectionForTable($tableName);
-		}
-
+		$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+		$connection = $connectionPool->getConnectionForTable($tableName);
 		$updateQueries = array();
-
 		// If the language pack is not yet created or not yet installed, the localization columns are not yet part of the domain model
 		$exportFields = array();
 		foreach ($tableFields as $field) {
@@ -317,40 +298,27 @@ abstract class AbstractEntityRepository extends Repository
 		if (count($exportFields)) {
 			$updateQueries[] = '## ' . $tableName;
 			$exportFields = array_merge($exportFields, $this->isoKeys);
-			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-				// TYPO3 CMS 8+ LTS
-				$queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
-				$queryBuilder->getRestrictions()->removeAll();
-				$queryBuilder->select($exportFields[0]);
-				array_shift($exportFields);
-				foreach ($exportFields as $exportField) {
-					$queryBuilder->addSelect($exportField);
-				}
-				$rows = $queryBuilder
-					->from($tableName)
-					->execute()
-					->fetchAll();
-			} else {
-				$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(implode(',', $exportFields), $tableName, '');
+			$queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
+			$queryBuilder->getRestrictions()->removeAll();
+			$queryBuilder->select($exportFields[0]);
+			array_shift($exportFields);
+			foreach ($exportFields as $exportField) {
+				$queryBuilder->addSelect($exportField);
 			}
+			$rows = $queryBuilder
+				->from($tableName)
+				->execute()
+				->fetchAll();
 			foreach ($rows as $row) {
 				$set = array();
 				foreach ($row as $field => $value) {
 					if (!in_array($field, $this->isoKeys)) {
-						if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-							$set[] = $field . '=' . $connection->quote($value);
-						} else {
-							$set[] = $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($value, $tableName);
-						}
+						$set[] = $field . '=' . $connection->quote($value);
 					}
 				}
 				$whereClause = '';
 				foreach ($this->isoKeys as $field) {
-					if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-						$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $connection->quote($row[$field]);
-					} else {
-						$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($row[$field], $tableName);
-					}
+					$whereClause .= ($whereClause ? ' AND ' : ' WHERE ') . $field . '=' . $connection->quote($row[$field]);
 				}
 				$updateQueries[] = 'UPDATE ' . $tableName . ' SET ' . implode(',', $set) . $whereClause . ';';
 			}

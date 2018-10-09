@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Hook\Core\DataHandling;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -27,6 +27,7 @@ namespace SJBR\StaticInfoTables\Hook\Core\DataHandling;
 use SJBR\StaticInfoTables\Domain\Repository\CountryRepository;
 use SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository;
 use SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -106,35 +107,18 @@ class ProcessDataMap
 				$country = $countryRepository->findOneByUid((int)$id);
 				// Get the country zones
 				$countryZones = $country->getCountryZones()->toArray();
-				if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-					if (count($countryZones)) {
-						$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('static_country_zones');
-						foreach ($countryZones as $countryZone) {
-							$connection->update(
-								'static_country_zones',
-								[
-									'zn_country_iso_nr' => (int)$country->getIsoCodeNumber(),
-									'zn_country_iso_2' => $country->getIsoCodeA2(),
-									'zn_country_iso_3' => $country->getIsoCodeA3()
-								],
-								['uid' => (int)$countryZone->getUid()]
-							);
-						}
-					}
-				} else {
-					// TYPO3 CMS 7 LTS
-					if (count($countryZones)) {
-						foreach ($countryZones as $countryZone) {
-							$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-								'static_country_zones',
-								'uid = ' . (int)$countryZone->getUid(),
-								[
-									'zn_country_iso_nr' => (int)$country->getIsoCodeNumber(),
-									'zn_country_iso_2' => $country->getIsoCodeA2(),
-									'zn_country_iso_3' => $country->getIsoCodeA3()
-								]
-							);
-						}
+				if (count($countryZones)) {
+					$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('static_country_zones');
+					foreach ($countryZones as $countryZone) {
+						$connection->update(
+							'static_country_zones',
+							[
+								'zn_country_iso_nr' => (int)$country->getIsoCodeNumber(),
+								'zn_country_iso_2' => $country->getIsoCodeA2(),
+								'zn_country_iso_3' => $country->getIsoCodeA3()
+							],
+							['uid' => (int)$countryZone->getUid()]
+						);
 					}
 				}
 				break;

@@ -1,3 +1,8 @@
+2018-10-9  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86608: Remove support for TYPO3 7 LTS - Thanks to Tomas Norre Mikkelsen
+	* Resolves #86609: Remove references to TYPO3_DB object - Thanks to Tomas Norre Mikkelsen
+
 2017-12-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #83060: Wrong table name in Configuration/TCA/Overrides/static_countries.php - Thanks to Simon Schaufelberger

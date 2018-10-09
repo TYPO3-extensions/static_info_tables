@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\Utility;
  *  Copyright notice
  *
  *  (c) 2009 Sebastian Kurfürst <sebastian@typo3.org>
- *  (c) 2013-2017 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,6 +28,7 @@ namespace SJBR\StaticInfoTables\Utility;
 use SJBR\StaticInfoTables\Domain\Model\Language;
 use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
@@ -87,110 +88,48 @@ class LocalizationUtility
 	 */
 	public static function getLabelFieldValue($identifiers, $tableName, $language, $local = false)
 	{
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			$value = '';
-			$labelFields = self::getLabelFields($tableName, $language, $local);
-			if (count($labelFields)) {
-				$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($tableName);
-				$queryBuilder->from($tableName)->select('uid');
-				foreach ($labelFields as $labelField) {
-					$queryBuilder->addSelect($labelField);
-				}
-				$whereCount = 0;
-				if ($identifiers['uid']) {
-					$queryBuilder->where(
-						$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$identifiers['uid']), \PDO::PARAM_INT)
-					);
-					$whereCount++;
-				} else if (!empty($identifiers['iso'])) {
-					$isoCode = is_array($identifiers['iso']) ? $identifiers['iso'] : [$identifiers['iso']];
-					foreach ($isoCode as $index => $code) {
-						if ($code) {
-							$field = self::getIsoCodeField($tableName, $code, $index);
-							if ($field) {
-								if ($whereCount) {
-									$queryBuilder->andWhere(
-										$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
-									);
-									$whereCount++;
-								} else {
-									$queryBuilder->where(
-										$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
-									);
-									$whereCount++;
-								}
-							}
-						}
-					}
-				}
-				// Get the entity
-				if ($whereCount) {
-					$row = $queryBuilder->execute()->fetch();
-					if ($row) {
-						foreach ($labelFields as $labelField) {
-							if ($row[$labelField]) {
-								$value = $row[$labelField];
-								break;
-							}
-						}
-					}
-				}
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$value = self::getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local);
-		}
-		return $value;
-	}
-
-	/**
-	 * TYPO3 CMS 7 LTS
-	 *
-	 * Get the localized value for the label field
-	 *
-	 * @param array $identifiers An array with key 1- 'uid' containing a uid and/or 2- 'iso' containing one or two iso codes (i.e. country zone code and country code, or language code and country code)
-	 * @param string $tableName The name of the table
-	 * @param string language ISO code
-	 * @param boolean local name only - if set local labels are returned
-	 * @return string the value for the label field
-	 */
-	protected static function getCompatibleLabelFieldValue($identifiers, $tableName, $language, $local = false)
-	{
 		$value = '';
 		$labelFields = self::getLabelFields($tableName, $language, $local);
 		if (count($labelFields)) {
-			// Build the list of fields
-			$prefixedLabelFields = array();
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
+			$queryBuilder->from($tableName)->select('uid');
 			foreach ($labelFields as $labelField) {
-				$prefixedLabelFields[] = $tableName . '.' . $labelField;
+				$queryBuilder->addSelect($labelField);
 			}
-			$fields = $tableName . '.uid,' . implode(',', $prefixedLabelFields);
-			//Build the where clause
-			$whereClause = '';
+			$whereCount = 0;
 			if ($identifiers['uid']) {
-				$whereClause .= $tableName . '.uid = ' . intval($identifiers['uid']);
+				$queryBuilder->where(
+					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$identifiers['uid']), \PDO::PARAM_INT)
+				);
+				$whereCount++;
 			} else if (!empty($identifiers['iso'])) {
-				$isoCode = is_array($identifiers['iso']) ? $identifiers['iso'] : array($identifiers['iso']);
+				$isoCode = is_array($identifiers['iso']) ? $identifiers['iso'] : [$identifiers['iso']];
 				foreach ($isoCode as $index => $code) {
 					if ($code) {
 						$field = self::getIsoCodeField($tableName, $code, $index);
 						if ($field) {
-							$whereClause .= ($whereClause ? ' AND ' : '') . $tableName . '.' . $field . ' = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($code, $tableName);
+							if ($whereCount) {
+								$queryBuilder->andWhere(
+									$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
+								);
+								$whereCount++;
+							} else {
+								$queryBuilder->where(
+									$queryBuilder->expr()->eq($field, $queryBuilder->createNamedParameter($code))
+								);
+								$whereCount++;
+							}
 						}
 					}
 				}
 			}
 			// Get the entity
-			if ($whereClause) {
-				$rows = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-					$fields,
-					$tableName,
-					$whereClause . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($tableName)
-				);
-				if (is_array($rows) && count($rows)) {
+			if ($whereCount) {
+				$row = $queryBuilder->execute()->fetch();
+				if ($row) {
 					foreach ($labelFields as $labelField) {
-						if ($rows[0][$labelField]) {
-							$value = $rows[0][$labelField];
+						if ($row[$labelField]) {
+							$value = $row[$labelField];
 							break;
 						}
 					}

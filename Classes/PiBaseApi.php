@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2004-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2004-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -27,10 +27,14 @@ namespace SJBR\StaticInfoTables;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use SJBR\StaticInfoTables\Domain\Model\Currency;
 use SJBR\StaticInfoTables\Domain\Repository\CountryRepository;
 use SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository;
 use SJBR\StaticInfoTables\Utility\HtmlElementUtility;
 use SJBR\StaticInfoTables\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryHelper;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
@@ -165,7 +169,7 @@ class PiBaseApi extends AbstractPlugin
 	/**
 	 * Getting the name of a country, country subdivision, currency, language, tax
 	 *
-	 * @param string Defines the type of entry of the requested name: 'TERRIRORIES', 'COUNTRIES', 'SUBDIVISIONS', 'CURRENCIES', 'LANGUAGES'
+	 * @param string Defines the type of entry of the requested name: 'TERRITORIES', 'COUNTRIES', 'SUBDIVISIONS', 'CURRENCIES', 'LANGUAGES'
 	 * @param string The ISO alpha-3 code of a territory, country or currency, or the ISO alpha-2 code of a language or the code of a country subdivision, can be a comma ',' separated string, then all the single items are looked up and returned
 	 * @param string The value of the country code (cn_iso_3) for which a name of type 'SUBDIVISIONS' is requested (meaningful only in this case)
 	 * @param string Not used
@@ -308,66 +312,37 @@ class PiBaseApi extends AbstractPlugin
 		}
 		array_unique($prefixedTitleFields);
 
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-				->getQueryBuilderForTable($table );
-			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
-			$queryBuilder
-				->select($prefixedTitleFields[0])
-				->from($table);
-			array_shift($prefixedTitleFields);
-			foreach ($prefixedTitleFields as $titleField) {
-				$queryBuilder->addSelect($titleField);
-			}
-			if ($param === 'UN') {
-				$queryBuilder->where($queryBuilder->expr()->eq('cn_uno_member', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)));
-			} else if ($param === 'EU') {
-				$queryBuilder->where($queryBuilder->expr()->eq('cn_eu_member', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)));
-			}
-			if ($addWhere) {
-				$addWhere = \TYPO3\CMS\Core\Database\Query\QueryHelper::stripLogicalOperatorPrefix($addWhere);
-				if (empty($queryBuilder->getQueryPart('where'))) {
-					$queryBuilder->where($addWhere);
-				} else {
-					$queryBuilder->andWhere($addWhere);
-				}
-			}
-			$query = $queryBuilder->execute();
-			while ($row = $query->fetch()) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['cn_iso_3']] = $row[$titleField];
-						break;
-					}
-				}
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$labelFields = implode(',', $prefixedTitleFields);
-			if ($param == 'UN') {
-				$where = 'cn_uno_member=1';
-			} elseif ($param == 'EU') {
-				$where = 'cn_eu_member=1';
-			} elseif ($param == 'ALL') {
-				$where = '1=1';
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+			->getQueryBuilderForTable($table );
+		$queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+		$queryBuilder
+			->select($prefixedTitleFields[0])
+			->from($table);
+		array_shift($prefixedTitleFields);
+		foreach ($prefixedTitleFields as $titleField) {
+			$queryBuilder->addSelect($titleField);
+		}
+		if ($param === 'UN') {
+			$queryBuilder->where($queryBuilder->expr()->eq('cn_uno_member', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)));
+		} else if ($param === 'EU') {
+			$queryBuilder->where($queryBuilder->expr()->eq('cn_eu_member', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)));
+		}
+		if ($addWhere) {
+			$addWhere = QueryHelper::stripLogicalOperatorPrefix($addWhere);
+			if (empty($queryBuilder->getQueryPart('where'))) {
+				$queryBuilder->where($addWhere);
 			} else {
-				$where = '1=1';
+				$queryBuilder->andWhere($addWhere);
 			}
-			$where .= ($addWhere ? ' AND ' . $addWhere : '');
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				$labelFields,
-				$table,
-				$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
-			);
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['cn_iso_3']] = $row[$titleField];
-						break;
-					}
+		}
+		$query = $queryBuilder->execute();
+		while ($row = $query->fetch()) {
+			foreach ($titleFields as $titleField) {
+				if ($row[$titleField]) {
+					$nameArray[$row['cn_iso_3']] = $row[$titleField];
+					break;
 				}
 			}
-			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
 		if ($this->conf['countriesAllowed'] != '') {
 			$countriesAllowedArray = GeneralUtility::trimExplode(',', $this->conf['countriesAllowed']);
@@ -405,60 +380,34 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-				->getQueryBuilderForTable($table );
-			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
-			$queryBuilder
-				->select($table . '.zn_code')
-				->from($table);
-			foreach ($prefixedTitleFields as $titleField) {
-				$queryBuilder->addSelect($titleField);
-			}
-			if (strlen($param) == 3) {
-				$queryBuilder->where($queryBuilder->expr()->eq('zn_country_iso_3', $queryBuilder->createNamedParameter($param, \PDO::PARAM_STR)));
-			}
-			if ($addWhere) {
-				$addWhere = \TYPO3\CMS\Core\Database\Query\QueryHelper::stripLogicalOperatorPrefix($addWhere);
-				if (empty($queryBuilder->getQueryPart('where'))) {
-					$queryBuilder->where($addWhere);
-				} else {
-					$queryBuilder->andWhere($addWhere);
-				}
-			}
-			$query = $queryBuilder->execute();
-			while ($row = $query->fetch()) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['zn_code']] = $row[$titleField];
-						break;
-					}
-				}
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$labelFields = implode(',', $prefixedTitleFields);
-			if (strlen($param) == 3) {
-				$country = $param;
-				$where = 'zn_country_iso_3=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($country,$table);
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+			->getQueryBuilderForTable($table );
+		$queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+		$queryBuilder
+			->select($table . '.zn_code')
+			->from($table);
+		foreach ($prefixedTitleFields as $titleField) {
+			$queryBuilder->addSelect($titleField);
+		}
+		if (strlen($param) == 3) {
+			$queryBuilder->where($queryBuilder->expr()->eq('zn_country_iso_3', $queryBuilder->createNamedParameter($param, \PDO::PARAM_STR)));
+		}
+		if ($addWhere) {
+			$addWhere = QueryHelper::stripLogicalOperatorPrefix($addWhere);
+			if (empty($queryBuilder->getQueryPart('where'))) {
+				$queryBuilder->where($addWhere);
 			} else {
-				$where = '1=1';
+				$queryBuilder->andWhere($addWhere);
 			}
-			$where .= ($addWhere ? ' AND '. $addWhere : '');
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				$table . '.zn_code,' . $labelFields,
-				$table,
-				$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
-			);
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['zn_code']] = $row[$titleField];
-						break;
-					}
+		}
+		$query = $queryBuilder->execute();
+		while ($row = $query->fetch()) {
+			foreach ($titleFields as $titleField) {
+				if ($row[$titleField]) {
+					$nameArray[$row['zn_code']] = $row[$titleField];
+					break;
 				}
 			}
-			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
 		uasort($nameArray, 'strcoll');
 		return $nameArray;
@@ -483,47 +432,27 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-				->getQueryBuilderForTable($table );
-			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
-			$queryBuilder
-				->select($table . '.cu_iso_3')
-				->from($table);
-			foreach ($prefixedTitleFields as $titleField) {
-				$queryBuilder->addSelect($titleField);
-			}
-			if ($addWhere) {
-				$addWhere = \TYPO3\CMS\Core\Database\Query\QueryHelper::stripLogicalOperatorPrefix($addWhere);
-				$queryBuilder->where($addWhere);
-			}
-			$query = $queryBuilder->execute();
-			while ($row = $query->fetch()) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['cu_iso_3']] = $row[$titleField];
-						break;
-					}
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+			->getQueryBuilderForTable($table );
+		$queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+		$queryBuilder
+			->select($table . '.cu_iso_3')
+			->from($table);
+		foreach ($prefixedTitleFields as $titleField) {
+			$queryBuilder->addSelect($titleField);
+		}
+		if ($addWhere) {
+			$addWhere = QueryHelper::stripLogicalOperatorPrefix($addWhere);
+			$queryBuilder->where($addWhere);
+		}
+		$query = $queryBuilder->execute();
+		while ($row = $query->fetch()) {
+			foreach ($titleFields as $titleField) {
+				if ($row[$titleField]) {
+					$nameArray[$row['cu_iso_3']] = $row[$titleField];
+					break;
 				}
 			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$labelFields = implode(',', $prefixedTitleFields);
-			$where = '1=1' . ($addWhere ? ' AND ' . $addWhere : '');
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				$table . '.cu_iso_3,' . $labelFields,
-				$table,
-				$where . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
-			);
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$row['cu_iso_3']] = $row[$titleField];
-						break;
-					}
-				}
-			}
-			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		}
 		uasort($nameArray, 'strcoll');
 		return $nameArray;
@@ -549,51 +478,31 @@ class PiBaseApi extends AbstractPlugin
 		foreach ($titleFields as $titleField) {
 			$prefixedTitleFields[] = $table . '.' . $titleField;
 		}
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
-				->getQueryBuilderForTable($table );
-			$queryBuilder->setRestrictions(GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer::class));
-			$queryBuilder
-				->select($table . '.lg_iso_2')
-				->addSelect($table . '.lg_country_iso_2')
-				->from($table);
-			foreach ($prefixedTitleFields as $titleField) {
-				$queryBuilder->addSelect($titleField);
-			}
-			$queryBuilder->where(
-				$queryBuilder->expr()->eq('lg_sacred', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
-				$queryBuilder->expr()->eq('lg_constructed', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
-			);
-			if ($addWhere) {
-				$addWhere = \TYPO3\CMS\Core\Database\Query\QueryHelper::stripLogicalOperatorPrefix($addWhere);
-				$queryBuilder->andWhere($addWhere);
-			}
-			$query = $queryBuilder->execute();
-			while ($row = $query->fetch()) {
-				$code = $row['lg_iso_2'] . ($row['lg_country_iso_2'] ? '_' . $row['lg_country_iso_2'] : '');
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$code] = $row[$titleField];
-						break;
-					}
-				}
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$labelFields = implode(',', $prefixedTitleFields);
-			$where = '1=1' . ($addWhere ? ' AND ' . $addWhere : '');
-			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				$table . '.lg_iso_2,' . $table . '.lg_country_iso_2,' . $labelFields,
-				$table,
-				$where . ' AND lg_sacred = 0 AND lg_constructed = 0 ' . \SJBR\StaticInfoTables\Utility\TcaUtility::getEnableFields($table)
-			);
-			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-				$code = $row['lg_iso_2'] . ($row['lg_country_iso_2'] ? '_' . $row['lg_country_iso_2'] : '');
-				foreach ($titleFields as $titleField) {
-					if ($row[$titleField]) {
-						$nameArray[$code] = $row[$titleField];
-						break;
-					}
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+			->getQueryBuilderForTable($table );
+		$queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+		$queryBuilder
+			->select($table . '.lg_iso_2')
+			->addSelect($table . '.lg_country_iso_2')
+			->from($table);
+		foreach ($prefixedTitleFields as $titleField) {
+			$queryBuilder->addSelect($titleField);
+		}
+		$queryBuilder->where(
+			$queryBuilder->expr()->eq('lg_sacred', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+			$queryBuilder->expr()->eq('lg_constructed', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+		);
+		if ($addWhere) {
+			$addWhere = QueryHelper::stripLogicalOperatorPrefix($addWhere);
+			$queryBuilder->andWhere($addWhere);
+		}
+		$query = $queryBuilder->execute();
+		while ($row = $query->fetch()) {
+			$code = $row['lg_iso_2'] . ($row['lg_country_iso_2'] ? '_' . $row['lg_country_iso_2'] : '');
+			foreach ($titleFields as $titleField) {
+				if ($row[$titleField]) {
+					$nameArray[$code] = $row[$titleField];
+					break;
 				}
 			}
 		}
@@ -614,11 +523,11 @@ class PiBaseApi extends AbstractPlugin
 		$this->currencyInfo['cu_iso_3'] = $this->currencyInfo['cu_iso_3'] ?: $this->currency;
 		$currency = $this->currencyRepository->findOneByIsoCodeA3($this->currencyInfo['cu_iso_3']);
 		// If not found we fetch the default currency!
-		if (!is_object($currency)) {
+		if (!($currency instanceof Currency)) {
 		 	$this->currencyInfo['cu_iso_3'] = $this->currency;
 			$currency = $this->currencyRepository->findOneByIsoCodeA3($this->currencyInfo['cu_iso_3']);
 		}
-		if (is_object($currency)) {
+		if ($currency instanceof Currency) {
 			$this->currencyInfo['cu_name'] = $this->getStaticInfoName('CURRENCIES', $this->currencyInfo['cu_iso_3']);
 			$this->currencyInfo['cu_symbol_left'] = $currency->getSymbolLeft();
 			$this->currencyInfo['cu_symbol_right'] = $currency->getSymbolRight();
