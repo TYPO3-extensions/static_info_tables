@@ -5,7 +5,11 @@ call_user_func(
     function($extKey)
     {
 		// Get the extensions's configuration
-		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey]);
+		if (class_exists(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)) {
+			$extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get($extKey);
+		} else {
+			$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey]);
+		}
 		// Register cache static_info_tables
 		if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$extKey])) {
 			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$extKey] = [];
@@ -81,12 +85,16 @@ call_user_func(
 		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['enableManager'] = isset($extConf['enableManager']) ? $extConf['enableManager'] : '0';
 		// Make the extension version and constraints available when creating language packs and to other extensions
 		$emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
-		$emConf = $emConfUtility->includeEmConf(['key' => $extKey, 'siteRelPath' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath($extKey)]);
+		$emConf = $emConfUtility->includeEmConf(['key' => $extKey, 'siteRelPath' =>  \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey))]);
 		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['version'] = $emConf[$extKey]['version'];
 		$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['constraints'] = $emConf[$extKey]['constraints'];
 		// Configure translation of suggestions labels
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $extKey . '/Configuration/PageTSconfig/Suggest.tsconfig">');
-		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['buildQueryParameters'][] = \SJBR\StaticInfoTables\Hook\Backend\Recordlist\BuildQueryParameters::class;
+		if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version()) < 9000000) {
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['buildQueryParameters'][] = \SJBR\StaticInfoTables\Hook\Backend\Recordlist\BuildQueryParameters::class;
+		} else {
+			$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['modifyQuery'][] = \SJBR\StaticInfoTables\Hook\Backend\Recordlist\ModifyQuery::class;
+		}
 	},
 	'static_info_tables'
 );

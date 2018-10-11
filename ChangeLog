@@ -1,3 +1,7 @@
+2018-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86633: Migrate Recordlist hook to TYPO3 9 LTS
+
 2018-10-9  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86608: Remove support for TYPO3 7 LTS - Thanks to Tomas Norre Mikkelsen
