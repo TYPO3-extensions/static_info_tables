@@ -1,6 +1,7 @@
 2018-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86633: Migrate Recordlist hook to TYPO3 9 LTS
+	* Resolves #86634: Remove @inject annotation
 
 2018-10-9  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 

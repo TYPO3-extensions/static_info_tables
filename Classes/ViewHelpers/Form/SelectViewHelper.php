@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\ViewHelpers\Form;
  *  Copyright notice
  *
  *  (c) 2014 Carsten Biebricher <carsten.biebricher@hdnet.de>
- *  (c) 2016-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2016-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -32,6 +32,7 @@ use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
 use SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
  * StaticInfoTables SelectViewHelper
@@ -90,9 +91,19 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
 	 */
 	protected $signalSlotDispatcher;
+
+ 	/**
+	 * Dependency injection of the Signal Slot Dispacher
+ 	 *
+	 * @param Dispatcher $signalSlotDispatcher
+ 	 * @return void
+	 */
+	public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher)
+	{
+		$this->signalSlotDispatcher = $signalSlotDispatcher;
+	}
 
 	/**
 	 * Country repository
