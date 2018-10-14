@@ -1,3 +1,7 @@
+2018-10-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86610: Add database schema migration service
+
 2018-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86633: Migrate Recordlist hook to TYPO3 9 LTS
