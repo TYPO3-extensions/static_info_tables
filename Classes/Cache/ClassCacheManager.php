@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Cache;
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Georg Ringer <typo3@ringerge.org>
- *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -262,8 +262,8 @@ class ClassCacheManager implements SingletonInterface
 		);
 		if ($isValidCall) {
 			$this->clear();
-			$this->build();
 			$this->clearReflectionCache();
+			$this->build();
 		}
 	}
 
@@ -272,6 +272,11 @@ class ClassCacheManager implements SingletonInterface
 	 */
 	protected function clearReflectionCache()
 	{
-		$this->cacheManager->getCache('extbase_reflection')->flush();
+		if ($this->cacheManager->hasCache('extbase_reflection')) {
+			$this->cacheManager->getCache('extbase_reflection')->flush();
+		}
+		if ($this->cacheManager->hasCache('extbase_datamapfactory_datamap')) {
+			$this->cacheManager->getCache('extbase_datamapfactory_datamap')->flush();
+		}
 	}
 }

@@ -30,6 +30,7 @@ use Doctrine\DBAL\Types;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\TableDiff;
+use SJBR\StaticInfoTables\Service\SqlSchemaMigrationService;
 use SJBR\StaticInfoTables\Utility\DatabaseUtility;
 use SJBR\StaticInfoTables\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -41,7 +42,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 
 /**
  * Abstract Repository for static entities
@@ -337,8 +337,8 @@ abstract class AbstractEntityRepository extends Repository
 		$dataMap = $this->dataMapper->getDataMap($this->objectType);
 		$tableName = $dataMap->getTableName();
 
-		$installToolSqlParser = $this->objectManager->get(SqlSchemaMigrationService::class);
-		$dbFieldDefinitions = $installToolSqlParser->getFieldDefinitions_database();
+		$sqlSchemaMigrationService = $this->objectManager->get(SqlSchemaMigrationService::class);
+		$dbFieldDefinitions = $sqlSchemaMigrationService->getFieldDefinitions_database();
 		$dbFields = array();
 		$dbFields[$tableName] = $dbFieldDefinitions[$tableName];
 

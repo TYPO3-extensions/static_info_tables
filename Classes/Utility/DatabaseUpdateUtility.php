@@ -24,7 +24,7 @@ namespace SJBR\StaticInfoTables\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use SJBR\StaticInfoTables\Database\SqlParser;
+use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -47,40 +47,35 @@ class DatabaseUpdateUtility
 	 */
 	public function doUpdate($extensionKey)
 	{
-		$extPath = ExtensionManagementUtility::extPath($extensionKey);
-		$fileContent = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
-		$sqlParser = GeneralUtility::makeInstance(SqlParser::class);
-		foreach ($fileContent as $line) {
-			$line = trim($line);
-			if ($line && preg_match('#^UPDATE#i', $line)) {
-				$parsedResult = $sqlParser->parseSQL($line);
-				// Fields
-				$fields = array();
-				foreach ($parsedResult['FIELDS'] as $fN => $fV) {
-					$fields[$fN] = $fV[0];
-				}
-				if (count($fields)) {
-					$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($parsedResult['TABLE']);
-					$queryBuilder->getRestrictions()->removeAll();
-					$queryBuilder->update($parsedResult['TABLE']);
-					// We expect only a few of conditions combined by AND
-					$whereExpressions = [];
-					foreach ($parsedResult['WHERE'] as $k => $v) {
-						$whereExpressions[] = $queryBuilder->expr()->eq($v['field'], $queryBuilder->createNamedParameter($v['value'][0]));
-					}
-					if (count($whereExpressions)) {
-						$queryBuilder->where($whereExpressions[0]);
-						array_shift($whereExpressions);
-						foreach ($whereExpressions as $whereExpression) {
-							$queryBuilder->andWhere($whereExpression);
-						}
-					}
-					foreach ($fields as $fN => $fV) {
-					   $queryBuilder->set($fN, $fV);
-					}
-					$queryBuilder->execute();
-				}
-			}
+        $result = [];
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $insertStatements = [];
+        $extPath = ExtensionManagementUtility::extPath($extensionKey);
+        $statements = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
+
+		foreach ($statements as $statement) {
+			$statement = trim($statement);
+            // Only handle update statements and extract the table at the same time. Extracting
+            // the table name is required to perform the inserts on the right connection.
+            if (preg_match('/^UPDATE\s+`?(\w+)`?(.*)/i', $statement, $matches)) {
+                list(, $tableName, $sqlFragment) = $matches;
+                $updateStatements[$tableName][] = sprintf(
+                    'UPDATE %s %s',
+                    $connectionPool->getConnectionForTable($tableName)->quoteIdentifier($tableName),
+                    rtrim($sqlFragment, ';')
+                );
+            }
 		}
+        foreach ($updateStatements as $tableName => $perTableStatements) {
+            $connection = $connectionPool->getConnectionForTable($tableName);
+            foreach ((array)$perTableStatements as $statement) {
+                try {
+                    $connection->executeUpdate($statement);
+                    $result[$statement] = '';
+                } catch (DBALException $e) {
+                    $result[$statement] = $e->getPrevious()->getMessage();
+                }
+            }
+        }
 	}
 }

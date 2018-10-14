@@ -1,11 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,13 +26,17 @@ use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * Language Pack repository
- *
- * @author Stanislas Rolland <typo3(arobas)sjbr.ca>
- */
-class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+use SJBR\StaticInfoTables\Cache\ClassCacheManager;
+use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
+
+class LanguagePackRepository extends Repository
+{
 	/**
 	 * @var string Name of the extension this class belongs to
 	 */
@@ -42,15 +45,15 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Writes the language pack files
 	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\LanguagePack the object to be stored
+	 * @param LanguagePack the object to be stored
 	 * @return array localized messages
 	 */
-	public function writeLanguagePack(\SJBR\StaticInfoTables\Domain\Model\LanguagePack $languagePack) {
-		
+	public function writeLanguagePack(LanguagePack $languagePack)
+	{
 		$content = array();
 
 	 	$extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-	 	$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
+	 	$extensionPath = ExtensionManagementUtility::extPath($extensionKey);
 
 		$content = array();
 		$locale = $languagePack->getLocale();
@@ -63,32 +66,32 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		// Cleanup any pre-existing language pack
 		if (is_dir($languagePackExtensionPath)) {
-			GeneralUtility::rmdir($languagePackExtensionPath, TRUE);
+			GeneralUtility::rmdir($languagePackExtensionPath, true);
 		}
-		// Create language pack directory structure		
+		// Create language pack directory structure
 		if (!is_dir($languagePackExtensionPath)) {
-			GeneralUtility::mkdir_deep(PATH_site, 'typo3conf/ext/' . $languagePackExtensionKey . '/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath);
 		}
 		if (!is_dir($languagePackExtensionPath . 'Classes/Domain/Model/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Classes/Domain/Model/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Classes/Domain/Model/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/DomainModelExtension/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/DomainModelExtension/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/DomainModelExtension/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/TCA/Overrides/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TCA/Overrides/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TCA/Overrides/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/PageTSconfig/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/PageTSconfig/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/PageTSconfig/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Configuration/TypoScript/Extbase/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Resources/Private/Language/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Resources/Private/Language/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Private/Language/');
 		}
 		if (!is_dir($languagePackExtensionPath . 'Resources/Public/Icons/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath, 'Resources/Public/Icons/');
+			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Public/Icons/');
 		}
 
 		// Get the source files of the language pack template
@@ -112,7 +115,7 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			'###LANG_SQL_UPDATE###' => $languagePack->getUpdateQueries()
 		);
 		// Create the language pack files
-		$success = TRUE;
+		$success = true;
 		foreach ($sourceFiles as $hash => $file) {
 			$fileContent = GeneralUtility::getUrl($sourcePath . $file);
 			foreach ($replace as $marker => $replacement) {
@@ -125,9 +128,9 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			}
 		}
 		if ($success) {
-			$classCacheManager = $this->objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
-			$installUtility = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\InstallUtility');
-			$installed = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded($languagePackExtensionKey);
+			$classCacheManager = $this->objectManager->get(ClassCacheManager::class);
+			$installUtility = $this->objectManager->get(InstallUtility::class);
+			$installed = ExtensionManagementUtility::isLoaded($languagePackExtensionKey);
 			if ($installed) {
 				$content[] =  LocalizationUtility::translate('languagePack', $this->extensionName)
 					. ' ' . $languagePackExtensionKey
@@ -144,4 +147,3 @@ class LanguagePackRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $content;
 	}
 }
-?>

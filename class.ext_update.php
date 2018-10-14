@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables;
 /*
  *  Copyright notice
  *
- *  (c) 2013-2017 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -26,12 +26,15 @@ namespace SJBR\StaticInfoTables;
 
 use SJBR\StaticInfoTables\Cache\ClassCacheManager;
 use SJBR\StaticInfoTables\Utility\DatabaseUpdateUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Schema\SchemaMigrator;
+use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
-use TYPO3\CMS\Install\Service\SqlSchemaMigrationService;
 
 /**
  * Class for updating the db
@@ -44,12 +47,12 @@ class ext_update
 	protected $extensionName = 'StaticInfoTables';
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager Extbase Object Manager
+	 * @var ObjectManager Extbase Object Manager
 	 */
 	protected $objectManager;
-	
+
 	/**
-	 * @var \TYPO3\CMS\Extensionmanager\Utility\InstallUtility Extension Manager Install Tool
+	 * @var InstallUtility Extension Manager Install Tool
 	 */
 	protected $installTool;
 
@@ -64,8 +67,10 @@ class ext_update
 
 		$this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 		$this->installTool = $this->objectManager->get(InstallUtility::class);
-		$installToolSqlParser = GeneralUtility::makeInstance(SqlSchemaMigrationService::class);
-		$this->installTool->injectInstallToolSqlParser($installToolSqlParser);
+		if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) < 9000000) {
+			$sqlSchemaMigrationService = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class);
+			$this->installTool->injectInstallToolSqlParser($sqlSchemaMigrationService);
+		}
 		$databaseUpdateUtility = GeneralUtility::makeInstance(DatabaseUpdateUtility::class);
 
 		// Clear the class cache
@@ -114,7 +119,28 @@ class ext_update
 			$extTablesSqlContent .= GeneralUtility::getUrl($extTablesSqlFile);
 		}
 		if ($extTablesSqlContent !== '') {
-			$this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
+			if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) < 9000000) {
+				$this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
+			} else {
+				$sqlReader = GeneralUtility::makeInstance(SqlReader::class);
+				$schemaMigrator = GeneralUtility::makeInstance(SchemaMigrator::class);
+				$sqlStatements = [];
+				$sqlStatements[] = $extTablesSqlContent;
+				$sqlStatements = $sqlReader->getCreateTableStatementArray(implode(LF . LF, array_filter($sqlStatements)));
+				$updateStatements = $schemaMigrator->getUpdateSuggestions($sqlStatements);
+				$updateStatements = array_merge_recursive(...array_values($updateStatements));
+				$selectedStatements = [];
+				foreach (['add', 'change', 'create_table', 'change_table'] as $action) {
+					if (empty($updateStatements[$action])) {
+						continue;
+					}
+					$selectedStatements = array_merge(
+						$selectedStatements,
+						array_combine(array_keys($updateStatements[$action]), array_fill(0, count($updateStatements[$action]), true))
+					);
+				}
+				$schemaMigrator->migrate($sqlStatements, $selectedStatements);
+			}
 		}
 	}
 
@@ -132,21 +158,18 @@ class ext_update
 			$extTablesStaticSqlContent .= GeneralUtility::getUrl($extTablesStaticSqlFile);
 		}
 		if ($extTablesStaticSqlContent !== '') {
-			if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-				// TYPO3 CMS 8+ LTS
-				$connectionPool = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-				// Drop all tables
-				foreach (array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']) as $tableName) {
-					$connection = $connectionPool->getConnectionForTable($tableName);
-					try {
-						$connection->executeUpdate($connection->getDatabasePlatform()->getDropTableSQL($connection->quoteIdentifier($tableName)));
-					} catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
-						// Ignore table not found exception
-					}
+			$connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+			// Drop all tables
+			foreach (array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']) as $tableName) {
+				$connection = $connectionPool->getConnectionForTable($tableName);
+				try {
+					$connection->executeUpdate($connection->getDatabasePlatform()->getDropTableSQL($connection->quoteIdentifier($tableName)));
+				} catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+					// Ignore table not found exception
 				}
-				// Re-create all tables
-				$this->processDatabaseUpdates(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
 			}
+			// Re-create all tables
+			$this->processDatabaseUpdates(GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName));
 			$this->installTool->importStaticSql($extTablesStaticSqlContent);
 		}
 	}
