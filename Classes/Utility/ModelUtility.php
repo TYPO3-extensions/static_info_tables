@@ -1,10 +1,11 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
+
 /***************************************************************
 *  Copyright notice
 *
 *  (c) 2014 Tim Lochmüller <tim.lochmueller@hdnet.de>
-*  (c) 2014 Stanislas Rolland <typo3(arobas)sjbr.ca>
+*  (c) 2014-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
 *
 *  All rights reserved
 *
@@ -30,15 +31,16 @@ namespace SJBR\StaticInfoTables\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-class ModelUtility {
-
+class ModelUtility
+{
 	/**
 	 * Internal Extbase configuration
 	 *
 	 * @var array
 	 */
-	private static $extbaseConfiguration = NULL;
+	private static $extbaseConfiguration = null;
 
 	/**
 	 * Mapping for the table name
@@ -57,14 +59,13 @@ class ModelUtility {
 	 * @param string $configurationType
 	 * @return string
 	 */
-	static public function getModelMapping($modelName, $mappingType) {
-		if (self::$extbaseConfiguration === NULL) {
-			/** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-			/** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager $configurationManager */
-			$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+	static public function getModelMapping($modelName, $mappingType)
+	{
+		if (self::$extbaseConfiguration === null) {
+			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+			$configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
 			self::$extbaseConfiguration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		}
-		return self::$extbaseConfiguration['persistence']['classes'][$modelName]['mapping'][$mappingType] ? : NULL;
+		return self::$extbaseConfiguration['persistence']['classes'][$modelName]['mapping'][$mappingType] ?: null;
 	}
 }
