@@ -5,6 +5,7 @@
 	* Resolves #84258: Call to a member function getTreeList() on null
 	* Update version to 6.6.0
 	* Resolves #83722: Installation via Composer does not work correctly
+	* Resolves #86656: Change name of Swaziland to Eswatini
 	* Update version to 6.7.0
 
 2018-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>

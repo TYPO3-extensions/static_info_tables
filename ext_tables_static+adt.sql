@@ -8,9 +8,9 @@
 #
 DROP TABLE IF EXISTS static_countries;
 CREATE TABLE static_countries (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  deleted smallint(6) NOT NULL default '0',
+  uid int(10) unsigned NOT NULL auto_increment,
+  pid int(10) unsigned NOT NULL default '0',
+  deleted smallint(5) unsigned NOT NULL default '0',
   cn_iso_2 varchar(2) NOT NULL default '',
   cn_iso_3 varchar(3) NOT NULL default '',
   cn_iso_nr int(11) NOT NULL default '0',
@@ -31,7 +31,8 @@ CREATE TABLE static_countries (
   cn_short_local varchar(70) NOT NULL default '',
   cn_short_en varchar(50) NOT NULL default '',
   cn_country_zones int(11) NOT NULL default '0',
-  PRIMARY KEY (uid)
+  PRIMARY KEY (uid),
+  KEY parent (pid,deleted)
 );
 
 
@@ -163,7 +164,7 @@ INSERT INTO static_countries VALUES ('125', '0', '0', 'LS', 'LSO', '426', '24', 
 INSERT INTO static_countries VALUES ('126', '0', '0', 'LT', 'LTU', '440', '12', '154', 'Lietuvos Respublika', 'Republic of Lithuania', 'Vilnius', 'lt', '49', 'EUR', '978', '370', '1', '1', '1', '0', 'Lietuva', 'Lithuania', '0');
 INSERT INTO static_countries VALUES ('127', '0', '0', 'LU', 'LUX', '442', '13', '155', 'Grand-Duché de Luxembourg / Großherzogtum Luxemburg / Groussherzogtum Lëtzebuerg', 'Grand Duchy of Luxembourg', 'Luxembourg', 'lu', '49', 'EUR', '978', '352', '1', '1', '1', '0', 'Luxemburg', 'Luxembourg', '0');
 INSERT INTO static_countries VALUES ('128', '0', '0', 'LV', 'LVA', '428', '12', '154', 'Latvijas Republika', 'Republic of Latvia', 'Riga', 'lv', '49', 'EUR', '978', '371', '1', '1', '1', '0', 'Latvija', 'Latvia', '0');
-INSERT INTO static_countries VALUES ('129', '0', '0', 'LY', 'LBY', '434', '22', '15', '‏ليبيا‎', 'Libya', 'Tripoli', 'ly', '91', 'LYD', '434', '218', '0', '1', '1', '0', '‏ليبيا‎', 'Libya', '0');
+INSERT INTO static_countries VALUES ('129', '0', '0', 'LY', 'LBY', '434', '22', '15', '‏ليبيا‎', 'State of Libya', 'Tripoli', 'ly', '91', 'LYD', '434', '218', '0', '1', '1', '0', '‏ليبيا‎', 'Libya', '0');
 INSERT INTO static_countries VALUES ('130', '0', '0', 'MA', 'MAR', '504', '22', '15', 'المملكة المغربية', 'Kingdom of Morocco', 'Rabat', 'ma', '92', 'MAD', '504', '212', '0', '1', '1', '0', 'المغربية', 'Morocco', '0');
 INSERT INTO static_countries VALUES ('131', '0', '0', 'MC', 'MCO', '492', '13', '155', 'Principauté de Monaco / Principatu de Munegu', 'Principality of Monaco', 'Monaco', 'mc', '49', 'EUR', '978', '377', '0', '1', '1', '0', 'Monaco', 'Monaco', '0');
 INSERT INTO static_countries VALUES ('132', '0', '0', 'MD', 'MDA', '498', '11', '151', 'Republica Moldova', 'Republic of Moldova', 'Chisinau', 'md', '93', 'MDL', '498', '373', '0', '1', '1', '0', 'Moldova', 'Moldova', '0');
@@ -234,7 +235,7 @@ INSERT INTO static_countries VALUES ('196', '0', '0', 'SR', 'SUR', '740', '16', 
 INSERT INTO static_countries VALUES ('197', '0', '0', 'ST', 'STP', '678', '23', '17', 'República Democrática de São Tomé e Príncipe', 'Democratic Republic of São Tomé e Príncipe', 'São Tomé', 'st', '139', 'STD', '678', '239', '0', '1', '1', '0', 'São Tomé e Príncipe', 'São Tomé e Príncipe', '0');
 INSERT INTO static_countries VALUES ('198', '0', '0', 'SV', 'SLV', '222', '17', '13', 'República de El Salvador', 'Republic of El Salvador', 'San Salvador', 'sv', '140', 'SVC', '222', '503', '0', '1', '1', '0', 'El Salvador', 'El Salvador', '0');
 INSERT INTO static_countries VALUES ('199', '0', '0', 'SY', 'SYR', '760', '9', '145', 'الجمهوريّة العربيّة السّوريّة', 'Syrian Arab Republic', 'Damascus', 'sy', '141', 'SYP', '760', '963', '0', '1', '1', '0', 'سوري', 'Syria', '0');
-INSERT INTO static_countries VALUES ('200', '0', '0', 'SZ', 'SWZ', '748', '24', '18', 'Umboso weSwatini / Kingdom of Swaziland', 'Kingdom of Swaziland', 'Mbabane', 'sz', '142', 'SZL', '748', '268', '0', '1', '1', '0', 'weSwatini', 'Swaziland', '0');
+INSERT INTO static_countries VALUES ('200', '0', '0', 'SZ', 'SWZ', '748', '24', '18', 'Umboso weSwatini / Kingdom of Eswatini', 'Kingdom of Eswatini', 'Mbabane', 'sz', '142', 'SZL', '748', '268', '0', '1', '1', '0', 'eSwatini', 'Eswatini', '0');
 INSERT INTO static_countries VALUES ('201', '0', '0', 'TC', 'TCA', '796', '19', '29', 'Turks and Caicos Islands', 'Turks and Caicos Islands', 'Cockburn Town', 'tc', '155', 'USD', '840', '1649', '0', '0', '1', '0', 'Turks and Caicos Islands', 'Turks and Caicos Islands', '0');
 INSERT INTO static_countries VALUES ('202', '0', '0', 'TD', 'TCD', '148', '23', '17', 'جمهورية تشاد / République du Tchad', 'Republic of Chad', 'N\'Djamena', 'td', '162', 'XAF', '950', '235', '0', '1', '1', '0', 'تشاد / Tchad', 'Chad', '0');
 INSERT INTO static_countries VALUES ('203', '0', '0', 'TF', 'ATF', '260', '0', '0', 'Terres australes françaises', 'French Southern Territories', '', 'tf', '49', 'EUR', '978', '0', '0', '0', '0', '0', 'Terres australes françaises', 'French Southern Territories', '0');
@@ -299,9 +300,9 @@ INSERT INTO static_countries VALUES ('252', '0', '0', 'SS', 'SSD', '728', '22', 
 #
 DROP TABLE IF EXISTS static_country_zones;
 CREATE TABLE static_country_zones (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  deleted smallint(6) NOT NULL default '0',
+  uid int(10) unsigned NOT NULL auto_increment,
+  pid int(10) unsigned NOT NULL default '0',
+  deleted smallint(5) unsigned NOT NULL default '0',
   zn_country_iso_2 varchar(2) NOT NULL default '',
   zn_country_iso_3 varchar(3) NOT NULL default '',
   zn_country_iso_nr int(11) NOT NULL default '0',
@@ -310,7 +311,8 @@ CREATE TABLE static_country_zones (
   zn_name_en varchar(50) NOT NULL default '',
   zn_country_uid int(11) NOT NULL default '0',
   zn_country_table tinytext,
-  PRIMARY KEY (uid)
+  PRIMARY KEY (uid),
+  KEY parent (pid,deleted)
 );
 
 
@@ -984,9 +986,9 @@ INSERT INTO static_country_zones VALUES ('709', '0', '0', 'HR', 'HRV', '191', '0
 #
 DROP TABLE IF EXISTS static_currencies;
 CREATE TABLE static_currencies (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  deleted smallint(6) NOT NULL default '0',
+  uid int(10) unsigned NOT NULL auto_increment,
+  pid int(10) unsigned NOT NULL default '0',
+  deleted smallint(5) unsigned NOT NULL default '0',
   cu_iso_3 varchar(3) NOT NULL default '',
   cu_iso_nr int(11) NOT NULL default '0',
   cu_name_en varchar(50) NOT NULL default '',
@@ -1185,9 +1187,9 @@ INSERT INTO static_currencies VALUES ('180', '0', '0', 'TMT', '934', 'Turkmenist
 #
 DROP TABLE IF EXISTS static_languages;
 CREATE TABLE static_languages (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  deleted smallint(6) NOT NULL default '0',
+  uid int(10) unsigned NOT NULL auto_increment,
+  pid int(10) unsigned NOT NULL default '0',
+  deleted smallint(5) unsigned NOT NULL default '0',
   lg_iso_2 varchar(2) NOT NULL default '',
   lg_name_local varchar(99) NOT NULL default '',
   lg_name_en varchar(50) NOT NULL default '',
@@ -1408,14 +1410,15 @@ INSERT INTO static_languages VALUES ('197', '0', '0', 'EN', 'English (United Kin
 #
 DROP TABLE IF EXISTS static_territories;
 CREATE TABLE static_territories (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  deleted smallint(6) NOT NULL default '0',
+  uid int(10) unsigned NOT NULL auto_increment,
+  pid int(10) unsigned NOT NULL default '0',
+  deleted smallint(5) unsigned NOT NULL default '0',
   tr_iso_nr int(11) NOT NULL default '0',
   tr_parent_territory_uid int(11) NOT NULL default '0',
   tr_parent_iso_nr int(11) NOT NULL default '0',
   tr_name_en varchar(50) NOT NULL default '',
-  PRIMARY KEY (uid)
+  PRIMARY KEY (uid),
+  KEY parent (pid,deleted)
 );
 
 
