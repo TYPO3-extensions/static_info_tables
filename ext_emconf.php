@@ -7,7 +7,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Static Info Tables',
 	'description' => 'Data and API for countries, languages and currencies.',
 	'category' => 'misc',
-	'version' => '6.5.1',
+	'version' => '6.6.0',
 	'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'SJBR',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '8.7.0-8.7.99'
+			'typo3' => '8.7.0-9.5.99'
 		),
 		'conflicts' => array(
 			'sr_static_info' => '0.0.0-99.99.99',

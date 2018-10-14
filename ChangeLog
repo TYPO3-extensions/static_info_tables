@@ -3,6 +3,7 @@
 	* Resolves #86610: Add schema migration service and dumping utility
 	* Resolves #86654: Migrate extension update script to TYPO3 LTS 9
 	* Resolves #84258: Call to a member function getTreeList() on null
+	* Update version to 6.6.0
 
 2018-10-11  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
