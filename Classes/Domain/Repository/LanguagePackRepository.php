@@ -62,7 +62,7 @@ class LanguagePackRepository extends Repository
 		$localeCamel = GeneralUtility::underscoredToUpperCamelCase(strtolower($locale));
 
 		$languagePackExtensionKey = $extensionKey . '_' . $localeLowerCase;
-		$languagePackExtensionPath = PATH_site . 'typo3conf/ext/' . $languagePackExtensionKey . '/';
+		$languagePackExtensionPath = (class_exists(\TYPO3\CMS\Core\Core\Environment) ? (\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/') : PATH_site) . 'typo3conf/ext/' . $languagePackExtensionKey . '/';
 
 		// Cleanup any pre-existing language pack
 		if (is_dir($languagePackExtensionPath)) {
@@ -96,7 +96,7 @@ class LanguagePackRepository extends Repository
 
 		// Get the source files of the language pack template
 		$sourcePath = $extensionPath . 'Resources/Private/LanguagePackTemplate/';
-		$sourceFiles = array();
+		$sourceFiles = [];
 		$sourceFiles = GeneralUtility::getAllFilesAndFoldersInPath($sourceFiles, $sourcePath);
 		$sourceFiles = GeneralUtility::removePrefixPathFromList($sourceFiles, $sourcePath);
 		// Set markers replacement values
