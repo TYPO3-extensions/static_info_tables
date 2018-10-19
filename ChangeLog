@@ -1,6 +1,7 @@
 2018-10-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86694: Avoid constant TYPO3_site with TYPO3 9 LTS
+	* Resolves #86695: In frontend, localize using current site language when it exists
 
 2018-10-14  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 

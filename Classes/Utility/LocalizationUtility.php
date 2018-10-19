@@ -1,7 +1,7 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
 
-/***************************************************************
+/*
  *  Copyright notice
  *
  *  (c) 2009 Sebastian Kurfürst <sebastian@typo3.org>
@@ -23,15 +23,16 @@ namespace SJBR\StaticInfoTables\Utility;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
+use Psr\Http\Message\ServerRequestInterface;
 use SJBR\StaticInfoTables\Domain\Model\Language;
 use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Localization helper which should be used to fetch localized labels for static info entities.
@@ -255,23 +256,33 @@ class LocalizationUtility
 	protected static function setLanguageKeys()
 	{
 		self::$languageKey = 'default';
-		self::$alternativeLanguageKeys = array();
+		self::$alternativeLanguageKeys = [];
 		if (TYPO3_MODE === 'FE') {
-			if (isset($GLOBALS['TSFE']->config['config']['language'])) {
-				self::$languageKey = $GLOBALS['TSFE']->config['config']['language'];
-				if (isset($GLOBALS['TSFE']->config['config']['language_alt'])) {
-					self::$alternativeLanguageKeys[] = $GLOBALS['TSFE']->config['config']['language_alt'];
-				} else {
-					$locales = GeneralUtility::makeInstance(Locales::class);
-					if (in_array(self::$languageKey, $locales->getLocales())) {
-						foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
-							self::$alternativeLanguageKeys[] = $language;
-						}
+			$tsfe = static::getTypoScriptFrontendController();
+            $siteLanguage = self::getCurrentSiteLanguage();
+            // Get values from site language, which takes precedence over TypoScript settings
+            if ($siteLanguage instanceof SiteLanguage) {
+                self::$languageKey = $siteLanguage->getTypo3Language();
+			} elseif (isset($tsfe->config['config']['language'])) {
+				self::$languageKey = $tsfe->config['config']['language'];
+			}
+			if (isset($tsfe->config['config']['language_alt'])) {
+				self::$alternativeLanguageKeys[] = $tsfe->config['config']['language_alt'];
+			}
+			if (empty(self::$alternativeLanguageKeys)) {
+				$locales = GeneralUtility::makeInstance(Locales::class);
+				if (in_array(self::$languageKey, $locales->getLocales())) {
+					foreach ($locales->getLocaleDependencies(self::$languageKey) as $language) {
+						self::$alternativeLanguageKeys[] = $language;
 					}
 				}
 			}
 		} else {
-			self::$languageKey = strlen($GLOBALS['BE_USER']->uc['lang']) > 0 ? $GLOBALS['BE_USER']->uc['lang'] : 'default';
+			if (!empty($GLOBALS['BE_USER']->uc['lang'])) {
+				self::$languageKey = $GLOBALS['BE_USER']->uc['lang'];
+			} elseif (!empty(static::getLanguageService()->lang)) {
+				self::$languageKey = static::getLanguageService()->lang;
+			}
 			// Get standard locale dependencies for the backend
 			$locales = GeneralUtility::makeInstance(Locales::class);
 			if (in_array(self::$languageKey, $locales->getLocales())) {
@@ -309,4 +320,34 @@ class LocalizationUtility
 			)
 		);
 	}
+
+    /**
+     * Returns the currently configured "site language" if a site is configured (= resolved)
+     * in the current request.
+     *
+     * @return \TYPO3\CMS\Core\Site\Entity\SiteLanguage|null
+     */
+    protected static function getCurrentSiteLanguage(): ?\TYPO3\CMS\Core\Site\Entity\SiteLanguage
+    {
+        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+            return $GLOBALS['TYPO3_REQUEST']->getAttribute('language', null);
+        }
+        return null;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    protected static function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * @return \TYPO3\CMS\Core\Localization\LanguageService|\TYPO3\CMS\Lang\LanguageService
+     */
+    protected static function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 }
