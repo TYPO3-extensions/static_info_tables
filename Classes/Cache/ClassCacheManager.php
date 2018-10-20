@@ -224,7 +224,7 @@ class ClassCacheManager implements SingletonInterface
 	protected function getPartialInfo($filePath)
 	{
 		return '/*' . str_repeat('*', 70) . LF .
-			' * this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF . TAB;
+			' * this is partial from: ' . $filePath . LF . str_repeat('*', 70) . '*/' . LF . chr(9);
 	}
 
 	protected function closeClassDefinition($code)

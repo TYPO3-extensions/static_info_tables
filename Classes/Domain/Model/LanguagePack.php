@@ -1,9 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Model;
-/***************************************************************
+
+/*
  *  Copyright notice
  *
- *  (c) 2013 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,15 +25,13 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ */
 
 /**
  * Language Pack object
- *
- * @author Stanislas Rolland <typo3(arobas)sjbr.ca>
  */
-class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
+class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+{
 	/**
 	 * Name of the extension this class belongs to
 	 * @var string
@@ -254,12 +253,12 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$localeUpperCase = strtoupper($this->getLocale());
 		foreach ($parsedData['default'] as $translationElementId => $translationElement) {
 			if (substr($translationElementId, -3) == '_en') {
-				$localizationLabels[] = TAB . TAB . TAB . '<trans-unit id="' . substr($translationElementId, 0, -2) . $localeLowerCase . '" xml:space="preserve">';
-				$localizationLabels[] = TAB . TAB . TAB . TAB . '<source>' . str_replace('(EN)', '(' . $localeUpperCase . ')', $translationElement[0]['source']) . '</source>';
+				$localizationLabels[] = chr(9) . chr(9) . chr(9) . '<trans-unit id="' . substr($translationElementId, 0, -2) . $localeLowerCase . '" xml:space="preserve">';
+				$localizationLabels[] = chr(9) . chr(9) . chr(9) . chr(9) . '<source>' . str_replace('(EN)', '(' . $localeUpperCase . ')', $translationElement[0]['source']) . '</source>';
 				if ($translationElement[0]['target']) {
-					$localizationLabels[] = TAB . TAB . TAB . TAB . '<target>' . str_replace('(EN)', '(' . $localeUpperCase . ')', $translationElement[0]['target']) . '</target>';	
+					$localizationLabels[] = chr(9) . chr(9) . chr(9) . chr(9) . '<target>' . str_replace('(EN)', '(' . $localeUpperCase . ')', $translationElement[0]['target']) . '</target>';
 				}
-				$localizationLabels[] = TAB . TAB . TAB . '</trans-unit>';
+				$localizationLabels[] = chr(9) . chr(9) . chr(9) . '</trans-unit>';
 			}
 		}
 		return implode(LF, $localizationLabels);
@@ -281,4 +280,3 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return implode(LF, $updateQueries);
 	}
 }
-?>

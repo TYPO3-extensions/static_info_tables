@@ -1,3 +1,7 @@
+2018-10-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86706: Avoid reference to PHP constant TAB
+
 2018-10-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86694: Avoid constant TYPO3_site with TYPO3 9 LTS
