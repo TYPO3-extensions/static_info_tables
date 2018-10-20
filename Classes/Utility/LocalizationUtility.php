@@ -175,7 +175,6 @@ class LocalizationUtility
 							$labelFields[] = $labelField;
 						}
 					}
-					
 				}
 			}
 		}
@@ -295,7 +294,7 @@ class LocalizationUtility
 			self::$languageKey = 'EN';
 		}
 	}
-	
+
 	/**
 	 * Set the collating locale
 	 *
@@ -327,7 +326,7 @@ class LocalizationUtility
      *
      * @return \TYPO3\CMS\Core\Site\Entity\SiteLanguage|null
      */
-    protected static function getCurrentSiteLanguage(): ?\TYPO3\CMS\Core\Site\Entity\SiteLanguage
+    protected static function getCurrentSiteLanguage()
     {
         if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
             return $GLOBALS['TYPO3_REQUEST']->getAttribute('language', null);
