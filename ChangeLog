@@ -1,6 +1,7 @@
 2018-10-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86706: Avoid reference to PHP constant TAB
+	* Resolves #86707: Use @TYPO3\CMS\Extbase\Annotation\ORM\Lazy annotation
 
 2018-10-18  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
