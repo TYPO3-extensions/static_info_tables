@@ -29,10 +29,12 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
 
 
 ';
+
     /**
      * Dump content for static tables
      *
      * @param array $dbFields
+     *
      * @return string
      */
     public function dumpStaticTables($dbFields)
@@ -71,6 +73,7 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
      * @param string $table
      * @param array $fieldKeyInfo
      * @param bool $dropTableIfExists
+     *
      * @return string
      */
     protected function dumpTableHeader($table, array $fieldKeyInfo, $dropTableIfExists = false)
@@ -111,6 +114,7 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param string $table Table name
      * @param array $fieldStructure Field structure
+     *
      * @return string SQL Content of dump (INSERT statements)
      */
     protected function dumpTableContent($table, array $fieldStructure)

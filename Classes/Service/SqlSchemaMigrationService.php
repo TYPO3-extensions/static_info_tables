@@ -98,7 +98,7 @@ class SqlSchemaMigrationService
             if (is_array($tableStatus)) {
                 $tableExtraFields = [
                     'Engine' => 'ENGINE',
-                    'Collation' => 'COLLATE'
+                    'Collation' => 'COLLATE',
                 ];
                 foreach ($tableExtraFields as $mysqlKey => $internalKey) {
                     if (isset($tableStatus[$mysqlKey])) {
@@ -123,6 +123,7 @@ class SqlSchemaMigrationService
      * Converts a result row with field information into the SQL field definition string
      *
      * @param array $row MySQL result row
+     *
      * @return string Field definition
      */
     public function assembleFieldDefinition($row)

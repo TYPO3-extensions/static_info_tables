@@ -26,41 +26,41 @@ namespace SJBR\StaticInfoTables\Hook\Backend\Recordlist;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Order records according to language field of current language
  */
 class ModifyQuery
 {
-	/**
-	 * Specify records order
-	 *
-	 * @param array $parameters
-	 * @param string $table
-	 * @param int $pageId
-	 * @param string $additionalConstraints
-	 * @param string $fieldList
-	 * @param QueryBuilder $queryBuilder
-	 * @return void
-	 */
-	public function modifyQuery(&$parameters, $table, $pageId, $additionalConstraints, $fieldList, QueryBuilder $queryBuilder)
-	{
-		if (in_array($table, array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']))) {
-			$lang = substr(strtolower($this->getLanguageService()->lang), 0, 2);
-			if (ExtensionManagementUtility::isLoaded('static_info_tables_' . $lang)) {
-				$orderBy = str_replace('##', $lang, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'][0]);
-				$orderByFields = QueryHelper::parseOrderBy((string)$orderBy);
-				foreach ($orderByFields as $fieldNameAndSorting) {
-					list($fieldName, $sorting) = $fieldNameAndSorting;
-					$queryBuilder->addOrderBy($fieldName, $sorting);
-				}
-			}
-		}
-	}
+    /**
+     * Specify records order
+     *
+     * @param array $parameters
+     * @param string $table
+     * @param int $pageId
+     * @param string $additionalConstraints
+     * @param string $fieldList
+     * @param QueryBuilder $queryBuilder
+     *
+     * @return void
+     */
+    public function modifyQuery(&$parameters, $table, $pageId, $additionalConstraints, $fieldList, QueryBuilder $queryBuilder)
+    {
+        if (in_array($table, array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']))) {
+            $lang = substr(strtolower($this->getLanguageService()->lang), 0, 2);
+            if (ExtensionManagementUtility::isLoaded('static_info_tables_' . $lang)) {
+                $orderBy = str_replace('##', $lang, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'][0]);
+                $orderByFields = QueryHelper::parseOrderBy((string)$orderBy);
+                foreach ($orderByFields as $fieldNameAndSorting) {
+                    list($fieldName, $sorting) = $fieldNameAndSorting;
+                    $queryBuilder->addOrderBy($fieldName, $sorting);
+                }
+            }
+        }
+    }
 
-	protected function getLanguageService()
-	{
-		return $GLOBALS['LANG'];
-	}
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 }

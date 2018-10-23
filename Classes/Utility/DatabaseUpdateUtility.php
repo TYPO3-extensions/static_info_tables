@@ -34,30 +34,31 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class DatabaseUpdateUtility
 {
-	/**
-	 * @var string Name of the extension this class belongs to
-	 */
-	protected $extensionName = 'StaticInfoTables';
+    /**
+     * @var string Name of the extension this class belongs to
+     */
+    protected $extensionName = 'StaticInfoTables';
 
-	/**
-	 * Do the language pack update
-	 *
-	 * @param string $extensionKey: extension key of the language pack
-	 * @return void
-	 */
-	public function doUpdate($extensionKey)
-	{
+    /**
+     * Do the language pack update
+     *
+     * @param string $extensionKey: extension key of the language pack
+     *
+     * @return void
+     */
+    public function doUpdate($extensionKey)
+    {
         $result = [];
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $insertStatements = [];
         $extPath = ExtensionManagementUtility::extPath($extensionKey);
         $statements = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
 
-		foreach ($statements as $statement) {
-			$statement = trim($statement);
+        foreach ($statements as $statement) {
+            $statement = trim($statement);
             // Only handle update statements and extract the table at the same time. Extracting
             // the table name is required to perform the inserts on the right connection.
-            if (preg_match('/^UPDATE\s+`?(\w+)`?(.*)/i', $statement, $matches)) {
+            if (preg_match('/^UPDATE\\s+`?(\\w+)`?(.*)/i', $statement, $matches)) {
                 list(, $tableName, $sqlFragment) = $matches;
                 $updateStatements[$tableName][] = sprintf(
                     'UPDATE %s %s',
@@ -65,7 +66,7 @@ class DatabaseUpdateUtility
                     rtrim($sqlFragment, ';')
                 );
             }
-		}
+        }
         foreach ($updateStatements as $tableName => $perTableStatements) {
             $connection = $connectionPool->getConnectionForTable($tableName);
             foreach ((array)$perTableStatements as $statement) {
@@ -77,5 +78,5 @@ class DatabaseUpdateUtility
                 }
             }
         }
-	}
+    }
 }

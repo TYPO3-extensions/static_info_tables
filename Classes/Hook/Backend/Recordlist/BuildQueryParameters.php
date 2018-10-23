@@ -25,7 +25,6 @@ namespace SJBR\StaticInfoTables\Hook\Backend\Recordlist;
 
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Recordlist\RecordList\AbstractDatabaseRecordList;
 
 /**
@@ -33,30 +32,31 @@ use TYPO3\CMS\Recordlist\RecordList\AbstractDatabaseRecordList;
  */
 class BuildQueryParameters
 {
-	/**
-	 * Specify records order
-	 *
-	 * @param array $parameters
-	 * @param string $table
-	 * @param int $pageId
-	 * @param string $additionalConstraints
-	 * @param string $fieldList
-	 * @param AbstractDatabaseRecordList $parentObj
-	 * @return void
-	 */
-	public function buildQueryParametersPostProcess(&$parameters, $table, $pageId, $additionalConstraints, $fieldList, AbstractDatabaseRecordList $parentObj)
-	{
-		if (in_array($table, array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']))) {
-			$lang = substr(strtolower($this->getLanguageService()->lang), 0, 2);
-			if (ExtensionManagementUtility::isLoaded('static_info_tables_' . $lang)) {
-				$orderBy = str_replace('##', $lang, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'][0]);
-				$parameters['orderBy'] = QueryHelper::parseOrderBy((string)$orderBy);
-			}
-		}
-	}
+    /**
+     * Specify records order
+     *
+     * @param array $parameters
+     * @param string $table
+     * @param int $pageId
+     * @param string $additionalConstraints
+     * @param string $fieldList
+     * @param AbstractDatabaseRecordList $parentObj
+     *
+     * @return void
+     */
+    public function buildQueryParametersPostProcess(&$parameters, $table, $pageId, $additionalConstraints, $fieldList, AbstractDatabaseRecordList $parentObj)
+    {
+        if (in_array($table, array_keys($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables']))) {
+            $lang = substr(strtolower($this->getLanguageService()->lang), 0, 2);
+            if (ExtensionManagementUtility::isLoaded('static_info_tables_' . $lang)) {
+                $orderBy = str_replace('##', $lang, $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['static_info_tables']['tables'][$table]['label_fields'][0]);
+                $parameters['orderBy'] = QueryHelper::parseOrderBy((string)$orderBy);
+            }
+        }
+    }
 
-	protected function getLanguageService()
-	{
-		return $GLOBALS['LANG'];
-	}
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 }

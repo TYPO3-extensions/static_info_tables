@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Model;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -30,204 +31,227 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-
 use SJBR\StaticInfoTables\Utility\ModelUtility;
 
-class CountryZone extends AbstractEntity {
-	/**
-	 * Country code as two digit string (i.e. AT)
-	 * ISO 3166-1 A2 Country code
-	 * @var string
-	 */
-	protected $countryIsoCodeA2 = '';
+class CountryZone extends AbstractEntity
+{
+    /**
+     * Country code as two digit string (i.e. AT)
+     * ISO 3166-1 A2 Country code
+     *
+     * @var string
+     */
+    protected $countryIsoCodeA2 = '';
 
-	/**
-	 * Country code as three digit string (i.e. AUT)
-	 * ISO 3166-1 A3 Country code
-	 * @var string
-	 */
-	protected $countryIsoCodeA3 = '';
+    /**
+     * Country code as three digit string (i.e. AUT)
+     * ISO 3166-1 A3 Country code
+     *
+     * @var string
+     */
+    protected $countryIsoCodeA3 = '';
 
-	/**
-	 * Country code as number (i.e. 40)
-	 * ISO 3166-1 Nr Country code
-	 * @var integer
-	 */
-	protected $countryIsoCodeNumber = 0;
+    /**
+     * Country code as number (i.e. 40)
+     * ISO 3166-1 Nr Country code
+     *
+     * @var int
+     */
+    protected $countryIsoCodeNumber = 0;
 
-	/**
-	 * Deletion status of the object
-	 * @var boolean
-	 */
-	protected $deleted = FALSE;
+    /**
+     * Deletion status of the object
+     *
+     * @var bool
+     */
+    protected $deleted = false;
 
-	/**
-	 * Country zone code as string
-	 * ISO 3166-2 Country Zone code
-	 * @var string
-	 */
-	protected $isoCode = '';
+    /**
+     * Country zone code as string
+     * ISO 3166-2 Country Zone code
+     *
+     * @var string
+     */
+    protected $isoCode = '';
 
-	/**
-	 * Local name of the country zone
-	 * @var string
-	 */
-	protected $localName = '';
+    /**
+     * Local name of the country zone
+     *
+     * @var string
+     */
+    protected $localName = '';
 
-	/**
-	 * English name of the country zone
-	 * @var string
-	 */
-	protected $nameEn = '';
+    /**
+     * English name of the country zone
+     *
+     * @var string
+     */
+    protected $nameEn = '';
 
-	/**
-	 * On initialization, get the columns mapping configuration
-	 */
-	public function initializeObject() {
-		parent::initializeObject();
-		$this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_TABLENAME);
-		$this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_COLUMNS);
-	}
+    /**
+     * On initialization, get the columns mapping configuration
+     */
+    public function initializeObject()
+    {
+        parent::initializeObject();
+        $this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_TABLENAME);
+        $this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\CountryZone', ModelUtility::MAPPING_COLUMNS);
+    }
 
-	/**
-	 * Sets the country ISO alpha-2 code.
-	 *
-	 * @param string $countryIsoCodeA2
-	 *
-	 * @return void
-	 */
-	public function setCountryIsoCodeA2($countryIsoCodeA2) {
-		$this->countryIsoCodeA2 = $countryIsoCodeA2;
-	}
+    /**
+     * Sets the country ISO alpha-2 code.
+     *
+     * @param string $countryIsoCodeA2
+     *
+     * @return void
+     */
+    public function setCountryIsoCodeA2($countryIsoCodeA2)
+    {
+        $this->countryIsoCodeA2 = $countryIsoCodeA2;
+    }
 
-	/**
-	 * Gets the country ISO alpha-2 code.
-	 *
-	 * @return string
-	 */
-	public function getCountryIsoCodeA2() {
-		return $this->countryIsoCodeA2;
-	}
+    /**
+     * Gets the country ISO alpha-2 code.
+     *
+     * @return string
+     */
+    public function getCountryIsoCodeA2()
+    {
+        return $this->countryIsoCodeA2;
+    }
 
-	/**
-	 * Sets the country ISO alpha-3 code.
-	 *
-	 * @param string $countryIsoCodeA3
-	 *
-	 * @return void
-	 */
-	public function setCountryIsoCodeA3($countryIsoCodeA3) {
-		$this->countryIsoCodeA3 = $countryIsoCodeA3;
-	}
+    /**
+     * Sets the country ISO alpha-3 code.
+     *
+     * @param string $countryIsoCodeA3
+     *
+     * @return void
+     */
+    public function setCountryIsoCodeA3($countryIsoCodeA3)
+    {
+        $this->countryIsoCodeA3 = $countryIsoCodeA3;
+    }
 
-	/**
-	 * Gets the country ISO alpha-3 code.
-	 *
-	 * @return string
-	 */
-	public function getCountryIsoCodeA3() {
-		return $this->countryIsoCodeA3;
-	}
+    /**
+     * Gets the country ISO alpha-3 code.
+     *
+     * @return string
+     */
+    public function getCountryIsoCodeA3()
+    {
+        return $this->countryIsoCodeA3;
+    }
 
-	/**
-	 * Sets the country numeric ISO code
-	 *
-	 * @param integer $countryIsoCodeNumber
-	 *
-	 * @return void
-	 */
-	public function setCountryIsoCodeNumber($countryIsoCodeNumber) {
-		$this->countryIsoCodeNumber = $countryIsoCodeNumber;
-	}
+    /**
+     * Sets the country numeric ISO code
+     *
+     * @param int $countryIsoCodeNumber
+     *
+     * @return void
+     */
+    public function setCountryIsoCodeNumber($countryIsoCodeNumber)
+    {
+        $this->countryIsoCodeNumber = $countryIsoCodeNumber;
+    }
 
-	/**
-	 * Gets the country numeric ISO code
-	 *
-	 * @return integer
-	 */
-	public function getCountryIsoCodeNumber() {
-		return $this->countryIsoCodeNumber;
-	}
+    /**
+     * Gets the country numeric ISO code
+     *
+     * @return int
+     */
+    public function getCountryIsoCodeNumber()
+    {
+        return $this->countryIsoCodeNumber;
+    }
 
-	/**
-	 * Gets the deletion status of the entity
-	 *
-	 * @return boolean
-	 */
-	public function getDeleted() {
-		return $this->deleted;
-	}
+    /**
+     * Gets the deletion status of the entity
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-	/**
-	 * Sets the deletion status of the entity
-	 *
-	 * @param boolean $deleted
-	 * @return void
-	 */
-	public function setDeleted($deleted) {
-		return $this->deleted = $deleted;
-	}
+    /**
+     * Sets the deletion status of the entity
+     *
+     * @param bool $deleted
+     *
+     * @return void
+     */
+    public function setDeleted($deleted)
+    {
+        return $this->deleted = $deleted;
+    }
 
-	/**
-	 * Sets the country zone ISO code.
-	 *
-	 * @param string $isoCode
-	 *
-	 * @return void
-	 */
-	public function setIsoCode($isoCode) {
-		$this->isoCode = $isoCode;
-	}
+    /**
+     * Sets the country zone ISO code.
+     *
+     * @param string $isoCode
+     *
+     * @return void
+     */
+    public function setIsoCode($isoCode)
+    {
+        $this->isoCode = $isoCode;
+    }
 
-	/**
-	 * Gets the country zone ISO code.
-	 *
-	 * @return string
-	 */
-	public function getIsoCode() {
-		return $this->isoCode;
-	}
+    /**
+     * Gets the country zone ISO code.
+     *
+     * @return string
+     */
+    public function getIsoCode()
+    {
+        return $this->isoCode;
+    }
 
-	/**
-	 * Sets the local name.
-	 *
-	 * @param string $localName
-	 *
-	 * @return void
-	 */
-	public function setLocalName($localName) {
-		$this->localName = $localName;
-	}
+    /**
+     * Sets the local name.
+     *
+     * @param string $localName
+     *
+     * @return void
+     */
+    public function setLocalName($localName)
+    {
+        $this->localName = $localName;
+    }
 
-	/**
-	 * Gets the local name.
-	 *
-	 * @return string
-	 */
-	public function getLocalName() {
-		return $this->localName;
-	}
+    /**
+     * Gets the local name.
+     *
+     * @return string
+     */
+    public function getLocalName()
+    {
+        return $this->localName;
+    }
 
-	/**
-	 * Sets the English name.
-	 *
-	 * @param string $nameEn
-	 *
-	 * @return void
-	 */
-	public function setNameEn($nameEn) {
-		$this->nameEn = $nameEn;
-	}
+    /**
+     * Sets the English name.
+     *
+     * @param string $nameEn
+     *
+     * @return void
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
+    }
 
-	/**
-	 * Returns English name. If empty returns the localName.
-	 *
-	 * @return string
-	 */
-	public function getNameEn() {
-		if ($this->nameEn === '') {
-			return $this->getLocalName();
-		}
-		return $this->nameEn;
-	}
+    /**
+     * Returns English name. If empty returns the localName.
+     *
+     * @return string
+     */
+    public function getNameEn()
+    {
+        if ($this->nameEn === '') {
+            return $this->getLocalName();
+        }
+        return $this->nameEn;
+    }
 }

@@ -50,71 +50,72 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
      */
     protected function prepareSelectStatement()
     {
-		$expressionBuilder = $this->queryBuilder->expr();
-		$searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
-		$searchString = $this->params['value'];
-		$searchUid = (int)$searchString;
-		if ($searchString !== '') {
-			$likeCondition = ($searchWholePhrase ? '%' : '') . $this->queryBuilder->escapeLikeWildcards($searchString) . '%';
-			// Get the label field for the current language, if any is available
-			$lang = LocalizationUtility::getCurrentLanguage();
-			$lang = LocalizationUtility::getIsoLanguageKey($lang);
-			$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-			$selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
-			$selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, true);
-			$selectFields = array_unique($selectFields);
-			$selectParts = $expressionBuilder->orX();
-			foreach ($selectFields as $field) {
-				$selectParts->add($expressionBuilder->like($field, $this->queryBuilder->createPositionalParameter($likeCondition)));
-			}
-			$searchClause = $expressionBuilder->orX($selectParts);
-			if ($searchUid > 0 && $searchUid == $searchString) {
-				$searchClause->add($expressionBuilder->eq('uid', $searchUid));
-			}
-			$this->queryBuilder->andWhere($expressionBuilder->orX($searchClause));
-		}
-		if (!empty($this->allowedPages)) {
-			$pidList = array_map('intval', $this->allowedPages);
-			if (!empty($pidList)) {
-				$this->queryBuilder->andWhere(
-					$expressionBuilder->in('pid', $pidList)
-				);
-			}
-		}
-		// add an additional search condition comment
-		if (isset($this->config['searchCondition']) && $this->config['searchCondition'] !== '') {
-			$this->queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($this->config['searchCondition']));
-		}
+        $expressionBuilder = $this->queryBuilder->expr();
+        $searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
+        $searchString = $this->params['value'];
+        $searchUid = (int)$searchString;
+        if ($searchString !== '') {
+            $likeCondition = ($searchWholePhrase ? '%' : '') . $this->queryBuilder->escapeLikeWildcards($searchString) . '%';
+            // Get the label field for the current language, if any is available
+            $lang = LocalizationUtility::getCurrentLanguage();
+            $lang = LocalizationUtility::getIsoLanguageKey($lang);
+            $labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+            $selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
+            $selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, true);
+            $selectFields = array_unique($selectFields);
+            $selectParts = $expressionBuilder->orX();
+            foreach ($selectFields as $field) {
+                $selectParts->add($expressionBuilder->like($field, $this->queryBuilder->createPositionalParameter($likeCondition)));
+            }
+            $searchClause = $expressionBuilder->orX($selectParts);
+            if ($searchUid > 0 && $searchUid == $searchString) {
+                $searchClause->add($expressionBuilder->eq('uid', $searchUid));
+            }
+            $this->queryBuilder->andWhere($expressionBuilder->orX($searchClause));
+        }
+        if (!empty($this->allowedPages)) {
+            $pidList = array_map('intval', $this->allowedPages);
+            if (!empty($pidList)) {
+                $this->queryBuilder->andWhere(
+                    $expressionBuilder->in('pid', $pidList)
+                );
+            }
+        }
+        // add an additional search condition comment
+        if (isset($this->config['searchCondition']) && $this->config['searchCondition'] !== '') {
+            $this->queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($this->config['searchCondition']));
+        }
     }
 
-	/**
-	 * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
-	 * SQL standard for reference.
-	 *
-	 * @return void
-	 */
-	protected function prepareOrderByStatement()
-	{
-		// Get the label field for the current language, if any is available
-		$lang = LocalizationUtility::getCurrentLanguage();
-		$lang = LocalizationUtility::getIsoLanguageKey($lang);
-		$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-		if (!empty($labelFields)) {
-			foreach ($labelFields as $labelField) {
-				$this->queryBuilder->addOrderBy($labelField);
-			}
-		} else 	if ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
-			$this->queryBuilder->addOrderBy($GLOBALS['TCA'][$this->table]['ctrl']['label']);
-		}
-	}
+    /**
+     * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
+     * SQL standard for reference.
+     *
+     * @return void
+     */
+    protected function prepareOrderByStatement()
+    {
+        // Get the label field for the current language, if any is available
+        $lang = LocalizationUtility::getCurrentLanguage();
+        $lang = LocalizationUtility::getIsoLanguageKey($lang);
+        $labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+        if (!empty($labelFields)) {
+            foreach ($labelFields as $labelField) {
+                $this->queryBuilder->addOrderBy($labelField);
+            }
+        } elseif ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
+            $this->queryBuilder->addOrderBy($GLOBALS['TCA'][$this->table]['ctrl']['label']);
+        }
+    }
 
-	/**
-	 * Manipulate a record before using it to render the selector; may be used to replace a MM-relation etc.
-	 *
-	 * @param array $row
-	 */
-	protected function manipulateRecord(&$row) {
-		// Localize the record
-		$row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = LocalizationUtility::translate(array('uid' => $row['uid']), $this->table);
-	}
+    /**
+     * Manipulate a record before using it to render the selector; may be used to replace a MM-relation etc.
+     *
+     * @param array $row
+     */
+    protected function manipulateRecord(&$row)
+    {
+        // Localize the record
+        $row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = LocalizationUtility::translate(['uid' => $row['uid']], $this->table);
+    }
 }

@@ -28,44 +28,45 @@ namespace SJBR\StaticInfoTables\Utility;
 /**
  * Utility functions used by the domain models
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class ModelUtility
 {
-	/**
-	 * Internal Extbase configuration
-	 *
-	 * @var array
-	 */
-	private static $extbaseConfiguration = null;
+    /**
+     * Internal Extbase configuration
+     *
+     * @var array
+     */
+    private static $extbaseConfiguration = null;
 
-	/**
-	 * Mapping for the table name
-	 */
-	const MAPPING_TABLENAME = 'tableName';
+    /**
+     * Mapping for the table name
+     */
+    const MAPPING_TABLENAME = 'tableName';
 
-	/**
-	 * Mapping for the columns
-	 */
-	const MAPPING_COLUMNS = 'columns';
+    /**
+     * Mapping for the columns
+     */
+    const MAPPING_COLUMNS = 'columns';
 
-	/**
-	 * Get the table mapping from the Extbase configuration
-	 *
-	 * @param string $modelName
-	 * @param string $configurationType
-	 * @return string
-	 */
-	static public function getModelMapping($modelName, $mappingType)
-	{
-		if (self::$extbaseConfiguration === null) {
-			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-			$configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
-			self::$extbaseConfiguration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		}
-		return self::$extbaseConfiguration['persistence']['classes'][$modelName]['mapping'][$mappingType] ?: null;
-	}
+    /**
+     * Get the table mapping from the Extbase configuration
+     *
+     * @param string $modelName
+     * @param string $configurationType
+     * @param mixed $mappingType
+     *
+     * @return string
+     */
+    public static function getModelMapping($modelName, $mappingType)
+    {
+        if (self::$extbaseConfiguration === null) {
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+            self::$extbaseConfiguration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        }
+        return self::$extbaseConfiguration['persistence']['classes'][$modelName]['mapping'][$mappingType] ?: null;
+    }
 }

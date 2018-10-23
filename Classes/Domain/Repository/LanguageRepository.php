@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -26,44 +27,44 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\Language
- *
  */
-class LanguageRepository extends AbstractEntityRepository {
+class LanguageRepository extends AbstractEntityRepository
+{
+    /**
+     * @var array ISO keys for this static table
+     */
+    protected $isoKeys = ['lg_iso_2', 'lg_country_iso_2'];
 
-	/**
-	 * @var array ISO keys for this static table
-	 */
-	protected $isoKeys = array('lg_iso_2', 'lg_country_iso_2');
+    /**
+     * Find all neither constructed nor sacred languages
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all languages neither constructed nor sacred
+     */
+    public function findAllNonConstructedNonSacred()
+    {
+        $query = $this->createQuery();
+        $query->matching($query->logicalAnd(
+            $query->equals('constructedLanguage', false),
+            $query->equals('sacredLanguage', false)
+        ));
+        return $query->execute();
+    }
 
-	/**
-	 * Find all neither constructed nor sacred languages
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all languages neither constructed nor sacred
-	 */
-	public function findAllNonConstructedNonSacred() {
-		$query = $this->createQuery();
-		$query->matching($query->logicalAnd(
-			$query->equals('constructedLanguage', FALSE),
-			$query->equals('sacredLanguage', FALSE)
-		));
-		return $query->execute();	 	 
-	}
-
-	/**
-	 * Find the language object with the specified iso codes
-	 *
-	 * @param string $languageIsoCodeA2
-	 * @param string $countryIsoCodeA2
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $propertyName
-	 */
-	public function findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 = '') {
-		$query = $this->createQuery();
-		$query->matching($query->logicalAnd(
-			$query->equals('isoCodeA2', $languageIsoCodeA2),
-			$query->equals('countryIsoCodeA2', $countryIsoCodeA2)
-		));
-		return $query->execute()->getFirst();
-	}
+    /**
+     * Find the language object with the specified iso codes
+     *
+     * @param string $languageIsoCodeA2
+     * @param string $countryIsoCodeA2
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array all entries ordered by $propertyName
+     */
+    public function findOneByIsoCodes($languageIsoCodeA2, $countryIsoCodeA2 = '')
+    {
+        $query = $this->createQuery();
+        $query->matching($query->logicalAnd(
+            $query->equals('isoCodeA2', $languageIsoCodeA2),
+            $query->equals('countryIsoCodeA2', $countryIsoCodeA2)
+        ));
+        return $query->execute()->getFirst();
+    }
 }
-?>

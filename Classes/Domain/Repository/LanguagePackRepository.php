@@ -27,123 +27,124 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use SJBR\StaticInfoTables\Cache\ClassCacheManager;
+use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
-use SJBR\StaticInfoTables\Cache\ClassCacheManager;
-use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
 
 class LanguagePackRepository extends Repository
 {
-	/**
-	 * @var string Name of the extension this class belongs to
-	 */
-	protected $extensionName = 'StaticInfoTables';
+    /**
+     * @var string Name of the extension this class belongs to
+     */
+    protected $extensionName = 'StaticInfoTables';
 
-	/**
-	 * Writes the language pack files
-	 *
-	 * @param LanguagePack the object to be stored
-	 * @return array localized messages
-	 */
-	public function writeLanguagePack(LanguagePack $languagePack)
-	{
-		$content = array();
+    /**
+     * Writes the language pack files
+     *
+     * @param LanguagePack the object to be stored
+     *
+     * @return array localized messages
+     */
+    public function writeLanguagePack(LanguagePack $languagePack)
+    {
+        $content = [];
 
-	 	$extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-	 	$extensionPath = ExtensionManagementUtility::extPath($extensionKey);
+        $extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
+        $extensionPath = ExtensionManagementUtility::extPath($extensionKey);
 
-		$content = array();
-		$locale = $languagePack->getLocale();
-		$localeLowerCase = strtolower($locale);
-		$localeUpperCase = strtoupper($locale);
-		$localeCamel = GeneralUtility::underscoredToUpperCamelCase(strtolower($locale));
+        $content = [];
+        $locale = $languagePack->getLocale();
+        $localeLowerCase = strtolower($locale);
+        $localeUpperCase = strtoupper($locale);
+        $localeCamel = GeneralUtility::underscoredToUpperCamelCase(strtolower($locale));
 
-		$languagePackExtensionKey = $extensionKey . '_' . $localeLowerCase;
-		$languagePackExtensionPath = (class_exists(\TYPO3\CMS\Core\Core\Environment) ? (\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/') : PATH_site) . 'typo3conf/ext/' . $languagePackExtensionKey . '/';
+        $languagePackExtensionKey = $extensionKey . '_' . $localeLowerCase;
+        $languagePackExtensionPath = (class_exists(\TYPO3\CMS\Core\Core\Environment) ? (\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/') : PATH_site) . 'typo3conf/ext/' . $languagePackExtensionKey . '/';
 
-		// Cleanup any pre-existing language pack
-		if (is_dir($languagePackExtensionPath)) {
-			GeneralUtility::rmdir($languagePackExtensionPath, true);
-		}
-		// Create language pack directory structure
-		if (!is_dir($languagePackExtensionPath)) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath);
-		}
-		if (!is_dir($languagePackExtensionPath . 'Classes/Domain/Model/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Classes/Domain/Model/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Configuration/DomainModelExtension/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/DomainModelExtension/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Configuration/TCA/Overrides/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TCA/Overrides/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Configuration/PageTSconfig/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/PageTSconfig/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Resources/Private/Language/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Private/Language/');
-		}
-		if (!is_dir($languagePackExtensionPath . 'Resources/Public/Icons/')) {
-			GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Public/Icons/');
-		}
+        // Cleanup any pre-existing language pack
+        if (is_dir($languagePackExtensionPath)) {
+            GeneralUtility::rmdir($languagePackExtensionPath, true);
+        }
+        // Create language pack directory structure
+        if (!is_dir($languagePackExtensionPath)) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath);
+        }
+        if (!is_dir($languagePackExtensionPath . 'Classes/Domain/Model/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Classes/Domain/Model/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Configuration/DomainModelExtension/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/DomainModelExtension/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Configuration/TCA/Overrides/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TCA/Overrides/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Configuration/PageTSconfig/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/PageTSconfig/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Resources/Private/Language/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Private/Language/');
+        }
+        if (!is_dir($languagePackExtensionPath . 'Resources/Public/Icons/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Public/Icons/');
+        }
 
-		// Get the source files of the language pack template
-		$sourcePath = $extensionPath . 'Resources/Private/LanguagePackTemplate/';
-		$sourceFiles = [];
-		$sourceFiles = GeneralUtility::getAllFilesAndFoldersInPath($sourceFiles, $sourcePath);
-		$sourceFiles = GeneralUtility::removePrefixPathFromList($sourceFiles, $sourcePath);
-		// Set markers replacement values
-		$replace = array (
-			'###LANG_ISO_LOWER###' => $localeLowerCase,
-			'###LANG_ISO_UPPER###' => $localeUpperCase,
-			'###LANG_ISO_CAMEL###' => $localeCamel,
-			'###TYPO3_VERSION_RANGE###' => $languagePack->getTypo3VersionRange(),
-			'###VERSION###' => $languagePack->getVersion(),
-			'###LANG_NAME###' => $languagePack->getLanguage(),
-			'###AUTHOR###' => $languagePack->getAuthor(),
-			'###AUTHOR_EMAIL###' => $languagePack->getAuthorEmail(),
-			'###AUTHOR_COMPANY###' => $languagePack->getAuthorCompany(),
-			'###VERSION_BASE###' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['version'],
-			'###LANG_TCA_LABELS###' => $languagePack->getLocalizationLabels(),
-			'###LANG_SQL_UPDATE###' => $languagePack->getUpdateQueries()
-		);
-		// Create the language pack files
-		$success = true;
-		foreach ($sourceFiles as $hash => $file) {
-			$fileContent = GeneralUtility::getUrl($sourcePath . $file);
-			foreach ($replace as $marker => $replacement) {
-				$fileContent = str_replace($marker, $replacement, $fileContent);
-			}
-			$success = GeneralUtility::writeFile($languagePackExtensionPath . str_replace('.code', '.php', $file), $fileContent);
-			if (!$success) {
-				$content[] = LocalizationUtility::translate('couldNotWriteFile', $this->extensionName) . ' ' . $languagePackExtensionPath . $file;
-				break;
-			}
-		}
-		if ($success) {
-			$classCacheManager = $this->objectManager->get(ClassCacheManager::class);
-			$installUtility = $this->objectManager->get(InstallUtility::class);
-			$installed = ExtensionManagementUtility::isLoaded($languagePackExtensionKey);
-			if ($installed) {
-				$content[] =  LocalizationUtility::translate('languagePack', $this->extensionName)
-					. ' ' . $languagePackExtensionKey
-					. ' ' . LocalizationUtility::translate('languagePackUpdated', $this->extensionName);
-			} else {
-				$content[] = LocalizationUtility::translate('languagePackCreated', $this->extensionName) . ' ' . $languagePack->getLanguage() . ' (' . $locale . ')';
-				$installUtility->install($languagePackExtensionKey);
-				$content[] = LocalizationUtility::translate('languagePack', $this->extensionName)
-					. ' ' . $languagePackExtensionKey
-					. ' ' . LocalizationUtility::translate('wasInstalled', $this->extensionName);
-			}
-			$classCacheManager->reBuild();
-		}
-		return $content;
-	}
+        // Get the source files of the language pack template
+        $sourcePath = $extensionPath . 'Resources/Private/LanguagePackTemplate/';
+        $sourceFiles = [];
+        $sourceFiles = GeneralUtility::getAllFilesAndFoldersInPath($sourceFiles, $sourcePath);
+        $sourceFiles = GeneralUtility::removePrefixPathFromList($sourceFiles, $sourcePath);
+        // Set markers replacement values
+        $replace = [
+            '###LANG_ISO_LOWER###' => $localeLowerCase,
+            '###LANG_ISO_UPPER###' => $localeUpperCase,
+            '###LANG_ISO_CAMEL###' => $localeCamel,
+            '###TYPO3_VERSION_RANGE###' => $languagePack->getTypo3VersionRange(),
+            '###VERSION###' => $languagePack->getVersion(),
+            '###LANG_NAME###' => $languagePack->getLanguage(),
+            '###AUTHOR###' => $languagePack->getAuthor(),
+            '###AUTHOR_EMAIL###' => $languagePack->getAuthorEmail(),
+            '###AUTHOR_COMPANY###' => $languagePack->getAuthorCompany(),
+            '###VERSION_BASE###' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['version'],
+            '###LANG_TCA_LABELS###' => $languagePack->getLocalizationLabels(),
+            '###LANG_SQL_UPDATE###' => $languagePack->getUpdateQueries(),
+        ];
+        // Create the language pack files
+        $success = true;
+        foreach ($sourceFiles as $hash => $file) {
+            $fileContent = GeneralUtility::getUrl($sourcePath . $file);
+            foreach ($replace as $marker => $replacement) {
+                $fileContent = str_replace($marker, $replacement, $fileContent);
+            }
+            $success = GeneralUtility::writeFile($languagePackExtensionPath . str_replace('.code', '.php', $file), $fileContent);
+            if (!$success) {
+                $content[] = LocalizationUtility::translate('couldNotWriteFile', $this->extensionName) . ' ' . $languagePackExtensionPath . $file;
+                break;
+            }
+        }
+        if ($success) {
+            $classCacheManager = $this->objectManager->get(ClassCacheManager::class);
+            $installUtility = $this->objectManager->get(InstallUtility::class);
+            $installed = ExtensionManagementUtility::isLoaded($languagePackExtensionKey);
+            if ($installed) {
+                $content[] =  LocalizationUtility::translate('languagePack', $this->extensionName)
+                    . ' ' . $languagePackExtensionKey
+                    . ' ' . LocalizationUtility::translate('languagePackUpdated', $this->extensionName);
+            } else {
+                $content[] = LocalizationUtility::translate('languagePackCreated', $this->extensionName) . ' ' . $languagePack->getLanguage() . ' (' . $locale . ')';
+                $installUtility->install($languagePackExtensionKey);
+                $content[] = LocalizationUtility::translate('languagePack', $this->extensionName)
+                    . ' ' . $languagePackExtensionKey
+                    . ' ' . LocalizationUtility::translate('wasInstalled', $this->extensionName);
+            }
+            $classCacheManager->reBuild();
+        }
+        return $content;
+    }
 }
