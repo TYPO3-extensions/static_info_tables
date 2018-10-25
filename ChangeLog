@@ -1,3 +1,9 @@
+2018-10-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86710: Crash in PHP 7.0 due to nullable return type
+	* Resolves #86723: Autoformat the code
+	* Update version to 6.7.2
+
 2018-10-20  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86706: Avoid reference to PHP constant TAB
