@@ -1,3 +1,7 @@
+2018-12-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #86991: Language pack generation fails with fatal error
+
 2018-10-25  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #86710: Crash in PHP 7.0 due to nullable return type
