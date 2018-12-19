@@ -287,7 +287,7 @@ INSERT INTO static_countries VALUES ('249', '0', '0', 'BQ', 'BES', '535', '19', 
 INSERT INTO static_countries VALUES ('250', '0', '0', 'CW', 'CUW', '531', '19', '29', 'Curaçao', 'Curaçao', 'Willemstad', 'cw', '6', 'ANG', '532', '599', '0', '0', '0', '0', 'Curaçao', 'Curaçao', '0');
 INSERT INTO static_countries VALUES ('251', '0', '0', 'SX', 'SXM', '534', '19', '29', 'Sint Maarten', 'Sint Maarten', 'Philipsburg', 'sx', '6', 'ANG', '532', '599', '0', '0', '0', '0', 'Sint Maarten', 'Sint Maarten', '0');
 INSERT INTO static_countries VALUES ('252', '0', '0', 'SS', 'SSD', '728', '22', '15', 'Republic of South Sudan', 'Republic of South Sudan', 'Juba', 'ss', '176', 'SSP', '728', '211', '0', '0', '0', '0', 'South Sudan', 'South Sudan', '0');
-
+INSERT INTO static_countries VALUES ('253', '0', '0', 'XK', 'XKX', '926', '10', '39', 'Republika e Kosovës / Република Косово', 'Republic of Kosovo', 'Pristina', 'rs', '49', 'EUR', '978', '383', '0', '0', '0', '0', 'Kosovo', 'Kosovo', '0');
 
 
 # TYPO3 Extension Manager dump 1.1
