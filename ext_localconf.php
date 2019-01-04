@@ -114,8 +114,8 @@ call_user_func(
                 'key' => $extKey,
                 'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)),
             ]);
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['version'] = $emConf[$extKey]['version'];
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['constraints'] = $emConf[$extKey]['constraints'];
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['version'] = $emConf['version'];
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['constraints'] = $emConf['constraints'];
         // Configure translation of suggestions labels
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'
             . $extKey . '/Configuration/PageTSconfig/Suggest.tsconfig">');

@@ -2,6 +2,7 @@
 
 	* Resolves #87243: Constant editor fails with class not found exception
 	* Resolves #87329: Fix non-UTF-8 character in ext_emconf
+	* Resolves #87330: Fix wrong array access to $emConf['version']
 
 2018-12-19  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
