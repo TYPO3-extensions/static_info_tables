@@ -7,7 +7,11 @@
   "authors": [
     {
       "name": "Stanislas Rolland",
-      "homepage": "http://www.sjbr.ca",
+      "homepage": "https://www.sjbr.ca",
+      "role": "Developer"
+    },
+    {
+      "name": "René Fritz",
       "role": "Developer"
     }
   ],
