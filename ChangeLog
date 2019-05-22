@@ -2,6 +2,7 @@
 
 	* Resolves #87983: The name of capital of Ukraine should be 'Kyiv'
 	* Resolves #87943: Change Country Name Macedonia to North Macedonia
+	* Resolves #87877: LocalizationUtility missing import for TYPO3\CMS\Core\Site\Entity\SiteLanguage in TYPO3 9 LTS
 
 2019-01-04  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 

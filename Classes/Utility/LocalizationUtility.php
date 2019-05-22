@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\Utility;
  *  Copyright notice
  *
  *  (c) 2009 Sebastian Kurfürst <sebastian@typo3.org>
- *  (c) 2013-2018 Stanislas Rolland <typo3@sjbr.ca>
+ *  (c) 2013-2019 Stanislas Rolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -274,8 +274,8 @@ class LocalizationUtility
         if (TYPO3_MODE === 'FE') {
             $tsfe = static::getTypoScriptFrontendController();
             $siteLanguage = self::getCurrentSiteLanguage();
-            // Get values from site language, which takes precedence over TypoScript settings
-            if ($siteLanguage instanceof SiteLanguage) {
+            // Get values from site language, which takes precedence over TypoScript settings since TYPO3 9 LTS
+            if (class_exists('TYPO3\\CMS\\Core\\Site\\Entity\\SiteLanguage') && $siteLanguage instanceof \TYPO3\CMS\Core\Site\Entity\SiteLanguage) {
                 self::$languageKey = $siteLanguage->getTypo3Language();
             } elseif (isset($tsfe->config['config']['language'])) {
                 self::$languageKey = $tsfe->config['config']['language'];
