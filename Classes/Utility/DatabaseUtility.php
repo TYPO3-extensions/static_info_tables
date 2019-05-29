@@ -61,8 +61,6 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
     {
         return trim('
 # TYPO3 Extension Manager dump 1.1
-#
-# Host: ' . $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] . '    Database: ' . $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] . '
 #--------------------------------------------------------
 ');
     }
@@ -123,6 +121,8 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
         $search = ['\\', '\'', "\0", "\n", "\r", "\x1A"];
         $replace = ['\\\\', '\\\'', '\\0', '\\n', '\\r', '\\Z'];
         $lines = [];
+        // Names of inserted fields
+        $fieldList = implode (', ', array_keys($fieldStructure));
         // Select all rows from the table:
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable($table);
@@ -137,7 +137,7 @@ class DatabaseUtility implements \TYPO3\CMS\Core\SingletonInterface
             foreach ($fieldStructure as $field => $structure) {
                 $values[] = isset($row[$field]) ? '\'' . str_replace($search, $replace, $row[$field]) . '\'' : 'NULL';
             }
-            $lines[] = 'INSERT INTO ' . $table . ' VALUES (' . implode(', ', $values) . ');';
+            $lines[] = 'INSERT INTO ' . $table . ' (' . $fieldList . ')' . ' VALUES (' . implode(', ', $values) . ');';
         }
         // Implode lines and return:
         return implode(LF, $lines);
