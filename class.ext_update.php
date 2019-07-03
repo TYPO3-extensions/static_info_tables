@@ -132,6 +132,10 @@ class ext_update
                 < 9000000) {
                 $this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
             } else {
+                // Workaround to prevent the DefaultTcaSchema from enriching our definitions
+                $tcaBackup = $GLOBALS['TCA'];
+                $GLOBALS['TCA'] = [];
+
                 $sqlReader = GeneralUtility::makeInstance(SqlReader::class);
                 $schemaMigrator = GeneralUtility::makeInstance(SchemaMigrator::class);
                 $sqlStatements = [];
@@ -154,6 +158,8 @@ class ext_update
                     );
                 }
                 $schemaMigrator->migrate($sqlStatements, $selectedStatements);
+
+                $GLOBALS['TCA'] = $tcaBackup;
             }
         }
     }
