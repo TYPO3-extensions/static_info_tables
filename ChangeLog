@@ -3,6 +3,7 @@
 	* Resolves #88683: Updater uses default columns in TYPO3 9
 	* Resolves #88780: Undefined variable usage in the DatabaseUpdateUtility.php
 	* Resolves #89443: Update subdivisions of Italy
+	* Update version to 6.7.5
 
 2019-05-28  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
