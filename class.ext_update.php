@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables;
 /*
  *  Copyright notice
  *
- *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2019 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -132,10 +132,9 @@ class ext_update
                 < 9000000) {
                 $this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
             } else {
-                // Workaround to prevent the DefaultTcaSchema from enriching our definitions
+                // Prevent the DefaultTcaSchema from enriching our definitions
                 $tcaBackup = $GLOBALS['TCA'];
                 $GLOBALS['TCA'] = [];
-
                 $sqlReader = GeneralUtility::makeInstance(SqlReader::class);
                 $schemaMigrator = GeneralUtility::makeInstance(SchemaMigrator::class);
                 $sqlStatements = [];
@@ -158,7 +157,6 @@ class ext_update
                     );
                 }
                 $schemaMigrator->migrate($sqlStatements, $selectedStatements);
-
                 $GLOBALS['TCA'] = $tcaBackup;
             }
         }

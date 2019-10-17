@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Utility;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 StanislasRolland <typo3@sjbr.ca>
+ *  (c) 2013-2019 StanislasRolland <typo3@sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -51,6 +51,7 @@ class DatabaseUpdateUtility
         $result = [];
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $insertStatements = [];
+        $updateStatements = [];
         $extPath = ExtensionManagementUtility::extPath($extensionKey);
         $statements = explode(LF, GeneralUtility::getUrl($extPath . 'ext_tables_static+adt.sql'));
 

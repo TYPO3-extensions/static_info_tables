@@ -1,3 +1,8 @@
+2019-10-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #88683: Updater uses default columns in TYPO3 9
+	* Resolves #88780: Undefined variable usage in the DatabaseUpdateUtility.php
+
 2019-05-28  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #82132: Composer install fails with additional languages required at the same time
