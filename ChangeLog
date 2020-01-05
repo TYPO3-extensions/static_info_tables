@@ -1,3 +1,7 @@
+2020-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #88867: Raise PHP dependency to < 7.4
+
 2019-10-17  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #88683: Updater uses default columns in TYPO3 9
