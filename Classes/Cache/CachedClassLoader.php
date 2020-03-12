@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Cache;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -26,78 +27,80 @@ namespace SJBR\StaticInfoTables\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Cached classes autoloader
- *
  */
-class CachedClassLoader {
+class CachedClassLoader
+{
+    /**
+     * Extension key
+     *
+     * @var string
+     */
+    protected static $extensionKey = 'static_info_tables';
 
-	/**
-	 * Extension key
-	 *
-	 * @var string
-	 */
-	static protected $extensionKey = 'static_info_tables';
+    /**
+     * Cached class loader class name
+     *
+     * @var string
+     */
+    protected static $className = __CLASS__;
 
-	/**
-	 * Cached class loader class name
-	 *
-	 * @var string
-	 */
-	static protected $className = __CLASS__;
+    /**
+     * Name space of the Domain Model of StaticInfoTables
+     *
+     * @var string
+     */
+    protected static $namespace = 'SJBR\\StaticInfoTables\\Domain\\Model\\';
 
-	/**
-	 * Name space of the Domain Model of StaticInfoTables
-	 *
-	 * @var string
-	 */
-	static protected $namespace = 'SJBR\\StaticInfoTables\\Domain\\Model\\';
+    /**
+     * The class loader is static, thus we do not allow instances of this class.
+     */
+    private function __construct()
+    {
+    }
 
-	/**
-	 * The class loader is static, thus we do not allow instances of this class.
-	 */
-	private function __construct() {
+    /**
+     * Registers the cached class loader
+     *
+     * @return bool TRUE in case of success
+     */
+    public static function registerAutoloader()
+    {
+        return spl_autoload_register(static::$className . '::autoload', true, true);
+    }
 
-	}
-
-	/**
-	 * Registers the cached class loader
-	 *
-	 * @return boolean TRUE in case of success
-	 */
-	static public function registerAutoloader() {
-		return spl_autoload_register(static::$className . '::autoload', TRUE, TRUE);
-	}
-
-	/**
-	 * Autoload function for cached classes
-	 *
-	 * @param string $className Class name
-	 * @return void
-	 */
-	static public function autoload($className) {
-		$className = ltrim($className, '\\');
-		if (strpos($className, static::$namespace) !== FALSE) {
-			// Lookup the class in the array of static info entities and check its presence in the class cache
-			$entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][static::$extensionKey]['entities'];
-			$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-			$cacheManager = $objectManager->get('TYPO3\\CMS\\Core\\Cache\\CacheManager');
-			// ClassCacheManager instantiation creates the class cache if not already available
-			$classCacheManager = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
-			$classCache = $cacheManager->getCache(static::$extensionKey);
-			foreach ($entities as $entity) {
-				if ($className === static::$namespace . $entity) {
-					$entryIdentifier = 'DomainModel' . $entity;
-					if (!$classCache->has($entryIdentifier)) {
-						// The class cache needs to be rebuilt
-						$classCacheManager->reBuild();
-					}
-					$classCache->requireOnce($entryIdentifier);
-					break;
-				}
-			}
-		}
-	}
+    /**
+     * Autoload function for cached classes
+     *
+     * @param string $className Class name
+     *
+     * @return void
+     */
+    public static function autoload($className)
+    {
+        $className = ltrim($className, '\\');
+        if (strpos($className, static::$namespace) !== false) {
+            // Lookup the class in the array of static info entities and check its presence in the class cache
+            $entities = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][static::$extensionKey]['entities'];
+            $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+            $cacheManager = $objectManager->get('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+            // ClassCacheManager instantiation creates the class cache if not already available
+            $classCacheManager = $objectManager->get('SJBR\\StaticInfoTables\\Cache\\ClassCacheManager');
+            $classCache = $cacheManager->getCache(static::$extensionKey);
+            foreach ($entities as $entity) {
+                if ($className === static::$namespace . $entity) {
+                    $entryIdentifier = 'DomainModel' . $entity;
+                    if (!$classCache->has($entryIdentifier)) {
+                        // The class cache needs to be rebuilt
+                        $classCacheManager->reBuild();
+                    }
+                    $classCache->requireOnce($entryIdentifier);
+                    break;
+                }
+            }
+        }
+    }
 }

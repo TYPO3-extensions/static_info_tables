@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -28,26 +29,26 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\Currency
  */
-class CurrencyRepository extends AbstractEntityRepository {
+class CurrencyRepository extends AbstractEntityRepository
+{
+    /**
+     * @var array ISO keys for this static table
+     */
+    protected $isoKeys = ['cu_iso_3'];
 
-	/**
-	 * @var array ISO keys for this static table
-	 */
-	protected $isoKeys = array('cu_iso_3');
-
-	/**
-	 * Finds currency by country
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
-	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface|array
-	 */
-	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
-		$query = $this->createQuery();
-		$query->matching(
-			$query->equals('isoCodeNumber', $country->getCurrencyIsoCodeNumber())
-		);
-		return $query->execute();
-	}
+    /**
+     * Finds currency by country
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
+     *
+     * @return Tx_Extbase_Persistence_QueryResultInterface|array
+     */
+    public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('isoCodeNumber', $country->getCurrencyIsoCodeNumber())
+        );
+        return $query->execute();
+    }
 }
-?>

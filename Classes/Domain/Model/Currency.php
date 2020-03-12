@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Model;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -30,356 +31,396 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-
 use SJBR\StaticInfoTables\Utility\ModelUtility;
 
-class Currency extends AbstractEntity {
+class Currency extends AbstractEntity
+{
+    /**
+     * The number of decimals to be shown when an amount is presented in this currency
+     *
+     * @var int
+     */
+    protected $decimalDigits = 0;
 
-	/**
-	 * The number of decimals to be shown when an amount is presented in this currency
-	 * @var integer
-	 */
-	protected $decimalDigits = 0;
+    /**
+     * The character to be shown in front of the decimals when an amount is presented in this currency
+     *
+     * @var string
+     */
+    protected $decimalPoint = '';
 
-	/**
-	 * The character to be shown in front of the decimals when an amount is presented in this currency
-	 * @var string
-	 */
-	protected $decimalPoint = '';
+    /**
+     * Deletion status of the object
+     *
+     * @var bool
+     */
+    protected $deleted = false;
 
-	/**
-	 * Deletion status of the object
-	 * @var boolean
-	 */
-	protected $deleted = FALSE;
+    /**
+     * The divisor used to obtain the subdivision of the currency
+     *
+     * @var int
+     */
+    protected $divisor = 0;
 
-	/**
-	 * The divisor used to obtain the subdivision of the currency
-	 * @var integer
-	 */
-	protected $divisor = 0;
+    /**
+     * Currency code as three digit string (i.e. EUR)
+     * ISO 4217 alpha-3 currency code
+     *
+     * @var string
+     */
+    protected $isoCodeA3 = '';
 
-	/**
-	 * Currency code as three digit string (i.e. EUR)
-	 * ISO 4217 alpha-3 currency code
-	 * @var string
-	 */
-	protected $isoCodeA3 = '';
+    /**
+     * Currency code as number
+     * ISO 4217 numeric currency code
+     *
+     * @var int
+     */
+    protected $isoCodeNumber = 0;
 
-	/**
-	 * Currency code as number
-	 * ISO 4217 numeric currency code
-	 * @var integer
-	 */
-	protected $isoCodeNumber = 0;
+    /**
+     * English name of the currency
+     *
+     * @var string
+     */
+    protected $nameEn = '';
 
-	/**
-	 * English name of the currency
-	 * @var string
-	 */
-	protected $nameEn = '';
+    /**
+     * English name of the currency subdivision unit
+     *
+     * @var string
+     */
+    protected $subdivisionNameEn = '';
 
-	/**
-	 * English name of the currency subdivision unit
-	 * @var string
-	 */
-	protected $subdivisionNameEn = '';
+    /**
+     * The symbol to be shown to the left of an amount stated in units of the subdivision of the currency
+     *
+     * @var string
+     */
+    protected $subdivisionSymbolLeft = '';
 
-	/**
-	 * The symbol to be shown to the left of an amount stated in units of the subdivision of the currency
-	 * @var string
-	 */
-	protected $subdivisionSymbolLeft = '';
+    /**
+     * The symbol to be shown to the right of an amount stated in units of the subdivision of the currency
+     *
+     * @var string
+     */
+    protected $subdivisionSymbolRight = '';
 
-	/**
-	 * The symbol to be shown to the right of an amount stated in units of the subdivision of the currency
-	 * @var string
-	 */
-	protected $subdivisionSymbolRight = '';
+    /**
+     * The symbol to be shown to the left of an amount stated in units of the currency
+     *
+     * @var string
+     */
+    protected $symbolLeft = '';
 
-	/**
-	 * The symbol to be shown to the left of an amount stated in units of the currency
-	 * @var string
-	 */
-	protected $symbolLeft = '';
+    /**
+     * The symbol to be shown to the right of an amount stated in units of the currency
+     *
+     * @var string
+     */
+    protected $symbolRight = '';
 
-	/**
-	 * The symbol to be shown to the right of an amount stated in units of the currency
-	 * @var string
-	 */
-	protected $symbolRight = '';
+    /**
+     * Character to be used between every group of thousands of an amount stated in units of this currency
+     *
+     * @var string
+     */
+    protected $thousandsPoint = '';
 
-	/**
-	 * Character to be used between every group of thousands of an amount stated in units of this currency
-	 * @var string
-	 */
-	protected $thousandsPoint = '';
+    /**
+     * On initialization, get the columns mapping configuration
+     */
+    public function initializeObject()
+    {
+        parent::initializeObject();
+        $this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_TABLENAME);
+        $this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_COLUMNS);
+    }
 
-	/**
-	 * On initialization, get the columns mapping configuration
-	 */
-	public function initializeObject() {
-		parent::initializeObject();
-		$this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_TABLENAME);
-		$this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Currency', ModelUtility::MAPPING_COLUMNS);
-	}
+    /**
+     * Sets the number of decimal digits.
+     *
+     * @param int $decimalDigits
+     *
+     * @return void
+     */
+    public function setDecimalDigits($decimalDigits)
+    {
+        $this->decimalDigits = $decimalDigits;
+    }
 
-	/**
-	 * Sets the number of decimal digits.
-	 *
-	 * @param integer $decimalDigits
-	 *
-	 * @return void
-	 */
-	public function setDecimalDigits($decimalDigits) {
-		$this->decimalDigits = $decimalDigits;
-	}
+    /**
+     * Gets the number of decimal digits.
+     *
+     * @return int
+     */
+    public function getDecimalDigits()
+    {
+        return $this->decimalDigits;
+    }
 
-	/**
-	 * Gets the number of decimal digits.
-	 *
-	 * @return integer
-	 */
-	public function getDecimalDigits() {
-		return $this->decimalDigits;
-	}
+    /**
+     * Sets the decimal point character
+     *
+     * @param string $decimalPoint
+     *
+     * @return void
+     */
+    public function setDecimalPoint($decimalPoint)
+    {
+        $this->decimalPoint = $decimalPoint;
+    }
 
-	/**
-	 * Sets the decimal point character
-	 *
-	 * @param string $decimalPoint
-	 *
-	 * @return void
-	 */
-	public function setDecimalPoint($decimalPoint) {
-		$this->decimalPoint = $decimalPoint;
-	}
+    /**
+     * Gets the decimal point character
+     *
+     * @return string
+     */
+    public function getDecimalPoint()
+    {
+        return $this->decimalPoint;
+    }
 
-	/**
-	 * Gets the decimal point character
-	 *
-	 * @return string
-	 */
-	public function getDecimalPoint() {
-		return $this->decimalPoint;
-	}
+    /**
+     * Gets the deletion status of the entity
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-	/**
-	 * Gets the deletion status of the entity
-	 *
-	 * @return boolean
-	 */
-	public function getDeleted() {
-		return $this->deleted;
-	}
+    /**
+     * Sets the deletion status of the entity
+     *
+     * @param bool $deleted
+     *
+     * @return void
+     */
+    public function setDeleted($deleted)
+    {
+        return $this->deleted = $deleted;
+    }
 
-	/**
-	 * Sets the deletion status of the entity
-	 *
-	 * @param boolean $deleted
-	 * @return void
-	 */
-	public function setDeleted($deleted) {
-		return $this->deleted = $deleted;
-	}
+    /**
+     * Sets the divisor.
+     *
+     * @param int $divisor
+     *
+     * @return void
+     */
+    public function setDivisor($divisor)
+    {
+        $this->divisor = $divisor;
+    }
 
-	/**
-	 * Sets the divisor.
-	 *
-	 * @param integer $divisor
-	 *
-	 * @return void
-	 */
-	public function setDivisor($divisor) {
-		$this->divisor = $divisor;
-	}
+    /**
+     * Gets the divisor.
+     *
+     * @return int
+     */
+    public function getDivisor()
+    {
+        return $this->divisor;
+    }
 
-	/**
-	 * Gets the divisor.
-	 *
-	 * @return integer
-	 */
-	public function getDivisor() {
-		return $this->divisor;
-	}
+    /**
+     * Sets the ISO alpha-3 code.
+     *
+     * @param string $isoCodeA3
+     *
+     * @return void
+     */
+    public function setIsoCodeA3($isoCodeA3)
+    {
+        $this->isoCodeA3 = $isoCodeA3;
+    }
 
-	/**
-	 * Sets the ISO alpha-3 code.
-	 *
-	 * @param string $isoCodeA3
-	 *
-	 * @return void
-	 */
-	public function setIsoCodeA3($isoCodeA3) {
-		$this->isoCodeA3 = $isoCodeA3;
-	}
+    /**
+     * Gets the ISO alpha-3 code.
+     *
+     * @return string
+     */
+    public function getIsoCodeA3()
+    {
+        return $this->isoCodeA3;
+    }
 
-	/**
-	 * Gets the ISO alpha-3 code.
-	 *
-	 * @return string
-	 */
-	public function getIsoCodeA3() {
-		return $this->isoCodeA3;
-	}
+    /**
+     * Sets the ISO code number.
+     *
+     * @param int $isoCodeNumber
+     *
+     * @return void
+     */
+    public function setIsoCodeNumber($isoCodeNumber)
+    {
+        $this->isoCodeNumber = $isoCodeNumber;
+    }
 
-	/**
-	 * Sets the ISO code number.
-	 *
-	 * @param integer $isoCodeNumber
-	 *
-	 * @return void
-	 */
-	public function setIsoCodeNumber($isoCodeNumber) {
-		$this->isoCodeNumber = $isoCodeNumber;
-	}
+    /**
+     * Gets the ISO code number.
+     *
+     * @return int
+     */
+    public function getIsoCodeNumber()
+    {
+        return $this->isoCodeNumber;
+    }
 
-	/**
-	 * Gets the ISO code number.
-	 *
-	 * @return integer
-	 */
-	public function getIsoCodeNumber() {
-		return $this->isoCodeNumber;
-	}
+    /**
+     * Sets the English name of the currency
+     *
+     * @param string $nameEn
+     *
+     * @return void
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
+    }
 
-	/**
-	 * Sets the English name of the currency
-	 *
-	 * @param string $nameEn
-	 *
-	 * @return void
-	 */
-	public function setNameEn($nameEn) {
-		$this->nameEn = $nameEn;
-	}
+    /**
+     * Gets the English name of the currency
+     *
+     * @return string
+     */
+    public function getNameEn()
+    {
+        return $this->nameEn;
+    }
 
-	/**
-	 * Gets the English name of the currency
-	 *
-	 * @return string
-	 */
-	public function getNameEn() {
-		return $this->nameEn;
-	}
+    /**
+     * Sets the English name of the currency subdivision
+     *
+     * @param string $subdivisionNameEn
+     *
+     * @return void
+     */
+    public function setSubdivisionNameEn($subdivisionNameEn)
+    {
+        $this->subdivisionNameEn = $subdivisionNameEn;
+    }
 
-	/**
-	 * Sets the English name of the currency subdivision
-	 *
-	 * @param string $subdivisionNameEn
-	 *
-	 * @return void
-	 */
-	public function setSubdivisionNameEn($subdivisionNameEn) {
-		$this->subdivisionNameEn = $subdivisionNameEn;
-	}
+    /**
+     * Gets the English name of the currency subdivision
+     *
+     * @return string
+     */
+    public function getSubdivisionNameEn()
+    {
+        return $this->subdivisionNameEn;
+    }
 
-	/**
-	 * Gets the English name of the currency subdivision
-	 *
-	 * @return string
-	 */
-	public function getSubdivisionNameEn() {
-		return $this->subdivisionNameEn;
-	}
+    /**
+     * Sets the left-hand side symbol for an amount stated in units of the subdivision of the currency
+     *
+     * @param string $subdivisionSymbolLeft
+     *
+     * @return void
+     */
+    public function setSubdivisionSymbolLeft($subdivisionSymbolLeft)
+    {
+        $this->subdivisionSymbolLeft = $subdivisionSymbolLeft;
+    }
 
-	/**
-	 * Sets the left-hand side symbol for an amount stated in units of the subdivision of the currency
-	 *
-	 * @param string $subdivisionSymbolLeft
-	 *
-	 * @return void
-	 */
-	public function setSubdivisionSymbolLeft($subdivisionSymbolLeft) {
-		$this->subdivisionSymbolLeft = $subdivisionSymbolLeft;
-	}
+    /**
+     * Gets the left-hand side symbol for an amount stated in units of the subdivision of the currency
+     *
+     * @return string
+     */
+    public function getSubdivisionSymbolLeft()
+    {
+        return $this->subdivisionSymbolLeft;
+    }
 
-	/**
-	 * Gets the left-hand side symbol for an amount stated in units of the subdivision of the currency
-	 *
-	 * @return string
-	 */
-	public function getSubdivisionSymbolLeft() {
-		return $this->subdivisionSymbolLeft;
-	}
+    /**
+     * Sets the right-hand side symbol for an amount stated in units of the subdivision of the currency
+     *
+     * @param string $subdivisionSymbolRight
+     *
+     * @return void
+     */
+    public function setSubdivisionSymbolRight($subdivisionSymbolRight)
+    {
+        $this->subdivisionSymbolRight = $subdivisionSymbolRight;
+    }
 
-	/**
-	 * Sets the right-hand side symbol for an amount stated in units of the subdivision of the currency
-	 *
-	 * @param string $subdivisionSymbolRight
-	 *
-	 * @return void
-	 */
-	public function setSubdivisionSymbolRight($subdivisionSymbolRight) {
-		$this->subdivisionSymbolRight = $subdivisionSymbolRight;
-	}
+    /**
+     * Gets the right-hand side symbol for an amount stated in units of the subdivision of the currency
+     *
+     * @return string
+     */
+    public function getSubdivisionSymbolRight()
+    {
+        return $this->subdivisionSymbolRight;
+    }
 
-	/**
-	 * Gets the right-hand side symbol for an amount stated in units of the subdivision of the currency
-	 *
-	 * @return string
-	 */
-	public function getSubdivisionSymbolRight() {
-		return $this->subdivisionSymbolRight;
-	}
+    /**
+     * Sets the symbol to be shown to the left of an amount stated in units of the currency
+     *
+     * @param string $symbolLeft
+     *
+     * @return void
+     */
+    public function setSymbolLeft($symbolLeft)
+    {
+        $this->symbolLeft = $symbolLeft;
+    }
 
-	/**
-	 * Sets the symbol to be shown to the left of an amount stated in units of the currency
-	 *
-	 * @param string $symbolLeft
-	 *
-	 * @return void
-	 */
-	public function setSymbolLeft($symbolLeft) {
-		$this->symbolLeft = $symbolLeft;
-	}
+    /**
+     * Gets the symbol to be shown to the left of an amount stated in units of the currency
+     *
+     * @return string
+     */
+    public function getSymbolLeft()
+    {
+        return $this->symbolLeft;
+    }
 
-	/**
-	 * Gets the symbol to be shown to the left of an amount stated in units of the currency
-	 *
-	 * @return string
-	 */
-	public function getSymbolLeft() {
-		return $this->symbolLeft;
-	}
+    /**
+     * Sets the symbol to be shown to the right of an amount stated in units of the currency
+     *
+     * @param string $symbolRight
+     *
+     * @return void
+     */
+    public function setSymbolRight($symbolRight)
+    {
+        $this->symbolRight = $symbolRight;
+    }
 
-	/**
-	 * Sets the symbol to be shown to the right of an amount stated in units of the currency
-	 *
-	 * @param string $symbolRight
-	 *
-	 * @return void
-	 */
-	public function setSymbolRight($symbolRight) {
-		$this->symbolRight = $symbolRight;
-	}
+    /**
+     * Gets the symbol to be shown to the right of an amount stated in units of the currency
+     *
+     * @return string
+     */
+    public function getSymbolRight()
+    {
+        return $this->symbolRight;
+    }
 
-	/**
-	 * Gets the symbol to be shown to the right of an amount stated in units of the currency
-	 *
-	 * @return string
-	 */
-	public function getSymbolRight() {
-		return $this->symbolRight;
-	}
+    /**
+     * Sets the thousands point/separator.
+     *
+     * @param string $thousandsPoint
+     *
+     * @return void
+     */
+    public function setThousandsPoint($thousandsPoint)
+    {
+        $this->thousandsPoint = $thousandsPoint;
+    }
 
-	/**
-	 * Sets the thousands point/separator.
-	 *
-	 * @param string $thousandsPoint
-	 *
-	 * @return void
-	 */
-	public function setThousandsPoint($thousandsPoint) {
-		$this->thousandsPoint = $thousandsPoint;
-	}
-
-	/**
-	 * Gets the thousands point/separator.
-	 *
-	 * @return string
-	 */
-	public function getThousandsPoint() {
-		return $this->thousandsPoint;
-	}
+    /**
+     * Gets the thousands point/separator.
+     *
+     * @return string
+     */
+    public function getThousandsPoint()
+    {
+        return $this->thousandsPoint;
+    }
 }

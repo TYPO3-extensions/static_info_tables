@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Model;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -26,89 +27,94 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 /**
  * Abstract model for static entities
  */
+use SJBR\StaticInfoTables\Utility\LocalizationUtility;
 
-use \SJBR\StaticInfoTables\Utility\LocalizationUtility;
+class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+{
+    /**
+     * Name of the table from persistence mapping of this model
+     *
+     * @var string
+     */
+    protected $tableName = '';
 
-class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+    /**
+     * Contains the persistence columns mapping of this model
+     *
+     * @var array
+     */
+    protected $columnsMapping = [];
 
-	/**
-	 * Name of the table from persistence mapping of this model
-	 *
-	 * @var string
-	 */
-	protected $tableName = '';
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     */
+    protected $objectManager;
 
-	/**
-	 * Contains the persistence columns mapping of this model
-	 *
-	 * @var array
-	 */
-	protected $columnsMapping = array();
+    /**
+     * On initialization, get the columns mapping configuration
+     */
+    public function initializeObject()
+    {
+        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+    }
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 */
-	protected $objectManager;
+    /**
+     * Localized name of the entity
+     *
+     * @var string
+     */
+    protected $nameLocalized = '';
 
-	/**
-	 * On initialization, get the columns mapping configuration
-	 */
-	public function initializeObject() {
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-	}
+    /**
+     * Sets the localized name of the entity
+     *
+     * @param string $nameLocalized
+     *
+     * @return void
+     */
+    public function setNameLocalized($nameLocalized)
+    {
+        $this->nameLocalized = $nameLocalized;
+    }
 
-	/**
-	 * Localized name of the entity
-	 * @var string
-	 */
-	protected $nameLocalized = '';
+    /**
+     * Gets the localized name of the entity
+     *
+     * @return string
+     */
+    public function getNameLocalized()
+    {
+        $language = LocalizationUtility::getCurrentLanguage();
+        $labelFields = LocalizationUtility::getLabelFields($this->tableName, $language);
+        foreach ($labelFields as $labelField) {
+            if ($this->_hasProperty($this->columnsMapping[$labelField]['mapOnProperty'])) {
+                $value = $this->_getProperty($this->columnsMapping[$labelField]['mapOnProperty']);
+                if ($value) {
+                    $this->nameLocalized = $value;
+                    break;
+                }
+            }
+        }
+        return $this->nameLocalized;
+    }
 
-	/**
-	 * Sets the localized name of the entity
-	 *
-	 * @param string $nameLocalized
-	 *
-	 * @return void
-	 */
-	public function setNameLocalized($nameLocalized) {
-		$this->nameLocalized = $nameLocalized;
-	}
+    /**
+     * Gets the table name
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->tableName;
+    }
 
-	/**
-	 * Gets the localized name of the entity
-	 *
-	 * @return string
-	 */
-	public function getNameLocalized() {
-		$language = LocalizationUtility::getCurrentLanguage();
-		$labelFields = LocalizationUtility::getLabelFields($this->tableName, $language);
-		foreach ($labelFields as $labelField) {
-			if ($this->_hasProperty($this->columnsMapping[$labelField]['mapOnProperty'])) {
-				$value = $this->_getProperty($this->columnsMapping[$labelField]['mapOnProperty']);
-				if ($value) {
-					$this->nameLocalized = $value;
-					break;
-				}
-			}
-		}
-		return $this->nameLocalized;
-	}
-
-	/**
-	 * Gets the table name
-	 *
-	 * @return string
-	 */
-	public function getTableName() {
-		return $this->tableName;
-	}
-
-	/**
-	 * Gets the columns mapping
-	 *
-	 * @return string
-	 */
-	public function getColumnsMapping() {
-		return $this->columnsMapping;
-	}
+    /**
+     * Gets the columns mapping
+     *
+     * @return string
+     */
+    public function getColumnsMapping()
+    {
+        return $this->columnsMapping;
+    }
 }

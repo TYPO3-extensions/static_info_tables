@@ -5,7 +5,7 @@ namespace SJBR\StaticInfoTables\Hook\Backend\Form\Wizard;
  *  Copyright notice
  *
  *  (c) 2007-2011 Andreas Wolf <andreas.wolf@ikt-werk.de>
- *  (c) 2013-2015 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -50,153 +50,72 @@ class SuggestReceiver extends \TYPO3\CMS\Backend\Form\Wizard\SuggestWizardDefaul
      */
     protected function prepareSelectStatement()
     {
-    	if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-    		$expressionBuilder = $this->queryBuilder->expr();
-			$searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
-			$searchString = $this->params['value'];
-			$searchUid = (int)$searchString;
-			if ($searchString !== '') {
-				$likeCondition = ($searchWholePhrase ? '%' : '') . $this->queryBuilder->escapeLikeWildcards($searchString) . '%';
-				// Get the label field for the current language, if any is available
-				$lang = LocalizationUtility::getCurrentLanguage();
-				$lang = LocalizationUtility::getIsoLanguageKey($lang);
-				$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-				$selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
-				$selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, true);
-				$selectFields = array_unique($selectFields);
-
-				$selectParts = $expressionBuilder->orX();
-				foreach ($selectFields as $field) {
-					$selectParts->add($expressionBuilder->like($field, $this->queryBuilder->createPositionalParameter($likeCondition)));
-				}
-
-				$searchClause = $expressionBuilder->orX($selectParts);
-				if ($searchUid > 0 && $searchUid == $searchString) {
-					$searchClause->add($expressionBuilder->eq('uid', $searchUid));
-				}
-
-				$this->queryBuilder->andWhere($expressionBuilder->orX($searchClause));
-			}
-			if (!empty($this->allowedPages)) {
-				$pidList = array_map('intval', $this->allowedPages);
-				if (!empty($pidList)) {
-					$this->queryBuilder->andWhere(
-						$expressionBuilder->in('pid', $pidList)
-					);
-				}
-			}
-			// add an additional search condition comment
-			if (isset($this->config['searchCondition']) && $this->config['searchCondition'] !== '') {
-				$this->queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($this->config['searchCondition']));
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$this->prepareCompatibleSelectStatement();
-		}
+        $expressionBuilder = $this->queryBuilder->expr();
+        $searchWholePhrase = !isset($this->config['searchWholePhrase']) || $this->config['searchWholePhrase'];
+        $searchString = $this->params['value'];
+        $searchUid = (int)$searchString;
+        if ($searchString !== '') {
+            $likeCondition = ($searchWholePhrase ? '%' : '') . $this->queryBuilder->escapeLikeWildcards($searchString) . '%';
+            // Get the label field for the current language, if any is available
+            $lang = LocalizationUtility::getCurrentLanguage();
+            $lang = LocalizationUtility::getIsoLanguageKey($lang);
+            $labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+            $selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
+            $selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, true);
+            $selectFields = array_unique($selectFields);
+            $selectParts = $expressionBuilder->orX();
+            foreach ($selectFields as $field) {
+                $selectParts->add($expressionBuilder->like($field, $this->queryBuilder->createPositionalParameter($likeCondition)));
+            }
+            $searchClause = $expressionBuilder->orX($selectParts);
+            if ($searchUid > 0 && $searchUid == $searchString) {
+                $searchClause->add($expressionBuilder->eq('uid', $searchUid));
+            }
+            $this->queryBuilder->andWhere($expressionBuilder->orX($searchClause));
+        }
+        if (!empty($this->allowedPages)) {
+            $pidList = array_map('intval', $this->allowedPages);
+            if (!empty($pidList)) {
+                $this->queryBuilder->andWhere(
+                    $expressionBuilder->in('pid', $pidList)
+                );
+            }
+        }
+        // add an additional search condition comment
+        if (isset($this->config['searchCondition']) && $this->config['searchCondition'] !== '') {
+            $this->queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($this->config['searchCondition']));
+        }
     }
 
-	/**
-	 * For TYPO3 CMS 7 LTS
-	 *
-	 * Prepare the statement for selecting the records which will be returned to the selector. May also return some
-	 * other records (e.g. from a mm-table) which will be used later on to select the real records
-	 *
-	 * @return void
-	 */
-	protected function prepareCompatibleSelectStatement()
-	{
-		$searchWholePhrase = $this->config['searchWholePhrase'];
-		$searchString = $this->params['value'];
-		$searchUid = intval($searchString);
-		if (strlen($searchString)) {
-			$searchString = $GLOBALS['TYPO3_DB']->quoteStr($searchString, $this->table);
-			$likeCondition = ' LIKE \'' . ($searchWholePhrase ? '%' : '') . $GLOBALS['TYPO3_DB']->escapeStrForLike($searchString, $this->table) . '%\'';
-			// Get the label field for the current language, if any is available
-			$lang = LocalizationUtility::getCurrentLanguage();
-			$lang = LocalizationUtility::getIsoLanguageKey($lang);
-			$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-			$selectFieldsList = $labelFields[0] . ',' . $this->config['additionalSearchFields'];
-			$selectFields = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectFieldsList, TRUE);
-			$selectFields = array_unique($selectFields);
-			$selectParts = array();
-			foreach ($selectFields as $field) {
-				$selectParts[] = $field . $likeCondition;
-			}
-			$this->selectClause = '(' . implode(' OR ', $selectParts) . ')';
-			if ($searchUid > 0 && $searchUid == $searchString) {
-				$this->selectClause = '(' . $this->selectClause . ' OR uid = ' . $searchUid . ')';
-			}
-		}
-		if (isset($GLOBALS['TCA'][$this->table]['ctrl']['delete'])) {
-			$this->selectClause .= ' AND ' . $GLOBALS['TCA'][$this->table]['ctrl']['delete'] . ' = 0';
-		}
-		if (count($this->allowedPages)) {
-			$pidList = $GLOBALS['TYPO3_DB']->cleanIntArray($this->allowedPages);
-			if (count($pidList)) {
-				$this->selectClause .= ' AND pid IN (' . implode(', ', $pidList) . ') ';
-			}
-		}
-		// add an additional search condition comment
-		if (isset($this->config['searchCondition']) && strlen($this->config['searchCondition']) > 0) {
-			$this->selectClause .= ' AND ' . $this->config['searchCondition'];
-		}
-		// add the global clauses to the where-statement
-		$this->selectClause .= $this->addWhere;
-	}
+    /**
+     * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
+     * SQL standard for reference.
+     *
+     * @return void
+     */
+    protected function prepareOrderByStatement()
+    {
+        // Get the label field for the current language, if any is available
+        $lang = LocalizationUtility::getCurrentLanguage();
+        $lang = LocalizationUtility::getIsoLanguageKey($lang);
+        $labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
+        if (!empty($labelFields)) {
+            foreach ($labelFields as $labelField) {
+                $this->queryBuilder->addOrderBy($labelField);
+            }
+        } elseif ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
+            $this->queryBuilder->addOrderBy($GLOBALS['TCA'][$this->table]['ctrl']['label']);
+        }
+    }
 
-	/**
-	 * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
-	 * SQL standard for reference.
-	 *
-	 * @return void
-	 */
-	protected function prepareOrderByStatement()
-	{
-		if (class_exists('TYPO3\\CMS\\Core\\Database\\ConnectionPool')) {
-			// Get the label field for the current language, if any is available
-			$lang = LocalizationUtility::getCurrentLanguage();
-			$lang = LocalizationUtility::getIsoLanguageKey($lang);
-			$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-			if (!empty($labelFields)) {
-				foreach ($labelFields as $labelField) {
-					$this->queryBuilder->addOrderBy($labelField);
-				}
-			} else 	if ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
-				$this->queryBuilder->addOrderBy($GLOBALS['TCA'][$this->table]['ctrl']['label']);
-			}
-		} else {
-			// TYPO3 CMS 7 LTS
-			$this->prepareCompatibleOrderByStatement();
-		}
-	}
-
-	/**
-	 * For TYPO3 CMS 7 LTS
-	 *
-	 * Prepares the clause by which the result elements are sorted. See description of ORDER BY in
-	 * SQL standard for reference.
-	 *
-	 * @return void
-	 */
-	protected function prepareCompatibleOrderByStatement()
-	{
-		if ($GLOBALS['TCA'][$this->table]['ctrl']['label']) {
-			$this->orderByStatement = $GLOBALS['TCA'][$this->table]['ctrl']['label'];
-		}
-		// Get the label field for the current language, if any is available
-		$lang = LocalizationUtility::getCurrentLanguage();
-		$lang = LocalizationUtility::getIsoLanguageKey($lang);
-		$labelFields = LocalizationUtility::getLabelFields($this->table, $lang);
-		$this->orderByStatement = implode(',' , $labelFields);
-	}
-
-	/**
-	 * Manipulate a record before using it to render the selector; may be used to replace a MM-relation etc.
-	 *
-	 * @param array $row
-	 */
-	protected function manipulateRecord(&$row) {
-		// Localize the record
-		$row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = LocalizationUtility::translate(array('uid' => $row['uid']), $this->table);
-	}
+    /**
+     * Manipulate a record before using it to render the selector; may be used to replace a MM-relation etc.
+     *
+     * @param array $row
+     */
+    protected function manipulateRecord(&$row)
+    {
+        // Localize the record
+        $row[$GLOBALS['TCA'][$this->table]['ctrl']['label']] = LocalizationUtility::translate(['uid' => $row['uid']], $this->table);
+    }
 }

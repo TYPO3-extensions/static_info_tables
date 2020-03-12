@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -28,38 +29,39 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\CountryZone
  */
-class CountryZoneRepository extends AbstractEntityRepository {
+class CountryZoneRepository extends AbstractEntityRepository
+{
+    /**
+     * @var array ISO keys for this static table
+     */
+    protected $isoKeys = ['zn_country_iso_2', 'zn_code'];
 
-	/**
-	 * @var array ISO keys for this static table
-	 */
-	protected $isoKeys = array('zn_country_iso_2', 'zn_code');
+    /**
+     * Finds country zones by country
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('countryIsoCodeNumber', $country->getIsoCodeNumber())
+        );
+        return $query->execute();
+    }
 
-	/**
-	 * Finds country zones by country
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
-		$query = $this->createQuery();
-		$query->matching(
-			$query->equals('countryIsoCodeNumber', $country->getIsoCodeNumber())
-		);
-		return $query->execute();
-	}
-
-	/**
-	 * Finds country zones by country ordered by localized name
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
-	 *
-	 * @return array Country zones of the country sorted by localized name
-	 */
-	public function findByCountryOrderedByLocalizedName(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
-		$entities = $this->findByCountry($country);
-		return $this->localizedSort($entities);
-	}
+    /**
+     * Finds country zones by country ordered by localized name
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
+     *
+     * @return array Country zones of the country sorted by localized name
+     */
+    public function findByCountryOrderedByLocalizedName(\SJBR\StaticInfoTables\Domain\Model\Country $country)
+    {
+        $entities = $this->findByCountry($country);
+        return $this->localizedSort($entities);
+    }
 }
-?>

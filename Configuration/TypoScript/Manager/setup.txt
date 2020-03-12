@@ -1,9 +1,9 @@
 ## Configuring the Static Info Manager backend module
 module.tx_staticinfotables {
-	## Paths for Manager templates
-	view {
-		templateRootPaths.0 = EXT:static_info_tables/Resources/Private/Templates/
-		partialRootPaths.0 = EXT:static_info_tables/Resources/Private/Partials/
-		layoutRootPaths.0 = EXT:static_info_tables/Resources/Private/Layouts/
-	}
+    ## Paths for Manager templates
+    view {
+        templateRootPaths.0 = EXT:static_info_tables/Resources/Private/Templates/
+        partialRootPaths.0 = EXT:static_info_tables/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:static_info_tables/Resources/Private/Layouts/
+    }
 }

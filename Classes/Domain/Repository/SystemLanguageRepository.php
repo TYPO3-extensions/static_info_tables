@@ -36,22 +36,22 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class SystemLanguageRepository extends Repository
 {
-	/**
-	 * Find all system language objects with uid in list
-	 * If no list is provided, find all system language objects
-	 *
-	 * @param string $list: list of uid's
-	 * @return QueryResultInterface|array all entries
-	 */
-	public function findAllByUidInList($list = '')
-	{
-		if (empty($list)) {
-			return $this->findAll();
-		} else {
-			$query = $this->createQuery();
-			$list = GeneralUtility::trimExplode(',', $list, true);
-			$query->matching($query->in('uid', $list));
-			return $query->execute();
-		}
-	}
+    /**
+     * Find all system language objects with uid in list
+     * If no list is provided, find all system language objects
+     *
+     * @param string $list: list of uid's
+     *
+     * @return QueryResultInterface|array all entries
+     */
+    public function findAllByUidInList($list = '')
+    {
+        if (empty($list)) {
+            return $this->findAll();
+        }
+        $query = $this->createQuery();
+        $list = GeneralUtility::trimExplode(',', $list, true);
+        $query->matching($query->in('uid', $list));
+        return $query->execute();
+    }
 }
