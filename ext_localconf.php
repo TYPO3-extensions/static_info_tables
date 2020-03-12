@@ -104,13 +104,10 @@ call_user_func(
             'executeUpdateScript'
         );
         // Enabling the Static Info Tables Manager module
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['enableManager'] =
-            isset($extConf['enableManager']) ? $extConf['enableManager'] : '0';
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['enableManager'] = isset($extConf['enableManager']) ? $extConf['enableManager'] : '0';
         // Make the extension version and constraints available when creating language packs and to other extensions
-        $emConfUtility =
-            \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
-        $emConf =
-            $emConfUtility->includeEmConf([
+        $emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
+        $emConf = $emConfUtility->includeEmConf('static_info_tables', [
                 'key' => $extKey,
                 'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)),
             ]);
