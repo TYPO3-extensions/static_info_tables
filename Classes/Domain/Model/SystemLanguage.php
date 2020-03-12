@@ -25,7 +25,6 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use SJBR\StaticInfoTables\Domain\Model\Language;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -33,59 +32,60 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class SystemLanguage extends AbstractEntity
 {
-	/**
-	 * @var string System language name
-	 */
-	protected $title = '';
+    /**
+     * @var string System language name
+     */
+    protected $title = '';
 
-	/**
-	 * @var \SJBR\StaticInfoTables\Domain\Model\Language
-	 */
-	protected $isoLanguage = null;
+    /**
+     * @var \SJBR\StaticInfoTables\Domain\Model\Language
+     */
+    protected $isoLanguage = null;
 
-	/**
-	 * Sets the language name
-	 *
-	 * @param string $title
-	 * @return void
-	 */
-	public function setTitle($title)
-	{
-		$this->title = $title;
-	}
+    /**
+     * Sets the language name
+     *
+     * @param string $title
+     *
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * Gets the backend language name
-	 *
-	 * @return string
-	 */
-	public function getTitle()
-	{
-		return $this->title;
-	}
+    /**
+     * Gets the backend language name
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * Sets the ISO language
-	 *
-	 * @param Language $isoLanguage
-	 * @return void
-	 */
-	public function setIsoLanguage(Language $isoLanguage)
-	{
-		$this->isoLanguage = $isoLanguage;
-	}
+    /**
+     * Sets the ISO language
+     *
+     * @param Language $isoLanguage
+     *
+     * @return void
+     */
+    public function setIsoLanguage(Language $isoLanguage)
+    {
+        $this->isoLanguage = $isoLanguage;
+    }
 
-	/**
-	 * Gets the ISO language
-	 *
-	 * @return Language
-	 */
-	public function getIsoLanguage()
-	{
-		if ($this->isoLanguage !== null) {
-			return clone $this->isoLanguage;
-		} else {
-			return $this->isoLanguage;
-		}
-	}
+    /**
+     * Gets the ISO language
+     *
+     * @return Language
+     */
+    public function getIsoLanguage()
+    {
+        if ($this->isoLanguage !== null) {
+            return clone $this->isoLanguage;
+        }
+        return $this->isoLanguage;
+    }
 }

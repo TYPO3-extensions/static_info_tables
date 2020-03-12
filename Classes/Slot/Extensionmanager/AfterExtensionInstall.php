@@ -1,9 +1,10 @@
 <?php
 namespace SJBR\StaticInfoTables\Slot\Extensionmanager;
- /***************************************************************
+
+/***************************************************************
  *  Copyright notice
  *
- *  (c) 2015 StanislasRolland <typo3(arobas)sjbr.ca>
+ *  (c) 2015-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -23,63 +24,71 @@ namespace SJBR\StaticInfoTables\Slot\Extensionmanager;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+use TYPO3\CMS\Extensionmanager\Utility\UpdateScriptUtility;
 
 /**
  * AfterExtensionInstall slot
  *
  * Always run the extension update script except on first install of base extension
  */
-class AfterExtensionInstall {
+class AfterExtensionInstall
+{
+    /**
+     * @var ObjectManager
+     */
+    public $objectManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-	 */
-	public $objectManager;
+    /**
+     * @var \TYPO3\CMS\Core\Registry
+     */
+    protected $registry;
 
-	/**
-	 * @var \TYPO3\CMS\Core\Registry
-	 */
-	protected $registry;
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function injectObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-	/**
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+    /**
+     * @param Registry $registry
+     */
+    public function injectRegistry(Registry $registry)
+    {
+        $this->registry = $registry;
+    }
 
-	/**
-	 * @param \TYPO3\CMS\Core\Registry $registry
-	 */
-	public function injectRegistry(\TYPO3\CMS\Core\Registry $registry) {
-		$this->registry = $registry;
-	}
-
-	/**
-	 * If the installed extension is static_info_tables or a language pack, execute the update script
-	 *
-	 * @param string $extensionKey: the key of the extension that was installed
-	 * @param \TYPO3\CMS\Extensionmanager\Utility\InstallUtility $installUtility
-	 * @return void
-	 */
-	public function executeUpdateScript($extensionKey, \TYPO3\CMS\Extensionmanager\Utility\InstallUtility $installUtility) {
-		if (strpos($extensionKey, 'static_info_tables') === 0) {
-			$extensionKeyParts = explode('_', $extensionKey);
-			if (count($extensionKeyParts) === 3) {
-				$extTablesStaticSqlRelFile = ExtensionManagementUtility::siteRelPath($extensionKey) . 'ext_tables_static+adt.sql';
-			}
-			if (
-				// Base extension with data already imported once
-				(count($extensionKeyParts) === 3 && $this->registry->get('extensionDataImport', $extTablesStaticSqlRelFile))
-				// Language pack
-				|| (count($extensionKeyParts) === 4 && strlen($extensionKeyParts[3]) === 2)
-				|| (count($extensionKeyParts) === 5 && strlen($extensionKeyParts[3]) === 2 && strlen($extensionKeyParts[4]) === 2)
-			) {
-				/** @var $updateScriptUtility \TYPO3\CMS\Extensionmanager\Utility\UpdateScriptUtility */
-				$updateScriptUtility = $this->objectManager->get('TYPO3\\CMS\\Extensionmanager\\Utility\\UpdateScriptUtility');
-				$updateScriptResult = $updateScriptUtility->executeUpdateIfNeeded($extensionKey);
-			}
-		}
-	}
+    /**
+     * If the installed extension is static_info_tables or a language pack, execute the update script
+     *
+     * @param string $extensionKey: the key of the extension that was installed
+     * @param InstallUtility $installUtility
+     *
+     * @return void
+     */
+    public function executeUpdateScript($extensionKey, InstallUtility $installUtility)
+    {
+        if (strpos($extensionKey, 'static_info_tables') === 0) {
+            $extensionKeyParts = explode('_', $extensionKey);
+            if (count($extensionKeyParts) === 3) {
+                $extTablesStaticSqlRelFile = PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($extensionKey)) . 'ext_tables_static+adt.sql';
+            }
+            if (
+                // Base extension with data already imported once
+                (count($extensionKeyParts) === 3 && $this->registry->get('extensionDataImport', $extTablesStaticSqlRelFile))
+                // Language pack
+                || (count($extensionKeyParts) === 4 && strlen($extensionKeyParts[3]) === 2)
+                || (count($extensionKeyParts) === 5 && strlen($extensionKeyParts[3]) === 2 && strlen($extensionKeyParts[4]) === 2)
+            ) {
+                $updateScriptUtility = $this->objectManager->get(UpdateScriptUtility::class);
+                $updateScriptResult = $updateScriptUtility->executeUpdateIfNeeded($extensionKey);
+            }
+        }
+    }
 }

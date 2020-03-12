@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Utility;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -25,62 +26,66 @@ namespace SJBR\StaticInfoTables\Utility;
 /**
  * Locale-related functions
  */
-class LocaleUtility {
+class LocaleUtility
+{
+    /**
+     * @var string Name of the extension this class belongs to
+     */
+    protected $extensionName = 'StaticInfoTables';
 
-	/**
-	 * @var string Name of the extension this class belongs to
-	 */
-	protected $extensionName = 'StaticInfoTables';
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     */
+    protected $objectManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 */
-	protected $objectManager;
+    /**
+     * Injects the object manager
+     *
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     *
+     * @return void
+     */
+    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-	/**
-	 * Injects the object manager
-	 *
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 * @return void
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+    /**
+     * Get the typo3-supported locale options
+     *
+     * @return array An array of language objects
+     */
+    public function getLocales()
+    {
+        $localeArray = [];
+        $locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
+        $languages = $locales->getLanguages();
+        foreach ($languages as $locale => $language) {
+            // No language pack for English
+            if ($locale != 'default') {
+                $languageObject = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
+                $languageObject->setCollatingLocale($locale);
+                $localizedLanguage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('lang_' . $locale, $this->extensionName);
+                $label = ($localizedLanguage ? $localizedLanguage : $language) . ' (' . $locale . ')';
+                $languageObject->setNameEn($label);
+                $localeArray[$label] = $languageObject;
+            }
+        }
+        ksort($localeArray);
+        return $localeArray;
+    }
 
-	/**
-	 * Get the typo3-supported locale options
-	 *
-	 * @return array An array of language objects
-	 */
-	public function getLocales() {
-		$localeArray = array();
-		$locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
-		$languages = $locales->getLanguages();
-		foreach ($languages as $locale => $language) {
-			// No language pack for English
-			if ($locale != 'default') {
-				$languageObject = $this->objectManager->get('SJBR\\StaticInfoTables\\Domain\\Model\\Language');
-				$languageObject->setCollatingLocale($locale);
-				$localizedLanguage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('lang_' . $locale, $this->extensionName);
-				$label = ($localizedLanguage ? $localizedLanguage : $language) . ' (' . $locale . ')';
-				$languageObject->setNameEn($label);
-				$localeArray[$label] = $languageObject;
-			}
-		}
-		ksort($localeArray);
-		return $localeArray;
-	}
-
-	/**
-	 * Get language name from locale
-	 *
-	 * @param string $locale
-	 * @return string Language name
-	 */
-	public function getLanguageFromLocale($locale) {
-		$locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
-		$languages = $locales->getLanguages();
-		return $languages[$locale];
-	}
+    /**
+     * Get language name from locale
+     *
+     * @param string $locale
+     *
+     * @return string Language name
+     */
+    public function getLanguageFromLocale($locale)
+    {
+        $locales = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Locales');
+        $languages = $locales->getLanguages();
+        return $languages[$locale];
+    }
 }
-?>

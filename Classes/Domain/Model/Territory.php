@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Model;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -31,120 +32,133 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-
 use SJBR\StaticInfoTables\Utility\ModelUtility;
 
-class Territory extends AbstractEntity {
+class Territory extends AbstractEntity
+{
+    /**
+     * Deletion status of the object
+     *
+     * @var bool
+     */
+    protected $deleted = false;
 
-	/**
-	 * Deletion status of the object
-	 * @var boolean
-	 */
-	protected $deleted = FALSE;
+    /**
+     * UN numeric territory code
+     *
+     * @var int
+     */
+    protected $unCodeNumber = 0;
 
-	/**
-	 * UN numeric territory code
-	 * @var integer
-	 */
-	protected $unCodeNumber = 0;
+    /**
+     * English name
+     *
+     * @var string
+     */
+    protected $nameEn = '';
 
-	/**
-	 * English name
-	 * @var string
-	 */
-	protected $nameEn = '';
+    /**
+     * UN numeric territory code of parent territory
+     *
+     * @var int
+     */
+    protected $parentTerritoryUnCodeNumber = 0;
 
-	/**
-	 * UN numeric territory code of parent territory
-	 * @var integer
-	 */
-	protected $parentTerritoryUnCodeNumber = 0;
+    /**
+     * On initialization, get the columns mapping configuration
+     */
+    public function initializeObject()
+    {
+        parent::initializeObject();
+        $this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Territory', ModelUtility::MAPPING_TABLENAME);
+        $this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Territory', ModelUtility::MAPPING_COLUMNS);
+    }
 
-	/**
-	 * On initialization, get the columns mapping configuration
-	 */
-	public function initializeObject() {
-		parent::initializeObject();
-		$this->tableName = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Territory', ModelUtility::MAPPING_TABLENAME);
-		$this->columnsMapping = ModelUtility::getModelMapping('SJBR\\StaticInfoTables\\Domain\\Model\\Territory', ModelUtility::MAPPING_COLUMNS);
-	}
+    /**
+     * Gets the deletion status of the entity
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
-	/**
-	 * Gets the deletion status of the entity
-	 *
-	 * @return boolean
-	 */
-	public function getDeleted() {
-		return $this->deleted;
-	}
+    /**
+     * Sets the deletion status of the entity
+     *
+     * @param bool $deleted
+     *
+     * @return void
+     */
+    public function setDeleted($deleted)
+    {
+        return $this->deleted = $deleted;
+    }
 
-	/**
-	 * Sets the deletion status of the entity
-	 *
-	 * @param boolean $deleted
-	 * @return void
-	 */
-	public function setDeleted($deleted) {
-		return $this->deleted = $deleted;
-	}
+    /**
+     * Sets the English name
+     *
+     * @param string $nameEn
+     *
+     * @return void
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
+    }
 
-	/**
-	 * Sets the English name
-	 *
-	 * @param string $nameEn
-	 *
-	 * @return void
-	 */
-	public function setNameEn($nameEn) {
-		$this->nameEn = $nameEn;
-	}
+    /**
+     * Returns the English name
+     *
+     * @return string
+     */
+    public function getNameEn()
+    {
+        return $this->nameEn;
+    }
 
-	/**
-	 * Returns the English name
-	 *
-	 * @return string
-	 */
-	public function getNameEn() {
-		return $this->nameEn;
-	}
+    /**
+     * Sets the UN territory numeric code
+     *
+     * @param int $unCodeNumber
+     *
+     * @return void
+     */
+    public function setUnCodeNumber($unCodeNumber)
+    {
+        $this->unCodeNumber = $unCodeNumber;
+    }
 
-	/**
-	 * Sets the UN territory numeric code
-	 *
-	 * @param integer $unCodeNumber
-	 *
-	 * @return void
-	 */
-	public function setUnCodeNumber($unCodeNumber) {
-		$this->unCodeNumber = $unCodeNumber;
-	}
+    /**
+     * Returns the UN territory numeric code
+     *
+     * @return int
+     */
+    public function getUnCodeNumber()
+    {
+        return $this->unCodeNumber;
+    }
 
-	/**
-	 * Returns the UN territory numeric code
-	 *
-	 * @return integer
-	 */
-	public function getUnCodeNumber() {
-		return $this->unCodeNumber;
-	}
+    /**
+     * Sets the UN numeric territory code of the parent territory
+     *
+     * @param int $parentTerritoryUnCodeNumber
+     *
+     * @return void
+     */
+    public function setParentTerritoryUnCodeNumber($parentTerritoryUnCodeNumber)
+    {
+        $this->parentTerritoryUnCodeNumber = $parentTerritoryUnCodeNumber;
+    }
 
-	/**
-	 * Sets the UN numeric territory code of the parent territory
-	 *
-	 * @param integer $parentTerritoryUnCodeNumber
-	 *
-	 * @return void
-	 */
-	public function setParentTerritoryUnCodeNumber($parentTerritoryUnCodeNumber) {
-		$this->parentTerritoryUnCodeNumber = $parentTerritoryUnCodeNumber;
-	}
-
-	/**
-	 * Returns the UN numeric territory code of the parent territory
-	 *
-	 * @return integer
-	 */
-	public function getParentTerritoryUnCodeNumber() {
-		return $this->parentTerritoryUnCodeNumber;
-	}
+    /**
+     * Returns the UN numeric territory code of the parent territory
+     *
+     * @return int
+     */
+    public function getParentTerritoryUnCodeNumber()
+    {
+        return $this->parentTerritoryUnCodeNumber;
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -27,75 +28,79 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /**
  * Repository for \SJBR\StaticInfoTables\Domain\Model\Territory
  */
-class TerritoryRepository extends AbstractEntityRepository {
+class TerritoryRepository extends AbstractEntityRepository
+{
+    /**
+     * ISO keys for this static table
+     *
+     * @var array
+     */
+    protected $isoKeys = ['tr_iso_nr'];
 
-	/**
-	 * ISO keys for this static table
-	 * @var array
-	 */
-	protected $isoKeys = array('tr_iso_nr');
+    /**
+     * Finds the territory within which a country is located
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('unCodeNumber', $country->getParentTerritoryUnCodeNumber())
+        );
+        return $query->execute();
+    }
 
-	/**
-	 * Finds the territory within which a country is located
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country) {
-		$query = $this->createQuery();
-		$query->matching(
-			$query->equals('unCodeNumber', $country->getParentTerritoryUnCodeNumber())
-		);
-		return $query->execute();
-	}
+    /**
+     * Finds territories that have a given territory as parent territory
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('parentTerritoryUnCodeNumber', $territory->getUnCodeNumber())
+        );
+        return $query->execute();
+    }
 
-	/**
-	 * Finds territories that have a given territory as parent territory
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findByTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory) {
-		$query = $this->createQuery();
-		$query->matching(
-			$query->equals('parentTerritoryUnCodeNumber', $territory->getUnCodeNumber())
-		);
-		return $query->execute();
-	}
+    /**
+     * Finds all territories within a territory recursively
+     *
+     * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
+     * @param array $unCodeNumbers array of UN territory code numbers used for recursive retrieval of sub-territories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     */
+    public function findWithinTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory, &$unCodeNumbers = [])
+    {
+        if (empty($unCodeNumbers)) {
+            $unCodeNumbers = [$territory->getUnCodeNumber()];
+        }
+        $initialCount = count($unCodeNumbers);
 
-	/**
-	 * Finds all territories within a territory recursively
-	 *
-	 * @param \SJBR\StaticInfoTables\Domain\Model\Territory $territory
-	 * @param array $unCodeNumbers array of UN territory code numbers used for recursive retrieval of sub-territories
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
-	 */
-	public function findWithinTerritory(\SJBR\StaticInfoTables\Domain\Model\Territory $territory, &$unCodeNumbers = array()) {
-		if (empty($unCodeNumbers)) {
-			$unCodeNumbers = array($territory->getUnCodeNumber());
-		}
-		$initialCount = count($unCodeNumbers);
+        $query = $this->createQuery();
+        $query->matching(
+            $query->in('parentTerritoryUnCodeNumber', $unCodeNumbers)
+        );
+        $territories = $query->execute();
 
-		$query = $this->createQuery();
-		$query->matching(
-			$query->in('parentTerritoryUnCodeNumber', $unCodeNumbers)
-		);
-		$territories = $query->execute();
+        // Get UN code numbers of new subterritories
+        foreach ($territories as $subterritory) {
+            $unCodeNumbers[] = $subterritory->getUnCodeNumber();
+        }
+        $unCodeNumbers = array_unique($unCodeNumbers);
 
-		// Get UN code numbers of new subterritories
-		foreach ($territories as $subterritory) {
-			$unCodeNumbers[] = $subterritory->getUnCodeNumber();
-		}
-		$unCodeNumbers = array_unique($unCodeNumbers);
+        // Call recursively until no additional subterritories are found
+        if (count($unCodeNumbers) > $initialCount) {
+            $territories = $this->findWithinTerritory($territory, $unCodeNumbers);
+        }
 
-		// Call recursively until no additional subterritories are found
-		if (count($unCodeNumbers) > $initialCount) {
-			$territories = $this->findWithinTerritory($territory, $unCodeNumbers);
-		}
-
-		return $territories;
-	}
+        return $territories;
+    }
 }
