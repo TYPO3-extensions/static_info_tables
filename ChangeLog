@@ -1,3 +1,7 @@
+2020-04-30  Stanislas Rolland  <typo3(arobas)sjbr.ca>
+
+	* Resolves #91250: Add php configuration file for Extbase persistence mapping
+
 2020-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
 	* Resolves #88867: Raise PHP dependency to < 7.4
