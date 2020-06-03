@@ -12,17 +12,11 @@ $EM_CONF[$_EXTKEY] = [
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'author' => 'Stanislas Rolland/René Fritz',
-    'author_email' => 'typo3@sjbr.ca',
+    'author_email' => 'typo32020@sjbr.ca',
     'author_company' => 'SJBR',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-9.5.99',
-        ],
-        'conflicts' => [
-            'sr_static_info' => '0.0.0-99.99.99',
-            'cc_infotablesmgm' => '0.0.0-99.99.99',
-            'uncache' => '0.0.0-99.99.99',
-        ],
-        'suggests' => [],
-    ],
+            'typo3' => '8.7.0-10.4.99',
+        ]
+    ]
 ];
