@@ -109,23 +109,32 @@ call_user_func(
         // Make the extension version and constraints available when creating language packs and to other extensions
         $emConfUtility =
             \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
-        $emConf =
-            $emConfUtility->includeEmConf([
-                'key' => $extKey,
-                'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)),
-            ]);
+        if (version_compare(TYPO3_branch, '10.4', '>=')) {
+            $emConf =
+                $emConfUtility->includeEmConf(
+                    $extKey,
+                    [
+                        'packagePath' => \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $extKey),
+                    ]
+                );
+        } else {
+            $emConf =
+                $emConfUtility->includeEmConf([
+                    'key' => $extKey,
+                    'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)),
+                ]);
+        }
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['version'] = $emConf['version'];
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['constraints'] = $emConf['constraints'];
         // Configure translation of suggestions labels
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'
             . $extKey . '/Configuration/PageTSconfig/Suggest.tsconfig">');
-        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version())
-            < 9000000) {
-            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['buildQueryParameters'][] =
-                \SJBR\StaticInfoTables\Hook\Backend\Recordlist\BuildQueryParameters::class;
-        } else {
+        if (version_compare(TYPO3_branch, '9.5', '>=')) {
             $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['modifyQuery'][] =
                 \SJBR\StaticInfoTables\Hook\Backend\Recordlist\ModifyQuery::class;
+        } else {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['buildQueryParameters'][] =
+                \SJBR\StaticInfoTables\Hook\Backend\Recordlist\BuildQueryParameters::class;
         }
     },
     'static_info_tables'
