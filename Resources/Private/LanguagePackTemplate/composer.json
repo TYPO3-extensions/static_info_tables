@@ -15,7 +15,7 @@
     "typo3-ter/static-info-tables-###LANG_ISO_LOWER###": "self.version"
   },
   "require": {
-    "typo3/cms-core": "###TYPO3_VERSION_RANGE###",
+    "typo3/cms-core": ">=###TYPO3_VERSION_MIN###,<###TYPO3_VERSION_MAX###",
     "sjbr/static-info-tables": "^###VERSION_BASE###"
   }
 }

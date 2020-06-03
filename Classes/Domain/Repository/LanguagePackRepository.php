@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2020 Stanislas Rolland <typo32020(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -31,6 +31,7 @@ use SJBR\StaticInfoTables\Cache\ClassCacheManager;
 use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
@@ -100,12 +101,17 @@ class LanguagePackRepository extends Repository
         $sourceFiles = [];
         $sourceFiles = GeneralUtility::getAllFilesAndFoldersInPath($sourceFiles, $sourcePath);
         $sourceFiles = GeneralUtility::removePrefixPathFromList($sourceFiles, $sourcePath);
+        $typo3VersionRange = VersionNumberUtility::splitVersionRange($languagePack->getTypo3VersionRange());
+        $typo3VersionMinArray = VersionNumberUtility::convertVersionStringToArray($typo3VersionRange[0]);
+        $typo3VersionMaxArray = VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::raiseVersionNumber('main', $typo3VersionRange[1]));
         // Set markers replacement values
         $replace = [
             '###LANG_ISO_LOWER###' => $localeLowerCase,
             '###LANG_ISO_UPPER###' => $localeUpperCase,
             '###LANG_ISO_CAMEL###' => $localeCamel,
             '###TYPO3_VERSION_RANGE###' => $languagePack->getTypo3VersionRange(),
+            '###TYPO3_VERSION_MIN###' => $typo3VersionMinArray['version_main'] . '.' . $typo3VersionMinArray['version_sub'],
+            '###TYPO3_VERSION_MAX###' => $typo3VersionMaxArray['version_main'] . '.0',
             '###VERSION###' => $languagePack->getVersion(),
             '###LANG_NAME###' => $languagePack->getLanguage(),
             '###AUTHOR###' => $languagePack->getAuthor(),
