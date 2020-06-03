@@ -6,6 +6,7 @@
     * Resolves #91567: Add php configuration file for Extbase persistence mapping to generated language pack
     * Resolves #91575: Use Symfony expression language for TypoScript conditions
     * Resolves #91252: Adapt to changed arguments of Extensionmanager\Utility\EmConfUtility\includeEmConf in TYPO3 10
+    * Resolves #91577: Delete @lazy annotation removed in TYPO3 10
 
 2020-01-05  Stanislas Rolland  <typo3(arobas)sjbr.ca>
 
