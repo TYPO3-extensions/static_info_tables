@@ -85,8 +85,8 @@ class LanguagePackRepository extends Repository
         if (!is_dir($languagePackExtensionPath . 'Configuration/PageTSconfig/')) {
             GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/PageTSconfig/');
         }
-        if (!is_dir($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/')) {
-            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/TypoScript/Extbase/');
+        if (!is_dir($languagePackExtensionPath . 'Configuration/Extbase/Persistence/')) {
+            GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Configuration/Extbase/Persistence/');
         }
         if (!is_dir($languagePackExtensionPath . 'Resources/Private/Language/')) {
             GeneralUtility::mkdir_deep($languagePackExtensionPath . 'Resources/Private/Language/');
