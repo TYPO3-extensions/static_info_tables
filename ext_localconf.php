@@ -39,50 +39,50 @@ call_user_func(
             'static_territories' => [
                 'label_fields' => [
                     'tr_name_##',
-                    'tr_name_en',
+                    'tr_name_en'
                 ],
                 'isocode_field' => [
-                    'tr_iso_##',
-                ],
+                    'tr_iso_##'
+                ]
             ],
             'static_countries' => [
                 'label_fields' => [
                     'cn_short_##',
-                    'cn_short_en',
+                    'cn_short_en'
                 ],
                 'isocode_field' => [
-                    'cn_iso_##',
-                ],
+                    'cn_iso_##'
+                ]
             ],
             'static_country_zones' => [
                 'label_fields' => [
                     'zn_name_##',
-                    'zn_name_local',
+                    'zn_name_local'
                 ],
                 'isocode_field' => [
                     'zn_code',
-                    'zn_country_iso_##',
-                ],
+                    'zn_country_iso_##'
+                ]
             ],
             'static_languages' => [
                 'label_fields' => [
                     'lg_name_##',
-                    'lg_name_en',
+                    'lg_name_en'
                 ],
                 'isocode_field' => [
                     'lg_iso_##',
-                    'lg_country_iso_##',
-                ],
+                    'lg_country_iso_##'
+                ]
             ],
             'static_currencies' => [
                 'label_fields' => [
                     'cu_name_##',
-                    'cu_name_en',
+                    'cu_name_en'
                 ],
                 'isocode_field' => [
-                    'cu_iso_##',
-                ],
-            ],
+                    'cu_iso_##'
+                ]
+            ]
         ];
         if (isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['tables'])
             && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['tables'])) {

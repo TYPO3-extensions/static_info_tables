@@ -53,7 +53,7 @@ class ModifyQuery
                 $orderByFields = QueryHelper::parseOrderBy((string)$orderBy);
                 foreach ($orderByFields as $fieldNameAndSorting) {
                     list($fieldName, $sorting) = $fieldNameAndSorting;
-                    $queryBuilder->addOrderBy($fieldName, $sorting);
+                    $queryBuilder->orderBy($fieldName, $sorting);
                 }
             }
         }

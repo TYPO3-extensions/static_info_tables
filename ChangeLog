@@ -1,6 +1,7 @@
 2020-06-04  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
 
     * Resolves #91587: Streamline some redundant code in language pack
+    * Resolves #91590: Fix ordering of record lists in current language in backend
 
 2020-06-03  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
 
