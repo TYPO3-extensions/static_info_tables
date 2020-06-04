@@ -95,13 +95,19 @@
 				<source>Please enter a valid email address.</source>
 			</trans-unit>
 			<trans-unit id="updateLanguageLabels" xml:space="preserve">
-				<source>The Static Info Tables were updated with language labels from language pack</source>
+				<source>The Static Info Tables were updated with language labels from language pack %s.</source>
 			</trans-unit>
 			<trans-unit id="updateTables" xml:space="preserve">
 				<source>The Static Info Tables were re-created.</source>
 			</trans-unit>
 			<trans-unit id="nothingToDo" xml:space="preserve">
-				<source>No update was necessary as no language pack is installed.</source>
+				<source>No additional update was necessary as no language pack is installed.</source>
+			</trans-unit>
+			<trans-unit id="noVersionChangeSinceLastUpdate" xml:space="preserve">
+				<source>No update is required because the versions of the base extension and of the installed language packs did not change since the last update.</source>
+			</trans-unit>
+			<trans-unit id="forceUpdate" xml:space="preserve">
+				<source>Force update</source>
 			</trans-unit>
 			<trans-unit id="enableStaticInfoTablesManager" xml:space="preserve">
 				<source>Enable the Static Info Tables Manager: Enable the Static Info Tables Manager module in the backend.</source>

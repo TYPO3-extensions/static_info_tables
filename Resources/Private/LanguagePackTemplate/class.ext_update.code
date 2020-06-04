@@ -53,7 +53,7 @@ class ext_update
 		$databaseUpdateUtility = $objectManager->get(DatabaseUpdateUtility::class);
 		$databaseUpdateUtility->doUpdate('static_info_tables_###LANG_ISO_LOWER###');
 
-		$content.= '<p>' . LocalizationUtility::translate('updateLanguageLabels', 'StaticInfoTables') . ' static_info_tables_###LANG_ISO_LOWER###.</p>';
+		$content.= '<p>' . LocalizationUtility::translate('updateLanguageLabels', 'StaticInfoTables', ['static_info_tables_###LANG_ISO_LOWER###']) . '</p>';
 		return $content;
 	}
 
