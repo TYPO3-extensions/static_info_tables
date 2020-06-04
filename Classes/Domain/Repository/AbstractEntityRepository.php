@@ -340,8 +340,6 @@ abstract class AbstractEntityRepository extends Repository
 
     /**
      * Dump non-localized contents of the repository
-     *
-     * @return	void
      */
     public function sqlDumpNonLocalizedData()
     {

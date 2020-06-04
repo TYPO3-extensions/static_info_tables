@@ -137,8 +137,6 @@ class ManagerController extends ActionController
 
     /**
      * Display general information
-     *
-     * @return string An HTML display of data overview
      */
     public function informationAction()
     {
@@ -168,8 +166,6 @@ class ManagerController extends ActionController
      * Display the language pack creation form
      *
      * @param LanguagePack $languagePack
-     *
-     * @return string An HTML form for creating a language pack
      */
     public function newLanguagePackAction(LanguagePack $languagePack = null)
     {
@@ -188,8 +184,6 @@ class ManagerController extends ActionController
      * Creation/update a language pack for the Static Info Tables
      *
      * @param LanguagePack $languagePack
-     *
-     * @return string An HTML display of data overview
      */
     public function createLanguagePackAction(LanguagePack $languagePack)
     {
@@ -226,8 +220,6 @@ class ManagerController extends ActionController
      * @param Country $country
      * @param CountryZone $countryZone
      * @param Language $language
-     *
-     * @return string An HTML form
      */
     public function testFormAction(Country $country = null, CountryZone $countryZone = null, Language $language = null)
     {
@@ -251,8 +243,6 @@ class ManagerController extends ActionController
      * @param Country $country
      * @param CountryZone $countryZone
      * @param Language $language
-     *
-     * @return string HTML code presenting the localized data
      */
     public function testFormResultAction(Country $country = null, CountryZone $countryZone = null, Language $language = null)
     {
@@ -273,8 +263,6 @@ class ManagerController extends ActionController
 
     /**
      * Creation/update a language pack for the Static Info Tables
-     *
-     * @return string An HTML display of data overview
      */
     public function sqlDumpNonLocalizedDataAction()
     {

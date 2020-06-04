@@ -111,7 +111,7 @@ class AbstractEntity extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Gets the columns mapping
      *
-     * @return string
+     * @return array
      */
     public function getColumnsMapping()
     {

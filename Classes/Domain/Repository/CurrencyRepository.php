@@ -1,6 +1,8 @@
 <?php
 namespace SJBR\StaticInfoTables\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -41,7 +43,7 @@ class CurrencyRepository extends AbstractEntityRepository
      *
      * @param \SJBR\StaticInfoTables\Domain\Model\Country $country
      *
-     * @return Tx_Extbase_Persistence_QueryResultInterface|array
+     * @return QueryResultInterface|array
      */
     public function findByCountry(\SJBR\StaticInfoTables\Domain\Model\Country $country)
     {

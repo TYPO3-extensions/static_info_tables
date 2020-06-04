@@ -97,7 +97,7 @@ class ClassCacheManager implements SingletonInterface
      *
      * @return void
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function build()
     {
@@ -109,7 +109,7 @@ class ClassCacheManager implements SingletonInterface
             // Get the file from static_info_tables itself, this needs to be loaded as first
             $path = ExtensionManagementUtility::extPath($this->extensionKey) . 'Classes/' . $key . '.php';
             if (!is_file($path)) {
-                throw new Exception('given file "' . $path . '" does not exist');
+                throw new \Exception('given file "' . $path . '" does not exist');
             }
             $code = $this->parseSingleFile($path, false);
 
@@ -131,8 +131,8 @@ class ClassCacheManager implements SingletonInterface
             $entryIdentifier = str_replace('/', '', $key);
             try {
                 $this->cacheInstance->set($entryIdentifier, $code);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
     }
@@ -171,13 +171,13 @@ class ClassCacheManager implements SingletonInterface
      *
      * @return string path of the saved file
      *
-     * @throws Exception
-     * @throws InvalidArgumentException
+     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function parseSingleFile($filePath, $removeClassDefinition = true)
     {
         if (!is_file($filePath)) {
-            throw new InvalidArgumentException(sprintf('File "%s" could not be found', $filePath));
+            throw new \InvalidArgumentException(sprintf('File "%s" could not be found', $filePath));
         }
         $code = GeneralUtility::getUrl($filePath);
         return $this->changeCode($code, $filePath, $removeClassDefinition);
@@ -191,12 +191,12 @@ class ClassCacheManager implements SingletonInterface
      *
      * @return string
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function changeCode($code, $filePath, $removeClassDefinition = true, $renderPartialInfo = true)
     {
         if (empty($code)) {
-            throw new InvalidArgumentException(sprintf('File "%s" could not be fetched or is empty', $filePath));
+            throw new \InvalidArgumentException(sprintf('File "%s" could not be fetched or is empty', $filePath));
         }
         $code = trim($code);
         $code = str_replace(['<?php', '?>'], '', $code);
@@ -252,7 +252,9 @@ class ClassCacheManager implements SingletonInterface
     /**
      * Rebuild the class cache
      *
+     * @param array $parameters
      * @return void
+     * @throws \Exception
      */
     public function reBuild(array $parameters = [])
     {
