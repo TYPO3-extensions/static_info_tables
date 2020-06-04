@@ -23,7 +23,6 @@
     "issues": "https://forge.typo3.org/projects/extension-static_info_tables/issues"
   },
   "replace": {
-    "static_info_tables": "self.version",
     "typo3-ter/static-info-tables": "self.version"
   },
   "require": {
