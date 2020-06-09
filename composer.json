@@ -2,7 +2,7 @@
   "name": "sjbr/static-info-tables",
   "description": "Data and API for countries, languages and currencies for use in TYPO3 CMS.",
   "type": "typo3-cms-extension",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Stanislas Rolland",
