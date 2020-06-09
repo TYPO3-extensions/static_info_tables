@@ -312,7 +312,6 @@ class ManagerController extends ActionController
      * Get language name from locale
      *
      * @param string $locale
-     *
      * @return string Language name
      */
     protected function getLanguageFromLocale($locale)
@@ -321,5 +320,10 @@ class ManagerController extends ActionController
         $languages = $locales->getLanguages();
         $language = $languages[$locale];
         return $language . ' (' . $locale . ')';
+    }
+    
+    protected function getErrorFlashMessage()
+    {
+    	return false;
     }
 }

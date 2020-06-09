@@ -1,9 +1,0 @@
-# ***************************************************************************************
-# Translate currency labels in suggestions
-# ***************************************************************************************
-[language = *###LANG_ISO_LOWER###*]
-	TCEFORM.sys_language.static_lang_isocode.suggest.default.additionalSearchFields = lg_name_###LANG_ISO_LOWER###
-	TCEFORM.sys_language.static_lang_isocode.suggest.default.orderBy = lg_name_###LANG_ISO_LOWER###
-	TCEFORM.static_countries.cn_currency_uid.suggest.default.additionalSearchFields = cu_name_###LANG_ISO_LOWER###
-	TCEFORM.static_countries.cn_currency_uid.suggest.default.orderBy = cu_name_###LANG_ISO_LOWER###
-[global]

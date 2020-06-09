@@ -3,14 +3,11 @@ defined('TYPO3_MODE') or die();
 
 call_user_func(
     function ($extKey) {
+    	// Get TYPO3 branch
+    	$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+		$typo3Branch = $typo3Version->getBranch();
         // Get the extensions's configuration
-        if (class_exists(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)) {
-            $extConf =
-                \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)
-                    ->get($extKey);
-        } else {
-            $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey]);
-        }
+        $extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get($extKey);
         // Register cache static_info_tables
         if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$extKey])) {
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$extKey] = [];
@@ -107,21 +104,20 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['enableManager'] =
             isset($extConf['enableManager']) ? $extConf['enableManager'] : '0';
         // Make the extension version and constraints available when creating language packs and to other extensions
-        $emConfUtility =
-            \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
-        if (version_compare(TYPO3_branch, '10.4', '>=')) {
+        $emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility::class);
+        if (version_compare($typo3Branch, '10.4', '>=')) {
             $emConf =
                 $emConfUtility->includeEmConf(
                     $extKey,
                     [
-                        'packagePath' => \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $extKey),
+                        'packagePath' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)
                     ]
                 );
         } else {
             $emConf =
                 $emConfUtility->includeEmConf([
                     'key' => $extKey,
-                    'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey)),
+                    'siteRelPath' => \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey))
                 ]);
         }
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extKey]['version'] = $emConf['version'];
@@ -129,13 +125,9 @@ call_user_func(
         // Configure translation of suggestions labels
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:'
             . $extKey . '/Configuration/PageTSconfig/Suggest.tsconfig">');
-        if (version_compare(TYPO3_branch, '9.5', '>=')) {
-            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['modifyQuery'][] =
+        // In backend lists, order records according to language field of current language
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['modifyQuery'][] =
                 \SJBR\StaticInfoTables\Hook\Backend\Recordlist\ModifyQuery::class;
-        } else {
-            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][\TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList::class]['buildQueryParameters'][] =
-                \SJBR\StaticInfoTables\Hook\Backend\Recordlist\BuildQueryParameters::class;
-        }
     },
     'static_info_tables'
 );

@@ -4,7 +4,7 @@ namespace SJBR\StaticInfoTables\Domain\Model;
 /*
  *  Copyright notice
  *
- *  (c) 2013-2018 Stanislas Rolland <typo3(arobas)sjbr.ca>
+ *  (c) 2013-2020 Stanislas Rolland <typo32020(arobas)sjbr.ca>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,10 +27,22 @@ namespace SJBR\StaticInfoTables\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  */
 
+use SJBR\StaticInfoTables\Domain\Repository\CountryRepository;
+use SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository;
+use SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository;
+use SJBR\StaticInfoTables\Domain\Repository\LanguageRepository;
+use SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository;
+use TYPO3\CMS\Core\Localization\Parser\XliffParser;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+
 /**
  * Language Pack object
  */
-class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class LanguagePack extends AbstractEntity
 {
     /**
      * Name of the extension this class belongs to
@@ -40,25 +52,24 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $extensionName = 'StaticInfoTables';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     * @var ObjectManagerInterface
      */
     protected $objectManager;
 
     /**
      * @var string
-     * *@validate StringLength(minimum=1, maximum=255)*
+     * @Validate("TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      */
     protected $author;
 
     /**
      * @var string
-     * *@validate StringLength(minimum=1, maximum=255)*
      */
     protected $authorCompany;
 
     /**
      * @var string
-     * *@validate EmailAddress*
+     * @Validate("EmailAddress")
      */
     protected $authorEmail;
 
@@ -79,102 +90,97 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @var string
+     * @Validate("TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      */
     protected $version;
 
     /**
      * Injects the object manager
      *
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     *
+     * @param ObjectManagerInterface $objectManager
      * @return void
      */
-    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
     }
 
     /**
-     * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
+     * @var CountryRepository
      */
     protected $countryRepository;
 
     /**
      * Dependency injection of the Country Repository
      *
-     * @param \SJBR\StaticInfoTables\Domain\Repository\CountryRepository $countryRepository
-     *
+     * @param CountryRepository $countryRepository
      * @return void
      */
-    public function injectCountryRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryRepository $countryRepository)
+    public function injectCountryRepository(CountryRepository $countryRepository)
     {
         $this->countryRepository = $countryRepository;
     }
 
     /**
-     * @var \SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository
+     * @var CountryZoneRepository
      */
     protected $countryZoneRepository;
 
     /**
      * Dependency injection of the Country Zone Repository
      *
-     * @param \SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository $countryZoneRepository
-     *
+     * @param CountryZoneRepository $countryZoneRepository
      * @return void
      */
-    public function injectCountryZoneRepository(\SJBR\StaticInfoTables\Domain\Repository\CountryZoneRepository $countryZoneRepository)
+    public function injectCountryZoneRepository(CountryZoneRepository $countryZoneRepository)
     {
         $this->countryZoneRepository = $countryZoneRepository;
     }
 
     /**
-     * @var \SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository
+     * @var CurrencyRepository
      */
     protected $currencyRepository;
 
     /**
      * Dependency injection of the Currency Repository
      *
-     * @param \SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository $currencyRepository
-     *
+     * @param CurrencyRepository $currencyRepository
      * @return void
      */
-    public function injectCurrencyRepository(\SJBR\StaticInfoTables\Domain\Repository\CurrencyRepository $currencyRepository)
+    public function injectCurrencyRepository(CurrencyRepository $currencyRepository)
     {
         $this->currencyRepository = $currencyRepository;
     }
 
     /**
-     * @var \SJBR\StaticInfoTables\Domain\Repository\LanguageRepository
+     * @var LanguageRepository
      */
     protected $languageRepository;
 
     /**
      * Dependency injection of the Language Repository
      *
-     * @param \SJBR\StaticInfoTables\Domain\Repository\LanguageRepository $languageRepository
-     *
+     * @param LanguageRepository $languageRepository
      * @return void
      */
-    public function injectLanguageRepository(\SJBR\StaticInfoTables\Domain\Repository\LanguageRepository $languageRepository)
+    public function injectLanguageRepository(LanguageRepository $languageRepository)
     {
         $this->languageRepository = $languageRepository;
     }
 
     /**
-     * @var \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository
+     * @var TerritoryRepository
      */
     protected $territoryRepository;
 
     /**
      * Dependency injection of the Territory Repository
      *
-     * @param \SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository
-     *
+     * @param TerritoryRepository $territoryRepository
      * @return void
      */
-    public function injectTerritoryRepository(\SJBR\StaticInfoTables\Domain\Repository\TerritoryRepository $territoryRepository)
+    public function injectTerritoryRepository(TerritoryRepository $territoryRepository)
     {
         $this->territoryRepository = $territoryRepository;
     }
@@ -271,9 +277,9 @@ class LanguagePack extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getLocalizationLabels()
     {
         // Build the localization labels of the language pack
-        $XliffParser = $this->objectManager->get('TYPO3\\CMS\\Core\\Localization\\Parser\\XliffParser');
-        $extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-        $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey);
+        $XliffParser = $this->objectManager->get(XliffParser::class);
+        $extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
+        $extensionPath = ExtensionManagementUtility::extPath($extensionKey);
         $sourceXliffFilePath = $extensionPath . 'Resources/Private/Language/locallang_db.xlf';
         $parsedData = $XliffParser->getParsedData($sourceXliffFilePath, 'default');
         $localizationLabels = [];

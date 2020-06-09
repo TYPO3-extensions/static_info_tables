@@ -91,6 +91,9 @@
 			<trans-unit id="1238108067" xml:space="preserve">
 				<source>Please enter a string of length 1 to 255 characters.</source>
 			</trans-unit>
+			<trans-unit id="1221560718" xml:space="preserve">
+				<source>Please enter a string of length 1 to 255 characters.</source>
+			</trans-unit>
 			<trans-unit id="1221559976" xml:space="preserve">
 				<source>Please enter a valid email address.</source>
 			</trans-unit>

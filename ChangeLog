@@ -1,3 +1,9 @@
+2020-06-09  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
+
+    * Resolves #91626: Remove any code related to TYPO3 prior to 9 LTS
+    * Require TYPO3 9 LTS
+    * Update version to 6.8.0
+
 2020-06-04  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
 
     * Resolves #91587: Streamline some redundant code in language pack

@@ -32,7 +32,6 @@ use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -74,12 +73,6 @@ class ext_update
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->installTool = $this->objectManager->get(InstallUtility::class);
         $this->registry = $this->objectManager->get(Registry::class);
-        if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version())
-            < 9000000) {
-            $sqlSchemaMigrationService =
-                GeneralUtility::makeInstance(\TYPO3\CMS\Install\Service\SqlSchemaMigrationService::class);
-            $this->installTool->injectInstallToolSqlParser($sqlSchemaMigrationService);
-        }
         $databaseUpdateUtility = GeneralUtility::makeInstance(DatabaseUpdateUtility::class);
         // Clear the class cache
         $classCacheManager = GeneralUtility::makeInstance(ClassCacheManager::class);
@@ -140,9 +133,6 @@ class ext_update
             $extTablesSqlContent .= GeneralUtility::getUrl($extTablesSqlFile);
         }
         if ($extTablesSqlContent !== '') {
-            if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) < 9000000) {
-                $this->installTool->updateDbWithExtTablesSql($extTablesSqlContent);
-            } else {
             	// Prevent the DefaultTcaSchema from enriching our definitions
                 $tcaBackup = $GLOBALS['TCA'];
                 $GLOBALS['TCA'] = [];
@@ -168,7 +158,6 @@ class ext_update
                 }
                 $schemaMigrator->migrate($sqlStatements, $selectedStatements);
                 $GLOBALS['TCA'] = $tcaBackup;
-            }
         }
     }
 

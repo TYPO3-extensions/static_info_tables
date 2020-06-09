@@ -29,9 +29,9 @@ namespace SJBR\StaticInfoTables\Domain\Repository;
 
 use SJBR\StaticInfoTables\Cache\ClassCacheManager;
 use SJBR\StaticInfoTables\Domain\Model\LanguagePack;
+use SJBR\StaticInfoTables\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
@@ -64,7 +64,7 @@ class LanguagePackRepository extends Repository
         $localeCamel = GeneralUtility::underscoredToUpperCamelCase(strtolower($locale));
 
         $languagePackExtensionKey = $extensionKey . '_' . $localeLowerCase;
-        $languagePackExtensionPath = (class_exists('TYPO3\\CMS\\Core\\Core\\Environment') ? (\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/') : PATH_site) . 'typo3conf/ext/' . $languagePackExtensionKey . '/';
+        $languagePackExtensionPath = \TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/typo3conf/ext/' . $languagePackExtensionKey . '/';
 
         // Cleanup any pre-existing language pack
         if (is_dir($languagePackExtensionPath)) {

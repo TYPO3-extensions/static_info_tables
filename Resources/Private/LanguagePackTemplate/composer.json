@@ -2,7 +2,7 @@
   "name": "sjbr/static-info-tables-###LANG_ISO_LOWER###",
   "description": "###LANG_NAME### (###LANG_ISO_LOWER###) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
   "type": "typo3-cms-extension",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "###AUTHOR###",
