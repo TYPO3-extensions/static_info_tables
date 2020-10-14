@@ -101,3 +101,10 @@ CREATE TABLE static_territories (
 	tr_name_en varchar(50) DEFAULT '' NOT NULL,
 	PRIMARY KEY (uid)
 );
+
+#
+# Table structure for table "sys_language"
+#
+CREATE TABLE sys_language (
+    static_lang_isocode int(10) UNSIGNED NOT NULL DEFAULT 0
+);
