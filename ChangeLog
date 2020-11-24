@@ -1,3 +1,8 @@
+2020-10-24  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
+
+    * Resolves #92615: Missing language label in TCA
+    * Update version to 6.9.5
+
 2020-11-21  Stanislas Rolland  <typo32020(arobas)sjbr.ca>
 
     * Update version to 6.9.4
