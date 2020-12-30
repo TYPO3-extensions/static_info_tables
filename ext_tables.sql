@@ -1,4 +1,11 @@
 #
+# Add field for table "sys_language"
+#
+CREATE TABLE sys_language (
+	static_lang_isocode smallint(6) DEFAULT '0' NOT NULL
+);
+
+#
 # Table structure for table "static_countries"
 #
 CREATE TABLE static_countries (
