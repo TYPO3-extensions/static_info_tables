@@ -39,7 +39,7 @@ return [
             ],
         ],
         'lg_name_local' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.name',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.name',
             'exclude' => '0',
             'config' => [
                 'type' => 'input',
